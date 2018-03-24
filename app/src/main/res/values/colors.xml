@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccentForFrame">#4d68ff</color>
+    <color name="baseText">#000000</color>
+    <color name="textOnFrame">#000000</color>
+    <color name="colorFrame">#dddddd</color>
+    <color name="colorBackgroundOfCommand">#dddddd</color>
+    <color name="baseBackground">#ffffff</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+</resources>

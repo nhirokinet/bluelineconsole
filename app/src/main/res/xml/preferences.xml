@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_display_name_main_category"
+        android:key="pref_main_category">
+        <CheckBoxPreference
+            android:key="pref_main_show_startup_help"
+            android:title="@string/pref_display_name_main_show_startup_help"
+            android:summary="@string/pref_display_summary_main_show_startup_help"
+            android:defaultValue="true"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_display_name_apps_category"
+        android:key="pref_apps_category">
+        <CheckBoxPreference
+            android:key="pref_apps_show_package_name"
+            android:title="@string/pref_display_name_apps_show_package_name"
+            android:summary="@string/pref_display_summary_apps_show_package_name"
+            android:defaultValue="false"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

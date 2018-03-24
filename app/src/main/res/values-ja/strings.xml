@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Blue Line Console</string>
+    <string name="loading_main_caption">データベース構築中...</string>
+    <string name="loading_detail_for_command_search">初回起動時や、言語設定を変更した直後は、\n構築に数秒から数十秒かかることがあります。</string>
+    <string name="formatSearchQueryOnEngine">%2$s で \"%1$s\" を検索</string>
+    <string name="calculator_precision_format">演算精度: %1$s</string>
+    <string name="calculator_precision_no_error">誤差なし</string>
+    <string name="calculator_precision_rounding">演算中の丸め処理あり</string>
+    <string name="calculator_error_division_by_zero">0 による除算</string>
+    <string name="title_for_notification">Notification</string>
+    <string name="preference_title_for_header_and_footer">Configuration</string>
+    <string name="summary_text_for_preferences_of_this_app">Blue Line Console の設定</string>
+    <string name="notification_title_on_startup">help の使い方</string>
+    <string name="notification_detail_on_startup_pre">コマンド入力欄に</string>
+    <string name="notification_detail_on_startup_post">と入力すると、使い方を表示できます。</string>
+    <string name="notification_window_never_later">次回以降このヒントを表示しない</string>
+    <string name="pref_display_name_main_category">一般</string>
+    <string name="notification_window_close">閉じる</string>
+    <string name="pref_display_name_main_show_startup_help">起動時にヘルプを表示</string>
+    <string name="pref_display_summary_main_show_startup_help">"help" コマンドを案内します。"help" コマンドを覚えたら無効にすることをおすすめします。</string>
+    <string name="pref_display_name_apps_category">アプリ起動</string>
+    <string name="pref_display_name_apps_show_package_name">パッケージ名を表示</string>
+    <string name="pref_display_summary_apps_show_package_name">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
+    <string name="app_help_text">
+        次の一覧のいずれかで検索できます。
+        \n
+        \n-&#032;アプリケーション名（例： Blue Line Console）の一部
+        \n-&#032;パッケージ名（例： net.nhiroki.bluelineconsole）の一部
+        \n-&#032;URL （例： https://example.com/）
+        \n-&#032;計算式（例： 2+3*5）
+        \n-&#032;下記のコマンド一覧のいずれか（例： help）
+        \n
+        \n利用可能なコマンド:
+        \n
+        \n-&#032;help
+        \n-&#032;config
+        \n-&#032;date
+        \n-&#032;bing &lt;query&gt;
+        \n-&#032;duckduckgo &lt;query&gt;
+        \n-&#032;google &lt;query&gt;
+        \n-&#032;wikipedia &lt;query&gt;
+        \n-&#032;yahoo &lt;query&gt;
+        \n
+        \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
+        \n
+        \nヒント： Blue Line Console 自体をほかの場所から開く機能はありません。アプリケーションが登録可能な便利キーがある場合はそこに登録するか、キーリマッピングを行えるアプリをインストールしてどの画面からでもすぐに起動できるようにすることをおすすめします。
+    </string>
+    <string name="displayedFullVersionString">Version %1$s</string>
+    <string name="notFoundOpeningApplicationWithClass">\"%1$s\" は開くことができません。</string>
+</resources>
