@@ -17,8 +17,12 @@
     <string name="notification_window_never_later">次回以降このヒントを表示しない</string>
     <string name="pref_display_name_main_category">一般</string>
     <string name="notification_window_close">閉じる</string>
+    <string name="notification_launch_this_app">Blue Line Console を起動</string>
     <string name="pref_display_name_main_show_startup_help">起動時にヘルプを表示</string>
+    <string name="pref_display_name_main_always_show_notification">通知を常に表示</string>
     <string name="pref_display_summary_main_show_startup_help">"help" コマンドを案内します。"help" コマンドを覚えたら無効にすることをおすすめします。</string>
+    <string name="pref_display_summary_main_always_show_notification">どこからでも Blue Line Console を起動できるよう、通知を常に表示します。</string>
+    <string name="notification_channel_always_show">Blue Line Console をどの画面からでも開くために、常に通知バーに表示</string>
     <string name="pref_display_name_apps_category">アプリ起動</string>
     <string name="pref_display_name_apps_show_package_name">パッケージ名を表示</string>
     <string name="pref_display_summary_apps_show_package_name">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
@@ -44,7 +48,7 @@
         \n
         \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
         \n
-        \nヒント： Blue Line Console 自体をほかの場所から開く機能はありません。アプリケーションが登録可能な便利キーがある場合はそこに登録するか、キーリマッピングを行えるアプリをインストールしてどの画面からでもすぐに起動できるようにすることをおすすめします。
+        \nヒント： Blue Line Console のアイコンを常に通知に表示することで、通知バーから開くことができます。config コマンドでメニューを開いて設定できます。
     </string>
     <string name="displayedFullVersionString">Version %1$s</string>
     <string name="notFoundOpeningApplicationWithClass">\"%1$s\" は開くことができません。</string>

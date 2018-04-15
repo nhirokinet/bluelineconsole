@@ -2,6 +2,7 @@ package net.nhiroki.bluelineconsole.applicationMain;
 
 import android.animation.LayoutTransition;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import net.nhiroki.bluelineconsole.R;
 
 public class PreferencesActivity extends AppCompatActivity {
+
     @Override
     public void onCreate(Bundle savedInstanceStates) {
         super.onCreate(savedInstanceStates);
@@ -29,7 +31,8 @@ public class PreferencesActivity extends AppCompatActivity {
 
         this.findViewById(R.id.mainLinearLayout).setOnClickListener(new ExitOnClickListener());
 
-        PreferencesActivity.this.getFragmentManager().beginTransaction().replace(R.id.main_preference_fragment, new PreferencesFragment()).commit();
+        PreferencesFragment preferenceFragment = new PreferencesFragmentWithOnChangeListener();
+        PreferencesActivity.this.getFragmentManager().beginTransaction().replace(R.id.main_preference_fragment, preferenceFragment).commit();
 
         // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in prefecences_activity_view.xml .
         View versionOnMainFooterWrapper = findViewById(R.id.versionOnMainFooterWrapper);
@@ -48,6 +51,36 @@ public class PreferencesActivity extends AppCompatActivity {
         mainLL.setLayoutParams(mainLP);
 
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
+    }
+
+    public static class PreferencesFragmentWithOnChangeListener  extends PreferencesFragment {
+        SharedPreferences.OnSharedPreferenceChangeListener preferenceChangedListener;
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            preferenceChangedListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+                @Override
+                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+                    if (key.equals("pref_main_always_show_notification")) {
+                        AppNotification.update(PreferencesFragmentWithOnChangeListener.this.getContext());
+                    }
+                }
+            };
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(preferenceChangedListener);
+        }
+
+        @Override
+        public void onPause() {
+            getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(preferenceChangedListener);
+            super.onPause();
+        }
     }
 
     @Override
