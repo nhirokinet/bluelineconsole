@@ -3,6 +3,7 @@ package net.nhiroki.bluelineconsole.commandSearchers;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -92,6 +93,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
             resultView.setText(resultText);
             resultView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
             resultView.setTypeface(null, Typeface.BOLD);
+            resultView.setTextColor(ContextCompat.getColor(context, R.color.baseText));
 
             ret.addView(resultView);
 

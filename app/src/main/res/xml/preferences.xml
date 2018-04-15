@@ -9,6 +9,12 @@
             android:summary="@string/pref_display_summary_main_show_startup_help"
             android:defaultValue="true"
             />
+        <CheckBoxPreference
+            android:key="pref_main_always_show_notification"
+            android:title="@string/pref_display_name_main_always_show_notification"
+            android:summary="@string/pref_display_summary_main_always_show_notification"
+            android:defaultValue="false"
+            />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_display_name_apps_category"
