@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/mainLayoutRoot"
     android:layout_height="match_parent"
     tools:context="net.nhiroki.bluelineconsole.applicationMain.MainActivity"
     >
@@ -13,12 +14,13 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:animateLayoutChanges="true"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
+        android:paddingLeft="0dp"
+        android:paddingRight="0dp"
         android:orientation="vertical"
         >
 
         <LinearLayout
+            android:id="@+id/mainActivityHeaderWrapper"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="start"
@@ -77,7 +79,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:background="@color/baseBackground"
-                    android:imeOptions="actionGo|flagForceAscii"
+                    android:imeOptions="actionGo|flagForceAscii|flagNoExtractUi|flagNoFullscreen"
                     />
             </LinearLayout>
 
