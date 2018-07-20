@@ -12,7 +12,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".applicationMain.MainActivity"
-            android:noHistory="true"
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="adjustResize"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

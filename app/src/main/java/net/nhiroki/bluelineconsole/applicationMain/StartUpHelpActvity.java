@@ -4,11 +4,13 @@ import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -22,23 +24,7 @@ public class StartUpHelpActvity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        setContentView(R.layout.activity_start_up_help_actvity);
-        setResult(RESULT_OK, new Intent(this, MainActivity.class));
-        this.findViewById(R.id.mainLinearLayout).setOnClickListener(new ExitOnClickListener());
-
-        ((TextView)findViewById(R.id.startUpHelpingCommandTextView)).setTypeface(Typeface.MONOSPACE);
-
-        // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in xml .
-        View versionOnMainFooterWrapper = findViewById(R.id.versionOnMainFooterWrapper);
-        ViewGroup.MarginLayoutParams versionOnMainFooterWrapperLayoutParam = (ViewGroup.MarginLayoutParams) versionOnMainFooterWrapper.getLayoutParams();
-        versionOnMainFooterWrapperLayoutParam.setMargins(
-                versionOnMainFooterWrapperLayoutParam.leftMargin,
-                versionOnMainFooterWrapperLayoutParam.topMargin - 1,
-                versionOnMainFooterWrapperLayoutParam.rightMargin,
-                versionOnMainFooterWrapperLayoutParam.bottomMargin
-        );
-        versionOnMainFooterWrapper.setLayoutParams(versionOnMainFooterWrapperLayoutParam);
+        setWholeLayout();
 
         findViewById(R.id.startUpOKButton).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -52,8 +38,7 @@ public class StartUpHelpActvity extends AppCompatActivity {
             }
         });
 
-        ((ViewGroup) findViewById(R.id.mainLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-
+        ((ViewGroup) findViewById(R.id.helpMainLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
     }
 
     @Override
@@ -86,5 +71,38 @@ public class StartUpHelpActvity extends AppCompatActivity {
             }
             finish();
         }
+    }
+
+    private void setWholeLayout() {
+        this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setContentView(R.layout.activity_start_up_help_actvity);
+        setResult(RESULT_OK, new Intent(this, MainActivity.class));
+        this.findViewById(R.id.helpMainLinearLayout).setOnClickListener(new ExitOnClickListener());
+
+        ((TextView)findViewById(R.id.startUpHelpingCommandTextView)).setTypeface(Typeface.MONOSPACE);
+
+        // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in xml .
+        View versionOnMainFooterWrapper = findViewById(R.id.versionOnMainFooterWrapper);
+        ViewGroup.MarginLayoutParams versionOnMainFooterWrapperLayoutParam = (ViewGroup.MarginLayoutParams) versionOnMainFooterWrapper.getLayoutParams();
+        versionOnMainFooterWrapperLayoutParam.setMargins(
+                versionOnMainFooterWrapperLayoutParam.leftMargin,
+                versionOnMainFooterWrapperLayoutParam.topMargin - 1,
+                versionOnMainFooterWrapperLayoutParam.rightMargin,
+                versionOnMainFooterWrapperLayoutParam.bottomMargin
+        );
+        versionOnMainFooterWrapper.setLayoutParams(versionOnMainFooterWrapperLayoutParam);
+
+        LinearLayout l = findViewById(R.id.helpMainLinearLayout);
+
+        Point displaySize = new Point();
+        this.getWindowManager().getDefaultDisplay().getSize(displaySize);
+
+        int maxPanelWidth = (int)(560.0 * getResources().getDisplayMetrics().density);
+
+        l.setGravity(Gravity.CENTER_VERTICAL);
+        int panelWidth = Math.min((int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.8 : 0.67)), maxPanelWidth);
+
+        int paddingHorizontal = (displaySize.x - panelWidth) / 2;
+        l.setPadding(paddingHorizontal, 0, paddingHorizontal, 0);
     }
 }
