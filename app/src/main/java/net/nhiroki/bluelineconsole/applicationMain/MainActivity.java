@@ -16,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
@@ -272,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
         // If space is limited, split remaining height into 1(EditText):2(ListView and other margins)
         final double editTextSizeSp = Math.min(40.0, (root.getHeight() - findViewById(R.id.mainActivityHeaderWrapper).getHeight() * 2.0) / 4.8 / pixelsPerSp);
         mainInputText.setTextSize((int) editTextSizeSp);
-        mainInputText.setPadding((int) (editTextSizeSp * 0.3), (int)(editTextSizeSp * 0.3), (int)(editTextSizeSp * 0.3), (int)(editTextSizeSp * 0.3));
+        mainInputText.setPadding((int) (editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp));
     }
 
     private void executeSearch(CharSequence s) {
