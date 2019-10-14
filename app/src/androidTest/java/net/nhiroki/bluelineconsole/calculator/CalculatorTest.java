@@ -1,6 +1,6 @@
 package net.nhiroki.bluelineconsole.calculator;
 
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import net.nhiroki.bluelineconsole.commands.calculator.Calculator;
 import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
