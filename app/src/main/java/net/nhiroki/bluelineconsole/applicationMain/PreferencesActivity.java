@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,7 +64,7 @@ public class PreferencesActivity extends AppCompatActivity {
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
                     if (key.equals("pref_main_always_show_notification")) {
-                        AppNotification.update(PreferencesFragmentWithOnChangeListener.this.getContext());
+                        AppNotification.update(PreferencesFragmentWithOnChangeListener.this.getActivity());
                     }
                 }
             };
