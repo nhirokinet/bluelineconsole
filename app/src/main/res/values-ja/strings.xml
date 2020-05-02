@@ -48,6 +48,7 @@
         \n
         \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
         \n
+        \nヒント： 設定 &gt; アプリと通知 &gt; デフォルトアプリ &gt; アシスト&amp;音声入力、または似たようなメニューで Blue Line Console をデフォルトのアシストアプリにすることにより、ホームボタン長押しで Blue Line Console を起動できるようになります。
         \nヒント： Blue Line Console のアイコンを常に通知に表示することで、通知バーから開くことができます。config コマンドでメニューを開いて設定できます。
     </string>
     <string name="displayedFullVersionString">Version %1$s</string>
