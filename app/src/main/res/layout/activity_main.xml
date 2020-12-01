@@ -80,7 +80,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:background="@color/baseBackground"
                     android:imeOptions="actionGo|flagForceAscii|flagNoExtractUi|flagNoFullscreen"
-                    />
+                    >
+                    <requestFocus/>
+                </EditText>
             </LinearLayout>
 
             <LinearLayout
