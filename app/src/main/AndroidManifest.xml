@@ -13,7 +13,7 @@
         <activity
             android:name=".applicationMain.MainActivity"
             android:excludeFromRecents="true"
-            android:windowSoftInputMode="adjustResize"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
