@@ -145,6 +145,18 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
                     cands.add(new SearchEngineCandidateEntry(context, query, "DuckDuckGo", "https://duckduckgo.com/?q="));
                 }
 
+                if ("qwant".startsWith(engine)) {
+                    cands.add(new SearchEngineCandidateEntry(context, query, "Qwant", "https://www.qwant.com/?q="));
+                }
+
+                if ("metager".startsWith(engine)) {
+                    cands.add(new SearchEngineCandidateEntry(context, query, "MetaGer", "https://metager.org/meta/meta.ger3?eingabe="));
+                }
+
+                if ("swisscows".startsWith(engine)) {
+                    cands.add(new SearchEngineCandidateEntry(context, query, "Swisscows", "https://swisscows.com/web?query="));
+                }
+
                 if ("bing".startsWith(engine)) {
                     cands.add(new SearchEngineCandidateEntry(context, query, "Bing", "https://www.bing.com/search?q=" ));
                     cands.add(new SearchEngineCandidateEntry(context, query, "Bing (English, US)", "https://www.bing.com/search?setlang=en-us&q=" ));
