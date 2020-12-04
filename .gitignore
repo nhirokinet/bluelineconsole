@@ -1,9 +1,11 @@
 *.iml
+*.pyc
+*.swp
+*.hprof
 .gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
+.idea
 .DS_Store
-/build
-/captures
+build/
+captures/
+local.properties
 .externalNativeBuild
