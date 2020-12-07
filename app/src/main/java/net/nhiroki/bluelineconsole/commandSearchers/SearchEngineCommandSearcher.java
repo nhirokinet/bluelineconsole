@@ -62,7 +62,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
     // Most keys are country code, but some exceptions exist.
     private static final Map<String, Pair<String, String>> YAHOO_SEARCH_IN_THE_WORLD = new HashMap<String, Pair<String, String>>() {
         {
-            // List is created on 2018/03/10. I picked up domains with an independent search engine page from https://www.yahoo.co.jp/everything/world/ .
+            // List is created on 2018/03/10. I picked up domains with an independent search engine page from https://www.yahoo.com/everything/world/ .
             // I tried to write as correct title as possible mostly by reading title of top page and search result page.
             // If you find anything wrong in this list, your pull request is welcome.
 
