@@ -3,13 +3,13 @@
     <PreferenceCategory
         android:title="@string/pref_display_name_main_category"
         android:key="pref_main_category">
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="pref_main_show_startup_help"
             android:title="@string/pref_display_name_main_show_startup_help"
             android:summary="@string/pref_display_summary_main_show_startup_help"
             android:defaultValue="true"
             />
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="pref_main_always_show_notification"
             android:title="@string/pref_display_name_main_always_show_notification"
             android:summary="@string/pref_display_summary_main_always_show_notification"
@@ -19,7 +19,7 @@
     <PreferenceCategory
         android:title="@string/pref_display_name_apps_category"
         android:key="pref_apps_category">
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="pref_apps_show_package_name"
             android:title="@string/pref_display_name_apps_show_package_name"
             android:summary="@string/pref_display_summary_apps_show_package_name"
