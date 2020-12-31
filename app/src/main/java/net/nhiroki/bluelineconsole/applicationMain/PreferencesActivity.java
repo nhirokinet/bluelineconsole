@@ -1,59 +1,45 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.R;
 
-public class PreferencesActivity extends AppCompatActivity {
+public class PreferencesActivity extends BaseWindowActivity {
+    public PreferencesActivity() {
+        super(R.layout.preferences_activity_body);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceStates) {
         super.onCreate(savedInstanceStates);
-        this.setContentView(R.layout.preferences_activity_view);
 
-        ((LinearLayout)findViewById(R.id.mainLinearLayout)).setGravity(Gravity.CENTER_VERTICAL);
+        ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(getString(R.string.preference_title_for_header_and_footer));
+        ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(getString(R.string.preference_title_for_header_and_footer));
 
-        ((ViewGroup) findViewById(R.id.mainLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.preference_activity_fragment_wrapper)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.preference_center_linear_layout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-
-        this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        this.findViewById(R.id.mainLinearLayout).setOnClickListener(new ExitOnClickListener());
+        ((LinearLayout)findViewById(R.id.baseWindowRootLinearLayout)).setGravity(Gravity.CENTER_VERTICAL);
 
         PreferencesFragment preferenceFragment = new PreferencesFragmentWithOnChangeListener();
         PreferencesActivity.this.getFragmentManager().beginTransaction().replace(R.id.main_preference_fragment, preferenceFragment).commit();
 
-        // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in prefecences_activity_view.xml .
-        View versionOnMainFooterWrapper = findViewById(R.id.versionOnMainFooterWrapper);
-        ViewGroup.MarginLayoutParams versionOnMainFooterWrapperLayoutParam = (ViewGroup.MarginLayoutParams) versionOnMainFooterWrapper.getLayoutParams();
-        versionOnMainFooterWrapperLayoutParam.setMargins(
-                versionOnMainFooterWrapperLayoutParam.leftMargin,
-                versionOnMainFooterWrapperLayoutParam.topMargin - 1,
-                versionOnMainFooterWrapperLayoutParam.rightMargin,
-                versionOnMainFooterWrapperLayoutParam.bottomMargin
-        );
-        versionOnMainFooterWrapper.setLayoutParams(versionOnMainFooterWrapperLayoutParam);
-
-        LinearLayout mainLL = findViewById(R.id.mainLinearLayout);
-        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-        mainLP.width =  (int) (200 * getResources().getDisplayMetrics().density + 0.5) ;
-        mainLL.setLayoutParams(mainLP);
+        findViewById(R.id.baseWindowRootLinearLayout).setPadding(
+                (int)(8 * getResources().getDisplayMetrics().density),
+                (int)(24 * getResources().getDisplayMetrics().density),
+                (int)(8 * getResources().getDisplayMetrics().density),
+                (int)(24 * getResources().getDisplayMetrics().density));
 
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
+
+        this.changeElementSize(false);
+        this.enableBaseWindowAnimation();
     }
 
-    public static class PreferencesFragmentWithOnChangeListener  extends PreferencesFragment {
+    public static class PreferencesFragmentWithOnChangeListener extends PreferencesFragment {
         SharedPreferences.OnSharedPreferenceChangeListener preferenceChangedListener;
 
         @Override
@@ -97,36 +83,46 @@ public class PreferencesActivity extends AppCompatActivity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus) {
-            LinearLayout mainLL = findViewById(R.id.mainLinearLayout);
-            LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
+        super.onWindowFocusChanged(hasFocus);
+
+        this.changeElementSize(hasFocus);
+    }
+
+    private void changeElementSize(boolean visible) {
+        LinearLayout mainLL = findViewById(R.id.preference_activity_fragment_wrapper);
+        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
+        View centerLL = findViewById(R.id.baseWindowMainLinearLayout);
+        View centerLLOuter = findViewById(R.id.baseWindowMainLinearLayoutOuter);
+
+        if (visible) {
             mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
+            mainLP.height = LinearLayout.LayoutParams.MATCH_PARENT;
             mainLL.setLayoutParams(mainLP);
 
-            LinearLayout centerLL = findViewById(R.id.preference_center_linear_layout);
             LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
             centerLP.height = LinearLayout.LayoutParams.MATCH_PARENT;
             centerLL.setLayoutParams(centerLP);
 
-            ((LinearLayout)findViewById(R.id.mainLinearLayout)).setGravity(Gravity.TOP);
+            LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
+            centerLPOuter.height = LinearLayout.LayoutParams.MATCH_PARENT;
+            centerLLOuter.setLayoutParams(centerLPOuter);
+
+            ((LinearLayout)findViewById(R.id.baseWindowRootLinearLayout)).setGravity(Gravity.TOP);
+
         } else {
-            LinearLayout mainLL = findViewById(R.id.mainLinearLayout);
-            LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-            mainLP.width =  (int) (200 * getResources().getDisplayMetrics().density + 0.5) ;
+            mainLP.width = (int) (200 * getResources().getDisplayMetrics().density + 0.5);
+            mainLP.height = 0;
             mainLL.setLayoutParams(mainLP);
 
-            LinearLayout centerLL = findViewById(R.id.preference_center_linear_layout);
             LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
             centerLP.height = 0;
             centerLL.setLayoutParams(centerLP);
-            ((LinearLayout)findViewById(R.id.mainLinearLayout)).setGravity(Gravity.CENTER_VERTICAL);
-        }
-    }
 
-    private class ExitOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            finish();
+            LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
+            centerLPOuter.height = 0;
+            centerLLOuter.setLayoutParams(centerLPOuter);
+
+            ((LinearLayout)findViewById(R.id.baseWindowRootLinearLayout)).setGravity(Gravity.CENTER_VERTICAL);
         }
     }
 }

@@ -28,12 +28,12 @@
             android:name=".applicationMain.PreferencesActivity"
             android:exported="false"
             android:supportsRtl="true"
-            android:theme="@style/ThemeForSubWindow"></activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".applicationMain.StartUpHelpActvity"
             android:exported="false"
             android:supportsRtl="true"
-            android:theme="@style/ThemeForSubWindow"></activity>
+            android:theme="@style/AppTheme"></activity>
 
         <receiver android:name=".applicationMain.BootReceiver">
             <intent-filter>
