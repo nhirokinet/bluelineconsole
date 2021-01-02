@@ -4,6 +4,7 @@
     <string name="loading_main_caption">データベース構築中...</string>
     <string name="loading_detail_for_command_search">初回起動時や、言語設定を変更した直後は、\n構築に数秒から数十秒かかることがあります。</string>
     <string name="formatSearchQueryOnEngine">%2$s で \"%1$s\" を検索</string>
+    <string name="formatStaticPageEntry">%1$s に接続</string>
     <string name="calculator_precision_format">演算精度: %1$s</string>
     <string name="calculator_precision_no_error">誤差なし</string>
     <string name="calculator_precision_rounding">演算中の丸め処理あり</string>
@@ -15,7 +16,7 @@
     <string name="notification_detail_on_startup_pre">コマンド入力欄に</string>
     <string name="notification_detail_on_startup_post">と入力すると、使い方を表示できます。</string>
     <string name="notification_window_never_later">次回以降このヒントを表示しない</string>
-    <string name="pref_display_name_main_category">一般</string>
+    <string name="pref_category_main">一般</string>
     <string name="notification_window_close">閉じる</string>
     <string name="notification_launch_this_app">Blue Line Console を起動</string>
     <string name="pref_display_name_main_show_startup_help">起動時にヘルプを表示</string>
@@ -23,9 +24,19 @@
     <string name="pref_display_summary_main_show_startup_help">"help" コマンドを案内します。"help" コマンドを覚えたら無効にすることをおすすめします。</string>
     <string name="pref_display_summary_main_always_show_notification">どこからでも Blue Line Console を起動できるよう、通知を常に表示します。</string>
     <string name="notification_channel_always_show">Blue Line Console をどの画面からでも開くために、常に通知バーに表示</string>
-    <string name="pref_display_name_apps_category">アプリ起動</string>
+    <string name="pref_category_apps">アプリ起動</string>
     <string name="pref_display_name_apps_show_package_name">パッケージ名を表示</string>
     <string name="pref_display_summary_apps_show_package_name">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
+    <string name="pref_add_custom_urls_title_for_header_and_footer">Add URL</string>
+    <string name="pref_edit_custom_urls_title_for_header_and_footer">Edit URL</string>
+    <string name="url_preference_column_name">コマンド名</string>
+    <string name="url_preference_column_display_name">表示名</string>
+    <string name="url_preference_column_url">URL</string>
+    <string name="url_preference_column_has_query">検索エンジン（有効にするとクエリが URL 末尾に追加されます）</string>
+
+    <string name="add_button_text">追加</string>
+    <string name="update_button_text">更新</string>
+    <string name="delete_button_text">削除</string>
     <string name="app_help_text">
         次の一覧のいずれかで検索できます。
         \n
@@ -53,4 +64,11 @@
     </string>
     <string name="displayedFullVersionString">Version %1$s</string>
     <string name="notFoundOpeningApplicationWithClass">\"%1$s\" は開くことができません。</string>
+    <string name="pref_category_urls">Web ページと Web 検索</string>
+    <string name="url_preference_title_for_header_and_footer">URL</string>
+    <string name="url_preference_add_button">URL 追加</string>
+    <string name="pref_display_custom_urls">URL と検索エンジンの呼び出し設定（実験的）</string>
+    <string name="err_invalid_url">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ ("/") を含む必要があります</string>
+    <string name="err_invalid_url_name">名前はアルファベットの小文字と数字だけを含むことができ、一文字以上である必要があります。</string>
+    <string name="err_display_name_is_empty">表示名が空です。</string>
 </resources>

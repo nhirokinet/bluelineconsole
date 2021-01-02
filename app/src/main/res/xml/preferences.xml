@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="@string/pref_display_name_main_category"
+        android:title="@string/pref_category_main"
         android:key="pref_main_category">
         <SwitchPreference
             android:key="pref_main_show_startup_help"
@@ -17,7 +17,7 @@
             />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_display_name_apps_category"
+        android:title="@string/pref_category_apps"
         android:key="pref_apps_category">
         <SwitchPreference
             android:key="pref_apps_show_package_name"
@@ -25,5 +25,17 @@
             android:summary="@string/pref_display_summary_apps_show_package_name"
             android:defaultValue="false"
             />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_category_urls"
+        android:key="pref_urls_category">
+        <Preference
+            android:title="@string/pref_display_custom_urls"
+            >
+            <intent
+                android:targetClass="net.nhiroki.bluelineconsole.applicationMain.PreferencesCustomWebActivity"
+                android:targetPackage="net.nhiroki.bluelineconsole"
+                />
+        </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

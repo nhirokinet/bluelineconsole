@@ -71,21 +71,20 @@ public class PreferencesActivity extends BaseWindowActivity {
 
     @Override
     public void onUserLeaveHint() {
-        setResult(RESULT_CANCELED, new Intent(this, MainActivity.class));
+        setResult(RESULT_OK, new Intent(this, MainActivity.class));
         super.onUserLeaveHint();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        finish();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        this.changeElementSize(hasFocus);
+        this.changeElementSize(true);
     }
 
     private void changeElementSize(boolean visible) {
@@ -107,8 +106,6 @@ public class PreferencesActivity extends BaseWindowActivity {
             centerLPOuter.height = LinearLayout.LayoutParams.MATCH_PARENT;
             centerLLOuter.setLayoutParams(centerLPOuter);
 
-            ((LinearLayout)findViewById(R.id.baseWindowRootLinearLayout)).setGravity(Gravity.TOP);
-
         } else {
             mainLP.width = (int) (200 * getResources().getDisplayMetrics().density + 0.5);
             mainLP.height = 0;
@@ -121,8 +118,6 @@ public class PreferencesActivity extends BaseWindowActivity {
             LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
             centerLPOuter.height = 0;
             centerLLOuter.setLayoutParams(centerLPOuter);
-
-            ((LinearLayout)findViewById(R.id.baseWindowRootLinearLayout)).setGravity(Gravity.CENTER_VERTICAL);
         }
     }
 }
