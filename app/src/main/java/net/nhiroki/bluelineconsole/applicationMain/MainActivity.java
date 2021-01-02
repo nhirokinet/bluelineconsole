@@ -76,8 +76,11 @@ public class MainActivity extends BaseWindowActivity {
                 if (_resultCandidateListAdapter.isEmpty()) {
                     return false;
                 }
-                _resultCandidateListAdapter.invokeFirstChoiceEvent(MainActivity.this);
-                return true;
+                if (event == null || event.getAction() != KeyEvent.ACTION_UP) {
+                    _resultCandidateListAdapter.invokeFirstChoiceEvent(MainActivity.this);
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -146,16 +149,18 @@ public class MainActivity extends BaseWindowActivity {
                 }
             }
             mainInputText.addTextChangedListener(new MainInputTextListener(mainInputText.getText()));
-        } else {
 
+        } else {
             if (_camebackFlag) {
                 List<CandidateEntry> cands = _commandSearchAggregator.searchCandidateEntries(mainInputText.getText().toString(), MainActivity.this);
+                _commandSearchAggregator.refresh(this);
 
                 _resultCandidateListAdapter.clear();
                 _resultCandidateListAdapter.addAll(cands);
                 _resultCandidateListAdapter.notifyDataSetChanged();
 
                 _camebackFlag = false;
+
             } else {
                 _commandSearchAggregator.refresh(this);
 

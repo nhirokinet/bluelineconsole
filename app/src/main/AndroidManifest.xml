@@ -20,6 +20,7 @@
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.ASSIST" />
                 <action android:name="android.intent.action.SEARCH_LONG_PRESS" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -28,16 +29,28 @@
             android:name=".applicationMain.PreferencesActivity"
             android:exported="false"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme"></activity>
+            />
+        <activity
+            android:name=".applicationMain.PreferencesCustomWebActivity"
+            android:exported="false"
+            android:supportsRtl="true"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesEachURLActivity"
+            android:exported="false"
+            android:supportsRtl="true"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            />
         <activity
             android:name=".applicationMain.StartUpHelpActvity"
             android:exported="false"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme"></activity>
+            />
 
         <receiver android:name=".applicationMain.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>

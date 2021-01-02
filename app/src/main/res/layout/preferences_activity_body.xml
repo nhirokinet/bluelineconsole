@@ -8,7 +8,7 @@
     android:paddingHorizontal="0px"
     android:animateLayoutChanges="true"
     android:orientation="horizontal"
-    android:background="@color/colorFrame"
+    android:background="@color/baseBackground"
     >
     <ScrollView
         android:layout_width="match_parent"

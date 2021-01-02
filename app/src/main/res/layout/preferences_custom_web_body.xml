@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/preference_urls_main_linear_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".applicationMain.PreferencesCustomWebActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/baseBackground"
+    android:orientation="vertical">
+    <Button
+        android:id="@+id/customURLListAddButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/url_preference_add_button"
+        android:layout_margin="3dp"
+        android:drawableStart="@android:drawable/ic_menu_add"
+        />
+    <ListView
+        android:id="@+id/customURLList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/baseBackground"
+        android:animateLayoutChanges="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        />
+</LinearLayout>

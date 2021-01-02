@@ -7,14 +7,13 @@ import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.util.Pair;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commands.applications.ApplicationDatabase;
-import net.nhiroki.bluelineconsole.commands.applications.ApplicationInformation;
+import net.nhiroki.bluelineconsole.data_store.cache.ApplicationInformation;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;

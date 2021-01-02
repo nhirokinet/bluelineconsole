@@ -3,6 +3,7 @@
     <string name="loading_main_caption">Refreshing database...</string>
     <string name="loading_detail_for_command_search">On first launch, or on first launch after changing language setting,\nrefreshing may take a while (sometimes tens of seconds).</string>
     <string name="formatSearchQueryOnEngine">Search \"%1$s\" on %2$s</string>
+    <string name="formatStaticPageEntry">Access %1$s</string>
     <string name="displayedFullVersionString">Version %1$s</string>
     <string name="preference_title_for_header_and_footer">Configuration</string>
     <string name="title_for_notification">Notification</string>
@@ -20,14 +21,27 @@
     <string name="notification_window_close">Close</string>
     <string name="notification_launch_this_app">Launch Blue Line Console</string>
     <string name="notification_channel_always_show">Notification icon always shown to launch Blue Line Console everywhere</string>
-    <string name="pref_display_name_main_category">General</string>
+    <string name="pref_category_main">General</string>
+    <string name="pref_category_apps">Launching Apps</string>
+    <string name="pref_category_urls">Web Pages and Searches</string>
     <string name="pref_display_name_main_show_startup_help">Show help on startup</string>
     <string name="pref_display_name_main_always_show_notification">Always show icon as notification</string>
     <string name="pref_display_summary_main_show_startup_help">This option just shows you the guidance for help command. It is better to disable this option once you remembered "help" command.</string>
     <string name="pref_display_summary_main_always_show_notification">Always show the notification icon to start Blue Line Console everywhere.</string>
-    <string name="pref_display_name_apps_category">Launching Apps</string>
     <string name="pref_display_name_apps_show_package_name">Show package name</string>
     <string name="pref_display_summary_apps_show_package_name">Note: You can find apps by a part of package name even this check is off.</string>
+    <string name="pref_display_custom_urls">Custom pages and searches (Experimental)</string>
+    <string name="pref_add_custom_urls_title_for_header_and_footer">Add URL</string>
+    <string name="pref_edit_custom_urls_title_for_header_and_footer">Edit URL</string>
+    <string name="add_button_text">Add</string>
+    <string name="update_button_text">Update</string>
+    <string name="delete_button_text">Delete</string>
+    <string name="url_preference_add_button">Add custom URL or search engine</string>
+    <string name="url_preference_title_for_header_and_footer">URL</string>
+    <string name="url_preference_column_name">Name to use for command</string>
+    <string name="url_preference_column_display_name">Display name</string>
+    <string name="url_preference_column_url">URL</string>
+    <string name="url_preference_column_has_query">Search engine (query is added at the end when enabled)</string>
     <string name="app_help_text">
         You can input one of below list to search apps or commands.
         \n
@@ -54,4 +68,7 @@
         \nHint: Set up Blue Line Console as Default Assist App from Settings &gt; Apps &amp; notofications &gt; Default Apps &gt; Assist app or similar menu, to make Blue Line Console open on long-pressing home button.
         \nHint: Blue Line Console can be launched from notification menu by always showing notification. Find the option from config command.
     </string>
+    <string name="err_invalid_url">Invalid URL: must start with https:// or http:// and at least one more slash ("/").</string>
+    <string name="err_invalid_url_name">Invalid name: name can contain only digits and lower alphabets, and must not be empty</string>
+    <string name="err_display_name_is_empty">Display name is empty</string>
 </resources>

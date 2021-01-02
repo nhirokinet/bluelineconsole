@@ -29,7 +29,7 @@ public class CommandSearchAggregator {
 
         // First character is limited
         commandSearcherList.add(new CalculatorCommandSearcher());
-        commandSearcherList.add(new SearchEngineCommandSearcher());
+        commandSearcherList.add(new SearchEngineCommandSearcher(context));
 
         // Command searchers which may return tons candidate should comes to the last
         commandSearcherList.add(new ApplicationCommandSearcher(context));

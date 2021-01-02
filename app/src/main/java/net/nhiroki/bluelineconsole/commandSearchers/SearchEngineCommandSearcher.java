@@ -9,6 +9,8 @@ import android.util.Pair;
 import android.view.View;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.data_store.persistent.URLEntry;
+import net.nhiroki.bluelineconsole.data_store.persistent.URLPreferences;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -103,9 +105,28 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         }
     };
 
+    private List<URLEntry> _customSearches;
+    private List<URLEntry> _customStaticURLs;
+
+    public SearchEngineCommandSearcher(Context context) {
+        this._customSearches = new ArrayList<>();
+        this._customStaticURLs = new ArrayList<>();
+        this.refresh(context);
+    }
+
     @Override
     public void refresh(Context context) {
+        List<URLEntry> entries = URLPreferences.getInstance(context).getAllEntries();
 
+        this._customSearches.clear();
+        this._customStaticURLs.clear();
+        for (URLEntry e: entries) {
+            if (e.has_query) {
+                this._customSearches.add(e);
+            } else {
+                this._customStaticURLs.add(e);
+            }
+        }
     }
 
     @Override
@@ -122,6 +143,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
     @Override
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
+
         if (s.contains(" ")){
             Locale locale = context.getResources().getConfiguration().locale;
 
@@ -130,6 +152,12 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
             String query = s.substring(split + 1);
 
             if (!engine.equals("")) {
+                for (URLEntry e : this._customSearches) {
+                    if (e.name.startsWith(engine)) {
+                        cands.add(new SearchEngineCandidateEntry(context, query, e.display_name, e.url_base));
+                    }
+                }
+
                 if ("wikipedia".startsWith(engine)) {
                     String langCode = locale.getLanguage();
                     if (! WIKIPEDIA_SUPPORTING_LANGS.contains(langCode)) {
@@ -174,8 +202,64 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
                     cands.add(new SearchEngineCandidateEntry(context, query, "Google (English)", "https://www.google.com/search?hl=en&q=" ));
                 }
             }
+        } else {
+            if (!s.equals("")) {
+                for (URLEntry e : this._customStaticURLs) {
+                    if (e.name.startsWith(s)) {
+                        cands.add(new StaticPageCandidateEntry(context, e.display_name, e.url_base));
+                    }
+                }
+            }
         }
         return cands;
+    }
+
+    private class StaticPageCandidateEntry implements CandidateEntry {
+        String pageName;
+        String urlBase;
+        String title;
+
+        StaticPageCandidateEntry(Context context, String pageName, String urlBase) {
+            this.pageName = pageName;
+            this.urlBase = urlBase;
+            this.title = String.format(context.getString(R.string.formatStaticPageEntry), pageName);
+        }
+
+        @Override
+        public boolean hasLongView() {
+            return false;
+        }
+
+        @Override
+        public String getTitle() {
+            return title;
+        }
+
+        @Override
+        public View getView(Context context) {
+            return null;
+        }
+
+        @Override
+        public EventLauncher getEventLauncher(Context context) {
+            return new EventLauncher() {
+                @Override
+                public void launch(Activity activity) {
+                    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase)));
+                    activity.finish();
+                }
+            };
+        }
+
+        @Override
+        public Drawable getIcon(Context context) {
+            return context.getDrawable(android.R.drawable.ic_menu_compass);
+        }
+
+        @Override
+        public boolean hasEvent() {
+            return true;
+        }
     }
 
     private class SearchEngineCandidateEntry implements CandidateEntry {

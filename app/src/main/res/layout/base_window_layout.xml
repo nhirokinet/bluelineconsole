@@ -92,7 +92,6 @@
             android:layout_gravity="end"
             android:orientation="horizontal"
             android:animateLayoutChanges="true"
-
             >
             <TextView
                 android:clickable="true"

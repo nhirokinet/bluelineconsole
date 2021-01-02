@@ -33,15 +33,15 @@ public class BaseWindowActivity extends AppCompatActivity {
         this.findViewById(R.id.baseWindowRootLinearLayout).setOnClickListener(new ExitOnClickListener());
 
         // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in base_window_layout.xml .
-        View versionOnMainFooterWrapper = findViewById(R.id.baseWindowFooterWrapper);
-        ViewGroup.MarginLayoutParams versionOnMainFooterWrapperLayoutParam = (ViewGroup.MarginLayoutParams) versionOnMainFooterWrapper.getLayoutParams();
-        versionOnMainFooterWrapperLayoutParam.setMargins(
-                versionOnMainFooterWrapperLayoutParam.leftMargin,
-                versionOnMainFooterWrapperLayoutParam.topMargin - 1,
-                versionOnMainFooterWrapperLayoutParam.rightMargin,
-                versionOnMainFooterWrapperLayoutParam.bottomMargin
+        View mainFooterWrapper = findViewById(R.id.baseWindowFooterWrapper);
+        ViewGroup.MarginLayoutParams mainFooterWrapperLayoutParam = (ViewGroup.MarginLayoutParams) mainFooterWrapper.getLayoutParams();
+        mainFooterWrapperLayoutParam.setMargins(
+                mainFooterWrapperLayoutParam.leftMargin,
+                mainFooterWrapperLayoutParam.topMargin - 1,
+                mainFooterWrapperLayoutParam.rightMargin,
+                mainFooterWrapperLayoutParam.bottomMargin
         );
-        versionOnMainFooterWrapper.setLayoutParams(versionOnMainFooterWrapperLayoutParam);
+        mainFooterWrapper.setLayoutParams(mainFooterWrapperLayoutParam);
     }
 
     protected void enableBaseWindowAnimation() {
