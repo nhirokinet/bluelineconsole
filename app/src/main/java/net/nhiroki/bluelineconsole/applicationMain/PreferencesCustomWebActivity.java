@@ -17,8 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.data_store.persistent.URLEntry;
-import net.nhiroki.bluelineconsole.data_store.persistent.URLPreferences;
+import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
+import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
 
 import java.util.ArrayList;
 import java.util.List;

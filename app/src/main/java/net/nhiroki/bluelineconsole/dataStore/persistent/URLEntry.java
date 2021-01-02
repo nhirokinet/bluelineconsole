@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.data_store.persistent;
+package net.nhiroki.bluelineconsole.dataStore.persistent;
 
 import androidx.annotation.StringRes;
 

@@ -9,8 +9,8 @@ import android.util.Pair;
 import android.view.View;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.data_store.persistent.URLEntry;
-import net.nhiroki.bluelineconsole.data_store.persistent.URLPreferences;
+import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
+import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;

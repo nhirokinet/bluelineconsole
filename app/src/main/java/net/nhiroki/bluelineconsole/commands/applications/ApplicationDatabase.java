@@ -7,8 +7,8 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.LocaleList;
 
-import net.nhiroki.bluelineconsole.data_store.cache.ApplicationInformation;
-import net.nhiroki.bluelineconsole.data_store.cache.ApplicationInformationCache;
+import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformation;
+import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformationCache;
 
 import java.util.ArrayList;
 import java.util.Collections;

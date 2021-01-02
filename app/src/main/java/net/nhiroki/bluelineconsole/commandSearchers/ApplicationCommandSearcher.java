@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commands.applications.ApplicationDatabase;
-import net.nhiroki.bluelineconsole.data_store.cache.ApplicationInformation;
+import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformation;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
