@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.data_store.persistent.URLEntry;
-import net.nhiroki.bluelineconsole.data_store.persistent.URLPreferences;
+import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
+import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
 
 public class PreferencesEachURLActivity extends BaseWindowActivity {
     private int _entry_id = -1;

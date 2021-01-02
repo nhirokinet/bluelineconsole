@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.data_store.cache;
+package net.nhiroki.bluelineconsole.dataStore.cache;
 
 public class ApplicationInformation {
     private final String packageName;
