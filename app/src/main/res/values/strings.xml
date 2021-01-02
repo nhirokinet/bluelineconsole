@@ -38,7 +38,7 @@
     <string name="delete_button_text">Delete</string>
     <string name="url_preference_add_button">Add custom URL or search engine</string>
     <string name="url_preference_title_for_header_and_footer">URL</string>
-    <string name="url_preference_column_name">Name to use for command</string>
+    <string name="url_preference_column_name">Command name</string>
     <string name="url_preference_column_display_name">Display name</string>
     <string name="url_preference_column_url">URL</string>
     <string name="url_preference_column_has_query">Search engine (query is added at the end when enabled)</string>
