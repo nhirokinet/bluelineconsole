@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Blue Line Console</string>
+    <string name="loading_main_caption">正在刷新数据库......</string>
+    <string name="loading_detail_for_command_search">安装后首次启动,或是更改语言设定后首次启动，\n刷新可能需要一段时间才能完成（有时几十秒）。</string>
+    <string name="formatSearchQueryOnEngine">在 %2$s 上搜索 \"%1$s\"</string>
+    <string name="formatStaticPageEntry">访问 %1$s</string>
+    <string name="displayedFullVersionString">版本 %1$s</string>
+    <string name="preference_title_for_header_and_footer">配置</string>
+    <string name="title_for_notification">通知</string>
+    <string name="notFoundOpeningApplicationWithClass">\"%1$s\" 不是一个可启动的包。</string>
+    <string name="calculator_precision_format">计算精度: %1$s</string>
+    <string name="calculator_precision_no_error">无差错</string>
+    <string name="calculator_precision_rounding">进位舍入</string>
+    <string name="calculator_error_division_by_zero">除以 0</string>
+    <string name="summary_text_for_preferences_of_this_app">Blue Line Console 选项</string>
+    <string name="notification_title_on_startup">关于“help” 命令</string>
+    <string name="notification_detail_on_startup_pre">要显示用法，输入</string>
+    <string name="notification_detail_on_startup_main" translatable="false">help</string>
+    <string name="notification_detail_on_startup_post">看看该怎么用。</string>
+    <string name="notification_window_never_later">不再显示这条消息</string>
+    <string name="notification_window_close">关闭</string>
+    <string name="notification_launch_this_app">启动 Blue Line Console</string>
+    <string name="notification_channel_always_show">始终在通知栏显示启动 Blue Line Console 的图标</string>
+    <string name="pref_category_main">一般</string>
+    <string name="pref_category_apps">启动应用</string>
+    <string name="pref_category_urls">网页和搜索</string>
+    <string name="pref_display_name_main_show_startup_help">应用启动时显示帮助</string>
+    <string name="pref_display_name_main_always_show_notification">始终将图标显示为通知</string>
+    <string name="pref_display_summary_main_show_startup_help">此选项显示“help”命令的指导。你最好在记住“help”命令后禁用此选项。</string>
+    <string name="pref_display_summary_main_always_show_notification">始终显示通知图标以方便启动 Blue Line Console</string>
+    <string name="pref_display_name_apps_show_package_name">显示包名</string>
+    <string name="pref_display_summary_apps_show_package_name">注意:即使关闭了这个选项，你也可以通过包名的一部分找到应用程序。</string>
+    <string name="pref_display_custom_urls">自定义页面和搜索（实验性功能）</string>
+    <string name="pref_add_custom_urls_title_for_header_and_footer">添加 URL</string>
+    <string name="pref_edit_custom_urls_title_for_header_and_footer">编辑 URL</string>
+    <string name="add_button_text">添加</string>
+    <string name="update_button_text">更新</string>
+    <string name="delete_button_text">删除</string>
+    <string name="url_preference_add_button">添加自定义 URL 或搜索引擎</string>
+    <string name="url_preference_title_for_header_and_footer">URL</string>
+    <string name="url_preference_column_name">命令名称</string>
+    <string name="url_preference_column_display_name">展示名称</string>
+    <string name="url_preference_column_url">URL</string>
+    <string name="url_preference_column_has_query">搜索引擎(启用后，查询将被添加在末尾)</string>
+    <string name="app_help_text">
+        你可以输入以下列表之一来搜索应用程序或命令。
+        \n
+        \n-&#032;应用名称的一部分（比如，Blue Line Console）
+        \n-&#032;包名的一部分（比如，net.nhiroki.bluelineconsole）
+        \n-&#032;URL（比如，https://example.com/）
+        \n-&#032;算数计算（比如， 2+3*5）
+        \n-&#032;下列命令之一 （比如，help）
+        \n
+        \n可用命令：
+        \n
+        \n-&#032;help
+        \n-&#032;config
+        \n-&#032;date
+        \n-&#032;bing &lt;query&gt;
+        \n-&#032;duckduckgo &lt;query&gt;
+        \n-&#032;google &lt;query&gt;
+        \n-&#032;wikipedia &lt;query&gt;
+        \n-&#032;yahoo &lt;query&gt;
+        \n
+        \n搜索引擎名称可以缩写。
+        \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。
+        \n
+        \n提示：将 Blue Line Console 设为默认助手应用后可通过长按主页按钮打开它。具体方法为：系统设置 &gt; 应用程序 &amp; 通知 &gt; 默认应用 &gt; 助手应用或类似菜单。
+        \n提示：可以通过始终显示通知从通知菜单启动 Blue Line Console。可输入 config 找到该选项。
+    </string>
+    <string name="err_invalid_url">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠("/").</string>
+    <string name="err_invalid_url_name">无效的名称：名称只能包含数字和小写字母，且不能为空。</string>
+    <string name="err_display_name_is_empty">显示名称为空</string>
+</resources>
