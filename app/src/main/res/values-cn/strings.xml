@@ -15,7 +15,7 @@
     <string name="summary_text_for_preferences_of_this_app">Blue Line Console 选项</string>
     <string name="notification_title_on_startup">关于“help” 命令</string>
     <string name="notification_detail_on_startup_pre">要显示用法，输入</string>
-    <string name="notification_detail_on_startup_main" translatable="false">help</string>
+    
     <string name="notification_detail_on_startup_post">看看该怎么用。</string>
     <string name="notification_window_never_later">不再显示这条消息</string>
     <string name="notification_window_close">关闭</string>
@@ -30,7 +30,7 @@
     <string name="pref_display_summary_main_always_show_notification">始终显示通知图标以方便启动 Blue Line Console</string>
     <string name="pref_display_name_apps_show_package_name">显示包名</string>
     <string name="pref_display_summary_apps_show_package_name">注意:即使关闭了这个选项，你也可以通过包名的一部分找到应用程序。</string>
-    <string name="pref_display_custom_urls">自定义页面和搜索（实验性功能）</string>
+    <string name="pref_display_custom_urls">自定义页面和搜索</string>
     <string name="pref_add_custom_urls_title_for_header_and_footer">添加 URL</string>
     <string name="pref_edit_custom_urls_title_for_header_and_footer">编辑 URL</string>
     <string name="add_button_text">添加</string>
@@ -69,6 +69,6 @@
         \n提示：可以通过始终显示通知从通知菜单启动 Blue Line Console。可输入 config 找到该选项。
     </string>
     <string name="err_invalid_url">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠("/").</string>
-    <string name="err_invalid_url_name">无效的名称：名称只能包含数字和小写字母，且不能为空。</string>
+    <string name="err_invalid_url_name">无效的名称：命令只能包含数字和小写字母，且不能为空。</string>
     <string name="err_display_name_is_empty">显示名称为空</string>
 </resources>
