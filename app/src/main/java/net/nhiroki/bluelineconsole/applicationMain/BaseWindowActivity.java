@@ -44,6 +44,13 @@ public class BaseWindowActivity extends AppCompatActivity {
         mainFooterWrapper.setLayoutParams(mainFooterWrapperLayoutParam);
     }
 
+    @Override
+    public void onStop() {
+        // This app should be as stateless as possible. When app disappears most activities should finish.
+        super.onStop();
+        this.finish();
+    }
+
     protected void enableBaseWindowAnimation() {
         ((ViewGroup) findViewById(R.id.baseMainLayoutRoot)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         ((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);

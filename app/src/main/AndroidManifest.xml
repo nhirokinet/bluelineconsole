@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="net.nhiroki.bluelineconsole">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+        tools:ignore="QueryAllPackagesPermission" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity
             android:name=".applicationMain.MainActivity"
             android:excludeFromRecents="true"
             android:windowSoftInputMode="stateVisible|adjustResize"
+            android:clearTaskOnLaunch="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,23 +32,19 @@
         <activity
             android:name=".applicationMain.PreferencesActivity"
             android:exported="false"
-            android:supportsRtl="true"
             />
         <activity
             android:name=".applicationMain.PreferencesCustomWebActivity"
             android:exported="false"
-            android:supportsRtl="true"
             />
         <activity
             android:name=".applicationMain.PreferencesEachURLActivity"
             android:exported="false"
-            android:supportsRtl="true"
             android:windowSoftInputMode="stateVisible|adjustResize"
             />
         <activity
             android:name=".applicationMain.StartUpHelpActvity"
             android:exported="false"
-            android:supportsRtl="true"
             />
 
         <receiver android:name=".applicationMain.BootReceiver">

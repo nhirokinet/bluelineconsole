@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
@@ -60,6 +62,7 @@ public class PreferencesCommandSearcher implements CommandSearcher {
         public View getView(Context context) {
             TextView packageNameView = new TextView(context);
             packageNameView.setText(context.getString(R.string.summary_text_for_preferences_of_this_app));
+            packageNameView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             return packageNameView;
         }
 

@@ -52,6 +52,7 @@ public class ApplicationInformationCache extends SQLiteOpenHelper {
                     curApp.getInt(curApp.getColumnIndex("launchable")) == 0 ? false : true
                     ));
         }
+        curApp.close();
 
         return ret;
     }

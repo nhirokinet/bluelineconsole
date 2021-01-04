@@ -245,7 +245,8 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void setWholeLayout() {
-        final boolean textFilled = ! ((EditText)findViewById(R.id.mainInputText)).getText().toString().equals("");
+        final EditText mainInputText = findViewById(R.id.mainInputText);
+        final boolean textFilled = ! mainInputText.getText().toString().equals("");
         Point displaySize = new Point();
         this.getWindowManager().getDefaultDisplay().getSize(displaySize);
 
@@ -263,7 +264,6 @@ public class MainActivity extends BaseWindowActivity {
         final double pixelsPerSp = getResources().getDisplayMetrics().scaledDensity;
 
         ConstraintLayout root = findViewById(R.id.baseMainLayoutRoot);
-        EditText mainInputText = findViewById(R.id.mainInputText);
         // mainInputText: editTextSize * (1 (text) + 0.3 * 2 (padding)
         // If space is limited, split remaining height into 1(EditText):2(ListView and other margins)
         final double editTextSizeSp = Math.min(40.0, (root.getHeight() - findViewById(R.id.baseWindowHeaderWrapper).getHeight() * 2.0) / 4.8 / pixelsPerSp);

@@ -30,7 +30,7 @@
     <string name="pref_display_summary_main_always_show_notification">Always show the notification icon to start Blue Line Console everywhere.</string>
     <string name="pref_display_name_apps_show_package_name">Show package name</string>
     <string name="pref_display_summary_apps_show_package_name">Note: You can find apps by a part of package name even this check is off.</string>
-    <string name="pref_display_custom_urls">Custom pages and searches (Experimental)</string>
+    <string name="pref_display_custom_urls">Custom pages and searches</string>
     <string name="pref_add_custom_urls_title_for_header_and_footer">Add URL</string>
     <string name="pref_edit_custom_urls_title_for_header_and_footer">Edit URL</string>
     <string name="add_button_text">Add</string>
@@ -69,6 +69,6 @@
         \nHint: Blue Line Console can be launched from notification menu by always showing notification. Find the option from config command.
     </string>
     <string name="err_invalid_url">Invalid URL: must start with https:// or http:// and at least one more slash ("/").</string>
-    <string name="err_invalid_url_name">Invalid name: name can contain only digits and lower alphabets, and must not be empty</string>
+    <string name="err_invalid_url_name">Invalid name: command can contain only digits and lower alphabets, and must not be empty</string>
     <string name="err_display_name_is_empty">Display name is empty</string>
 </resources>
