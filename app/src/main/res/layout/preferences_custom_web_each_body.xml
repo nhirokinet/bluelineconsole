@@ -14,6 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/url_preference_column_name"
+            android:labelFor="@id/url_name"
             />
         <EditText
             android:id="@+id/url_name"
@@ -24,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/url_preference_column_display_name"
+            android:labelFor="@id/url_display_name"
             />
         <EditText
             android:id="@+id/url_display_name"
@@ -34,11 +36,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/url_preference_column_url"
+            android:labelFor="@id/url_base_url"
             />
         <EditText
             android:id="@+id/url_base_url"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textUri"
             />
         <Switch
             android:id="@+id/url_has_query"

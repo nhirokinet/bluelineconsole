@@ -67,8 +67,8 @@
     <string name="pref_category_urls">Web ページと Web 検索</string>
     <string name="url_preference_title_for_header_and_footer">URL</string>
     <string name="url_preference_add_button">URL 追加</string>
-    <string name="pref_display_custom_urls">URL と検索エンジンの呼び出し設定（実験的）</string>
+    <string name="pref_display_custom_urls">URL と検索エンジンの呼び出し設定</string>
     <string name="err_invalid_url">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ ("/") を含む必要があります</string>
-    <string name="err_invalid_url_name">名前はアルファベットの小文字と数字だけを含むことができ、一文字以上である必要があります。</string>
+    <string name="err_invalid_url_name">コマンドはアルファベットの小文字と数字だけを含むことができ、一文字以上である必要があります。</string>
     <string name="err_display_name_is_empty">表示名が空です。</string>
 </resources>
