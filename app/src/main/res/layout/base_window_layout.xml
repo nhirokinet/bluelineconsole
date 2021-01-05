@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/baseMainLayoutRoot"
+    android:id="@+id/baseWindowMainLayoutRoot"
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"

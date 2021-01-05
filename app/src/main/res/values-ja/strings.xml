@@ -56,6 +56,7 @@
         \n-&#032;google &lt;query&gt;
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
+        \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt; （サポートされたシステムのみ）
         \n
         \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
         \n
@@ -71,4 +72,5 @@
     <string name="err_invalid_url">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ ("/") を含む必要があります</string>
     <string name="err_invalid_url_name">コマンドはアルファベットの小文字と数字だけを含むことができ、一文字以上である必要があります。</string>
     <string name="err_display_name_is_empty">表示名が空です。</string>
+    <string name="err_could_not_start_command">エラー：コマンドを開始できませんでした</string>
 </resources>

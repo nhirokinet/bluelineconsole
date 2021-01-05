@@ -11,21 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.R;
 
 public class StartUpHelpActvity extends BaseWindowActivity {
     public StartUpHelpActvity() {
-        super(R.layout.start_up_help_body);
+        super(R.layout.start_up_help_body, true);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(getString(R.string.title_for_notification));
-        ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(getString(R.string.title_for_notification));
+        this.setHeaderFooterTexts(getString(R.string.title_for_notification), getString(R.string.title_for_notification));
 
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
 
@@ -34,12 +32,11 @@ public class StartUpHelpActvity extends BaseWindowActivity {
 
         int maxPanelWidth = (int)(560.0 * getResources().getDisplayMetrics().density);
 
-        LinearLayout l = findViewById(R.id.baseWindowRootLinearLayout);
-        l.setGravity(Gravity.CENTER_VERTICAL);
+        this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);
         int panelWidth = Math.min((int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.8 : 0.67)), maxPanelWidth);
 
         int paddingHorizontal = (displaySize.x - panelWidth) / 2;
-        l.setPadding(paddingHorizontal, 0, paddingHorizontal, 0);
+        this.setRootPadding(paddingHorizontal, 0, paddingHorizontal, 0);
 
         findViewById(R.id.startUpOKButton).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -53,34 +50,19 @@ public class StartUpHelpActvity extends BaseWindowActivity {
             }
         });
 
-        this.changeElementSize(false);
-
+        this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
-        ((ViewGroup) findViewById(R.id.start_up_main_wrapper_layout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-
-        this.changeElementSize(hasFocus);
+        this.changeBaseWindowElementSize(hasFocus);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         finish();
-    }
-
-    private void changeElementSize(boolean visible) {
-        LinearLayout mainLL = findViewById(R.id.start_up_main_wrapper_layout);
-        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-        if (visible) {
-            mainLP.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            mainLL.setLayoutParams(mainLP);
-        } else {
-            mainLP.height = 0;
-            mainLL.setLayoutParams(mainLP);
-        }
     }
 }
