@@ -42,6 +42,7 @@
     <string name="url_preference_column_display_name">展示名称</string>
     <string name="url_preference_column_url">URL</string>
     <string name="url_preference_column_has_query">搜索引擎(启用后，查询将被添加在末尾)</string>
+    <!-- TODO: I added some texts in English for now, better to translate to Chinese -->
     <string name="app_help_text">
         你可以输入以下列表之一来搜索应用程序或命令。
         \n
@@ -61,6 +62,7 @@
         \n-&#032;google &lt;query&gt;
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
+        \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　(only on systems with corresponding command)
         \n
         \n搜索引擎名称可以缩写。
         \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。

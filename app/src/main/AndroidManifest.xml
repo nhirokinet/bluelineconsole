@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="net.nhiroki.bluelineconsole">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
+    <uses-permission
+        android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
 
     <application
@@ -12,14 +14,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".applicationMain.MainActivity"
-            android:excludeFromRecents="true"
-            android:windowSoftInputMode="stateVisible|adjustResize"
             android:clearTaskOnLaunch="true"
-            >
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="stateVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.ASSIST" />
@@ -31,21 +31,23 @@
         </activity>
         <activity
             android:name=".applicationMain.PreferencesActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".applicationMain.PreferencesCustomWebActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".applicationMain.PreferencesEachURLActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustResize"
-            />
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".applicationMain.StartUpHelpActvity"
-            android:exported="false"
-            />
+            android:exported="false" />
+        <activity
+            android:name=".commands.netutils.PingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".commands.netutils.Ping6Activity"
+            android:exported="false" />
 
         <receiver android:name=".applicationMain.BootReceiver">
             <intent-filter>

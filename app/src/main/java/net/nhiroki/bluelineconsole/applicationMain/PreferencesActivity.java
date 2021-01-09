@@ -12,30 +12,24 @@ import net.nhiroki.bluelineconsole.R;
 
 public class PreferencesActivity extends BaseWindowActivity {
     public PreferencesActivity() {
-        super(R.layout.preferences_activity_body);
+        super(R.layout.preferences_activity_body, false);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceStates) {
         super.onCreate(savedInstanceStates);
 
-        ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(getString(R.string.preference_title_for_header_and_footer));
-        ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(getString(R.string.preference_title_for_header_and_footer));
+        this.setHeaderFooterTexts(getString(R.string.preference_title_for_header_and_footer), getString(R.string.preference_title_for_header_and_footer));
+        this.setNestingPadding(1);
 
-        ((LinearLayout)findViewById(R.id.baseWindowRootLinearLayout)).setGravity(Gravity.CENTER_VERTICAL);
+        this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);
 
         PreferencesFragment preferenceFragment = new PreferencesFragmentWithOnChangeListener();
         PreferencesActivity.this.getFragmentManager().beginTransaction().replace(R.id.main_preference_fragment, preferenceFragment).commit();
 
-        findViewById(R.id.baseWindowRootLinearLayout).setPadding(
-                (int)(8 * getResources().getDisplayMetrics().density),
-                (int)(24 * getResources().getDisplayMetrics().density),
-                (int)(8 * getResources().getDisplayMetrics().density),
-                (int)(24 * getResources().getDisplayMetrics().density));
-
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
 
-        this.changeElementSize(false);
+        this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
     }
 
@@ -84,40 +78,6 @@ public class PreferencesActivity extends BaseWindowActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        this.changeElementSize(true);
-    }
-
-    private void changeElementSize(boolean visible) {
-        LinearLayout mainLL = findViewById(R.id.preference_activity_fragment_wrapper);
-        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-        View centerLL = findViewById(R.id.baseWindowMainLinearLayout);
-        View centerLLOuter = findViewById(R.id.baseWindowMainLinearLayoutOuter);
-
-        if (visible) {
-            mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
-            mainLP.height = LinearLayout.LayoutParams.MATCH_PARENT;
-            mainLL.setLayoutParams(mainLP);
-
-            LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = LinearLayout.LayoutParams.MATCH_PARENT;
-            centerLL.setLayoutParams(centerLP);
-
-            LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
-            centerLPOuter.height = LinearLayout.LayoutParams.MATCH_PARENT;
-            centerLLOuter.setLayoutParams(centerLPOuter);
-
-        } else {
-            mainLP.width = (int) (200 * getResources().getDisplayMetrics().density + 0.5);
-            mainLP.height = 0;
-            mainLL.setLayoutParams(mainLP);
-
-            LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = 0;
-            centerLL.setLayoutParams(centerLP);
-
-            LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
-            centerLPOuter.height = 0;
-            centerLLOuter.setLayoutParams(centerLPOuter);
-        }
+        this.changeBaseWindowElementSize(true);
     }
 }

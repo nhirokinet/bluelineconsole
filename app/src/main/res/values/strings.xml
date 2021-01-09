@@ -61,6 +61,7 @@
         \n-&#032;google &lt;query&gt;
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
+        \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　(only on systems with corresponding command)
         \n
         \nName for search engine name can be abbreviated.
         \nFor example, \"d somequery\" is equivalent to \"duckduckgo somequery\".
@@ -71,4 +72,5 @@
     <string name="err_invalid_url">Invalid URL: must start with https:// or http:// and at least one more slash ("/").</string>
     <string name="err_invalid_url_name">Invalid name: command can contain only digits and lower alphabets, and must not be empty</string>
     <string name="err_display_name_is_empty">Display name is empty</string>
+    <string name="err_could_not_start_command">ERROR: could not start command</string>
 </resources>
