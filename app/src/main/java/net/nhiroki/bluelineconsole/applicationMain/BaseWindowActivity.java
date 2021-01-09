@@ -41,6 +41,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         mainViewStub.inflate();
 
         this.findViewById(R.id.baseWindowRootLinearLayout).setOnClickListener(new ExitOnClickListener());
+        ((LinearLayout)findViewById(R.id.baseWindowMainLinearLayout)).getChildAt(0).setOnClickListener(null);
 
         // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in base_window_layout.xml .
         View mainFooterWrapper = findViewById(R.id.baseWindowFooterWrapper);
