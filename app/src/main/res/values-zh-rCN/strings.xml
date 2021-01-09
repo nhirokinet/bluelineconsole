@@ -61,7 +61,7 @@
         \n-&#032;google &lt;query&gt;
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
-	\n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　（仅在有相应命令的系统上使用）
+	\n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;（仅在有相应命令的系统上使用）
         \n
         \n搜索引擎名称可以缩写。
         \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。
