@@ -42,7 +42,6 @@
     <string name="url_preference_column_display_name">展示名称</string>
     <string name="url_preference_column_url">URL</string>
     <string name="url_preference_column_has_query">搜索引擎(启用后，查询将被添加在末尾)</string>
-    <!-- TODO: I added some texts in English for now, better to translate to Chinese -->
     <string name="app_help_text">
         你可以输入以下列表之一来搜索应用程序或命令。
         \n
@@ -62,11 +61,11 @@
         \n-&#032;google &lt;query&gt;
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
+	\n
+        \n网络管理命令：
         \n
-        \nNetwork administrative commands:
-        \n
-        \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　(only on systems with corresponding command)
-        \n
+        \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　（仅在有相应命令的系统上可用）
+	\n
         \n搜索引擎名称可以缩写。
         \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。
         \n
@@ -76,4 +75,5 @@
     <string name="err_invalid_url">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠("/").</string>
     <string name="err_invalid_url_name">无效的名称：命令只能包含数字和小写字母，且不能为空。</string>
     <string name="err_display_name_is_empty">显示名称为空</string>
+    <string name="err_could_not_start_command">错误：无法启动命令</string>
 </resources>
