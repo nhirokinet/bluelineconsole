@@ -62,6 +62,9 @@
         \n-&#032;google &lt;query&gt;
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
+        \n
+        \nNetwork administrative commands:
+        \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　(only on systems with corresponding command)
         \n
         \n搜索引擎名称可以缩写。

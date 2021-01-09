@@ -56,6 +56,9 @@
         \n-&#032;google &lt;query&gt;
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
+        \n
+        \nネットワーク管理系コマンド：
+        \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt; （サポートされたシステムのみ）
         \n
         \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
