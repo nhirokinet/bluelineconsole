@@ -19,20 +19,16 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
     private int _entry_id = -1;
 
     public PreferencesEachURLActivity() {
-        super(R.layout.preferences_custom_web_each_body);
+        super(R.layout.preferences_custom_web_each_body, true);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        findViewById(R.id.baseWindowRootLinearLayout).setPadding(
-                (int)(24 * getResources().getDisplayMetrics().density),
-                (int)(72 * getResources().getDisplayMetrics().density),
-                (int)(24 * getResources().getDisplayMetrics().density),
-                (int)(72 * getResources().getDisplayMetrics().density));
+        this.setNestingPadding(3);
 
-        this.changeElementSize(false);
+        this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
 
         ((Button) findViewById(R.id.url_submit_button)).setOnClickListener(new View.OnClickListener() {
@@ -81,8 +77,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
 
         if (this._entry_id == 0) {
             // new
-            ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(this.getString(R.string.pref_add_custom_urls_title_for_header_and_footer));
-            ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(this.getString(R.string.pref_add_custom_urls_title_for_header_and_footer));
+            this.setHeaderFooterTexts(this.getString(R.string.pref_add_custom_urls_title_for_header_and_footer), this.getString(R.string.pref_add_custom_urls_title_for_header_and_footer));
             ((Button)findViewById(R.id.url_submit_button)).setText(R.string.add_button_text);
             findViewById(R.id.url_delete_button).setVisibility(View.GONE);
 
@@ -92,8 +87,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             ((Switch)findViewById(R.id.url_has_query)).setChecked(false);
 
         } else {
-            ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer));
-            ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer));
+            this.setHeaderFooterTexts(this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer), this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer));
             ((Button)findViewById(R.id.url_submit_button)).setText(R.string.update_button_text);
             findViewById(R.id.url_delete_button).setVisibility(View.VISIBLE);
 
@@ -108,40 +102,6 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeElementSize(true);
-    }
-
-    private void changeElementSize(boolean visible) {
-        ScrollView mainLL = findViewById(R.id.each_url_main_scroll_view);
-        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-        View centerLL = findViewById(R.id.baseWindowMainLinearLayout);
-        View centerLLOuter = findViewById(R.id.baseWindowMainLinearLayoutOuter);
-
-        if (visible) {
-            mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
-            mainLP.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            mainLL.setLayoutParams(mainLP);
-
-            LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            centerLL.setLayoutParams(centerLP);
-
-            LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
-            centerLPOuter.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-            centerLLOuter.setLayoutParams(centerLPOuter);
-
-        } else {
-            mainLP.width = (int) (200 * getResources().getDisplayMetrics().density + 0.5);
-            mainLP.height = 0;
-            mainLL.setLayoutParams(mainLP);
-
-            LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = 0;
-            centerLL.setLayoutParams(centerLP);
-
-            LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
-            centerLPOuter.height = 0;
-            centerLLOuter.setLayoutParams(centerLPOuter);
-        }
+        this.changeBaseWindowElementSize(true);
     }
 }

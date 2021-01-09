@@ -18,7 +18,7 @@ public class URLPreferences extends SQLiteOpenHelper {
     private static URLPreferences _singleton = null;
 
     private URLPreferences(Context context) {
-        super(context, new File(context.getFilesDir(), DATABASE_NAME).toString(), null,  DATABASE_VERSION);
+        super(context, DATABASE_NAME, null,  DATABASE_VERSION);
     }
 
     public synchronized static URLPreferences getInstance(Context context) {
@@ -71,6 +71,8 @@ public class URLPreferences extends SQLiteOpenHelper {
             ret.add(e);
         }
 
+        curEntry.close();
+
         return ret;
     }
 
@@ -90,6 +92,8 @@ public class URLPreferences extends SQLiteOpenHelper {
 
             return e;
         }
+
+        curEntry.close();
 
         return null;
     }

@@ -39,15 +39,14 @@ public class MainActivity extends BaseWindowActivity {
     private boolean _camebackFlag = false;
 
     public MainActivity() {
-        super(R.layout.main_activity_body);
+        super(R.layout.main_activity_body, true);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(getString(R.string.app_name));
-        ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(String.format(getString(R.string.displayedFullVersionString), BuildConfig.VERSION_NAME));
+        this.setHeaderFooterTexts(getString(R.string.app_name), String.format(getString(R.string.displayedFullVersionString), BuildConfig.VERSION_NAME));
 
         AppNotification.update(this);
 
@@ -116,7 +115,7 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         EditText mainInputText = findViewById(R.id.mainInputText);
@@ -210,24 +209,6 @@ public class MainActivity extends BaseWindowActivity {
             th.join();
         } catch (InterruptedException e) {
         }
-
-        ConstraintLayout root = findViewById(R.id.baseMainLayoutRoot);
-        root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            private int previousHeight = -1;
-
-            @Override
-            public void onGlobalLayout() {
-                ConstraintLayout root = findViewById(R.id.baseMainLayoutRoot);
-
-                if (previousHeight == root.getHeight()) {
-                    return;
-                }
-
-                previousHeight = root.getHeight();
-
-                MainActivity.this.setWholeLayout();
-            }
-        });
     }
 
     @Override
@@ -244,29 +225,34 @@ public class MainActivity extends BaseWindowActivity {
         super.onPause();
     }
 
+    @Override
+    protected void onHeightChange() {
+        super.onHeightChange();
+        this.setWholeLayout();
+    }
+
     private void setWholeLayout() {
-        final boolean textFilled = ! ((EditText)findViewById(R.id.mainInputText)).getText().toString().equals("");
+        final EditText mainInputText = findViewById(R.id.mainInputText);
+        final boolean textFilled = ! mainInputText.getText().toString().equals("");
         Point displaySize = new Point();
         this.getWindowManager().getDefaultDisplay().getSize(displaySize);
 
         final int maxPanelWidth = (int)(600.0 * getResources().getDisplayMetrics().density);
 
-        LinearLayout mainLinearLayout = findViewById(R.id.baseWindowRootLinearLayout);
-        mainLinearLayout.setGravity(textFilled ? Gravity.TOP : Gravity.CENTER_VERTICAL);
+
+        this.setWindowLocationGravity(textFilled ? Gravity.TOP : Gravity.CENTER_VERTICAL);
         final int panelWidth = Math.min(maxPanelWidth,
                                         textFilled ? displaySize.x
                                                    : (int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7))
                                        );
         final int paddingHorizontal = (displaySize.x - panelWidth) / 2;
-        mainLinearLayout.setPadding(paddingHorizontal, 0, paddingHorizontal, 0);
+        this.setRootPadding(paddingHorizontal, 0, paddingHorizontal, 0);
 
         final double pixelsPerSp = getResources().getDisplayMetrics().scaledDensity;
 
-        ConstraintLayout root = findViewById(R.id.baseMainLayoutRoot);
-        EditText mainInputText = findViewById(R.id.mainInputText);
         // mainInputText: editTextSize * (1 (text) + 0.3 * 2 (padding)
         // If space is limited, split remaining height into 1(EditText):2(ListView and other margins)
-        final double editTextSizeSp = Math.min(40.0, (root.getHeight() - findViewById(R.id.baseWindowHeaderWrapper).getHeight() * 2.0) / 4.8 / pixelsPerSp);
+        final double editTextSizeSp = Math.min(40.0, this.getWindowBodyAvailableHeight() / 4.8 / pixelsPerSp);
         mainInputText.setTextSize((int) editTextSizeSp);
         mainInputText.setPadding((int) (editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp));
 

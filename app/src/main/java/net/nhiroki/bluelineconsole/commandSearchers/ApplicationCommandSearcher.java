@@ -8,6 +8,8 @@ import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,6 +119,8 @@ public class ApplicationCommandSearcher implements CommandSearcher {
             String packageName = AppOpenCandidateEntry.this.applicationInformation.getPackageName();
             TextView packageNameView = new TextView(context);
             packageNameView.setText(packageName);
+            packageNameView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
             return packageNameView;
         }
 

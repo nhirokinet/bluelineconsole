@@ -28,23 +28,17 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
     private URLPreferences _urlPreferences;
 
     public PreferencesCustomWebActivity() {
-        super(R.layout.preferences_custom_web_body);
+        super(R.layout.preferences_custom_web_body, false);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        findViewById(R.id.baseWindowRootLinearLayout).setPadding(
-                (int)(16 * getResources().getDisplayMetrics().density),
-                (int)(48 * getResources().getDisplayMetrics().density),
-                (int)(16 * getResources().getDisplayMetrics().density),
-                (int)(48 * getResources().getDisplayMetrics().density));
+        this.setHeaderFooterTexts(getString(R.string.url_preference_title_for_header_and_footer), getString(R.string.url_preference_title_for_header_and_footer));
+        this.setNestingPadding(2);
 
-        ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(getString(R.string.url_preference_title_for_header_and_footer));
-        ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(getString(R.string.url_preference_title_for_header_and_footer));
-
-        this.changeElementSize(false);
+        this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
 
         Button addButton = (Button) findViewById(R.id.customURLListAddButton);
@@ -83,7 +77,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeElementSize(true);
+        this.changeBaseWindowElementSize(true);
     }
 
     private class URLListAdapter extends ArrayAdapter<URLEntry> {
@@ -102,40 +96,6 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
             TextView displayNameTextView = (TextView) (convertView.findViewById(R.id.urlDisplayNameOnEntryView));
             displayNameTextView.setText(this.getItem(position).display_name);
             return convertView;
-        }
-    }
-
-    private void changeElementSize(boolean visible) {
-        LinearLayout mainLL = findViewById(R.id.preference_urls_main_linear_layout);
-        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-        View centerLL = findViewById(R.id.baseWindowMainLinearLayout);
-        View centerLLOuter = findViewById(R.id.baseWindowMainLinearLayoutOuter);
-
-        if (visible) {
-            mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
-            mainLP.height = LinearLayout.LayoutParams.MATCH_PARENT;
-            mainLL.setLayoutParams(mainLP);
-
-            LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = LinearLayout.LayoutParams.MATCH_PARENT;
-            centerLL.setLayoutParams(centerLP);
-
-            LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
-            centerLPOuter.height = LinearLayout.LayoutParams.MATCH_PARENT;
-            centerLLOuter.setLayoutParams(centerLPOuter);
-
-        } else {
-            mainLP.width = (int) (200 * getResources().getDisplayMetrics().density + 0.5);
-            mainLP.height = 0;
-            mainLL.setLayoutParams(mainLP);
-
-            LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = 0;
-            centerLL.setLayoutParams(centerLP);
-
-            LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
-            centerLPOuter.height = 0;
-            centerLLOuter.setLayoutParams(centerLPOuter);
         }
     }
 }

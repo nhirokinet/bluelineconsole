@@ -52,13 +52,14 @@ public class CalculatorCommandSearcher implements CommandSearcher {
         private String subText;
 
         CalculatorCandidateEntry(String s, Context context) {
-            title = s;
+            char ltr = 0x200e;
+            title = ltr + s;
             try {
                 CalculatorNumber res = Calculator.calculate(s);
-                resultText = "= " + res.toString();
+                resultText = ltr + "= " + res.toString();
                 subText = String.format(context.getString(R.string.calculator_precision_format), getPrecisionText(context, res.getPrecision()));
 
-            } catch  (CalculatorExceptions.IllegalFormulaException e) {
+            } catch (CalculatorExceptions.IllegalFormulaException e) {
                 resultText = "= ...";
                 subText = null;
 
@@ -87,6 +88,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
         public View getView(Context context) {
             LinearLayout ret = new LinearLayout(context);
             ret.setOrientation(LinearLayout.VERTICAL);
+            ret.setTextDirection(View.TEXT_DIRECTION_LTR);
 
             TextView resultView = new TextView(context);
 
