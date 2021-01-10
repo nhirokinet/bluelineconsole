@@ -47,7 +47,7 @@ public class DateCommandSearcher implements CommandSearcher {
     @Override
     public void waitUntilPrepared() {}
 
-    private class ClockCandidateEntry implements CandidateEntry {
+    private static class ClockCandidateEntry implements CandidateEntry {
         @Override
         public String getTitle() {
             return "date";

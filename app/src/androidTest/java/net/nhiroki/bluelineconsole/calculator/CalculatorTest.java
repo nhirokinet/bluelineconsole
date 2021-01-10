@@ -20,7 +20,7 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class CalculatorTest {
     private static void assertBigDecimal(String expression, String result, int precision)
-            throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.PrecisionNotAchievableException, CalculatorExceptions.CalculationException {
+            throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         assertEquals(result, Calculator.calculate(expression).getBigDecimal().toString());
         assertEquals(precision, Calculator.calculate(expression).getPrecision());
     }

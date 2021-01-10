@@ -128,7 +128,7 @@ public class ApplicationDatabase {
                 continue;
             }
 
-            Integer thisAppVersion = packageInfo.versionCode;
+            int thisAppVersion = packageInfo.versionCode;
 
             ApplicationInformation applicationInformation;
 
@@ -137,7 +137,7 @@ public class ApplicationDatabase {
                 cachedInfo = applicationMap.get(applicationInfo.packageName);
                 appCacheToRemove.remove(applicationInfo.packageName);
 
-                if (cachedInfo.getVersion() == thisAppVersion && (cachedInfo.getLaunchable() == false || cachedInfo.getLocale().equals(localeStr))) {
+                if (cachedInfo.getVersion() == thisAppVersion && ((!cachedInfo.getLaunchable()) || cachedInfo.getLocale().equals(localeStr))) {
                     applicationInformation = cachedInfo;
                 } else {
                     boolean launchable = context.getPackageManager().getLaunchIntentForPackage(applicationInfo.packageName) != null;
@@ -177,10 +177,6 @@ public class ApplicationDatabase {
             applicationInformationCache.deleteCache(removeFromCache);
         }
         setPreparationCompleted();
-    }
-
-    public void load() {
-
     }
 
     // returns editable reference, but it is not assumed to be edited outside.

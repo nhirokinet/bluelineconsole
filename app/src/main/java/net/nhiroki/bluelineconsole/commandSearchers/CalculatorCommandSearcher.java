@@ -46,7 +46,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
     @Override
     public void waitUntilPrepared() {}
 
-    private class CalculatorCandidateEntry implements CandidateEntry {
+    private static class CalculatorCandidateEntry implements CandidateEntry {
         private String title;
         private String resultText;
         private String subText;

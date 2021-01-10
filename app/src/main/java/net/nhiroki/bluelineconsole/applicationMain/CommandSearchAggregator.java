@@ -35,7 +35,7 @@ public class CommandSearchAggregator {
         commandSearcherList.add(new SearchEngineCommandSearcher(context));
 
         // Command searchers which may return tons candidate should comes to the last of "search result"
-        commandSearcherList.add(new ApplicationCommandSearcher(context));
+        commandSearcherList.add(new ApplicationCommandSearcher());
 
         // Always add default search engine at the last
         commandSearcherList.add(new SearchEngineDefaultCommandSearcher(context));

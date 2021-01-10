@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.PreferenceFragment;
@@ -8,7 +7,6 @@ import android.util.Pair;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
-import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 
 import java.util.List;
@@ -41,8 +39,8 @@ public class PreferencesFragment extends PreferenceFragment {
             ++searchEnginePos;
         }
 
-        ((ListPreference) findPreference("pref_default_search")).setEntries(search_engine_entries);
-        ((ListPreference) findPreference("pref_default_search")).setEntryValues(search_engine_entry_values);
+        ((ListPreference) findPreference(WebSearchEnginesDatabase.PREF_NAME)).setEntries(search_engine_entries);
+        ((ListPreference) findPreference(WebSearchEnginesDatabase.PREF_NAME)).setEntryValues(search_engine_entry_values);
 
         int stringMatchStrategySize = StringMatchStrategy.STRATEGY_LIST.length;
 

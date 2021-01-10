@@ -1,6 +1,7 @@
 package net.nhiroki.bluelineconsole.commands.urls;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.util.Pair;
 
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
@@ -17,6 +18,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class WebSearchEnginesDatabase {
+    public static final String PREF_NAME = "pref_default_search";
+
     private static final Set<String> WIKIPEDIA_SUPPORTING_LANGS = new HashSet<>(
             Arrays.asList(
                     // List as of 2018/03/10, from https://www.wikipedia.org/
@@ -63,37 +66,37 @@ public class WebSearchEnginesDatabase {
             // qc and espanol must be selected by manual specification by caller
 
             // Québec state in Canada. Specify if locale is français (Canada) : French (Canada).
-            put("qc", new Pair<String, String>("Yahoo", "https://qc.search.yahoo.com/search?p="));
+            put("qc", new Pair<>("Yahoo", "https://qc.search.yahoo.com/search?p="));
             // Manually specify if locale is español (Estados Unidos) : Spanish (United States).
             put("espanol", new Pair<String, String>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
 
             // by country code
-            put("AR", new Pair<String, String>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
-            put("BR", new Pair<String, String>("Yahoo", "https://br.search.yahoo.com/search?p="));
-            put("CA", new Pair<String, String>("Yahoo Canada", "https://ca.search.yahoo.com/search?p="));
-            put("CL", new Pair<String, String>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
-            put("DE", new Pair<String, String>("Yahoo", "https://de.search.yahoo.com/search?p="));
-            put("FR", new Pair<String, String>("Yahoo", "https://fr.search.yahoo.com/search?p="));
-            put("HK", new Pair<String, String>("Yahoo雅虎香港", "https://hk.search.yahoo.com/search?p="));
-            put("ID", new Pair<String, String>("Yahoo", "https://id.search.yahoo.com/search?p="));
-            put("IE", new Pair<String, String>("Yahoo", "https://uk.search.yahoo.com/search?p="));
-            put("IN", new Pair<String, String>("Yahoo India", "https://in.search.yahoo.com/search?p="));
-            put("IT", new Pair<String, String>("Yahoo Italia", "https://it.search.yahoo.com/search?p="));
+            put("AR", new Pair<>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
+            put("BR", new Pair<>("Yahoo", "https://br.search.yahoo.com/search?p="));
+            put("CA", new Pair<>("Yahoo Canada", "https://ca.search.yahoo.com/search?p="));
+            put("CL", new Pair<>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
+            put("DE", new Pair<>("Yahoo", "https://de.search.yahoo.com/search?p="));
+            put("FR", new Pair<>("Yahoo", "https://fr.search.yahoo.com/search?p="));
+            put("HK", new Pair<>("Yahoo雅虎香港", "https://hk.search.yahoo.com/search?p="));
+            put("ID", new Pair<>("Yahoo", "https://id.search.yahoo.com/search?p="));
+            put("IE", new Pair<>("Yahoo", "https://uk.search.yahoo.com/search?p="));
+            put("IN", new Pair<>("Yahoo India", "https://in.search.yahoo.com/search?p="));
+            put("IT", new Pair<>("Yahoo Italia", "https://it.search.yahoo.com/search?p="));
             // Despite Yahoo! JAPAN is not listed on https://www.yahoo.com/everything/world/ , Yahoo! JAPAN has the license to use the name.
             // See: https://en.wikipedia.org/wiki/Yahoo%21_Japan (2018/03/10)
-            put("JP", new Pair<String, String>("Yahoo! JAPAN", "https://search.yahoo.co.jp/search?p="));
-            put("MX", new Pair<String, String>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
-            put("MY", new Pair<String, String>("Yahoo Malaysia", "https://malaysia.search.yahoo.com/search?p="));
-            put("PE", new Pair<String, String>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
-            put("PH", new Pair<String, String>("Yahoo", "https://ph.search.yahoo.com/search?p="));
-            put("SE", new Pair<String, String>("Yahoo", "https://se.search.yahoo.com/search?p="));
-            put("SG", new Pair<String, String>("Yahoo", "https://sg.search.yahoo.com/search?p="));
-            put("TW", new Pair<String, String>("Yahoo奇摩", "https://tw.search.yahoo.com/search?p="));
-            put("UK", new Pair<String, String>("Yahoo", "https://uk.search.yahoo.com/search?p="));
-            put("US", new Pair<String, String>("Yahoo", "https://search.yahoo.com/search?p="));
-            put("VE", new Pair<String, String>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
-            put("VN", new Pair<String, String>("Yahoo", "https://vn.search.yahoo.com/search?p="));
-            put("ZA", new Pair<String, String>("Yahoo", "https://uk.search.yahoo.com/search?p="));
+            put("JP", new Pair<>("Yahoo! JAPAN", "https://search.yahoo.co.jp/search?p="));
+            put("MX", new Pair<>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
+            put("MY", new Pair<>("Yahoo Malaysia", "https://malaysia.search.yahoo.com/search?p="));
+            put("PE", new Pair<>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
+            put("PH", new Pair<>("Yahoo", "https://ph.search.yahoo.com/search?p="));
+            put("SE", new Pair<>("Yahoo", "https://se.search.yahoo.com/search?p="));
+            put("SG", new Pair<>("Yahoo", "https://sg.search.yahoo.com/search?p="));
+            put("TW", new Pair<>("Yahoo奇摩", "https://tw.search.yahoo.com/search?p="));
+            put("UK", new Pair<>("Yahoo", "https://uk.search.yahoo.com/search?p="));
+            put("US", new Pair<>("Yahoo", "https://search.yahoo.com/search?p="));
+            put("VE", new Pair<>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
+            put("VN", new Pair<>("Yahoo", "https://vn.search.yahoo.com/search?p="));
+            put("ZA", new Pair<>("Yahoo", "https://uk.search.yahoo.com/search?p="));
         }
     };
 
@@ -127,7 +130,7 @@ public class WebSearchEnginesDatabase {
         List<Pair<String, String>> ret = new ArrayList<>();
 
         for (URLEntry e : this._customSearches) {
-            ret.add(new Pair<String, String>("custom-web-" + String.valueOf(e.id), e.display_name));
+            ret.add(new Pair<String, String>("custom-web-" + e.id, e.display_name));
         }
 
         ret.add(new Pair<String, String>("default-web-wikipedia", "Wikipedia"));
@@ -143,7 +146,9 @@ public class WebSearchEnginesDatabase {
         return ret;
     }
 
-    public WebSearchEngine getEngineByPreference(String pref_str, Locale locale) {
+    public WebSearchEngine getEngineByPreference(Context context, Locale locale) {
+        final String pref_str = PreferenceManager.getDefaultSharedPreferences(context).getString(PREF_NAME, "none");
+
         if (pref_str == null) {
             return null;
         }
@@ -153,7 +158,7 @@ public class WebSearchEnginesDatabase {
         }
 
         for (URLEntry e : this._customSearches) {
-            if (pref_str.equals("custom-web-" + String.valueOf(e.id))) {
+            if (pref_str.equals("custom-web-" + e.id)) {
                 return new WebSearchEngine(e.display_name, e.url_base);
             }
         }
@@ -163,7 +168,7 @@ public class WebSearchEnginesDatabase {
             if (!WIKIPEDIA_SUPPORTING_LANGS.contains(langCode)) {
                 langCode = "en";
             }
-            return new WebSearchEngine("Wikipedia (" + locale.getLanguage() + ")", "https://" + locale.getLanguage() + ".wikipedia.org/wiki/");
+            return new WebSearchEngine("Wikipedia (" + langCode + ")", "https://" + langCode + ".wikipedia.org/wiki/");
         }
 
         if (pref_str.equals("default-web-wikipedia-en")) {

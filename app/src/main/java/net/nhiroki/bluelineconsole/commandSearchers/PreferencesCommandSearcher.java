@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PreferencesCommandSearcher implements CommandSearcher {
-    private String commandString = "config";
+    private static final String COMMAND_STRING = "config";
 
     @Override
     public void refresh(Context context) {
@@ -45,17 +45,17 @@ public class PreferencesCommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        if (s.toLowerCase().equals(commandString)) {
+        if (s.toLowerCase().equals(COMMAND_STRING)) {
             cands.add(new PreferencesCandidateEntry());
         }
 
         return cands;
     }
 
-    private class PreferencesCandidateEntry implements CandidateEntry {
+    private static class PreferencesCandidateEntry implements CandidateEntry {
         @Override
         public String getTitle() {
-            return PreferencesCommandSearcher.this.commandString;
+            return PreferencesCommandSearcher.COMMAND_STRING;
         }
 
         @Override

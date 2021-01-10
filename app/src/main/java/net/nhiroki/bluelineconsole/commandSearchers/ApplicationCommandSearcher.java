@@ -29,7 +29,7 @@ import java.util.List;
 public class ApplicationCommandSearcher implements CommandSearcher {
     private ApplicationDatabase applicationDatabase;
 
-    public ApplicationCommandSearcher(Context context) {
+    public ApplicationCommandSearcher() {
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ApplicationCommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        List<Pair<Integer, CandidateEntry>> appcands = new ArrayList<Pair<Integer, CandidateEntry>>();
+        List<Pair<Integer, CandidateEntry>> appcands = new ArrayList<>();
         for (ApplicationInformation applicationInformation : applicationDatabase.getApplicationInformationList()) {
             final String appLabel = applicationInformation.getLabel();
             final ApplicationInfo androidApplicationInfo = applicationDatabase.getAndroidApplicationInfo(applicationInformation.getPackageName());
@@ -77,13 +77,7 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         Collections.sort(appcands, new Comparator<Pair<Integer, CandidateEntry>>() {
             @Override
             public int compare(Pair<Integer, CandidateEntry> o1, Pair<Integer, CandidateEntry> o2) {
-                if (o1.first > o2.first) {
-                    return 1;
-                }
-                if (o1.first < o2.first) {
-                    return -1;
-                }
-                return 0;
+                return o1.first.compareTo(o2.first);
             }
         });
 
@@ -94,18 +88,18 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         return cands;
     }
 
-    private class AppOpenCandidateEntry implements CandidateEntry {
-        private ApplicationInformation applicationInformation;
-        private ApplicationInfo androidApplicationInfo;
-        private String title;
-        private boolean displayPackagename;
+    private static class AppOpenCandidateEntry implements CandidateEntry {
+        private final ApplicationInformation applicationInformation;
+        private final ApplicationInfo androidApplicationInfo;
+        private final String title;
+        private final boolean displayPackagename;
 
         // Getting app title in Android is slow, so app title also should be given via constructor from cache.
         AppOpenCandidateEntry(Context context, ApplicationInformation applicationInformation, ApplicationInfo androidApplicationInfo, String appTitle) {
             this.applicationInformation = applicationInformation;
             this.androidApplicationInfo = androidApplicationInfo;
             this.title = appTitle;
-            displayPackagename = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("pref_apps_show_package_name", false);
+            this.displayPackagename = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("pref_apps_show_package_name", false);
         }
 
         @Override

@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class URLPreferences extends SQLiteOpenHelper {
             e.name = curEntry.getString(curEntry.getColumnIndex("name"));
             e.display_name = curEntry.getString(curEntry.getColumnIndex("display_name"));
             e.url_base = curEntry.getString(curEntry.getColumnIndex("url_base"));
-            e.has_query = curEntry.getInt(curEntry.getColumnIndex("has_query")) == 0 ? false : true;
+            e.has_query = curEntry.getInt(curEntry.getColumnIndex("has_query")) != 0;
 
             ret.add(e);
         }
@@ -82,19 +81,19 @@ public class URLPreferences extends SQLiteOpenHelper {
 
         Cursor curEntry = this.getReadableDatabase().query("url_info", columnsInDB, "id = ?", args, null, null, null);
 
-        while(curEntry.moveToNext()) {
+        if (curEntry.moveToNext()) {
             URLEntry e = new URLEntry();
             e.id = curEntry.getInt(curEntry.getColumnIndex("id"));
             e.name = curEntry.getString(curEntry.getColumnIndex("name"));
             e.display_name = curEntry.getString(curEntry.getColumnIndex("display_name"));
             e.url_base = curEntry.getString(curEntry.getColumnIndex("url_base"));
-            e.has_query = curEntry.getInt(curEntry.getColumnIndex("has_query")) == 0 ? false : true;
+            e.has_query = curEntry.getInt(curEntry.getColumnIndex("has_query")) != 0;
 
+            curEntry.close();
             return e;
         }
 
         curEntry.close();
-
         return null;
     }
 

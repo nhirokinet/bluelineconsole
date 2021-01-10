@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -8,14 +7,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 
 import net.nhiroki.bluelineconsole.R;
 
-public class StartUpHelpActvity extends BaseWindowActivity {
-    public StartUpHelpActvity() {
+public class StartUpHelpActivity extends BaseWindowActivity {
+    public StartUpHelpActivity() {
         super(R.layout.start_up_help_body, true);
     }
 
@@ -42,11 +39,11 @@ public class StartUpHelpActvity extends BaseWindowActivity {
             @Override
             public void onClick(View v) {
                 if (((CheckBox) findViewById(R.id.startUpCheckBoxNotToContinue)).isChecked()) {
-                    SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(StartUpHelpActvity.this).edit();
+                    SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(StartUpHelpActivity.this).edit();
                     prefEdit.putBoolean("pref_main_show_startup_help", false);
                     prefEdit.apply();
                 }
-                StartUpHelpActvity.this.finish();
+                StartUpHelpActivity.this.finish();
             }
         });
 

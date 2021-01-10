@@ -1,5 +1,6 @@
 package net.nhiroki.bluelineconsole.commands.netutils;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class PingActivity extends BaseWindowActivity {
         this.enableBaseWindowAnimation();
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
         super.onResume();
@@ -89,6 +91,7 @@ public class PingActivity extends BaseWindowActivity {
             @Override
             public void run() {
                 PingActivity.this.runOnUiThread(new Runnable() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
                         ((TextView)findViewById(R.id.command_output_text_view)).setText(((TextView)findViewById(R.id.command_output_text_view)).getText() + s);

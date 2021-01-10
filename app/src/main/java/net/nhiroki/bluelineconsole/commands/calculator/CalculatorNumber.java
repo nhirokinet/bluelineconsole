@@ -40,7 +40,7 @@ public class CalculatorNumber implements FormulaPart {
         }
     }
 
-    public class Precision {
+    public static class Precision {
         public static final int PRECISION_NULL = 999999;
 
         public static final int PRECISION_NO_ERROR = 1;

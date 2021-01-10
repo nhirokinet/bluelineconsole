@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -80,7 +79,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSize(true);
     }
 
-    private class URLListAdapter extends ArrayAdapter<URLEntry> {
+    private static class URLListAdapter extends ArrayAdapter<URLEntry> {
         public URLListAdapter(@NonNull Context context, int resource, @NonNull List<URLEntry> objects) {
             super(context, resource, objects);
         }
