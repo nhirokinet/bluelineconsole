@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
+import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.netutils.PingActivity;
 import net.nhiroki.bluelineconsole.commands.netutils.Ping6Activity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -50,12 +51,12 @@ public class NetUtilCommandSearcher implements CommandSearcher {
 
             if (query.length() == 0 || query.charAt(0) != '-') {
                 if (this._pingAvailable) {
-                    if (PingActivity.TARGET_COMMAND_SHORT.startsWith(engine)) {
+                    if (StringMatchStrategy.match(context, engine, PingActivity.TARGET_COMMAND_SHORT, true) != -1) {
                         ret.add(new PingCandidateEntry(s.split(" ", 2)[1]));
                     }
                 }
                 if (this._ping6Available) {
-                    if (Ping6Activity.TARGET_COMMAND_SHORT.startsWith(engine)) {
+                    if (StringMatchStrategy.match(context, engine, Ping6Activity.TARGET_COMMAND_SHORT, true) != -1) {
                         ret.add(new Ping6CandidateEntry(s.split(" ", 2)[1]));
                     }
                 }

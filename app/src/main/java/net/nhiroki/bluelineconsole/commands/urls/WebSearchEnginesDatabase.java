@@ -3,6 +3,7 @@ package net.nhiroki.bluelineconsole.commands.urls;
 import android.content.Context;
 import android.util.Pair;
 
+import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
 
@@ -98,7 +99,7 @@ public class WebSearchEnginesDatabase {
 
     private List<URLEntry> _customSearches;
     private List<URLEntry> _customStaticURLs;
-    private Context _context;
+    private Context _context;  // only for database access, because this may be taken from another Activity
 
     public WebSearchEnginesDatabase(Context context) {
         this._customSearches = new ArrayList<>();
@@ -214,16 +215,16 @@ public class WebSearchEnginesDatabase {
         return null;
     }
 
-    public List<WebSearchEngine> getEngineListByNameQuery(String engine, Locale locale) {
+    public List<WebSearchEngine> getEngineListByNameQuery(Context context, String engine, Locale locale) {
         List<WebSearchEngine> ret = new ArrayList<>();
 
         for (URLEntry e : this._customSearches) {
-            if (e.name.startsWith(engine)) {
+            if (StringMatchStrategy.match(context, engine, e.name, true) != -1) {
                 ret.add(new WebSearchEngine(e.display_name, e.url_base));
             }
         }
 
-        if ("wikipedia".startsWith(engine)) {
+        if (StringMatchStrategy.match(context, engine, "wikipedia", true) != -1) {
             String langCode = locale.getLanguage();
             if (!WIKIPEDIA_SUPPORTING_LANGS.contains(langCode)) {
                 langCode = "en";
@@ -232,16 +233,16 @@ public class WebSearchEnginesDatabase {
             ret.add(new WebSearchEngine("Wikipedia (en)", "https://en.wikipedia.org/wiki/"));
         }
 
-        if ("duckduckgo".startsWith(engine)) {
+        if (StringMatchStrategy.match(context, engine, "duckduckgo", true) != -1) {
             ret.add(new WebSearchEngine("DuckDuckGo", "https://duckduckgo.com/?q="));
         }
 
-        if ("bing".startsWith(engine)) {
+        if (StringMatchStrategy.match(context, engine, "bing", true) != -1) {
             ret.add(new WebSearchEngine("Bing", "https://www.bing.com/search?q="));
             ret.add(new WebSearchEngine("Bing (English, US)", "https://www.bing.com/search?setlang=en-us&q="));
         }
 
-        if ("yahoo".startsWith(engine)) {
+        if (StringMatchStrategy.match(context, engine, "yahoo", true) != -1) {
             String countryCode = locale.getCountry();
             String localeAsString = locale.toString();
 
@@ -260,7 +261,7 @@ public class WebSearchEnginesDatabase {
             ret.add(new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second));
         }
 
-        if ("google".startsWith(engine)) {
+        if (StringMatchStrategy.match(context, engine, "google", true) != -1) {
             ret.add(new WebSearchEngine("Google", "https://www.google.com/search?q="));
             ret.add(new WebSearchEngine("Google (English)", "https://www.google.com/search?hl=en&q="));
         }
@@ -268,11 +269,11 @@ public class WebSearchEnginesDatabase {
         return ret;
     }
 
-    public List<WebSearchEngine> getStaticPageListByNameQuery(String query) {
+    public List<WebSearchEngine> getStaticPageListByNameQuery(Context context, String query) {
         List<WebSearchEngine> ret = new ArrayList<>();
 
         for (URLEntry e : this._customStaticURLs) {
-            if (e.name.startsWith(query)) {
+            if (StringMatchStrategy.match(context, query, e.name, true) != -1) {
                 ret.add(new WebSearchEngine(e.display_name, e.url_base));
             }
         }

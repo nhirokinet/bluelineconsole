@@ -54,7 +54,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
             String query = s.substring(split + 1);
 
             if (!engine.equals("")) {
-                List<WebSearchEngine> searchEngines = this._searchEngineDB.getEngineListByNameQuery(engine, locale);
+                List<WebSearchEngine> searchEngines = this._searchEngineDB.getEngineListByNameQuery(context, engine, locale);
 
                 for (WebSearchEngine e: searchEngines) {
                     cands.add(new SearchEngineCandidateEntry(context, query, e.display_name, e.url_base));
@@ -63,7 +63,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
 
         } else {
             if (!s.equals("")) {
-                List<WebSearchEngine> urls = this._searchEngineDB.getStaticPageListByNameQuery(s);
+                List<WebSearchEngine> urls = this._searchEngineDB.getStaticPageListByNameQuery(context, s);
                 for (WebSearchEngine e: urls) {
                     cands.add(new StaticPageCandidateEntry(context, e.display_name, e.url_base));
                 }
