@@ -33,6 +33,9 @@
     <string name="pref_display_custom_urls">自定义页面和搜索</string>
     <string name="pref_add_custom_urls_title_for_header_and_footer">添加 URL</string>
     <string name="pref_edit_custom_urls_title_for_header_and_footer">编辑 URL</string>
+    <string name="pref_default_search">默认搜索引擎</string>
+    <string name="pref_default_search_summary">总是在列表的底部显示特定的搜索引擎</string>
+    <string name="pref_default_search_none">（无）</string>
     <string name="add_button_text">添加</string>
     <string name="update_button_text">更新</string>
     <string name="delete_button_text">删除</string>
@@ -61,11 +64,11 @@
         \n-&#032;google &lt;query&gt;
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
-	\n
+		\n
         \n网络管理命令：
         \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　（仅在有相应命令的系统上可用）
-	\n
+		\n
         \n搜索引擎名称可以缩写。
         \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。
         \n
