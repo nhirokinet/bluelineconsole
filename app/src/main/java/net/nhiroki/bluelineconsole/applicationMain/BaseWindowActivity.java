@@ -59,7 +59,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        ((ConstraintLayout) findViewById(R.id.baseWindowMainLayoutRoot)).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        findViewById(R.id.baseWindowMainLayoutRoot).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             private int previousHeight = -1;
 
             @Override

@@ -68,7 +68,7 @@ public class WebSearchEnginesDatabase {
             // Québec state in Canada. Specify if locale is français (Canada) : French (Canada).
             put("qc", new Pair<>("Yahoo", "https://qc.search.yahoo.com/search?p="));
             // Manually specify if locale is español (Estados Unidos) : Spanish (United States).
-            put("espanol", new Pair<String, String>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
+            put("espanol", new Pair<>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
 
             // by country code
             put("AR", new Pair<>("Yahoo", "https://espanol.search.yahoo.com/search?p="));
@@ -130,18 +130,18 @@ public class WebSearchEnginesDatabase {
         List<Pair<String, String>> ret = new ArrayList<>();
 
         for (URLEntry e : this._customSearches) {
-            ret.add(new Pair<String, String>("custom-web-" + e.id, e.display_name));
+            ret.add(new Pair<>("custom-web-" + e.id, e.display_name));
         }
 
-        ret.add(new Pair<String, String>("default-web-wikipedia", "Wikipedia"));
-        ret.add(new Pair<String, String>("default-web-wikipedia-en", "Wikipedia (English)"));
-        ret.add(new Pair<String, String>("default-web-duckduckgo", "DuckDuckGo"));
-        ret.add(new Pair<String, String>("default-web-bing", "Bing"));
-        ret.add(new Pair<String, String>("default-web-bing-en", "Bing (English)"));
-        ret.add(new Pair<String, String>("default-web-yahoo", "Yahoo"));
-        ret.add(new Pair<String, String>("default-web-yahoo-en-us", "Yahoo (English, US)"));
-        ret.add(new Pair<String, String>("default-web-google", "Google"));
-        ret.add(new Pair<String, String>("default-web-google-en", "Google (English)"));
+        ret.add(new Pair<>("default-web-wikipedia", "Wikipedia"));
+        ret.add(new Pair<>("default-web-wikipedia-en", "Wikipedia (English)"));
+        ret.add(new Pair<>("default-web-duckduckgo", "DuckDuckGo"));
+        ret.add(new Pair<>("default-web-bing", "Bing"));
+        ret.add(new Pair<>("default-web-bing-en", "Bing (English)"));
+        ret.add(new Pair<>("default-web-yahoo", "Yahoo"));
+        ret.add(new Pair<>("default-web-yahoo-en-us", "Yahoo (English, US)"));
+        ret.add(new Pair<>("default-web-google", "Google"));
+        ret.add(new Pair<>("default-web-google-en", "Google (English)"));
 
         return ret;
     }
@@ -202,10 +202,12 @@ public class WebSearchEnginesDatabase {
             if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(countryCode)) {
                 countryCode = "US";
             }
+            //noinspection ConstantConditions
             return new WebSearchEngine(YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).first, YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).second);
         }
 
         if (pref_str.equals("default-web-yahoo-en-us")) {
+            //noinspection ConstantConditions
             return new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second);
         }
 
@@ -234,7 +236,7 @@ public class WebSearchEnginesDatabase {
             if (!WIKIPEDIA_SUPPORTING_LANGS.contains(langCode)) {
                 langCode = "en";
             }
-            ret.add(new WebSearchEngine("Wikipedia (" + locale.getLanguage() + ")", "https://" + locale.getLanguage() + ".wikipedia.org/wiki/"));
+            ret.add(new WebSearchEngine("Wikipedia (" + langCode + ")", "https://" + langCode + ".wikipedia.org/wiki/"));
             ret.add(new WebSearchEngine("Wikipedia (en)", "https://en.wikipedia.org/wiki/"));
         }
 
@@ -262,7 +264,9 @@ public class WebSearchEnginesDatabase {
             if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(countryCode)) {
                 countryCode = "US";
             }
+            //noinspection ConstantConditions
             ret.add(new WebSearchEngine(YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).first, YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).second));
+            //noinspection ConstantConditions
             ret.add(new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second));
         }
 

@@ -70,6 +70,7 @@ public class ApplicationCommandSearcher implements CommandSearcher {
             int packageNameMatchResult = StringMatchStrategy.match(context, s, applicationInformation.getPackageName(), false);
             if (packageNameMatchResult != -1) {
                 appcands.add(new Pair<Integer, CandidateEntry>(100000 + packageNameMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
+                //noinspection UnnecessaryContinue
                 continue;
             }
         }
