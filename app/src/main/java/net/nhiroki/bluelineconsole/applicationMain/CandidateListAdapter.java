@@ -44,9 +44,9 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
         final CandidateEntry cand = this.getItem(position);
 
-        final TextView titleTextView = (TextView) (convertView.findViewById(R.id.candidateTitleTextView));
-        final ImageView iconView = (ImageView) convertView.findViewById(R.id.candidateIconView);
-        final LinearLayout additionalLinearView = (LinearLayout) convertView.findViewById(R.id.candidatedetaillinearlistview);
+        final TextView titleTextView = convertView.findViewById(R.id.candidateTitleTextView);
+        final ImageView iconView = convertView.findViewById(R.id.candidateIconView);
+        final LinearLayout additionalLinearView = convertView.findViewById(R.id.candidatedetaillinearlistview);
 
         titleTextView.setText(cand.getTitle());
 

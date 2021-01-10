@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/preference_activity_fragment_wrapper"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:paddingVertical="0px"
@@ -9,18 +8,12 @@
     android:animateLayoutChanges="true"
     android:orientation="horizontal"
     android:background="@color/baseBackground"
+    android:fillViewport="true"
     >
-    <ScrollView
+    <FrameLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/main_preference_fragment_wrapper"
-        android:fillViewport="true"
-        >
-        <FrameLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/main_preference_fragment"
-            android:background="#ffffff"
-            />
-    </ScrollView>
-</LinearLayout>
+        android:id="@+id/main_preference_fragment"
+        android:background="#ffffff"
+        />
+</ScrollView>

@@ -28,7 +28,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
 
-        ((Button) findViewById(R.id.url_submit_button)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.url_submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 URLEntry entry = new URLEntry();
@@ -54,7 +54,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             }
         });
 
-        ((Button) findViewById(R.id.url_delete_button)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.url_delete_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 URLPreferences.getInstance(PreferencesEachURLActivity.this).deleteById(PreferencesEachURLActivity.this._entry_id);
