@@ -29,11 +29,13 @@
     <string name="pref_display_summary_apps_show_package_name">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
     <string name="pref_add_custom_urls_title_for_header_and_footer">Add URL</string>
     <string name="pref_edit_custom_urls_title_for_header_and_footer">Edit URL</string>
+    <string name="pref_default_search">デフォルト検索エンジン</string>
+    <string name="pref_default_search_summary">常に設定した検索エンジンでの検索を一覧に表示します</string>
+    <string name="pref_default_search_none">（なし）</string>
     <string name="url_preference_column_name">コマンド名</string>
     <string name="url_preference_column_display_name">表示名</string>
     <string name="url_preference_column_url">URL</string>
     <string name="url_preference_column_has_query">検索エンジン（有効にするとクエリが URL 末尾に追加されます）</string>
-
     <string name="add_button_text">追加</string>
     <string name="update_button_text">更新</string>
     <string name="delete_button_text">削除</string>

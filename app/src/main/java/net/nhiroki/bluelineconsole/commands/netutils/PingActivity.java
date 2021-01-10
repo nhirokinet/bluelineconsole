@@ -20,7 +20,6 @@ public class PingActivity extends BaseWindowActivity {
     private Process _command;
     private InputStream _commandIS;
     private Thread _readerThread;
-    private boolean _terminating = false;
 
     public PingActivity() {
         super(R.layout.activity_ping, false);

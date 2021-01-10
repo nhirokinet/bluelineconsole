@@ -9,6 +9,7 @@ import net.nhiroki.bluelineconsole.commandSearchers.HelpCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.NetUtilCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.PreferencesCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.SearchEngineCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.SearchEngineDefaultCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.URICommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
@@ -33,8 +34,11 @@ public class CommandSearchAggregator {
         commandSearcherList.add(new CalculatorCommandSearcher());
         commandSearcherList.add(new SearchEngineCommandSearcher(context));
 
-        // Command searchers which may return tons candidate should comes to the last
+        // Command searchers which may return tons candidate should comes to the last of "search result"
         commandSearcherList.add(new ApplicationCommandSearcher(context));
+
+        // Always add default search engine at the last
+        commandSearcherList.add(new SearchEngineDefaultCommandSearcher(context));
 
         refresh(context);
     }
