@@ -78,5 +78,5 @@
     <string name="err_invalid_url">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠("/").</string>
     <string name="err_invalid_url_name">无效的名称：命令只能包含数字和小写字母，且不能为空。</string>
     <string name="err_display_name_is_empty">显示名称为空</string>
-	<string name="err_could_not_start_command">错误：无法启动命令</string>
+    <string name="err_could_not_start_command">错误：无法启动命令</string>
 </resources>
