@@ -1,4 +1,4 @@
-Blue Line Console launches your apps, preset web search engines, and built in calculator via keyboard.
+Blue Line Console launches your apps, web search engines, and built in calculator via keyboard.
 
 You can launch the desired app quickly with your keyboard everywhere. Just type 2 or 3 characters, and likely you can find the desired app on top of list. You need no configuration to do it (although I prepared some configuration for more comfortable usage).
 
@@ -22,4 +22,6 @@ Available commands:
 - google QUERY
 - wikipedia QUERY
 - yahoo QUERY
+- ping HOST
+- ping6 HOST
 
