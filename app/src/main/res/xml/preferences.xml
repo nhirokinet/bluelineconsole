@@ -37,5 +37,11 @@
                 android:targetPackage="net.nhiroki.bluelineconsole"
                 />
         </Preference>
+        <ListPreference
+            android:key="pref_default_search"
+            android:defaultValue="none"
+            android:title="@string/pref_default_search"
+            android:summary="@string/pref_default_search_summary"
+            />
     </PreferenceCategory>
 </PreferenceScreen>

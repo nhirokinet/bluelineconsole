@@ -33,6 +33,9 @@
     <string name="pref_display_custom_urls">Custom pages and searches</string>
     <string name="pref_add_custom_urls_title_for_header_and_footer">Add URL</string>
     <string name="pref_edit_custom_urls_title_for_header_and_footer">Edit URL</string>
+    <string name="pref_default_search">Default Search Engine</string>
+    <string name="pref_default_search_summary">Always show specific search engine on the bottom of list</string>
+    <string name="pref_default_search_none">(None)</string>
     <string name="add_button_text">Add</string>
     <string name="update_button_text">Update</string>
     <string name="delete_button_text">Delete</string>

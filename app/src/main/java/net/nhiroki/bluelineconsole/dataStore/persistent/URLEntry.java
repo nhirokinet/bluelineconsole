@@ -18,7 +18,7 @@ public class URLEntry {
 
         for (int i = 0; i < this.name.length(); ++i) {
             char c = this.name.charAt(i);
-            if (!((c >= '0' && c <= 9) || (c >= 'a' && c <= 'z'))) {
+            if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z'))) {
                 return R.string.err_invalid_url_name;
             }
         }
