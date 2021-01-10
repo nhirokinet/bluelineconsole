@@ -15,6 +15,11 @@
             android:summary="@string/pref_display_summary_main_always_show_notification"
             android:defaultValue="false"
             />
+        <ListPreference
+            android:key="pref_text_match_strategy"
+            android:title="@string/pref_string_match_strategy"
+            android:defaultValue="substring"
+            />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_apps"

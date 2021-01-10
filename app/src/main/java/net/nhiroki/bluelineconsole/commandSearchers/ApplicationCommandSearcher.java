@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.applications.ApplicationDatabase;
 import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformation;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -60,13 +61,15 @@ public class ApplicationCommandSearcher implements CommandSearcher {
             final String appLabel = applicationInformation.getLabel();
             final ApplicationInfo androidApplicationInfo = applicationDatabase.getAndroidApplicationInfo(applicationInformation.getPackageName());
 
-            if (appLabel.toLowerCase().contains(s.toLowerCase())) {
-                appcands.add(new Pair<Integer, CandidateEntry>(appLabel.toLowerCase().indexOf(s.toLowerCase()), new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
+            int appLabelMatchResult = StringMatchStrategy.match(context, s, appLabel, false);
+            if (appLabelMatchResult != -1) {
+                appcands.add(new Pair<Integer, CandidateEntry>(appLabelMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
                 continue;
             }
 
-            if (applicationInformation.getPackageName().toLowerCase().contains(s.toLowerCase())) {
-                appcands.add(new Pair<Integer, CandidateEntry>(100000 + appLabel.toLowerCase().indexOf(s.toLowerCase()), new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
+            int packageNameMatchResult = StringMatchStrategy.match(context, s, applicationInformation.getPackageName(), false);
+            if (packageNameMatchResult != -1) {
+                appcands.add(new Pair<Integer, CandidateEntry>(100000 + packageNameMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
                 continue;
             }
         }

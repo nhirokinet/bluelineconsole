@@ -36,6 +36,9 @@
     <string name="pref_default_search">Default Search Engine</string>
     <string name="pref_default_search_summary">Always show specific search engine on the bottom of list</string>
     <string name="pref_default_search_none">(None)</string>
+    <string name="pref_string_match_strategy">Text search matching style</string>
+    <string name="pref_string_match_strategy_substring">Normal</string>
+    <string name="pref_string_match_strategy_skipped_substring">Skipped substring (e.g. &quot;abd&quot; for &quot;abcdef&quot;)</string>
     <string name="add_button_text">Add</string>
     <string name="update_button_text">Update</string>
     <string name="delete_button_text">Delete</string>
