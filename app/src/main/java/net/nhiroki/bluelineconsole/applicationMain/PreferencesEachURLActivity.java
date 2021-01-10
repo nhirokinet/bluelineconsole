@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import net.nhiroki.bluelineconsole.R;
@@ -50,11 +47,10 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
 
                 if (PreferencesEachURLActivity.this._entry_id == 0) {
                     URLPreferences.getInstance(PreferencesEachURLActivity.this).add(entry);
-                    PreferencesEachURLActivity.this.finish();
                 } else {
                     URLPreferences.getInstance(PreferencesEachURLActivity.this).update(entry);
-                    PreferencesEachURLActivity.this.finish();
                 }
+                PreferencesEachURLActivity.this.finish();
             }
         });
 

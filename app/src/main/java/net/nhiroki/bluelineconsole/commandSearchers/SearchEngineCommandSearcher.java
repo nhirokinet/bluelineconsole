@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class SearchEngineCommandSearcher implements CommandSearcher {
-    private WebSearchEnginesDatabase _searchEngineDB;
+    private final WebSearchEnginesDatabase _searchEngineDB;
 
     public SearchEngineCommandSearcher(Context context) {
         this._searchEngineDB = new WebSearchEnginesDatabase(context);
@@ -72,13 +72,11 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         return cands;
     }
 
-    private class StaticPageCandidateEntry implements CandidateEntry {
-        String pageName;
-        String urlBase;
-        String title;
+    private static class StaticPageCandidateEntry implements CandidateEntry {
+        private final String urlBase;
+        private final String title;
 
         StaticPageCandidateEntry(Context context, String pageName, String urlBase) {
-            this.pageName = pageName;
             this.urlBase = urlBase;
             this.title = String.format(context.getString(R.string.formatStaticPageEntry), pageName);
         }
@@ -120,15 +118,13 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         }
     }
 
-    private class SearchEngineCandidateEntry implements CandidateEntry {
-        String query;
-        String engineName;
-        String urlBase;
-        String title;
+    private static class SearchEngineCandidateEntry implements CandidateEntry {
+        private final String query;
+        private final String urlBase;
+        private final String title;
 
         SearchEngineCandidateEntry(Context context, String query, String engineName, String urlBase) {
             this.query = query;
-            this.engineName = engineName;
             this.urlBase = urlBase;
             this.title = String.format(context.getString(R.string.formatSearchQueryOnEngine), query, engineName);
         }

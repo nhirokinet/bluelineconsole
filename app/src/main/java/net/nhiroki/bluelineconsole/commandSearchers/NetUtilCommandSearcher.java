@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NetUtilCommandSearcher implements CommandSearcher {
-    private boolean _pingAvailable;
-    private boolean _ping6Available;
+    private final boolean _pingAvailable;
+    private final boolean _ping6Available;
 
     public NetUtilCommandSearcher() {
         this._pingAvailable = PingActivity.commandAvailable();
@@ -49,7 +49,7 @@ public class NetUtilCommandSearcher implements CommandSearcher {
             String engine = s.substring(0, split).toLowerCase();
             String query = s.substring(split + 1);
 
-            if (query.length() == 0 || query.charAt(0) != '-') {
+            if (!query.contains(" ") && (query.length() == 0 || query.charAt(0) != '-')) {
                 if (this._pingAvailable) {
                     if (StringMatchStrategy.match(context, engine, PingActivity.TARGET_COMMAND_SHORT, true) != -1) {
                         ret.add(new PingCandidateEntry(s.split(" ", 2)[1]));
@@ -65,8 +65,8 @@ public class NetUtilCommandSearcher implements CommandSearcher {
         return ret;
     }
 
-    private class PingCandidateEntry implements CandidateEntry {
-        private String _host;
+    private static class PingCandidateEntry implements CandidateEntry {
+        private final String _host;
 
         PingCandidateEntry(String host) {
             this._host = host;
@@ -110,8 +110,8 @@ public class NetUtilCommandSearcher implements CommandSearcher {
         }
     }
 
-    private class Ping6CandidateEntry implements CandidateEntry {
-        private String _host;
+    private static class Ping6CandidateEntry implements CandidateEntry {
+        private final String _host;
 
         Ping6CandidateEntry(String host) {
             this._host = host;

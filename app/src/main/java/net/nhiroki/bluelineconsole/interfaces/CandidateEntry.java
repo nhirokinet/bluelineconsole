@@ -8,37 +8,36 @@ public interface CandidateEntry {
     /**
      * @return The title to display.
      */
-    public String getTitle();
+    String getTitle();
 
     /**
      *
-     * @param context
+     * @param context Android Context for the corresponding Activity
      * @return Detail view, or null if nothing to show.
      */
-    public View getView(Context context);
+    View getView(Context context);
 
     /**
      * Whether getView() may return vertically long view or not.
      * This is used to determine the layout.
      */
-    public boolean hasLongView();
+    boolean hasLongView();
 
     /**
-     * @param context
+     * @param context Android Context for the corresponding Activity
      * @return EventLauncher correspoinding to event, or null if nothing to do.
      */
-    public EventLauncher getEventLauncher(Context context);
+    EventLauncher getEventLauncher(Context context);
 
     /**
      * Return icon for this entry, or null if nothing to show.
      * Returning null here reserves a little bit wider area for detail view.
      */
-    public Drawable getIcon(Context context);
+    Drawable getIcon(Context context);
 
     /**
      * Return whether this CandidateEntry has an event to launch.
      * @return must exactly same as (getEventLauncher(context) != null).
      */
-    public boolean hasEvent();
-
+    boolean hasEvent();
 }

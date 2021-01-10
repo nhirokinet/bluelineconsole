@@ -41,7 +41,7 @@ public class URICommandSearcher implements CommandSearcher {
         return true;
     }
 
-    private class URLOpenCandidateEntry implements CandidateEntry {
+    private static class URLOpenCandidateEntry implements CandidateEntry {
         final String url;
 
         URLOpenCandidateEntry(String url) {

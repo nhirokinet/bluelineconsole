@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.view.View;
 
 import net.nhiroki.bluelineconsole.R;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
-    private WebSearchEnginesDatabase _searchEngineDB;
+    private final WebSearchEnginesDatabase _searchEngineDB;
 
     public SearchEngineDefaultCommandSearcher(Context context) {
         this._searchEngineDB = new WebSearchEnginesDatabase(context);
@@ -46,7 +45,7 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        WebSearchEngine searchEngine = this._searchEngineDB.getEngineByPreference(PreferenceManager.getDefaultSharedPreferences(context).getString("pref_default_search", "none"),  context.getResources().getConfiguration().locale);
+        WebSearchEngine searchEngine = this._searchEngineDB.getEngineByPreference(context,  context.getResources().getConfiguration().locale);
 
         if (searchEngine != null) {
             cands.add(new SearchEngineCandidateEntry(context, s, searchEngine.display_name, searchEngine.url_base));
@@ -54,15 +53,13 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
         return cands;
     }
 
-    private class SearchEngineCandidateEntry implements CandidateEntry {
-        String query;
-        String engineName;
-        String urlBase;
-        String title;
+    private static class SearchEngineCandidateEntry implements CandidateEntry {
+        private final String query;
+        private final String urlBase;
+        private final String title;
 
         SearchEngineCandidateEntry(Context context, String query, String engineName, String urlBase) {
             this.query = query;
-            this.engineName = engineName;
             this.urlBase = urlBase;
             this.title = String.format(context.getString(R.string.formatSearchQueryOnEngine), query, engineName);
         }

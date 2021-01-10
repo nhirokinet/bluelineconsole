@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingStart="6dp"
+            android:paddingEnd="0dp"
             android:orientation="vertical"
             android:clickable="false"
             android:focusable="false"
