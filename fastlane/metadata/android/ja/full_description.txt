@@ -22,3 +22,5 @@ Blue Line Console は、キーボードで素早く必要なアプリやウェ�
 - google QUERY
 - wikipedia QUERY
 - yahoo QUERY
+- ping HOST
+- ping6 HOST

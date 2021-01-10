@@ -7,6 +7,7 @@ import android.preference.PreferenceFragment;
 import android.util.Pair;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 
@@ -24,26 +25,36 @@ public class PreferencesFragment extends PreferenceFragment {
     public void onResume() {
         super.onResume();
 
-        WebSearchEnginesDatabase db = new WebSearchEnginesDatabase(this.getActivity());
+        List<Pair<String, String>> searchEngines = (new WebSearchEnginesDatabase(this.getActivity())).getEngineConfigList();
 
-        List<Pair<String, String>> searchEngines = db.getEngineConfigList();
+        CharSequence[] search_engine_entries = new CharSequence[searchEngines.size() + 1];
+        search_engine_entries[0] = getString(R.string.pref_default_search_none);
 
-        CharSequence[] entries = new CharSequence[searchEngines.size() + 1];
-        entries[0] = getString(R.string.pref_default_search_none);
+        CharSequence[] search_engine_entry_values = new CharSequence[searchEngines.size() + 1];
+        search_engine_entry_values[0] = "none";
 
-        CharSequence[] entry_values = new CharSequence[searchEngines.size() + 1];
-        entry_values[0] = "none";
-
-        int i = 1;
+        int searchEnginePos = 1;
 
         for (Pair<String, String> e: searchEngines) {
-            entry_values[i] = e.first;
-            entries[i] = e.second;
-            ++i;
+            search_engine_entry_values[searchEnginePos] = e.first;
+            search_engine_entries[searchEnginePos] = e.second;
+            ++searchEnginePos;
         }
 
-        ((ListPreference) findPreference("pref_default_search")).setEntries(entries);
-        ((ListPreference) findPreference("pref_default_search")).setEntryValues(entry_values);
+        ((ListPreference) findPreference("pref_default_search")).setEntries(search_engine_entries);
+        ((ListPreference) findPreference("pref_default_search")).setEntryValues(search_engine_entry_values);
 
+        int stringMatchStrategySize = StringMatchStrategy.STRATEGY_LIST.length;
+
+        CharSequence[]  string_match_strategy_entries = new CharSequence[stringMatchStrategySize];
+        CharSequence[]  string_match_strategy_entry_values = new CharSequence[stringMatchStrategySize];
+
+        for (int i = 0; i < stringMatchStrategySize; ++i) {
+            string_match_strategy_entries[i] = StringMatchStrategy.getStrategyName(this.getActivity(), StringMatchStrategy.STRATEGY_LIST[i]);
+            string_match_strategy_entry_values[i] = StringMatchStrategy.getStrategyPrefValue(StringMatchStrategy.STRATEGY_LIST[i]);
+        }
+
+        ((ListPreference) findPreference(StringMatchStrategy.PREF_NAME)).setEntries(string_match_strategy_entries);
+        ((ListPreference) findPreference(StringMatchStrategy.PREF_NAME)).setEntryValues(string_match_strategy_entry_values);
     }
 }

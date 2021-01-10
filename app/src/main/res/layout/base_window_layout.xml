@@ -30,7 +30,10 @@
             <LinearLayout
                 android:layout_width="3sp"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccentForFrame"></LinearLayout>
+                android:background="@color/colorAccentForFrame"
+                android:orientation="horizontal"
+                >
+            </LinearLayout>
             <TextView
                 android:clickable="true"
                 android:id="@+id/baseWindowMainHeaderTextView"

@@ -199,7 +199,6 @@ public class MainActivity extends BaseWindowActivity {
                         ((ViewGroup) findViewById(R.id.mainRootLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
                         ((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
                         ((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-
                     }
                 });
             }

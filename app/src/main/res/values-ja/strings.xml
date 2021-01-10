@@ -32,6 +32,9 @@
     <string name="pref_default_search">デフォルト検索エンジン</string>
     <string name="pref_default_search_summary">常に設定した検索エンジンでの検索を一覧に表示します</string>
     <string name="pref_default_search_none">（なし）</string>
+    <string name="pref_string_match_strategy">検索時の文字列マッチ</string>
+    <string name="pref_string_match_strategy_substring">通常</string>
+    <string name="pref_string_match_strategy_skipped_substring">一部一致 （例： &quot;abd&quot; で &quot;abcdef&quot; がヒット）</string>
     <string name="url_preference_column_name">コマンド名</string>
     <string name="url_preference_column_display_name">表示名</string>
     <string name="url_preference_column_url">URL</string>
