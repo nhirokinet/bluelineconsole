@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/url_preference_column_name"
+            android:paddingStart="0sp"
             android:paddingEnd="4sp"
             />
         <TextView

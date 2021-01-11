@@ -64,6 +64,7 @@
                 <ProgressBar
                     android:layout_width="72dp"
                     android:layout_height="72dp"
+                    android:paddingStart="0dp"
                     android:paddingEnd="20dp"
                     style="?android:attr/progressBarStyle"/>
 

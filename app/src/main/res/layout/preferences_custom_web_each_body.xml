@@ -14,12 +14,12 @@
             android:layout_height="wrap_content"
             android:text="@string/url_preference_column_name"
             android:labelFor="@id/url_name"
-            android:imeOptions="flagForceAscii"
             />
         <EditText
             android:id="@+id/url_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="flagForceAscii"
             />
         <TextView
             android:layout_width="wrap_content"

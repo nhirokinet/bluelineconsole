@@ -3,15 +3,15 @@ package net.nhiroki.bluelineconsole.commands.calculator;
 import java.math.BigDecimal;
 
 public interface Operator extends FormulaPart {
-    public int getPriority(); // strictly greater than 0
+    int getPriority(); // strictly greater than 0
 
-    public interface InfixOperator extends Operator {
-        public CalculatorNumber.BigDecimalNumber operate(BigDecimal o1, BigDecimal o2, int targetPrecision)
+    interface InfixOperator extends Operator {
+        CalculatorNumber.BigDecimalNumber operate(BigDecimal o1, BigDecimal o2, int targetPrecision)
                 throws CalculatorExceptions.PrecisionNotAchievableException, CalculatorExceptions.CalculationException;
     }
 
 
-    public class AddOperator implements InfixOperator {
+    class AddOperator implements InfixOperator {
         public CalculatorNumber.BigDecimalNumber operate(BigDecimal o1, BigDecimal o2, int targetPrecision) {
             return new CalculatorNumber.BigDecimalNumber(o1.add(o2), targetPrecision);
         }
@@ -21,7 +21,7 @@ public interface Operator extends FormulaPart {
         }
     }
 
-    public class SubtractOperator implements InfixOperator {
+    class SubtractOperator implements InfixOperator {
         public CalculatorNumber.BigDecimalNumber operate(BigDecimal o1, BigDecimal o2, int targetPrecision) {
             return new CalculatorNumber.BigDecimalNumber(o1.subtract(o2),  targetPrecision);
         }
@@ -31,7 +31,7 @@ public interface Operator extends FormulaPart {
         }
     }
 
-    public class MultiplyOperator implements InfixOperator {
+    class MultiplyOperator implements InfixOperator {
         public CalculatorNumber.BigDecimalNumber operate(BigDecimal o1, BigDecimal o2, int targetPrecision) {
             return new CalculatorNumber.BigDecimalNumber(o1.multiply(o2), targetPrecision);
         }
@@ -41,7 +41,7 @@ public interface Operator extends FormulaPart {
         }
     }
 
-    public class DivideOperator implements InfixOperator {
+    class DivideOperator implements InfixOperator {
         public CalculatorNumber.BigDecimalNumber operate(BigDecimal o1, BigDecimal o2, int targetPrecision)
                 throws CalculatorExceptions.PrecisionNotAchievableException, CalculatorExceptions.DivisionByZeroException {
 

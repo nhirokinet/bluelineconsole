@@ -15,7 +15,6 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -26,8 +25,6 @@ import android.widget.TextView;
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class MainActivity extends BaseWindowActivity {
     private CandidateListAdapter _resultCandidateListAdapter;
@@ -136,7 +133,7 @@ public class MainActivity extends BaseWindowActivity {
                             @Override
                             public void run() {
                                 MainActivity.this._camebackFlag = true;
-                                startActivityForResult(new Intent(MainActivity.this, StartUpHelpActvity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
+                                startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
                             }
                         });
                     }
@@ -171,7 +168,7 @@ public class MainActivity extends BaseWindowActivity {
                                 @Override
                                 public void run() {
                                     MainActivity.this._camebackFlag = true;
-                                    startActivityForResult(new Intent(MainActivity.this, StartUpHelpActvity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
+                                    startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
                                 }
                             });
                         }

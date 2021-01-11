@@ -1,5 +1,6 @@
 package net.nhiroki.bluelineconsole.commands.help;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
@@ -21,6 +22,7 @@ public class HelpCandidateEntry implements CandidateEntry {
         return "help";
     }
 
+    @SuppressLint({"RtlHardcoded", "SetTextI18n"})
     @Override
     public View getView(Context context) {
         LinearLayout ret = new LinearLayout(context);

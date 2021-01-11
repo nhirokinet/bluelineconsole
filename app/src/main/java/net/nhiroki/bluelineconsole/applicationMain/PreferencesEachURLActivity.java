@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import net.nhiroki.bluelineconsole.R;
@@ -31,7 +28,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
 
-        ((Button) findViewById(R.id.url_submit_button)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.url_submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 URLEntry entry = new URLEntry();
@@ -50,15 +47,14 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
 
                 if (PreferencesEachURLActivity.this._entry_id == 0) {
                     URLPreferences.getInstance(PreferencesEachURLActivity.this).add(entry);
-                    PreferencesEachURLActivity.this.finish();
                 } else {
                     URLPreferences.getInstance(PreferencesEachURLActivity.this).update(entry);
-                    PreferencesEachURLActivity.this.finish();
                 }
+                PreferencesEachURLActivity.this.finish();
             }
         });
 
-        ((Button) findViewById(R.id.url_delete_button)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.url_delete_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 URLPreferences.getInstance(PreferencesEachURLActivity.this).deleteById(PreferencesEachURLActivity.this._entry_id);

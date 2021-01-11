@@ -49,7 +49,7 @@ public class ApplicationInformationCache extends SQLiteOpenHelper {
                     curApp.getString(curApp.getColumnIndex("locale")),
                     curApp.getInt(curApp.getColumnIndex("version")),
                     curApp.getString(curApp.getColumnIndex("label")),
-                    curApp.getInt(curApp.getColumnIndex("launchable")) == 0 ? false : true
+                    curApp.getInt(curApp.getColumnIndex("launchable")) != 0
                     ));
         }
         curApp.close();

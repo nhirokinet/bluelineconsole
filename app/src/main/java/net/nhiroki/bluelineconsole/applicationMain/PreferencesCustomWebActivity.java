@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,7 +40,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
 
-        Button addButton = (Button) findViewById(R.id.customURLListAddButton);
+        Button addButton = findViewById(R.id.customURLListAddButton);
         addButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -54,7 +53,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
 
         this._urlListAdapter = new URLListAdapter(this, 0, new ArrayList<URLEntry>());
 
-        ListView customListView = (ListView)findViewById(R.id.customURLList);
+        ListView customListView = findViewById(R.id.customURLList);
         customListView.setAdapter(this._urlListAdapter);
         customListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -80,7 +79,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSize(true);
     }
 
-    private class URLListAdapter extends ArrayAdapter<URLEntry> {
+    private static class URLListAdapter extends ArrayAdapter<URLEntry> {
         public URLListAdapter(@NonNull Context context, int resource, @NonNull List<URLEntry> objects) {
             super(context, resource, objects);
         }
@@ -91,9 +90,9 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
             if (convertView == null) {
                 convertView = LayoutInflater.from(this.getContext()).inflate(R.layout.url_entry_view, null);
             }
-            TextView nameTextView = (TextView) (convertView.findViewById(R.id.urlNameOnEntryView));
+            TextView nameTextView = convertView.findViewById(R.id.urlNameOnEntryView);
             nameTextView.setText(this.getItem(position).name);
-            TextView displayNameTextView = (TextView) (convertView.findViewById(R.id.urlDisplayNameOnEntryView));
+            TextView displayNameTextView = convertView.findViewById(R.id.urlDisplayNameOnEntryView);
             displayNameTextView.setText(this.getItem(position).display_name);
             return convertView;
         }

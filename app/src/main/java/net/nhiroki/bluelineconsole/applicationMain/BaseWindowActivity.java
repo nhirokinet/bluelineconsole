@@ -18,8 +18,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import net.nhiroki.bluelineconsole.R;
 
 public class BaseWindowActivity extends AppCompatActivity {
-    private int _mainLayoutResID;
-    private boolean _smallWindow;
+    private final int _mainLayoutResID;
+    private final boolean _smallWindow;
 
     /**
      * @param mainLayoutResID Layout resource to be put in the window
@@ -59,7 +59,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        ((ConstraintLayout) findViewById(R.id.baseWindowMainLayoutRoot)).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        findViewById(R.id.baseWindowMainLayoutRoot).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             private int previousHeight = -1;
 
             @Override
@@ -130,10 +130,10 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected void changeBaseWindowElementSize(boolean visible) {
-        View mainLL = ((LinearLayout)findViewById(R.id.baseWindowMainLinearLayout)).getChildAt(0);
-        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-        View centerLL = findViewById(R.id.baseWindowMainLinearLayout);
+        LinearLayout centerLL = findViewById(R.id.baseWindowMainLinearLayout);
         View centerLLOuter = findViewById(R.id.baseWindowMainLinearLayoutOuter);
+        View mainLL = centerLL.getChildAt(0);
+        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
 
         if (visible) {
             mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
