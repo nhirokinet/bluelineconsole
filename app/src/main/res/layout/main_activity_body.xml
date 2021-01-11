@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@color/baseBackground"
-            android:imeOptions="actionGo|flagNoExtractUi|flagNoFullscreen"
+            android:imeOptions="actionGo|flagForceAscii|flagNoExtractUi|flagNoFullscreen"
             android:animateLayoutChanges="true"
             >
             <requestFocus/>
