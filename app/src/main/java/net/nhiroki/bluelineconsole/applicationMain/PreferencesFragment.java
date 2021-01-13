@@ -55,4 +55,6 @@ public class PreferencesFragment extends PreferenceFragment {
         ((ListPreference) findPreference(StringMatchStrategy.PREF_NAME)).setEntries(string_match_strategy_entries);
         ((ListPreference) findPreference(StringMatchStrategy.PREF_NAME)).setEntryValues(string_match_strategy_entry_values);
     }
+
+
 }

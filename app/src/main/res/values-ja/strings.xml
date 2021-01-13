@@ -24,6 +24,8 @@
     <string name="pref_display_summary_main_show_startup_help">"help" コマンドを案内します。"help" コマンドを覚えたら無効にすることをおすすめします。</string>
     <string name="pref_display_summary_main_always_show_notification">どこからでも Blue Line Console を起動できるよう、通知を常に表示します。</string>
     <string name="notification_channel_always_show">Blue Line Console をどの画面からでも開くために、常に通知バーに表示</string>
+    <string name="pref_default_assist_app_setting">デフォルトのアシストアプリに設定する</string>
+    <string name="pref_default_assist_app_setting_summary">設定でアシストアプリに設定することで、どこからでもホームボタン長押しで Blue Line Console を起動できるようにできます。</string>
     <string name="pref_category_apps">アプリ起動</string>
     <string name="pref_display_name_apps_show_package_name">パッケージ名を表示</string>
     <string name="pref_display_summary_apps_show_package_name">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
