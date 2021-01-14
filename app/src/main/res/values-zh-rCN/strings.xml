@@ -24,6 +24,8 @@
     <string name="pref_category_main">一般</string>
     <string name="pref_category_apps">启动应用</string>
     <string name="pref_category_urls">网页和搜索</string>
+    <string name="pref_default_assist_app_setting">设为默认的助手应用</string>
+    <string name="pref_default_assist_app_setting_summary">要通过长按主页按钮打开 Blue Line Console，请从设置菜单将其设为默认的助手应用。</string>
     <string name="pref_display_name_main_show_startup_help">应用启动时显示帮助</string>
     <string name="pref_display_name_main_always_show_notification">始终将图标显示为通知</string>
     <string name="pref_display_summary_main_show_startup_help">此选项显示“help”命令的指导。你最好在记住“help”命令后禁用此选项。</string>
