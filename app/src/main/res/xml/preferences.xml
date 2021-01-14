@@ -9,6 +9,14 @@
             android:summary="@string/pref_display_summary_main_show_startup_help"
             android:defaultValue="true"
             />
+        <Preference
+            android:title="@string/pref_default_assist_app_setting"
+            android:summary="@string/pref_default_assist_app_setting_summary"
+            >
+            <intent
+                android:action="android.settings.VOICE_INPUT_SETTINGS"
+                />
+        </Preference>
         <SwitchPreference
             android:key="pref_main_always_show_notification"
             android:title="@string/pref_display_name_main_always_show_notification"
