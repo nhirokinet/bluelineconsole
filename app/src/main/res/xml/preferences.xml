@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
     <PreferenceCategory
         android:title="@string/pref_category_main"
-        android:key="pref_main_category">
+        android:key="pref_main_category"
+        app:iconSpaceReserved="false"
+        >
         <SwitchPreference
             android:key="pref_main_show_startup_help"
             android:title="@string/pref_display_name_main_show_startup_help"
             android:summary="@string/pref_display_summary_main_show_startup_help"
             android:defaultValue="true"
+            app:iconSpaceReserved="false"
             />
         <Preference
             android:title="@string/pref_default_assist_app_setting"
             android:summary="@string/pref_default_assist_app_setting_summary"
+            app:iconSpaceReserved="false"
             >
             <intent
                 android:action="android.settings.VOICE_INPUT_SETTINGS"
@@ -22,28 +29,36 @@
             android:title="@string/pref_display_name_main_always_show_notification"
             android:summary="@string/pref_display_summary_main_always_show_notification"
             android:defaultValue="false"
+            app:iconSpaceReserved="false"
             />
         <ListPreference
             android:key="pref_text_match_strategy"
             android:title="@string/pref_string_match_strategy"
             android:defaultValue="substring"
+            app:iconSpaceReserved="false"
             />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_apps"
-        android:key="pref_apps_category">
+        android:key="pref_apps_category"
+        app:iconSpaceReserved="false"
+        >
         <SwitchPreference
             android:key="pref_apps_show_package_name"
             android:title="@string/pref_display_name_apps_show_package_name"
             android:summary="@string/pref_display_summary_apps_show_package_name"
             android:defaultValue="false"
+            app:iconSpaceReserved="false"
             />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_urls"
-        android:key="pref_urls_category">
+        android:key="pref_urls_category"
+        app:iconSpaceReserved="false"
+        >
         <Preference
             android:title="@string/pref_display_custom_urls"
+            app:iconSpaceReserved="false"
             >
             <intent
                 android:targetClass="net.nhiroki.bluelineconsole.applicationMain.PreferencesCustomWebActivity"
@@ -55,6 +70,7 @@
             android:defaultValue="none"
             android:title="@string/pref_default_search"
             android:summary="@string/pref_default_search_summary"
+            app:iconSpaceReserved="false"
             />
     </PreferenceCategory>
 </PreferenceScreen>

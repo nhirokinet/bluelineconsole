@@ -44,6 +44,7 @@ public class ApplicationDatabase {
             public void run() {
                 while (true) {
                     try {
+                        //noinspection BusyWait
                         Thread.sleep(Long.MAX_VALUE);
                     } catch (InterruptedException e) {
                         return;
@@ -99,6 +100,8 @@ public class ApplicationDatabase {
             String localeStrTmp = "";
             LocaleList localeList = context.getResources().getConfiguration().getLocales();
             for (int i = 0; i < localeList.size(); ++i) {
+                //suppress inspection because list is usually not long
+                //noinspection StringConcatenationInLoop
                 localeStrTmp += localeList.get(i).toString() + ",";
             }
             localeStr = localeStrTmp;

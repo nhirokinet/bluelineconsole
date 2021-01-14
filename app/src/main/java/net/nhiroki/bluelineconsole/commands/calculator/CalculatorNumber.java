@@ -1,5 +1,7 @@
 package net.nhiroki.bluelineconsole.commands.calculator;
 
+import androidx.annotation.NonNull;
+
 import java.math.BigDecimal;
 
 public class CalculatorNumber implements FormulaPart {
@@ -11,6 +13,7 @@ public class CalculatorNumber implements FormulaPart {
         throw new RuntimeException("This is not a number");
     }
 
+    @NonNull
     public String toString() {
         return "...";
     }
@@ -35,6 +38,7 @@ public class CalculatorNumber implements FormulaPart {
         }
 
         @Override
+        @NonNull
         public String toString() {
             return val.toString();
         }

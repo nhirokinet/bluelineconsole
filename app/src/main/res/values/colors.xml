@@ -8,4 +8,5 @@
     <color name="baseBackground">#ffffff</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="selectedItemBackground">#CCCCCC</color>
 </resources>

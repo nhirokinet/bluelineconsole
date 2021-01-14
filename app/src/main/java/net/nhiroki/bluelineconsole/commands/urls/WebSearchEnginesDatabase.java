@@ -202,12 +202,10 @@ public class WebSearchEnginesDatabase {
             if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(countryCode)) {
                 countryCode = "US";
             }
-            //noinspection ConstantConditions
             return new WebSearchEngine(YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).first, YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).second);
         }
 
         if (pref_str.equals("default-web-yahoo-en-us")) {
-            //noinspection ConstantConditions
             return new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second);
         }
 
@@ -264,9 +262,7 @@ public class WebSearchEnginesDatabase {
             if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(countryCode)) {
                 countryCode = "US";
             }
-            //noinspection ConstantConditions
             ret.add(new WebSearchEngine(YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).first, YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).second));
-            //noinspection ConstantConditions
             ret.add(new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second));
         }
 

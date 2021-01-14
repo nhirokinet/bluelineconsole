@@ -58,6 +58,7 @@ public class Calculator {
         }
         BigDecimal ret = in.stripTrailingZeros();
         if (targetPrecision == CalculatorNumber.Precision.PRECISION_NO_ERROR && ret.scale() < 0) {
+            //noinspection BigDecimalMethodWithoutRoundingCalled
             ret = ret.setScale(0);
         }
 
@@ -127,6 +128,7 @@ public class Calculator {
 
                     final BigDecimal currentDigit = new BigDecimal(expression.charAt(curpos) - '0');
                     if (seenPeriod) {
+                        //noinspection BigDecimalMethodWithoutRoundingCalled
                         multiplier = multiplier.divide(BigDecimal.TEN);
                         ret = ret.add(currentDigit.multiply(multiplier));
                     } else {

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/baseBackground"
@@ -20,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="flagForceAscii"
-            />
+            android:inputType="text"
+            tools:ignore="TextFields" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +34,8 @@
             android:id="@+id/url_display_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:inputType="text"
+            tools:ignore="TextFields" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,7 +48,7 @@
             android:layout_height="wrap_content"
             android:inputType="textUri"
             />
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/url_has_query"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

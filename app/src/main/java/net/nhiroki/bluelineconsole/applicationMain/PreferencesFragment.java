@@ -1,9 +1,10 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.PreferenceFragment;
 import android.util.Pair;
+
+import androidx.preference.ListPreference;
+import androidx.preference.PreferenceFragmentCompat;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
@@ -11,11 +12,9 @@ import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 
 import java.util.List;
 
-public class PreferencesFragment extends PreferenceFragment {
+public class PreferencesFragment extends PreferenceFragmentCompat {
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
     }
 
