@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SwitchCompat;
+
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
@@ -80,7 +82,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             ((EditText)findViewById(R.id.url_name)).setText("");
             ((EditText)findViewById(R.id.url_display_name)).setText("");
             ((EditText)findViewById(R.id.url_base_url)).setText("");
-            ((Switch)findViewById(R.id.url_has_query)).setChecked(false);
+            ((SwitchCompat)findViewById(R.id.url_has_query)).setChecked(false);
 
         } else {
             this.setHeaderFooterTexts(this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer), this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer));
@@ -91,7 +93,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             ((EditText)findViewById(R.id.url_name)).setText(entry.name);
             ((EditText)findViewById(R.id.url_display_name)).setText(entry.display_name);
             ((EditText)findViewById(R.id.url_base_url)).setText(entry.url_base);
-            ((Switch)findViewById(R.id.url_has_query)).setChecked(entry.has_query);
+            ((SwitchCompat)findViewById(R.id.url_has_query)).setChecked(entry.has_query);
         }
     }
 

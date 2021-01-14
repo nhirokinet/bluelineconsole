@@ -52,6 +52,7 @@ public interface Operator extends FormulaPart {
             switch (targetPrecision) {
                 case CalculatorNumber.Precision.PRECISION_NO_ERROR:
                     try {
+                        //noinspection BigDecimalMethodWithoutRoundingCalled
                         return new CalculatorNumber.BigDecimalNumber(o1.divide(o2), targetPrecision);
                     } catch (ArithmeticException e) {
                         throw new CalculatorExceptions.PrecisionNotAchievableException();

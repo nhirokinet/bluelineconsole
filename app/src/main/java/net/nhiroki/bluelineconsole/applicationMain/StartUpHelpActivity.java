@@ -33,7 +33,7 @@ public class StartUpHelpActivity extends BaseWindowActivity {
         int panelWidth = Math.min((int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.8 : 0.67)), maxPanelWidth);
 
         int paddingHorizontal = (displaySize.x - panelWidth) / 2;
-        this.setRootPadding(paddingHorizontal, 0, paddingHorizontal, 0);
+        this.setRootPadding(paddingHorizontal, 0);
 
         findViewById(R.id.startUpOKButton).setOnClickListener(new View.OnClickListener(){
             @Override

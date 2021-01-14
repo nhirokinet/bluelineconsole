@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import net.nhiroki.bluelineconsole.R;
 
@@ -88,8 +87,8 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     }
 
-    protected void setRootPadding(int left, int top, int right, int bottom) {
-        findViewById(R.id.baseWindowRootLinearLayout).setPadding(left, top, right, bottom);
+    protected void setRootPadding(int horizontal, int vertical) {
+        findViewById(R.id.baseWindowRootLinearLayout).setPadding(horizontal, vertical, horizontal, vertical);
     }
 
     protected void setNestingPadding(int step) {

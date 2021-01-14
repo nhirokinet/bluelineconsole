@@ -111,6 +111,10 @@ public class MainActivity extends BaseWindowActivity {
         });
     }
 
+    protected void finalize() {
+        this._commandSearchAggregator.close();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -242,7 +246,7 @@ public class MainActivity extends BaseWindowActivity {
                                                    : (int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7))
                                        );
         final int paddingHorizontal = (displaySize.x - panelWidth) / 2;
-        this.setRootPadding(paddingHorizontal, 0, paddingHorizontal, 0);
+        this.setRootPadding(paddingHorizontal, 0);
 
         final double pixelsPerSp = getResources().getDisplayMetrics().scaledDensity;
 
