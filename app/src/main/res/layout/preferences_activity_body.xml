@@ -7,13 +7,13 @@
     android:paddingHorizontal="0px"
     android:animateLayoutChanges="true"
     android:orientation="horizontal"
-    android:background="@color/baseBackground"
+    android:background="?android:colorBackground"
     android:fillViewport="true"
     >
     <FrameLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/main_preference_fragment"
-        android:background="#ffffff"
+        android:background="?android:colorBackground"
         />
 </ScrollView>

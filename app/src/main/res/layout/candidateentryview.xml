@@ -44,7 +44,7 @@
             android:paddingBottom="2dp"
             android:clickable="false"
             android:focusable="false"
-            android:textColor="@color/baseText"
+            android:textColor="?bluelineconsoleBaseTextColor"
             />
 
         <LinearLayout

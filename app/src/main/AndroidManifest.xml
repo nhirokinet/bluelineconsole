@@ -32,7 +32,8 @@
         </activity>
         <activity
             android:name=".applicationMain.PreferencesActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".applicationMain.PreferencesCustomWebActivity"
             android:exported="false" />

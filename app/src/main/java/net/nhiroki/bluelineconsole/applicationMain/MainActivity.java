@@ -121,6 +121,11 @@ public class MainActivity extends BaseWindowActivity {
 
         EditText mainInputText = findViewById(R.id.mainInputText);
 
+        if (!this.getCurrentTheme().equals(this.readThemeFromConfig())) {
+            Intent intent = this.getPackageManager().getLaunchIntentForPackage("net.nhiroki.bluelineconsole");
+            this.finish();
+            this.startActivity(intent);
+        }
         _threadPool = Executors.newSingleThreadExecutor();
 
         boolean showStartUpHelp = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_main_show_startup_help", true);
@@ -237,16 +242,14 @@ public class MainActivity extends BaseWindowActivity {
         Point displaySize = new Point();
         this.getWindowManager().getDefaultDisplay().getSize(displaySize);
 
-        final int maxPanelWidth = (int)(600.0 * getResources().getDisplayMetrics().density);
-
-
         this.setWindowLocationGravity(textFilled ? Gravity.TOP : Gravity.CENTER_VERTICAL);
+
+        final int maxPanelWidth = (int)(600.0 * getResources().getDisplayMetrics().density);
         final int panelWidth = Math.min(maxPanelWidth,
                                         textFilled ? displaySize.x
                                                    : (int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7))
                                        );
-        final int paddingHorizontal = (displaySize.x - panelWidth) / 2;
-        this.setRootPadding(paddingHorizontal, 0);
+        this.setRootPadding((displaySize.x - panelWidth) / 2, 0);
 
         final double pixelsPerSp = getResources().getDisplayMetrics().scaledDensity;
 

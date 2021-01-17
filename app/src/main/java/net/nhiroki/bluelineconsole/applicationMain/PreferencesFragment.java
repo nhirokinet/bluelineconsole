@@ -1,9 +1,11 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Pair;
 
 import androidx.preference.ListPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import net.nhiroki.bluelineconsole.R;
@@ -11,6 +13,8 @@ import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 
 import java.util.List;
+
+import static android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS;
 
 public class PreferencesFragment extends PreferenceFragmentCompat {
     @Override
@@ -53,5 +57,32 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
 
         ((ListPreference) findPreference(StringMatchStrategy.PREF_NAME)).setEntries(string_match_strategy_entries);
         ((ListPreference) findPreference(StringMatchStrategy.PREF_NAME)).setEntryValues(string_match_strategy_entry_values);
+
+        findPreference("pref_default_assist_app").setOnPreferenceClickListener(
+                new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        // Not a perfect behavior, main window disappears
+                        // This config is not to be used everyday, it is enough if just not too confusing
+                        ((PreferencesActivity)PreferencesFragment.this.getActivity()).setComingBackFlag();
+                        Intent intent = new Intent(ACTION_VOICE_INPUT_SETTINGS);
+                        PreferencesFragment.this.startActivity(intent);
+                        return true;
+                    }
+                }
+        );
+
+        ((ListPreference) findPreference(BaseWindowActivity.PREF_NAME_THEME)).setEntries(BaseWindowActivity.getPrefThemeEntries(this.getContext()));
+        ((ListPreference) findPreference(BaseWindowActivity.PREF_NAME_THEME)).setEntryValues(BaseWindowActivity.PREF_THEME_ENTRY_VALUES);
+
+        findPreference(BaseWindowActivity.PREF_NAME_THEME).setOnPreferenceChangeListener(
+                new Preference.OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        PreferencesFragment.this.getActivity().finish();
+                        return true;
+                    }
+                }
+        );
     }
 }

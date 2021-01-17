@@ -16,13 +16,11 @@
             app:iconSpaceReserved="false"
             />
         <Preference
+            android:key="pref_default_assist_app"
             android:title="@string/pref_default_assist_app_setting"
             android:summary="@string/pref_default_assist_app_setting_summary"
             app:iconSpaceReserved="false"
             >
-            <intent
-                android:action="android.settings.VOICE_INPUT_SETTINGS"
-                />
         </Preference>
         <SwitchPreference
             android:key="pref_main_always_show_notification"
@@ -35,6 +33,24 @@
             android:key="pref_text_match_strategy"
             android:title="@string/pref_string_match_strategy"
             android:defaultValue="substring"
+            app:iconSpaceReserved="false"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_category_appearance"
+        app:iconSpaceReserved="false"
+        >
+        <ListPreference
+            android:key="pref_appearance_theme"
+            android:defaultValue="default"
+            android:title="@string/pref_appearance_theme"
+            android:summary="@string/pref_appearance_theme_summary"
+            app:iconSpaceReserved="false"
+            />
+        <SwitchPreference
+            android:key="pref_appearance_animation"
+            android:defaultValue="true"
+            android:title="@string/pref_appearance_animation"
             app:iconSpaceReserved="false"
             />
     </PreferenceCategory>

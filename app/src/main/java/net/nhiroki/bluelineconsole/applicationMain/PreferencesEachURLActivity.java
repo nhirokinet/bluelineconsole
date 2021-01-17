@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
@@ -38,7 +37,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
                 entry.name = ((EditText)findViewById(R.id.url_name)).getText().toString();
                 entry.display_name = ((EditText)findViewById(R.id.url_display_name)).getText().toString();
                 entry.url_base = ((EditText)findViewById(R.id.url_base_url)).getText().toString();
-                entry.has_query = ((Switch)findViewById(R.id.url_has_query)).isChecked();
+                entry.has_query = ((SwitchCompat)findViewById(R.id.url_has_query)).isChecked();
 
                 int err = entry.validate();
 
@@ -75,7 +74,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
 
         if (this._entry_id == 0) {
             // new
-            this.setHeaderFooterTexts(this.getString(R.string.pref_add_custom_urls_title_for_header_and_footer), this.getString(R.string.pref_add_custom_urls_title_for_header_and_footer));
+            this.setHeaderFooterTexts(this.getString(R.string.pref_add_custom_urls_title_for_header_and_footer), null);
             ((Button)findViewById(R.id.url_submit_button)).setText(R.string.add_button_text);
             findViewById(R.id.url_delete_button).setVisibility(View.GONE);
 
@@ -85,7 +84,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             ((SwitchCompat)findViewById(R.id.url_has_query)).setChecked(false);
 
         } else {
-            this.setHeaderFooterTexts(this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer), this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer));
+            this.setHeaderFooterTexts(this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer), null);
             ((Button)findViewById(R.id.url_submit_button)).setText(R.string.update_button_text);
             findViewById(R.id.url_delete_button).setVisibility(View.VISIBLE);
 

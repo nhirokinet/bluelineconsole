@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="bluelineconsoleAccentColor" format="color" />
+    <attr name="bluelineconsoleFrameColor" format="color" />
+    <attr name="bluelineconsoleFrameTextColor" format="color" />
+    <attr name="bluelineconsoleBaseTextColor" format="color" />
+    <attr name="bluelineconsoleSelectedItemBackgroundColor" format="color" />
+    <attr name="bluelineconsoleBackgroundColorOfCommand" format="color" />
+</resources>

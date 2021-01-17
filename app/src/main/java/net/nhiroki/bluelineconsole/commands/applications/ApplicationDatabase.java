@@ -24,9 +24,9 @@ public class ApplicationDatabase {
     private List<ApplicationInformation> applicationInformationList;
     private Map<String, ApplicationInfo> androidApplicationInfoMap; // performance hack
     private boolean preparationCompleted = false;
-    private List<Thread> waitingThreads = new ArrayList<>();
+    private final List<Thread> waitingThreads = new ArrayList<>();
 
-    private Thread loader;
+    private final Thread loader;
 
     public ApplicationDatabase(final Context context) {
         loader = new Thread() {

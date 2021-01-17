@@ -3,11 +3,12 @@ package net.nhiroki.bluelineconsole.commandSearchers;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import androidx.core.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commands.calculator.Calculator;
@@ -47,7 +48,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
     public void waitUntilPrepared() {}
 
     private static class CalculatorCandidateEntry implements CandidateEntry {
-        private String title;
+        private final String title;
         private String resultText;
         private String subText;
 
@@ -75,6 +76,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
         }
 
         @Override
+        @NonNull
         public String getTitle() {
             return title;
         }
@@ -92,10 +94,13 @@ public class CalculatorCommandSearcher implements CommandSearcher {
 
             TextView resultView = new TextView(context);
 
+            TypedValue baseTextColor = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+
             resultView.setText(resultText);
             resultView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
             resultView.setTypeface(null, Typeface.BOLD);
-            resultView.setTextColor(ContextCompat.getColor(context, R.color.baseText));
+            resultView.setTextColor(baseTextColor.data);
 
             ret.addView(resultView);
 
