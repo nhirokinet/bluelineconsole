@@ -63,7 +63,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:colorBackground">@color/baseBackgroundDark</item>
-        <item name="bluelineconsoleAccentColor">#00ff00</item>
+        <item name="bluelineconsoleAccentColor">@color/oldComputerForegroundColor</item>
         <item name="bluelineconsoleFrameColor">@color/baseBackgroundDark</item>
         <item name="bluelineconsoleFrameTextColor">@color/oldComputerForegroundColor</item>
         <item name="bluelineconsoleBaseTextColor">@color/oldComputerForegroundColor</item>

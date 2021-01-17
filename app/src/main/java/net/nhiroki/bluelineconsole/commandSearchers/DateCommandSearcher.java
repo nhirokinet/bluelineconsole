@@ -63,7 +63,6 @@ public class DateCommandSearcher implements CommandSearcher {
             TypedValue baseTextColor = new TypedValue();
             context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
-
             Locale locale = context.getResources().getConfiguration().locale;
 
             TextClock textDate = new TextClock(context){
