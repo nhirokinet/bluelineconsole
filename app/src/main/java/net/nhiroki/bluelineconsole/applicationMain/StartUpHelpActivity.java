@@ -20,20 +20,17 @@ public class StartUpHelpActivity extends BaseWindowActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setHeaderFooterTexts(getString(R.string.title_for_notification), getString(R.string.title_for_notification));
+        this.setHeaderFooterTexts(getString(R.string.title_for_notification), null);
 
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
 
+        this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);
+
         Point displaySize = new Point();
         this.getWindowManager().getDefaultDisplay().getSize(displaySize);
-
         int maxPanelWidth = (int)(560.0 * getResources().getDisplayMetrics().density);
-
-        this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);
         int panelWidth = Math.min((int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.8 : 0.67)), maxPanelWidth);
-
-        int paddingHorizontal = (displaySize.x - panelWidth) / 2;
-        this.setRootPadding(paddingHorizontal, 0);
+        this.setRootPadding((displaySize.x - panelWidth) / 2, 0);
 
         findViewById(R.id.startUpOKButton).setOnClickListener(new View.OnClickListener(){
             @Override

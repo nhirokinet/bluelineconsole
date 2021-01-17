@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import androidx.core.content.ContextCompat;
+
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
@@ -18,6 +21,7 @@ import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
 
 public class HelpCandidateEntry implements CandidateEntry {
     @Override
+    @NonNull
     public String getTitle() {
         return "help";
     }
@@ -28,18 +32,21 @@ public class HelpCandidateEntry implements CandidateEntry {
         LinearLayout ret = new LinearLayout(context);
         ret.setOrientation(LinearLayout.VERTICAL);
 
+        TypedValue baseTextColor = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+
         TextView versionView = new TextView(context);
         versionView.setText(context.getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
         versionView.setTypeface(Typeface.DEFAULT_BOLD);
         versionView.setTextSize(15);
-        versionView.setTextColor(ContextCompat.getColor(context, R.color.baseText));
+        versionView.setTextColor(baseTextColor.data);
         ret.addView(versionView);
 
         String detailString = context.getString(R.string.app_help_text);
         TextView detailView = new TextView(context);
         detailView.setText(detailString);
         detailView.setTextSize(15);
-        detailView.setTextColor(ContextCompat.getColor(context, R.color.baseText));
+        detailView.setTextColor(baseTextColor.data);
         detailView.setGravity(Gravity.LEFT); // Currently RTL not supported
         ret.addView(detailView);
 

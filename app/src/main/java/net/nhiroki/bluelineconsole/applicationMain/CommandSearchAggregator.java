@@ -18,11 +18,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class CommandSearchAggregator {
-    private List <CommandSearcher> commandSearcherList;
+    private final List <CommandSearcher> commandSearcherList = new ArrayList<>();
 
     CommandSearchAggregator(Context context) {
-        commandSearcherList = new ArrayList<>();
-
         // Starting with specific string
         commandSearcherList.add(new HelpCommandSearcher());
         commandSearcherList.add(new PreferencesCommandSearcher());

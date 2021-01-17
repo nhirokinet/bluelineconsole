@@ -7,6 +7,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
@@ -70,6 +73,7 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
         }
 
         @Override
+        @NonNull
         public String getTitle() {
             return title;
         }
@@ -92,7 +96,7 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
 
         @Override
         public Drawable getIcon(Context context) {
-            return context.getDrawable(android.R.drawable.ic_menu_search);
+            return ContextCompat.getDrawable(context, android.R.drawable.ic_menu_search);
         }
 
         @Override

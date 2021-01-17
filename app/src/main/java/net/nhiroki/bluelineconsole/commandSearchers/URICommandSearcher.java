@@ -7,6 +7,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -49,6 +51,7 @@ public class URICommandSearcher implements CommandSearcher {
         }
 
         @Override
+        @NonNull
         public String getTitle() {
             return url;
         }

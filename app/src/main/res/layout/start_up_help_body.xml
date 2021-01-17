@@ -6,13 +6,13 @@
     android:paddingVertical="0px"
     android:paddingHorizontal="0px"
     android:animateLayoutChanges="true"
-    android:background="@color/colorFrame"
+    android:background="?bluelineconsoleFrameColor"
     android:orientation="vertical"
     >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/baseBackground"
+        android:background="?android:colorBackground"
         android:fillViewport="true"
         >
         <LinearLayout
@@ -28,7 +28,7 @@
                 android:textStyle="bold"
                 android:layout_gravity="start"
                 android:text="@string/notification_title_on_startup"
-                android:textColor="@color/baseText"
+                android:textColor="?bluelineconsoleBaseTextColor"
                 android:textSize="12sp"
                 />
             <TextView
@@ -37,7 +37,7 @@
                 android:paddingVertical="6sp"
                 android:layout_gravity="start"
                 android:text="@string/notification_detail_on_startup_pre"
-                android:textColor="@color/baseText"
+                android:textColor="?bluelineconsoleBaseTextColor"
                 />
             <TextView
                 android:id="@+id/startUpHelpingCommandTextView"
@@ -46,8 +46,8 @@
                 android:layout_margin="6sp"
                 android:padding="3sp"
                 android:layout_gravity="start"
-                android:background="@color/colorBackgroundOfCommand"
-                android:textColor="@color/baseText"
+                android:background="?bluelineconsoleBackgroundColorOfCommand"
+                android:textColor="?bluelineconsoleBaseTextColor"
                 android:typeface="monospace"
                 android:text="@string/notification_detail_on_startup_main"
                 />
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="6sp"
                 android:layout_gravity="start"
-                android:textColor="@color/baseText"
+                android:textColor="?bluelineconsoleBaseTextColor"
                 android:text="@string/notification_detail_on_startup_post"
                 />
             <CheckBox

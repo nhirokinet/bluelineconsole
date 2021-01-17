@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/baseBackground"
+    android:background="?android:colorBackground"
     android:orientation="vertical"
     >
     <TextView
         android:id="@+id/command_title_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/baseText"
-        android:background="@color/colorFrame"
+        android:textColor="?bluelineconsoleBaseTextColor"
+        android:background="?bluelineconsoleFrameColor"
         android:padding="3sp"
         />
     <!-- TODO: make it scrollable -->
@@ -24,7 +24,7 @@
             android:id="@+id/command_output_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/baseText"
+            android:textColor="?bluelineconsoleBaseTextColor"
             android:fontFamily="monospace"
             android:padding="3sp"
             android:layout_gravity="bottom"

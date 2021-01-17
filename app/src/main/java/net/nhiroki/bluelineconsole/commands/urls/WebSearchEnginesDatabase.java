@@ -100,15 +100,12 @@ public class WebSearchEnginesDatabase {
         }
     };
 
-    private List<URLEntry> _customSearches;
-    private List<URLEntry> _customStaticURLs;
-    private Context _context;  // only for database access, because this may be taken from another Activity
+    private final List<URLEntry> _customSearches = new ArrayList<>();
+    private final List<URLEntry> _customStaticURLs = new ArrayList<>();
+    private final Context _context;  // only for database access, because this may be taken from another Activity
 
     public WebSearchEnginesDatabase(Context context) {
-        this._customSearches = new ArrayList<>();
-        this._customStaticURLs = new ArrayList<>();
         this._context = context;
-
         this.refresh();
     }
 

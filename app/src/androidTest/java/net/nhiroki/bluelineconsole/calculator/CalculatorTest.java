@@ -69,6 +69,7 @@ public class CalculatorTest {
         assertBigDecimal("2/3", "0.66666666666666666667", CalculatorNumber.Precision.PRECISION_SCALE_20);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Test
     public void readFormulaPartTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method method = Calculator.class.getDeclaredMethod("readFormulaPart", String.class, int.class);

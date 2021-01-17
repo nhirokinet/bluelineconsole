@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.netutils.PingActivity;
@@ -73,6 +75,7 @@ public class NetUtilCommandSearcher implements CommandSearcher {
         }
 
         @Override
+        @NonNull
         public String getTitle() {
             return PingActivity.TARGET_COMMAND_SHORT + " " + this._host;
         }
@@ -118,6 +121,7 @@ public class NetUtilCommandSearcher implements CommandSearcher {
         }
 
         @Override
+        @NonNull
         public String getTitle() {
             return Ping6Activity.TARGET_COMMAND_SHORT + " " + this._host;
         }

@@ -20,7 +20,7 @@ public class Calculator {
                 return (CalculatorNumber) parseResult.getFormulaPart();
             }
         } catch (CalculatorExceptions.PrecisionNotAchievableException e) {
-
+            // Failed, and no more to try
         }
 
         throw new CalculatorExceptions.IllegalFormulaException();
