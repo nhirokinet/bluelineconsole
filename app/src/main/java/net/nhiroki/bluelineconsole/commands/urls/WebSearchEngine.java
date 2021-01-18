@@ -6,6 +6,6 @@ public class WebSearchEngine {
         this.url_base = url_base;
     }
 
-    public String display_name;
-    public String url_base;
+    public final String display_name;
+    public final String url_base;
 }

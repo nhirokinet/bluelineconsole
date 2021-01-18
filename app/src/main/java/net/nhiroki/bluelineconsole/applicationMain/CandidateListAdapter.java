@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -21,10 +23,10 @@ import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
 import java.util.List;
 
 class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
-    private ListView listView;
+    private final ListView listView;
     private int firstChoice = CHOICE_NOT_SET_YET;
 
-    private Activity activity;
+    private final Activity activity;
 
     private static final int CHOICE_NOT_SET_YET = -1;
     private static final int CHOICE_UNAVAILABLE = -2;
@@ -37,7 +39,8 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidateentryview, null);
         }
@@ -64,7 +67,9 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         iconView.setLayoutParams(iconLP);
 
         // TODO: It's better to make all children transparent when CandidateListView is focused: in devices with cursor UP/DOWN key
-        convertView.setBackgroundColor((position == getFirstChoice())? Color.LTGRAY : Color.TRANSPARENT);
+        TypedValue selectedItemBackground = new TypedValue();
+        getContext().getTheme().resolveAttribute(R.attr.bluelineconsoleSelectedItemBackgroundColor, selectedItemBackground, true);
+        convertView.setBackgroundColor((position == getFirstChoice())?  selectedItemBackground.data: Color.TRANSPARENT);
 
         if (cand.getIcon(getContext()) == null) {
             convertView.findViewById(R.id.candidateIconView).setPaddingRelative(0, 0, 0, 0);

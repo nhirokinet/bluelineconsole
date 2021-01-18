@@ -8,7 +8,7 @@
     android:paddingVertical="0px"
     android:paddingHorizontal="0px"
     android:orientation="vertical"
-    android:background="@color/colorFrame"
+    android:background="?bluelineconsoleFrameColor"
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="0px"
-        android:background="@color/colorFrame"
+        android:background="?bluelineconsoleFrameColor"
         android:animateLayoutChanges="true"
         >
         <EditText
@@ -32,7 +32,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/baseBackground"
+            android:background="?android:colorBackground"
             android:imeOptions="actionGo|flagForceAscii|flagNoExtractUi|flagNoFullscreen"
             android:animateLayoutChanges="true"
             >
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:padding="0px"
         android:animateLayoutChanges="true"
-        android:background="@color/colorFrame"
+        android:background="?bluelineconsoleFrameColor"
         android:orientation="vertical"
         >
         <ScrollView
@@ -81,14 +81,14 @@
                         android:textStyle="bold"
                         android:text="@string/loading_main_caption"
                         android:textSize="18sp"
-                        android:textColor="@color/baseText"
+                        android:textColor="?bluelineconsoleBaseTextColor"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/loading_detail_for_command_search"
                         android:textSize="15sp"
-                        android:textColor="@color/baseText"
+                        android:textColor="?bluelineconsoleBaseTextColor"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/baseBackground"
+            android:background="?android:colorBackground"
             android:animateLayoutChanges="true"
             android:padding="0px"
             android:focusable="false"

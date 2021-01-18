@@ -100,15 +100,12 @@ public class WebSearchEnginesDatabase {
         }
     };
 
-    private List<URLEntry> _customSearches;
-    private List<URLEntry> _customStaticURLs;
-    private Context _context;  // only for database access, because this may be taken from another Activity
+    private final List<URLEntry> _customSearches = new ArrayList<>();
+    private final List<URLEntry> _customStaticURLs = new ArrayList<>();
+    private final Context _context;  // only for database access, because this may be taken from another Activity
 
     public WebSearchEnginesDatabase(Context context) {
-        this._customSearches = new ArrayList<>();
-        this._customStaticURLs = new ArrayList<>();
         this._context = context;
-
         this.refresh();
     }
 
@@ -202,12 +199,10 @@ public class WebSearchEnginesDatabase {
             if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(countryCode)) {
                 countryCode = "US";
             }
-            //noinspection ConstantConditions
             return new WebSearchEngine(YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).first, YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).second);
         }
 
         if (pref_str.equals("default-web-yahoo-en-us")) {
-            //noinspection ConstantConditions
             return new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second);
         }
 
@@ -264,9 +259,7 @@ public class WebSearchEnginesDatabase {
             if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(countryCode)) {
                 countryCode = "US";
             }
-            //noinspection ConstantConditions
             ret.add(new WebSearchEngine(YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).first, YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).second));
-            //noinspection ConstantConditions
             ret.add(new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second));
         }
 

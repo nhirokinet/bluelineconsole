@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Gravity;
 
+import androidx.fragment.app.Fragment;
+
 import net.nhiroki.bluelineconsole.R;
 
 public class PreferencesActivity extends BaseWindowActivity {
@@ -16,13 +18,13 @@ public class PreferencesActivity extends BaseWindowActivity {
     public void onCreate(Bundle savedInstanceStates) {
         super.onCreate(savedInstanceStates);
 
-        this.setHeaderFooterTexts(getString(R.string.preference_title_for_header_and_footer), getString(R.string.preference_title_for_header_and_footer));
+        this.setHeaderFooterTexts(getString(R.string.preference_title_for_header_and_footer), null);
         this.setNestingPadding(1);
 
         this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);
 
-        PreferencesFragment preferenceFragment = new PreferencesFragmentWithOnChangeListener();
-        PreferencesActivity.this.getFragmentManager().beginTransaction().replace(R.id.main_preference_fragment, preferenceFragment).commit();
+        Fragment preferenceFragment = new PreferencesFragmentWithOnChangeListener();
+        PreferencesActivity.this.getSupportFragmentManager().beginTransaction().replace(R.id.main_preference_fragment, preferenceFragment).commit();
 
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
 
@@ -67,8 +69,8 @@ public class PreferencesActivity extends BaseWindowActivity {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

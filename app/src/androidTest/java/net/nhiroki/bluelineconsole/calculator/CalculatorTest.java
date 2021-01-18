@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 public class CalculatorTest {
@@ -68,6 +69,7 @@ public class CalculatorTest {
         assertBigDecimal("2/3", "0.66666666666666666667", CalculatorNumber.Precision.PRECISION_SCALE_20);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Test
     public void readFormulaPartTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method method = Calculator.class.getDeclaredMethod("readFormulaPart", String.class, int.class);
@@ -76,55 +78,55 @@ public class CalculatorTest {
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+4", 0);
             assertEquals(1, res.getConsumedChars());
-            assertEquals(true, res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals(true, ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).getBigDecimal().equals(new BigDecimal("3")));
+            assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
+            assertEquals(new BigDecimal("3"), ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).getBigDecimal());
         }
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+4", 2);
             assertEquals(1, res.getConsumedChars());
-            assertEquals(true, res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals(true, ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).getBigDecimal().equals(new BigDecimal("4")));
+            assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
+            assertEquals(new BigDecimal("4"), ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).getBigDecimal());
         }
 
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+3.142", 1);
             assertEquals(1, res.getConsumedChars());
-            assertEquals(true, res.getFormulaPart() instanceof Operator.AddOperator);
+            assertTrue(res.getFormulaPart() instanceof Operator.AddOperator);
         }
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3-3.142", 1);
             assertEquals(1, res.getConsumedChars());
-            assertEquals(true, res.getFormulaPart() instanceof Operator.SubtractOperator);
+            assertTrue(res.getFormulaPart() instanceof Operator.SubtractOperator);
         }
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3*3.142", 1);
             assertEquals(1, res.getConsumedChars());
-            assertEquals(true, res.getFormulaPart() instanceof Operator.MultiplyOperator);
+            assertTrue(res.getFormulaPart() instanceof Operator.MultiplyOperator);
         }
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3/3.142", 1);
             assertEquals(1, res.getConsumedChars());
-            assertEquals(true, res.getFormulaPart() instanceof Operator.DivideOperator);
+            assertTrue(res.getFormulaPart() instanceof Operator.DivideOperator);
         }
 
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+3.142", 2);
             assertEquals(5, res.getConsumedChars());
-            assertEquals(true, res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals(true, ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).getBigDecimal().equals(new BigDecimal("3.142")));
+            assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
+            assertEquals(new BigDecimal("3.142"), ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).getBigDecimal());
         }
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+3.142*342", 2);
             assertEquals(5, res.getConsumedChars());
-            assertEquals(true, res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals(true, ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).getBigDecimal().equals(new BigDecimal("3.142")));
+            assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
+            assertEquals(new BigDecimal("3.142"), ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).getBigDecimal());
         }
     }
 

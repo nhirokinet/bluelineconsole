@@ -39,7 +39,7 @@ public class AppNotification {
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent, 0);
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context.getApplicationContext())
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context.getApplicationContext(), NOTIFICATION_CHANNEL_ALWAYS)
                     .setPriority(PRIORITY_MAX)
                     .setSmallIcon(R.mipmap.ic_launcher_monochrome)
                     .setContentTitle(context.getString(R.string.notification_launch_this_app))
@@ -49,7 +49,6 @@ public class AppNotification {
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                     .setShowWhen(false)
                     .setWhen(0)
-                    .setChannelId(NOTIFICATION_CHANNEL_ALWAYS)
                     .setContentIntent(pendingIntent);
 
             Notification notification = builder.build();

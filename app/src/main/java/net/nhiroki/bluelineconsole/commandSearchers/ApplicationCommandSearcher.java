@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.applications.ApplicationDatabase;
@@ -104,6 +106,7 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         }
 
         @Override
+        @NonNull
         public String getTitle() {
             return title;
         }

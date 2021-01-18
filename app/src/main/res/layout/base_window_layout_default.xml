@@ -30,7 +30,7 @@
             <LinearLayout
                 android:layout_width="3sp"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccentForFrame"
+                android:background="?bluelineconsoleAccentColor"
                 android:orientation="horizontal"
                 />
             <TextView
@@ -41,7 +41,7 @@
                 android:paddingTop="3sp"
                 android:gravity="center_horizontal|top"
                 android:background="@drawable/main_header"
-                android:textColor="@color/textOnFrame"
+                android:textColor="?bluelineconsoleFrameTextColor"
                 android:textStyle="bold"
                 android:layout_gravity="start"
                 android:text=""
@@ -57,7 +57,7 @@
             android:paddingVertical="0sp"
             android:paddingHorizontal="3sp"
             android:layout_marginBottom="18sp"
-            android:background="@color/colorAccentForFrame"
+            android:background="?bluelineconsoleAccentColor"
             android:orientation="vertical"
             android:layout_gravity="center"
             android:animateLayoutChanges="true"
@@ -70,7 +70,7 @@
                 android:paddingHorizontal="7dp"
                 android:layout_margin="0px"
                 android:orientation="vertical"
-                android:background="@color/colorFrame"
+                android:background="?bluelineconsoleFrameColor"
                 android:animateLayoutChanges="true"
                 >
                 <ViewStub
@@ -104,7 +104,7 @@
                 android:gravity="center_horizontal|bottom"
                 android:background="@drawable/main_footer"
                 android:textStyle="bold"
-                android:textColor="@color/textOnFrame"
+                android:textColor="?bluelineconsoleFrameTextColor"
                 android:layout_gravity="end"
                 android:text=""
                 android:textSize="12sp"
@@ -114,7 +114,7 @@
             <LinearLayout
                 android:layout_width="3sp"
                 android:layout_height="match_parent"
-                android:background="@color/colorAccentForFrame"
+                android:background="?bluelineconsoleAccentColor"
                 />
         </LinearLayout>
     </LinearLayout>

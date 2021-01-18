@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
@@ -54,6 +56,7 @@ public class PreferencesCommandSearcher implements CommandSearcher {
 
     private static class PreferencesCandidateEntry implements CandidateEntry {
         @Override
+        @NonNull
         public String getTitle() {
             return PreferencesCommandSearcher.COMMAND_STRING;
         }

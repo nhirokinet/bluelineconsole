@@ -5,7 +5,7 @@
     tools:context=".applicationMain.PreferencesCustomWebActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/baseBackground"
+    android:background="?android:colorBackground"
     android:orientation="vertical">
     <Button
         android:id="@+id/customURLListAddButton"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/baseBackground"
+        android:background="?android:colorBackground"
         android:animateLayoutChanges="true"
         android:focusable="false"
         android:focusableInTouchMode="false"

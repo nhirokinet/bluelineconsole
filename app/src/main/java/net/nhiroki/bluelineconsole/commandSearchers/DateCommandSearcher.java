@@ -3,13 +3,14 @@ package net.nhiroki.bluelineconsole.commandSearchers;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import androidx.core.content.ContextCompat;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextClock;
+
+import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -49,6 +50,7 @@ public class DateCommandSearcher implements CommandSearcher {
 
     private static class ClockCandidateEntry implements CandidateEntry {
         @Override
+        @NonNull
         public String getTitle() {
             return "date";
         }
@@ -57,6 +59,9 @@ public class DateCommandSearcher implements CommandSearcher {
         public View getView(Context context) {
             LinearLayout clockView = new LinearLayout(context);
             clockView.setOrientation(LinearLayout.VERTICAL);
+
+            TypedValue baseTextColor = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
             Locale locale = context.getResources().getConfiguration().locale;
 
@@ -81,7 +86,7 @@ public class DateCommandSearcher implements CommandSearcher {
             textDate.setFormat24Hour(DateFormat.getBestDateTimePattern(locale, "yyyyMMddEEE"));
             textDate.setGravity(Gravity.START);
             textDate.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
-            textDate.setTextColor(ContextCompat.getColor(context, R.color.baseText));
+            textDate.setTextColor(baseTextColor.data);
             clockView.addView(textDate);
 
             TextClock textTime = new TextClock(context){
@@ -99,7 +104,7 @@ public class DateCommandSearcher implements CommandSearcher {
             textTime.setFormat24Hour(DateFormat.getBestDateTimePattern(locale, "HHmmss"));
             textTime.setGravity(Gravity.START);
             textTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
-            textTime.setTextColor(ContextCompat.getColor(context, R.color.baseText));
+            textTime.setTextColor(baseTextColor.data);
             textTime.setPaddingRelative(
                     (int)(30 * context.getResources().getDisplayMetrics().scaledDensity + 0.5),
                     0, 0, 0

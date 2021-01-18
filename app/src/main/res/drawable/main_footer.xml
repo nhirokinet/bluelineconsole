@@ -8,8 +8,8 @@
     >
     <path
         android:pathData="M0,0 L10.39,18 L130,18 L130,0"
-        android:fillColor="@color/colorFrame" />
+        android:fillColor="?bluelineconsoleFrameColor" />
     <path
         android:pathData="M8.658333,15 L130,15 L130,18 L10.39,18"
-        android:fillColor="@color/colorAccentForFrame" />
+        android:fillColor="?bluelineconsoleAccentColor" />
 </vector>
