@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Blue Line Console</string>
 	
-    <string name="loading_main_caption">正在刷新数据库......</string>
+    <string name="loading_main_caption">正在刷新数据库&#8230;</string>
     <string name="loading_detail_for_command_search">安装后首次启动,或是更改语言设定后首次启动，\n刷新可能需要一段时间才能完成（有时几十秒）。</string>
 	
     <string name="formatSearchQueryOnEngine">在 %2$s 上搜索 \"%1$s\"</string>
