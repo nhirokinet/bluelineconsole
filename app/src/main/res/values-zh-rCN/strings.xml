@@ -27,18 +27,18 @@
     <string name="notification_channel_always_show">始终在通知栏显示启动 Blue Line Console 的图标</string>
 	
     <string name="pref_category_main">一般</string>
-	<string name="pref_category_appearance">外观</string>
+    <string name="pref_category_appearance">外观</string>
     <string name="pref_category_apps">启动应用</string>
     <string name="pref_category_urls">网页和搜索</string>
 	
-	<string name="summary_text_for_preferences_of_this_app">Blue Line Console 选项</string>
-	<string name="pref_default_assist_app_setting">设为默认的助手应用</string>
+    <string name="summary_text_for_preferences_of_this_app">Blue Line Console 选项</string>
+    <string name="pref_default_assist_app_setting">设为默认的助手应用</string>
     <string name="pref_default_assist_app_setting_summary">要通过长按主页按钮打开 Blue Line Console，请从设置菜单将其设为默认的助手应用。</string>
     <string name="pref_display_name_main_show_startup_help">应用启动时显示帮助</string>
     <string name="pref_display_name_main_always_show_notification">始终将图标显示为通知</string>
     <string name="pref_display_summary_main_show_startup_help">此选项显示“help”命令的指导。你最好在记住“help”命令后禁用此选项。</string>
     <string name="pref_display_summary_main_always_show_notification">始终显示通知图标以方便启动 Blue Line Console</string>
-	<string name="pref_appearance_theme">主题</string>
+    <string name="pref_appearance_theme">主题</string>
     <string name="pref_appearance_theme_summary">更改此选项时，Blue Line Console 会立即重新启动。</string>
     <string name="pref_appearance_animation">动画</string>
     <string name="pref_display_name_apps_show_package_name">显示包名</string>
@@ -46,14 +46,14 @@
     <string name="pref_display_custom_urls">自定义页面和搜索</string>
     <string name="pref_add_custom_urls_title_for_header_and_footer">添加 URL</string>
     <string name="pref_edit_custom_urls_title_for_header_and_footer">编辑 URL</string>
-	<string name="pref_default_search">默认搜索引擎</string>
+    <string name="pref_default_search">默认搜索引擎</string>
     <string name="pref_default_search_summary">总是在列表的底部显示特定的搜索引擎</string>
     <string name="pref_default_search_none">（无）</string>
-	<string name="pref_string_match_strategy">文本搜索匹配样式</string>
+    <string name="pref_string_match_strategy">文本搜索匹配样式</string>
     <string name="pref_string_match_strategy_substring">正常</string>
     <string name="pref_string_match_strategy_skipped_substring">跳跃子字符串（如，搜索 &quot;abd&quot; 显示 &quot;abcdef&quot;）</string>
 	
-	<string name="theme_name_default">默认（浅色或深色，依据系统设置）</string>
+    <string name="theme_name_default">默认（浅色或深色，依据系统设置）</string>
     <string name="theme_name_light">浅色</string>
     <string name="theme_name_dark">深色</string>
     <string name="theme_name_marine">海洋色</string>
@@ -104,5 +104,5 @@
     <string name="err_invalid_url">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠("/").</string>
     <string name="err_invalid_url_name">无效的名称：命令只能包含数字和小写字母，且不能为空。</string>
     <string name="err_display_name_is_empty">显示名称为空</string>
-	<string name="err_could_not_start_command">错误：无法启动命令</string>
+    <string name="err_could_not_start_command">错误：无法启动命令</string>
 </resources>
