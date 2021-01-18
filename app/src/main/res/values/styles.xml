@@ -44,12 +44,12 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:colorBackground">@color/baseBackground</item>
+        <item name="android:colorBackground">@color/baseBackgroundMarine</item>
         <item name="bluelineconsoleAccentColor">@color/colorAccent</item>
         <item name="bluelineconsoleFrameColor">@color/MarineTopColor</item>
         <item name="bluelineconsoleFrameTextColor">@color/textOnFrame</item>
         <item name="bluelineconsoleBaseTextColor">@color/baseText</item>
-        <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackground</item>
+        <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackgroundMarine</item>
         <item name="bluelineconsoleBackgroundColorOfCommand">@color/colorBackgroundOfCommand</item>
     </style>
 

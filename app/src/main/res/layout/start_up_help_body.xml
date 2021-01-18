@@ -6,7 +6,6 @@
     android:paddingVertical="0px"
     android:paddingHorizontal="0px"
     android:animateLayoutChanges="true"
-    android:background="?bluelineconsoleFrameColor"
     android:orientation="vertical"
     >
     <ScrollView

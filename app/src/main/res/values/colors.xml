@@ -19,6 +19,8 @@
     <color name="baseBackgroundDark">#000000</color>
     <color name="selectedItemBackgroundDark">#666666</color>
 
+    <color name="baseBackgroundMarine">#aaddff</color>
+    <color name="selectedItemBackgroundMarine">#88bbdd</color>
     <color name="MarineTopColor">#3078ff</color>
     <color name="MarineBottomColor">#4464aa</color>
 

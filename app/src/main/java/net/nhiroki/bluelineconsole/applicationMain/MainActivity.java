@@ -34,6 +34,7 @@ public class MainActivity extends BaseWindowActivity {
     public static final int REQUEST_CODE_FOR_COMING_BACK = 1;
 
     private boolean _camebackFlag = false;
+    private boolean _paused = false;
 
     public MainActivity() {
         super(R.layout.main_activity_body, true);
@@ -111,13 +112,16 @@ public class MainActivity extends BaseWindowActivity {
         });
     }
 
-    protected void finalize() {
+    @Override
+    public void onDestroy() {
         this._commandSearchAggregator.close();
+        super.onDestroy();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        this._paused = false;
 
         EditText mainInputText = findViewById(R.id.mainInputText);
 
@@ -227,6 +231,7 @@ public class MainActivity extends BaseWindowActivity {
     @Override
     protected void onPause() {
         _threadPool.shutdownNow();
+        this._paused = true;
         super.onPause();
     }
 
@@ -291,6 +296,10 @@ public class MainActivity extends BaseWindowActivity {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            if (MainActivity.this._paused) {
+                                // If activity is paused, doing something here is at least waste, sometimes dangerous
+                                return;
+                            }
                             executeSearch(s);
                             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
                         }
