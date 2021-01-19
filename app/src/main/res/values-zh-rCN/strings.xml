@@ -14,9 +14,9 @@
     <string name="calculator_error_division_by_zero">除以 0</string>
     
     <!-- Command searcher texts for results -->
-    <string name="formatSearchQueryOnEngine">在 %2$s 上搜索 \"%1$s\"</string>
-    <string name="formatStaticPageEntry">访问 %1$s</string>
-    <string name="summary_text_for_preferences_of_this_app">Blue Line Console 选项</string>
+    <string name="result_search_query_on_engine_format">在 %2$s 上搜索 \"%1$s\"</string>
+    <string name="result_static_webpage_format">访问 %1$s</string>
+    <string name="result_config_summary">Blue Line Console 选项</string>
 
     <!-- Themes -->
     <string name="theme_name_default">默认（浅色或深色，依据系统设置）</string>
@@ -26,72 +26,72 @@
     <string name="theme_name_old_computer">旧电脑</string>
 
     <!-- String match strategies -->
-    <string name="pref_string_match_strategy_substring">正常</string>
-    <string name="pref_string_match_strategy_skipped_substring">跳跃子字符串（如，搜索 &quot;abd&quot; 显示 &quot;abcdef&quot;）</string>
+    <string name="string_match_strategy_substring">正常</string>
+    <string name="string_match_strategy_skipped_substring">跳跃子字符串（如，搜索 &quot;abd&quot; 显示 &quot;abcdef&quot;）</string>
 
     <!-- Notification for OS -->
     <string name="notification_launch_this_app">启动 Blue Line Console</string>
     <string name="notification_channel_always_show">始终在通知栏显示启动 Blue Line Console 的图标</string>
 	
     <!-- Preferences general buttons -->
-    <string name="add_button_text">添加</string>
-    <string name="update_button_text">更新</string>
-    <string name="delete_button_text">删除</string>
-	
+    <string name="button_add">添加</string>
+    <string name="button_update">更新</string>
+    <string name="button_delete">删除</string>
+    <string name="button_close">关闭</string>
+
     <!-- Preferences, titles for headers and footers -->
-    <string name="preference_title_for_header_and_footer">配置</string>
-    <string name="url_preference_title_for_header_and_footer">URL</string>
-    <string name="pref_add_custom_urls_title_for_header_and_footer">添加 URL</string>
-    <string name="pref_edit_custom_urls_title_for_header_and_footer">编辑 URL</string>
+    <string name="preferences_title_for_header_and_footer">配置</string>
+    <string name="preferences_title_for_header_and_footer_url">URL</string>
+    <string name="preferences_title_for_header_and_footer_add_custom_urls">添加 URL</string>
+    <string name="preferences_title_for_header_and_footer_edit_custom_urls">编辑 URL</string>
 
     <!-- Preferences categories, main screen -->
-    <string name="pref_category_main">一般</string>
-    <string name="pref_category_appearance">外观</string>
-    <string name="pref_category_apps">启动应用</string>
-    <string name="pref_category_urls">网页和搜索</string>
+    <string name="preferences_category_main">一般</string>
+    <string name="preferences_category_appearance">外观</string>
+    <string name="preferences_category_apps">启动应用</string>
+    <string name="preferences_category_urls">网页和搜索</string>
 	
     <!-- Preferences items, main screen -->
-    <string name="pref_display_name_main_show_startup_help">应用启动时显示帮助</string>
-    <string name="pref_display_summary_main_show_startup_help">此选项显示“help”命令的指导。你最好在记住“help”命令后禁用此选项。</string>
-    <string name="pref_default_assist_app_setting">设为默认的助手应用</string>
-    <string name="pref_default_assist_app_setting_summary">要通过长按主页按钮打开 Blue Line Console，请从设置菜单将其设为默认的助手应用。</string>
-    <string name="pref_display_name_main_always_show_notification">始终将图标显示为通知</string>
-    <string name="pref_display_summary_main_always_show_notification">始终显示通知图标以方便启动 Blue Line Console</string>
-    <string name="pref_string_match_strategy">文本搜索匹配样式</string>
-    <string name="pref_appearance_theme">主题</string>
-    <string name="pref_appearance_theme_summary">更改此选项时，Blue Line Console 会立即重新启动。</string>
-    <string name="pref_appearance_animation">动画</string>
-    <string name="pref_display_name_apps_show_package_name">显示包名</string>
-    <string name="pref_display_summary_apps_show_package_name">注意:即使关闭了这个选项，你也可以通过包名的一部分找到应用程序。</string>
-    <string name="pref_display_custom_urls">自定义页面和搜索</string>
-    <string name="pref_default_search">默认搜索引擎</string>
-    <string name="pref_default_search_summary">总是在列表的底部显示特定的搜索引擎</string>
-    <string name="pref_default_search_none">（无）</string>
+    <string name="preferences_item_main_show_startup_help_title">应用启动时显示帮助</string>
+    <string name="preferences_item_main_show_startup_help_summary">此选项显示“help”命令的指导。你最好在记住“help”命令后禁用此选项。</string>
+    <string name="preferences_item_default_assist_app_title">设为默认的助手应用</string>
+    <string name="preferences_item_default_assist_app_summary">要通过长按主页按钮打开 Blue Line Console，请从设置菜单将其设为默认的助手应用。</string>
+    <string name="preferences_item_main_always_show_notification_title">始终将图标显示为通知</string>
+    <string name="preferences_item_main_always_show_notification_summary">始终显示通知图标以方便启动 Blue Line Console</string>
+    <string name="preferences_item_text_match_strategy_title">文本搜索匹配样式</string>
+    <string name="preferences_item_appearance_theme_title">主题</string>
+    <string name="preferences_item_appearance_theme_summary">更改此选项时，Blue Line Console 会立即重新启动。</string>
+    <string name="preferences_item_appearance_animation_title">动画</string>
+    <string name="preferences_item_apps_show_package_name_title">显示包名</string>
+    <string name="preferences_item_apps_show_package_name_summary">注意:即使关闭了这个选项，你也可以通过包名的一部分找到应用程序。</string>
+    <string name="preferences_item_display_custom_urls_title">自定义页面和搜索</string>
+    <string name="preferences_item_default_search_title">默认搜索引擎</string>
+    <string name="preferences_item_default_search_summary">总是在列表的底部显示特定的搜索引擎</string>
+    <string name="preferences_item_default_search_option_none">（无）</string>
 
     <!-- Preferences items, URL screens -->
-    <string name="url_preference_add_button">添加自定义 URL 或搜索引擎</string>
-    <string name="url_preference_column_name">命令名称</string>
-    <string name="url_preference_column_display_name">展示名称</string>
-    <string name="url_preference_column_url">URL</string>
-    <string name="url_preference_column_has_query">搜索引擎(启用后，查询将被添加在末尾)</string>
+    <string name="preferences_url_add_button">添加自定义 URL 或搜索引擎</string>
+    <string name="preferences_url_column_command_name">命令名称</string>
+    <string name="preferences_url_column_display_name">展示名称</string>
+    <string name="preferences_url_column_url">URL</string>
+    <string name="preferences_url_column_has_query">搜索引擎(启用后，查询将被添加在末尾)</string>
 
     <!-- Error messages, user errors -->
-    <string name="err_invalid_url">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠("/").</string>
-    <string name="err_invalid_url_name">无效的名称：命令只能包含数字和小写字母，且不能为空。</string>
-    <string name="err_display_name_is_empty">显示名称为空</string>
+    <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠("/").</string>
+    <string name="error_invalid_url_command_name">无效的名称：命令只能包含数字和小写字母，且不能为空。</string>
+    <string name="error_empty_display_name">显示名称为空</string>
 
     <!-- Error messages, system errors -->
-    <string name="err_could_not_start_command">错误：无法启动命令</string>
-    <string name="notFoundOpeningApplicationWithClass">\"%1$s\" 不是一个可启动的包。</string>
+    <string name="error_failure_could_not_start_command">错误：无法启动命令</string>
+    <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" 不是一个可启动的包。</string>
 
     <!-- Startup Help Activity -->
-    <string name="title_for_notification">通知</string>
-    <string name="notification_title_on_startup">关于“help” 命令</string>
-    <string name="notification_detail_on_startup_pre">要显示用法，输入</string>
-    <string name="notification_detail_on_startup_post">看看该怎么用。</string>
-    <string name="notification_window_never_later">不再显示这条消息</string>
-    <string name="notification_window_close">关闭</string>
-	
+    <string name="startup_help_title_for_header_and_footer">通知</string>
+    <string name="startup_help_title">关于“help” 命令</string>
+    <string name="startup_help_body_part1">要显示用法，输入</string>
+    <string name="startup_help_body_part3">看看该怎么用。</string>
+    <string name="startup_help_check_never_later">不再显示这条消息</string>
+
     <!-- Help -->
     <string name="app_help_text">
         你可以输入以下列表之一来搜索应用程序或命令。

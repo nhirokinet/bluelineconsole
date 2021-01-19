@@ -34,7 +34,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setHeaderFooterTexts(getString(R.string.url_preference_title_for_header_and_footer), null);
+        this.setHeaderFooterTexts(getString(R.string.preferences_title_for_header_and_footer_url), null);
         this.setNestingPadding(2);
 
         this.changeBaseWindowElementSize(false);

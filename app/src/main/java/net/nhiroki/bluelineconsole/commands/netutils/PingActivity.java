@@ -58,7 +58,7 @@ public class PingActivity extends BaseWindowActivity {
             this._command = pb.start();
             this._commandIS = new BufferedInputStream(PingActivity.this._command.getInputStream());
         } catch (IOException e) {
-            this.writeOutput(getString(R.string.err_could_not_start_command) + "\n");
+            this.writeOutput(getString(R.string.error_failure_could_not_start_command) + "\n");
         }
         ((TextView)findViewById(R.id.command_output_text_view)).setText("");
 

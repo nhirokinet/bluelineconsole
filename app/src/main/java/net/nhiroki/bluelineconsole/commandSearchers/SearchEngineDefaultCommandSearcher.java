@@ -64,7 +64,7 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
         SearchEngineCandidateEntry(Context context, String query, String engineName, String urlBase) {
             this.query = query;
             this.urlBase = urlBase;
-            this.title = String.format(context.getString(R.string.formatSearchQueryOnEngine), query, engineName);
+            this.title = String.format(context.getString(R.string.result_search_query_on_engine_format), query, engineName);
         }
 
         @Override

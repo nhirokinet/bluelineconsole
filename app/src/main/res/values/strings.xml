@@ -14,9 +14,9 @@
     <string name="calculator_error_division_by_zero">Division by 0</string>
 
     <!-- Command searcher texts for results -->
-    <string name="formatSearchQueryOnEngine">Search \"%1$s\" on %2$s</string>
-    <string name="formatStaticPageEntry">Access %1$s</string>
-    <string name="summary_text_for_preferences_of_this_app">Preferences for Blue Line Console</string>
+    <string name="result_search_query_on_engine_format">Search \"%1$s\" on %2$s</string>
+    <string name="result_static_webpage_format">Access %1$s</string>
+    <string name="result_config_summary">Preferences for Blue Line Console</string>
 
     <!-- Themes -->
     <string name="theme_name_default">Defalt (Light or Dark, according to system setting)</string>
@@ -26,72 +26,72 @@
     <string name="theme_name_old_computer">Old Computer</string>
 
     <!-- String match strategies -->
-    <string name="pref_string_match_strategy_substring">Normal</string>
-    <string name="pref_string_match_strategy_skipped_substring">Skipped substring (e.g. &quot;abd&quot; for &quot;abcdef&quot;)</string>
+    <string name="string_match_strategy_substring">Normal</string>
+    <string name="string_match_strategy_skipped_substring">Skipped substring (e.g. &quot;abd&quot; for &quot;abcdef&quot;)</string>
 
     <!-- Notification for OS -->
     <string name="notification_launch_this_app">Launch Blue Line Console</string>
     <string name="notification_channel_always_show">Notification icon always shown to launch Blue Line Console everywhere</string>
 
     <!-- Preferences general buttons -->
-    <string name="add_button_text">Add</string>
-    <string name="update_button_text">Update</string>
-    <string name="delete_button_text">Delete</string>
+    <string name="button_add">Add</string>
+    <string name="button_update">Update</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_close">Close</string>
 
     <!-- Preferences, titles for headers and footers -->
-    <string name="preference_title_for_header_and_footer">Configuration</string>
-    <string name="url_preference_title_for_header_and_footer">URL</string>
-    <string name="pref_add_custom_urls_title_for_header_and_footer">Add URL</string>
-    <string name="pref_edit_custom_urls_title_for_header_and_footer">Edit URL</string>
+    <string name="preferences_title_for_header_and_footer">Configuration</string>
+    <string name="preferences_title_for_header_and_footer_url">URL</string>
+    <string name="preferences_title_for_header_and_footer_add_custom_urls">Add URL</string>
+    <string name="preferences_title_for_header_and_footer_edit_custom_urls">Edit URL</string>
 
     <!-- Preferences categories, main screen -->
-    <string name="pref_category_main">General</string>
-    <string name="pref_category_appearance">Appearance</string>
-    <string name="pref_category_apps">Launching Apps</string>
-    <string name="pref_category_urls">Web Pages and Searches</string>
+    <string name="preferences_category_main">General</string>
+    <string name="preferences_category_appearance">Appearance</string>
+    <string name="preferences_category_apps">Launching Apps</string>
+    <string name="preferences_category_urls">Web Pages and Searches</string>
 
     <!-- Preferences items, main screen -->
-    <string name="pref_display_name_main_show_startup_help">Show help on startup</string>
-    <string name="pref_display_summary_main_show_startup_help">This option just shows you the guidance for help command. It is better to disable this option once you remembered "help" command.</string>
-    <string name="pref_default_assist_app_setting">Set as default assistant app</string>
-    <string name="pref_default_assist_app_setting_summary">To open Blue Line Console by long-pressing home button everywhere, set it as default assistant app from setting menu.</string>
-    <string name="pref_display_name_main_always_show_notification">Always show icon as notification</string>
-    <string name="pref_display_summary_main_always_show_notification">Always show the notification icon to start Blue Line Console everywhere.</string>
-    <string name="pref_string_match_strategy">Text search matching style</string>
-    <string name="pref_appearance_theme">Theme</string>
-    <string name="pref_appearance_theme_summary">When this option is changed, Blue Line Console restarts immediately.</string>
-    <string name="pref_appearance_animation">Animation</string>
-    <string name="pref_display_name_apps_show_package_name">Show package name</string>
-    <string name="pref_display_summary_apps_show_package_name">Note: You can find apps by a part of package name even this check is off.</string>
-    <string name="pref_display_custom_urls">Custom pages and searches</string>
-    <string name="pref_default_search">Default Search Engine</string>
-    <string name="pref_default_search_summary">Always show specific search engine on the bottom of list</string>
-    <string name="pref_default_search_none">(None)</string>
+    <string name="preferences_item_main_show_startup_help_title">Show help on startup</string>
+    <string name="preferences_item_main_show_startup_help_summary">This option just shows you the guidance for help command. It is better to disable this option once you remembered "help" command.</string>
+    <string name="preferences_item_default_assist_app_title">Set as default assistant app</string>
+    <string name="preferences_item_default_assist_app_summary">To open Blue Line Console by long-pressing home button everywhere, set it as default assistant app from setting menu.</string>
+    <string name="preferences_item_main_always_show_notification_title">Always show icon as notification</string>
+    <string name="preferences_item_main_always_show_notification_summary">Always show the notification icon to start Blue Line Console everywhere.</string>
+    <string name="preferences_item_text_match_strategy_title">Text search matching style</string>
+    <string name="preferences_item_appearance_theme_title">Theme</string>
+    <string name="preferences_item_appearance_theme_summary">When this option is changed, Blue Line Console restarts immediately.</string>
+    <string name="preferences_item_appearance_animation_title">Animation</string>
+    <string name="preferences_item_apps_show_package_name_title">Show package name</string>
+    <string name="preferences_item_apps_show_package_name_summary">Note: You can find apps by a part of package name even this check is off.</string>
+    <string name="preferences_item_display_custom_urls_title">Custom pages and searches</string>
+    <string name="preferences_item_default_search_title">Default Search Engine</string>
+    <string name="preferences_item_default_search_summary">Always show specific search engine on the bottom of list</string>
+    <string name="preferences_item_default_search_option_none">(None)</string>
 
     <!-- Preferences items, URL screens -->
-    <string name="url_preference_add_button">Add custom URL or search engine</string>
-    <string name="url_preference_column_name">Command name</string>
-    <string name="url_preference_column_display_name">Display name</string>
-    <string name="url_preference_column_url">URL</string>
-    <string name="url_preference_column_has_query">Search engine (query is added at the end when enabled)</string>
+    <string name="preferences_url_add_button">Add custom URL or search engine</string>
+    <string name="preferences_url_column_command_name">Command name</string>
+    <string name="preferences_url_column_display_name">Display name</string>
+    <string name="preferences_url_column_url">URL</string>
+    <string name="preferences_url_column_has_query">Search engine (query is added at the end when enabled)</string>
 
     <!-- Error messages, user errors -->
-    <string name="err_invalid_url">Invalid URL: must start with https:// or http:// and at least one more slash ("/").</string>
-    <string name="err_invalid_url_name">Invalid name: command can contain only digits and lower alphabets, and must not be empty</string>
-    <string name="err_display_name_is_empty">Display name is empty</string>
+    <string name="error_invalid_url_least_validation_for_web">Invalid URL: must start with https:// or http:// and at least one more slash ("/").</string>
+    <string name="error_invalid_url_command_name">Invalid name: command can contain only digits and lower alphabets, and must not be empty</string>
+    <string name="error_empty_display_name">Display name is empty</string>
 
     <!-- Error messages, system errors -->
-    <string name="err_could_not_start_command">ERROR: could not start command</string>
-    <string name="notFoundOpeningApplicationWithClass">\"%1$s\" is not a launchable package.</string>
+    <string name="error_failure_could_not_start_command">ERROR: could not start command</string>
+    <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" is not a launchable package.</string>
 
     <!-- Startup Help Activity -->
-    <string name="title_for_notification">Notification</string>
-    <string name="notification_title_on_startup">About help command</string>
-    <string name="notification_detail_on_startup_pre">To show usage, enter</string>
-    <string name="notification_detail_on_startup_main" translatable="false">help</string>
-    <string name="notification_detail_on_startup_post">to see what to do.</string>
-    <string name="notification_window_never_later">Don\'t show this message again</string>
-    <string name="notification_window_close">Close</string>
+    <string name="startup_help_title_for_header_and_footer">Notification</string>
+    <string name="startup_help_title">About help command</string>
+    <string name="startup_help_body_part1">To show usage, enter</string>
+    <string name="startup_help_body_part2" translatable="false">help</string>
+    <string name="startup_help_body_part3">to see what to do.</string>
+    <string name="startup_help_check_never_later">Don\'t show this message again</string>
 
     <!-- Help -->
     <string name="app_help_text">

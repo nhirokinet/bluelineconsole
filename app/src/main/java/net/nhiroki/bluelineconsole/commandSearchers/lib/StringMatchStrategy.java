@@ -16,10 +16,10 @@ public class StringMatchStrategy {
     public static CharSequence getStrategyName(Context context, int strategy) {
         switch (strategy) {
             case SUBSTRING:
-                return context.getString(R.string.pref_string_match_strategy_substring);
+                return context.getString(R.string.string_match_strategy_substring);
 
             case SKIPPED_SUBSTRING:
-                return context.getString(R.string.pref_string_match_strategy_skipped_substring);
+                return context.getString(R.string.string_match_strategy_skipped_substring);
 
             default:
                 throw new RuntimeException("Strategy not found");

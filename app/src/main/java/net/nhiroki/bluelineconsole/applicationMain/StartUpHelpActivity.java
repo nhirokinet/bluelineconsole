@@ -20,7 +20,7 @@ public class StartUpHelpActivity extends BaseWindowActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setHeaderFooterTexts(getString(R.string.title_for_notification), null);
+        this.setHeaderFooterTexts(getString(R.string.startup_help_title_for_header_and_footer), null);
 
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
 

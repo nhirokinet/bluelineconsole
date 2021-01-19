@@ -74,8 +74,8 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
 
         if (this._entry_id == 0) {
             // new
-            this.setHeaderFooterTexts(this.getString(R.string.pref_add_custom_urls_title_for_header_and_footer), null);
-            ((Button)findViewById(R.id.url_submit_button)).setText(R.string.add_button_text);
+            this.setHeaderFooterTexts(this.getString(R.string.preferences_title_for_header_and_footer_add_custom_urls), null);
+            ((Button)findViewById(R.id.url_submit_button)).setText(R.string.button_add);
             findViewById(R.id.url_delete_button).setVisibility(View.GONE);
 
             ((EditText)findViewById(R.id.url_name)).setText("");
@@ -84,8 +84,8 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             ((SwitchCompat)findViewById(R.id.url_has_query)).setChecked(false);
 
         } else {
-            this.setHeaderFooterTexts(this.getString(R.string.pref_edit_custom_urls_title_for_header_and_footer), null);
-            ((Button)findViewById(R.id.url_submit_button)).setText(R.string.update_button_text);
+            this.setHeaderFooterTexts(this.getString(R.string.preferences_title_for_header_and_footer_edit_custom_urls), null);
+            ((Button)findViewById(R.id.url_submit_button)).setText(R.string.button_update);
             findViewById(R.id.url_delete_button).setVisibility(View.VISIBLE);
 
             URLEntry entry = URLPreferences.getInstance(this).getById(this._entry_id);
