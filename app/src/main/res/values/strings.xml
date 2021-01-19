@@ -19,7 +19,7 @@
     <string name="result_config_summary">Preferences for Blue Line Console</string>
 
     <!-- Themes -->
-    <string name="theme_name_default">Defalt (Light or Dark, according to system setting)</string>
+    <string name="theme_name_default">Default (Light or Dark, according to system setting)</string>
     <string name="theme_name_light">Light</string>
     <string name="theme_name_dark">Dark</string>
     <string name="theme_name_marine">Marine</string>
@@ -27,7 +27,7 @@
 
     <!-- String match strategies -->
     <string name="string_match_strategy_substring">Normal</string>
-    <string name="string_match_strategy_skipped_substring">Skipped substring (e.g. &quot;abd&quot; for &quot;abcdef&quot;)</string>
+    <string name="string_match_strategy_skipped_substring">Skipped substring (e.g. \"abd\" for \"abcdef\")</string>
 
     <!-- Notification for OS -->
     <string name="notification_launch_this_app">Launch Blue Line Console</string>
@@ -77,7 +77,7 @@
     <string name="preferences_url_column_has_query">Search engine (query is added at the end when enabled)</string>
 
     <!-- Error messages, user errors -->
-    <string name="error_invalid_url_least_validation_for_web">Invalid URL: must start with https:// or http:// and at least one more slash ("/").</string>
+    <string name="error_invalid_url_least_validation_for_web">Invalid URL: must start with https:// or http:// and at least one more slash (\"/\").</string>
     <string name="error_invalid_url_command_name">Invalid name: command can contain only digits and lower alphabets, and must not be empty</string>
     <string name="error_empty_display_name">Display name is empty</string>
 
