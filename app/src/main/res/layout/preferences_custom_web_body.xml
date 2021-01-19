@@ -11,7 +11,7 @@
         android:id="@+id/customURLListAddButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/url_preference_add_button"
+        android:text="@string/preferences_url_add_button"
         android:layout_margin="3dp"
         android:drawableStart="@android:drawable/ic_menu_add"
         />

@@ -4,76 +4,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
     <PreferenceCategory
-        android:title="@string/pref_category_main"
+        android:title="@string/preferences_category_main"
         android:key="pref_main_category"
         app:iconSpaceReserved="false"
         >
         <SwitchPreference
             android:key="pref_main_show_startup_help"
-            android:title="@string/pref_display_name_main_show_startup_help"
-            android:summary="@string/pref_display_summary_main_show_startup_help"
+            android:title="@string/preferences_item_main_show_startup_help_title"
+            android:summary="@string/preferences_item_main_show_startup_help_summary"
             android:defaultValue="true"
             app:iconSpaceReserved="false"
             />
         <Preference
             android:key="pref_default_assist_app"
-            android:title="@string/pref_default_assist_app_setting"
-            android:summary="@string/pref_default_assist_app_setting_summary"
+            android:title="@string/preferences_item_default_assist_app_title"
+            android:summary="@string/preferences_item_default_assist_app_summary"
             app:iconSpaceReserved="false"
             >
         </Preference>
         <SwitchPreference
             android:key="pref_main_always_show_notification"
-            android:title="@string/pref_display_name_main_always_show_notification"
-            android:summary="@string/pref_display_summary_main_always_show_notification"
+            android:title="@string/preferences_item_main_always_show_notification_title"
+            android:summary="@string/preferences_item_main_always_show_notification_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             />
         <ListPreference
             android:key="pref_text_match_strategy"
-            android:title="@string/pref_string_match_strategy"
+            android:title="@string/preferences_item_text_match_strategy_title"
             android:defaultValue="substring"
             app:iconSpaceReserved="false"
             />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_category_appearance"
+        android:title="@string/preferences_category_appearance"
         app:iconSpaceReserved="false"
         >
         <ListPreference
             android:key="pref_appearance_theme"
             android:defaultValue="default"
-            android:title="@string/pref_appearance_theme"
-            android:summary="@string/pref_appearance_theme_summary"
+            android:title="@string/preferences_item_appearance_theme_title"
+            android:summary="@string/preferences_item_appearance_theme_summary"
             app:iconSpaceReserved="false"
             />
         <SwitchPreference
             android:key="pref_appearance_animation"
             android:defaultValue="true"
-            android:title="@string/pref_appearance_animation"
+            android:title="@string/preferences_item_appearance_animation_title"
             app:iconSpaceReserved="false"
             />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_category_apps"
+        android:title="@string/preferences_category_apps"
         android:key="pref_apps_category"
         app:iconSpaceReserved="false"
         >
         <SwitchPreference
             android:key="pref_apps_show_package_name"
-            android:title="@string/pref_display_name_apps_show_package_name"
-            android:summary="@string/pref_display_summary_apps_show_package_name"
+            android:title="@string/preferences_item_apps_show_package_name_title"
+            android:summary="@string/preferences_item_apps_show_package_name_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="@string/pref_category_urls"
+        android:title="@string/preferences_category_urls"
         android:key="pref_urls_category"
         app:iconSpaceReserved="false"
         >
         <Preference
-            android:title="@string/pref_display_custom_urls"
+            android:title="@string/preferences_item_display_custom_urls_title"
             app:iconSpaceReserved="false"
             >
             <intent
@@ -84,8 +84,8 @@
         <ListPreference
             android:key="pref_default_search"
             android:defaultValue="none"
-            android:title="@string/pref_default_search"
-            android:summary="@string/pref_default_search_summary"
+            android:title="@string/preferences_item_default_search_title"
+            android:summary="@string/preferences_item_default_search_summary"
             app:iconSpaceReserved="false"
             />
     </PreferenceCategory>

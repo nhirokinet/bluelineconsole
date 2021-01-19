@@ -18,7 +18,7 @@ public class PreferencesActivity extends BaseWindowActivity {
     public void onCreate(Bundle savedInstanceStates) {
         super.onCreate(savedInstanceStates);
 
-        this.setHeaderFooterTexts(getString(R.string.preference_title_for_header_and_footer), null);
+        this.setHeaderFooterTexts(getString(R.string.preferences_title_for_header_and_footer), null);
         this.setNestingPadding(1);
 
         this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);

@@ -138,7 +138,7 @@ public class ApplicationCommandSearcher implements CommandSearcher {
                     String packageName = AppOpenCandidateEntry.this.applicationInformation.getPackageName();
                     Intent intent = activity.getPackageManager().getLaunchIntentForPackage(AppOpenCandidateEntry.this.applicationInformation.getPackageName());
                     if (intent == null) {
-                        Toast.makeText(activity, String.format(activity.getString(R.string.notFoundOpeningApplicationWithClass), packageName), Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, String.format(activity.getString(R.string.error_failure_not_found_opening_application_with_class), packageName), Toast.LENGTH_LONG).show();
                         return;
                     }
                     activity.startActivity(intent);

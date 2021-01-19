@@ -81,7 +81,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
 
         StaticPageCandidateEntry(Context context, String pageName, String urlBase) {
             this.urlBase = urlBase;
-            this.title = String.format(context.getString(R.string.formatStaticPageEntry), pageName);
+            this.title = String.format(context.getString(R.string.result_static_webpage_format), pageName);
         }
 
         @Override
@@ -130,7 +130,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         SearchEngineCandidateEntry(Context context, String query, String engineName, String urlBase) {
             this.query = query;
             this.urlBase = urlBase;
-            this.title = String.format(context.getString(R.string.formatSearchQueryOnEngine), query, engineName);
+            this.title = String.format(context.getString(R.string.result_search_query_on_engine_format), query, engineName);
         }
 
         @Override
