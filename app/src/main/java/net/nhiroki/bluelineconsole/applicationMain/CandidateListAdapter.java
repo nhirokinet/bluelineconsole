@@ -67,7 +67,6 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         iconLP.gravity = cand.hasLongView() ? Gravity.TOP : Gravity.CENTER_VERTICAL;
         iconView.setLayoutParams(iconLP);
 
-        // TODO: It's better to make all children transparent when CandidateListView is focused: in devices with cursor UP/DOWN key
         TypedValue selectedItemBackground = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.bluelineconsoleSelectedItemBackgroundColor, selectedItemBackground, true);
         convertView.setBackgroundColor((position == getChosenNowExplicitly())?  selectedItemBackground.data: Color.TRANSPARENT);
