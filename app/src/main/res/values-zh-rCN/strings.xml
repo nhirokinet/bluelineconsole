@@ -27,7 +27,7 @@
 
     <!-- String match strategies -->
     <string name="string_match_strategy_substring">正常</string>
-    <string name="string_match_strategy_skipped_substring">跳跃子字符串（如，搜索 &quot;abd&quot; 显示 &quot;abcdef&quot;）</string>
+    <string name="string_match_strategy_skipped_substring">跳跃子字符串（如，搜索 \"abd\" 显示 \"abcdef\"）</string>
 
     <!-- Notification for OS -->
     <string name="notification_launch_this_app">启动 Blue Line Console</string>
@@ -77,7 +77,7 @@
     <string name="preferences_url_column_has_query">搜索引擎(启用后，查询将被添加在末尾)</string>
 
     <!-- Error messages, user errors -->
-    <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠("/").</string>
+    <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠(\"/\").</string>
     <string name="error_invalid_url_command_name">无效的名称：命令只能包含数字和小写字母，且不能为空。</string>
     <string name="error_empty_display_name">显示名称为空</string>
 
