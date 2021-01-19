@@ -92,10 +92,6 @@ public class MainActivity extends BaseWindowActivity {
                     return true;
                 }
 
-                if (mainInputText.onKeyDown(keyCode, event)) {
-                    mainInputText.requestFocus();
-                    return true;
-                }
                 return false;
             }
         });

@@ -24,12 +24,13 @@ import java.util.List;
 
 class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private final ListView listView;
-    private int firstChoice = CHOICE_NOT_SET_YET;
+    private int chosenNowExplicitly = CHOICE_NOT_SET_YET;
 
     private final Activity activity;
 
-    private static final int CHOICE_NOT_SET_YET = -1;
-    private static final int CHOICE_UNAVAILABLE = -2;
+    private static final int CHOICE_NOT_SET_YET       = -1;
+    private static final int CHOICE_UNAVAILABLE       = -2;
+    private static final int CHOICE_KNOWN_BY_LISTVIEW = -3;
 
     CandidateListAdapter(Activity activity, List<CandidateEntry> objects, ListView listView) {
         super(activity, 0, objects);
@@ -69,7 +70,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         // TODO: It's better to make all children transparent when CandidateListView is focused: in devices with cursor UP/DOWN key
         TypedValue selectedItemBackground = new TypedValue();
         getContext().getTheme().resolveAttribute(R.attr.bluelineconsoleSelectedItemBackgroundColor, selectedItemBackground, true);
-        convertView.setBackgroundColor((position == getFirstChoice())?  selectedItemBackground.data: Color.TRANSPARENT);
+        convertView.setBackgroundColor((position == getChosenNowExplicitly())?  selectedItemBackground.data: Color.TRANSPARENT);
 
         if (cand.getIcon(getContext()) == null) {
             convertView.findViewById(R.id.candidateIconView).setPaddingRelative(0, 0, 0, 0);
@@ -111,7 +112,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
     @Override
     public void notifyDataSetChanged() {
-        this.firstChoice = CHOICE_NOT_SET_YET;
+        this.chosenNowExplicitly = CHOICE_NOT_SET_YET;
         super.notifyDataSetChanged();
     }
 
@@ -120,29 +121,28 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         return position < getCount() && getItem(position).hasEvent();
     }
 
-    public int getFirstChoice() {
-        if (firstChoice != CHOICE_NOT_SET_YET) {
-            return firstChoice;
+    public int getChosenNowExplicitly() {
+        if (chosenNowExplicitly != CHOICE_NOT_SET_YET) {
+            return chosenNowExplicitly;
         }
 
         for (int i = 0; i < this.getCount(); ++i) {
             if (this.getItem(i).hasEvent()) {
-                this.firstChoice = i;
+                this.chosenNowExplicitly = i;
                 return i;
             }
         }
-        this.firstChoice = CHOICE_UNAVAILABLE;
-        return firstChoice;
+        this.chosenNowExplicitly = CHOICE_UNAVAILABLE;
+        return chosenNowExplicitly;
     }
 
     private int getSecondChoice() {
-        int first = getFirstChoice();
-        if (getFirstChoice() < 0) {
+        int first = getChosenNowExplicitly();
+        if (getChosenNowExplicitly() < 0) {
             first = 0;
         }
         for (int i = first + 1; i < this.getCount(); ++i) {
             if (this.getItem(i).hasEvent()) {
-                this.firstChoice = i;
                 return i;
             }
         }
@@ -157,6 +157,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
             return false;
         }
 
+        this.chosenNowExplicitly = CHOICE_KNOWN_BY_LISTVIEW;
         this.listView.requestFocus();
         this.listView.setSelection(choice);
         return true;
@@ -171,8 +172,8 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     }
 
     public void invokeFirstChoiceEvent(Context context) {
-        if (getFirstChoice() >= 0) {
-            invokeEvent(getFirstChoice(), context);
+        if (getChosenNowExplicitly() >= 0) {
+            invokeEvent(getChosenNowExplicitly(), context);
         }
     }
 }
