@@ -2,67 +2,97 @@
 <resources>
     <string name="app_name">Blue Line Console</string>
 
+    <!-- ActivityMain -->
+    <string name="displayedFullVersionString">Version %1$s</string>
     <string name="loading_main_caption">データベース構築中&#8230;</string>
     <string name="loading_detail_for_command_search">初回起動時や、言語設定を変更した直後は、\n構築に数秒から数十秒かかることがあります。</string>
 
-    <string name="formatSearchQueryOnEngine">%2$s で \"%1$s\" を検索</string>
-    <string name="formatStaticPageEntry">%1$s に接続</string>
-
+    <!-- Calculators -->
     <string name="calculator_precision_format">演算精度: %1$s</string>
     <string name="calculator_precision_no_error">誤差なし</string>
     <string name="calculator_precision_rounding">演算中の丸め処理あり</string>
     <string name="calculator_error_division_by_zero">0 による除算</string>
 
-    <string name="title_for_notification">Notification</string>
-    <string name="preference_title_for_header_and_footer">Configuration</string>
+    <!-- Command searcher texts for results -->
+    <string name="formatSearchQueryOnEngine">%2$s で \"%1$s\" を検索</string>
+    <string name="formatStaticPageEntry">%1$s に接続</string>
     <string name="summary_text_for_preferences_of_this_app">Blue Line Console の設定</string>
 
-    <string name="notification_title_on_startup">help の使い方</string>
-    <string name="notification_detail_on_startup_pre">コマンド入力欄に</string>
-    <string name="notification_detail_on_startup_post">と入力すると、使い方を表示できます。</string>
-    <string name="notification_window_never_later">次回以降このヒントを表示しない</string>
-    <string name="notification_window_close">閉じる</string>
-    <string name="notification_launch_this_app">Blue Line Console を起動</string>
-
-    <string name="pref_category_main">一般</string>
-    <string name="pref_category_apps">アプリ起動</string>
-    <string name="pref_category_appearance">外観</string>
-    <string name="pref_category_urls">Web ページと Web 検索</string>
-    <string name="pref_display_name_main_show_startup_help">起動時にヘルプを表示</string>
-    <string name="pref_display_name_main_always_show_notification">通知を常に表示</string>
-    <string name="pref_display_summary_main_show_startup_help">"help" コマンドを案内します。"help" コマンドを覚えたら無効にすることをおすすめします。</string>
-    <string name="pref_display_summary_main_always_show_notification">どこからでも Blue Line Console を起動できるよう、通知を常に表示します。</string>
-    <string name="notification_channel_always_show">Blue Line Console をどの画面からでも開くために、常に通知バーに表示</string>
-    <string name="pref_default_assist_app_setting">デフォルトのアシストアプリに設定する</string>
-    <string name="pref_default_assist_app_setting_summary">設定でアシストアプリに設定することで、どこからでもホームボタン長押しで Blue Line Console を起動できるようにできます。</string>
-    <string name="pref_appearance_theme">テーマ</string>
-    <string name="pref_appearance_theme_summary">テーマを変更すると、 Blue Line Console が再起動します。</string>
-    <string name="pref_appearance_animation">アニメーション</string>
-    <string name="pref_display_name_apps_show_package_name">パッケージ名を表示</string>
-    <string name="pref_display_summary_apps_show_package_name">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
-    <string name="pref_add_custom_urls_title_for_header_and_footer">Add URL</string>
-    <string name="pref_edit_custom_urls_title_for_header_and_footer">Edit URL</string>
-    <string name="pref_default_search">デフォルト検索エンジン</string>
-    <string name="pref_default_search_summary">常に設定した検索エンジンでの検索を一覧に表示します</string>
-    <string name="pref_default_search_none">（なし）</string>
-    <string name="pref_string_match_strategy">検索時の文字列マッチ</string>
-    <string name="pref_string_match_strategy_substring">通常</string>
-    <string name="pref_string_match_strategy_skipped_substring">一部一致 （例： &quot;abd&quot; で &quot;abcdef&quot; がヒット）</string>
-    <string name="url_preference_column_name">コマンド名</string>
-    <string name="url_preference_column_display_name">表示名</string>
-    <string name="url_preference_column_url">URL</string>
-    <string name="url_preference_column_has_query">検索エンジン（有効にするとクエリが URL 末尾に追加されます）</string>
-
-    <string name="add_button_text">追加</string>
-    <string name="update_button_text">更新</string>
-    <string name="delete_button_text">削除</string>
-
+    <!-- Themes -->
     <string name="theme_name_default">デフォルト（ライトまたはダーク、システム設定に従う）</string>
     <string name="theme_name_light">ライト</string>
     <string name="theme_name_dark">ダーク</string>
     <string name="theme_name_marine">マリン</string>
     <string name="theme_name_old_computer">オールド・コンピュータ</string>
 
+    <!-- String match strategies -->
+    <string name="pref_string_match_strategy_substring">通常</string>
+    <string name="pref_string_match_strategy_skipped_substring">一部一致 （例： &quot;abd&quot; で &quot;abcdef&quot; がヒット）</string>
+
+    <!-- Notification for OS -->
+    <string name="notification_launch_this_app">Blue Line Console を起動</string>
+    <string name="notification_channel_always_show">Blue Line Console をどの画面からでも開くために、常に通知バーに表示</string>
+
+    <!-- Preferences general buttons -->
+    <string name="add_button_text">追加</string>
+    <string name="update_button_text">更新</string>
+    <string name="delete_button_text">削除</string>
+
+    <!-- Preferences, titles for headers and footers -->
+    <string name="preference_title_for_header_and_footer">Configuration</string>
+    <string name="url_preference_title_for_header_and_footer">URL</string>
+    <string name="pref_add_custom_urls_title_for_header_and_footer">Add URL</string>
+    <string name="pref_edit_custom_urls_title_for_header_and_footer">Edit URL</string>
+
+    <!-- Preferences categories, main screen -->
+    <string name="pref_category_main">一般</string>
+    <string name="pref_category_apps">アプリ起動</string>
+    <string name="pref_category_appearance">外観</string>
+    <string name="pref_category_urls">Web ページと Web 検索</string>
+
+    <!-- Preferences, titles for headers and footers -->
+    <string name="pref_display_name_main_show_startup_help">起動時にヘルプを表示</string>
+    <string name="pref_display_summary_main_show_startup_help">"help" コマンドを案内します。"help" コマンドを覚えたら無効にすることをおすすめします。</string>
+    <string name="pref_default_assist_app_setting">デフォルトのアシストアプリに設定する</string>
+    <string name="pref_default_assist_app_setting_summary">設定でアシストアプリに設定することで、どこからでもホームボタン長押しで Blue Line Console を起動できるようにできます。</string>
+    <string name="pref_display_name_main_always_show_notification">通知を常に表示</string>
+    <string name="pref_display_summary_main_always_show_notification">どこからでも Blue Line Console を起動できるよう、通知を常に表示します。</string>
+    <string name="pref_string_match_strategy">検索時の文字列マッチ</string>
+    <string name="pref_appearance_theme">テーマ</string>
+    <string name="pref_appearance_theme_summary">テーマを変更すると、 Blue Line Console が再起動します。</string>
+    <string name="pref_appearance_animation">アニメーション</string>
+    <string name="pref_display_name_apps_show_package_name">パッケージ名を表示</string>
+    <string name="pref_display_summary_apps_show_package_name">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
+    <string name="pref_display_custom_urls">URL と検索エンジンの呼び出し設定</string>
+    <string name="pref_default_search">デフォルト検索エンジン</string>
+    <string name="pref_default_search_summary">常に設定した検索エンジンでの検索を一覧に表示します</string>
+    <string name="pref_default_search_none">（なし）</string>
+
+    <!-- Preferences items, URL screens -->
+    <string name="url_preference_column_name">コマンド名</string>
+    <string name="url_preference_column_display_name">表示名</string>
+    <string name="url_preference_column_url">URL</string>
+    <string name="url_preference_column_has_query">検索エンジン（有効にするとクエリが URL 末尾に追加されます）</string>
+    <string name="url_preference_add_button">URL 追加</string>
+
+    <!-- Error messages, user errors -->
+    <string name="err_invalid_url">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ ("/") を含む必要があります</string>
+    <string name="err_invalid_url_name">コマンドはアルファベットの小文字と数字だけを含むことができ、一文字以上である必要があります。</string>
+    <string name="err_display_name_is_empty">表示名が空です。</string>
+
+    <!-- Error messages, system errors -->
+    <string name="err_could_not_start_command">エラー：コマンドを開始できませんでした</string>
+    <string name="notFoundOpeningApplicationWithClass">\"%1$s\" は開くことができません。</string>
+
+    <!-- Startup Help Activity -->
+    <string name="title_for_notification">Notification</string>
+    <string name="notification_title_on_startup">help の使い方</string>
+    <string name="notification_detail_on_startup_pre">コマンド入力欄に</string>
+    <string name="notification_detail_on_startup_post">と入力すると、使い方を表示できます。</string>
+    <string name="notification_window_never_later">次回以降このヒントを表示しない</string>
+    <string name="notification_window_close">閉じる</string>
+
+    <!-- Help -->
     <string name="app_help_text">
         次の一覧のいずれかで検索できます。
         \n
@@ -92,13 +122,4 @@
         \nヒント： 設定 &gt; アプリと通知 &gt; デフォルトアプリ &gt; アシスト&amp;音声入力、または似たようなメニューで Blue Line Console をデフォルトのアシストアプリにすることにより、ホームボタン長押しで Blue Line Console を起動できるようになります。
         \nヒント： Blue Line Console のアイコンを常に通知に表示することで、通知バーから開くことができます。config コマンドでメニューを開いて設定できます。
     </string>
-    <string name="displayedFullVersionString">Version %1$s</string>
-    <string name="notFoundOpeningApplicationWithClass">\"%1$s\" は開くことができません。</string>
-    <string name="url_preference_title_for_header_and_footer">URL</string>
-    <string name="url_preference_add_button">URL 追加</string>
-    <string name="pref_display_custom_urls">URL と検索エンジンの呼び出し設定</string>
-    <string name="err_invalid_url">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ ("/") を含む必要があります</string>
-    <string name="err_invalid_url_name">コマンドはアルファベットの小文字と数字だけを含むことができ、一文字以上である必要があります。</string>
-    <string name="err_display_name_is_empty">表示名が空です。</string>
-    <string name="err_could_not_start_command">エラー：コマンドを開始できませんでした</string>
 </resources>
