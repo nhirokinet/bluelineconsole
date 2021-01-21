@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="Overdraw"
+    >
     <Button
         android:id="@+id/customURLListAddButton"
         android:layout_width="match_parent"

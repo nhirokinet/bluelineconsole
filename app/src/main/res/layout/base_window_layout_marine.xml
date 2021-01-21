@@ -21,12 +21,14 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         >
+        <!-- Linter complaints that this LinearLayout or parent LinearLayout is useless, but I think both are needed. -->
         <LinearLayout
             android:id="@+id/baseWindowIntermediateWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/marine_main_window"
+            tools:ignore="UselessParent"
             >
             <LinearLayout
                 android:id="@+id/baseWindowHeaderWrapper"
@@ -53,33 +55,22 @@
                     />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/baseWindowMainLinearLayoutOuter"
+                android:id="@+id/baseWindowMainLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="0sp"
-                android:paddingHorizontal="3sp"
+                android:paddingVertical="6dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginBottom="18sp"
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:animateLayoutChanges="true"
                 >
-                <LinearLayout
-                    android:id="@+id/baseWindowMainLinearLayout"
+                <ViewStub
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="6dp"
-                    android:paddingHorizontal="7dp"
-                    android:layout_margin="0px"
-                    android:orientation="vertical"
+                    android:id="@+id/baseWindowMainViewStub"
                     android:animateLayoutChanges="true"
-                    >
-                    <ViewStub
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/baseWindowMainViewStub"
-                        android:animateLayoutChanges="true"
-                        />
-                </LinearLayout>
+                    />
             </LinearLayout>
             <!--
               To fill the gap between baseWindowFooterWrapper and View just above,
