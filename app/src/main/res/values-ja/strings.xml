@@ -38,6 +38,8 @@
     <string name="button_update">更新</string>
     <string name="button_delete">削除</string>
     <string name="button_close">閉じる</string>
+    <string name="button_increment_minimal">+</string>
+    <string name="button_decrement_minimal">-</string>
 
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">Blue Line Console の再起動後に反映されます。</string>

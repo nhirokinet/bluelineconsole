@@ -55,7 +55,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-        <TableRow>
+        <TableRow
+            android:gravity="center_vertical"
+            android:paddingVertical="3dp"
+            >
             <TextView
                 android:id="@+id/pref_accent_color_red_label"
                 android:layout_width="wrap_content"
@@ -70,15 +73,35 @@
                 android:max="255"
                 android:labelFor="@id/pref_accent_color_red_label"
                 />
+            <Button
+                android:id="@+id/pref_accent_color_red_decrement_button"
+                android:text="@string/button_decrement_minimal"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:textSize="15sp"
+                android:padding="0dp"
+                />
             <TextView
                 android:id="@+id/pref_accent_color_red_text"
                 android:layout_width="30sp"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
                 android:textDirection="ltr"
+                android:textColor="?bluelineconsoleBaseTextColor"
+                />
+            <Button
+                android:id="@+id/pref_accent_color_red_increment_button"
+                android:text="@string/button_increment_minimal"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:textSize="15sp"
+                android:padding="0dp"
                 />
         </TableRow>
-        <TableRow>
+        <TableRow
+            android:gravity="center_vertical"
+            android:paddingVertical="3dp"
+            >
             <TextView
                 android:id="@+id/pref_accent_color_green_label"
                 android:layout_width="wrap_content"
@@ -93,15 +116,35 @@
                 android:max="255"
                 android:labelFor="@id/pref_accent_color_green_label"
                 />
+            <Button
+                android:id="@+id/pref_accent_color_green_decrement_button"
+                android:text="@string/button_decrement_minimal"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:textSize="15sp"
+                android:padding="0dp"
+                />
             <TextView
                 android:id="@+id/pref_accent_color_green_text"
                 android:layout_width="30sp"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
                 android:textDirection="ltr"
+                android:textColor="?bluelineconsoleBaseTextColor"
+                />
+            <Button
+                android:id="@+id/pref_accent_color_green_increment_button"
+                android:text="@string/button_increment_minimal"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:textSize="15sp"
+                android:padding="0dp"
                 />
         </TableRow>
-        <TableRow>
+        <TableRow
+            android:gravity="center_vertical"
+            android:paddingVertical="3dp"
+            >
             <TextView
                 android:id="@+id/pref_accent_color_blue_label"
                 android:layout_width="wrap_content"
@@ -116,12 +159,29 @@
                 android:max="255"
                 android:labelFor="@id/pref_accent_color_blue_label"
                 />
+            <Button
+                android:id="@+id/pref_accent_color_blue_decrement_button"
+                android:text="@string/button_decrement_minimal"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:textSize="15sp"
+                android:padding="0dp"
+                />
             <TextView
                 android:id="@+id/pref_accent_color_blue_text"
                 android:layout_width="30sp"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
                 android:textDirection="ltr"
+                android:textColor="?bluelineconsoleBaseTextColor"
+                />
+            <Button
+                android:id="@+id/pref_accent_color_blue_increment_button"
+                android:text="@string/button_increment_minimal"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:textSize="15sp"
+                android:padding="0dp"
                 />
         </TableRow>
     </TableLayout>
