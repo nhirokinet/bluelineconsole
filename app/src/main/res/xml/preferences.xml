@@ -47,6 +47,15 @@
             android:summary="@string/preferences_item_appearance_theme_summary"
             app:iconSpaceReserved="false"
             />
+        <Preference
+            android:title="@string/preferences_item_appearance_accent_color"
+            app:iconSpaceReserved="false"
+            >
+            <intent
+                android:targetClass="net.nhiroki.bluelineconsole.applicationMain.PreferencesAccentColorActivity"
+                android:targetPackage="net.nhiroki.bluelineconsole"
+                />
+        </Preference>
         <SwitchPreference
             android:key="pref_appearance_animation"
             android:defaultValue="true"
