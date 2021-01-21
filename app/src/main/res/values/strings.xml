@@ -38,6 +38,8 @@
     <string name="button_update">Update</string>
     <string name="button_delete">Delete</string>
     <string name="button_close">Close</string>
+    <string name="button_increment_minimal">+</string>
+    <string name="button_decrement_minimal">-</string>
 
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">This setting takes effect after restarting Blue Line Console.</string>

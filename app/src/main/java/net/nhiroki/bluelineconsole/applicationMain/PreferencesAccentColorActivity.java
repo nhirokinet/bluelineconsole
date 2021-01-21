@@ -39,6 +39,81 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
                     }
                 }
         );
+
+        this.findViewById(R.id.pref_accent_color_red_decrement_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).getProgress();
+                        if (oldval > 0) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).setProgress(oldval - 1);
+                            PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
+                        }
+                    }
+                }
+        );
+        this.findViewById(R.id.pref_accent_color_red_increment_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).getProgress();
+                        if (oldval < 255) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).setProgress(oldval + 1);
+                            PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
+                        }
+                    }
+                }
+        );
+        
+        this.findViewById(R.id.pref_accent_color_green_decrement_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).getProgress();
+                        if (oldval > 0) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).setProgress(oldval - 1);
+                            PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
+                        }
+                    }
+                }
+        );
+        this.findViewById(R.id.pref_accent_color_green_increment_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).getProgress();
+                        if (oldval < 255) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).setProgress(oldval + 1);
+                            PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
+                        }
+                    }
+                }
+        );
+
+        this.findViewById(R.id.pref_accent_color_blue_decrement_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).getProgress();
+                        if (oldval > 0) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).setProgress(oldval - 1);
+                            PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
+                        }
+                    }
+                }
+        );
+        this.findViewById(R.id.pref_accent_color_blue_increment_button).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).getProgress();
+                        if (oldval < 255) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).setProgress(oldval + 1);
+                            PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
+                        }
+                    }
+                }
+        );
     }
 
     @Override
@@ -73,16 +148,29 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
         }
 
         if (this.themeSupportsAccentColorChange()) {
-
             if (accentColorPreference.startsWith(PREF_VALUE_ACCENT_COLOR_PREFIX_COLOR)) {
                 this.findViewById(R.id.pref_accent_color_red_seekbar).setEnabled(true);
                 this.findViewById(R.id.pref_accent_color_green_seekbar).setEnabled(true);
                 this.findViewById(R.id.pref_accent_color_blue_seekbar).setEnabled(true);
 
+                this.findViewById(R.id.pref_accent_color_red_decrement_button).setEnabled(red > 0);
+                this.findViewById(R.id.pref_accent_color_red_increment_button).setEnabled(red < 255);
+                this.findViewById(R.id.pref_accent_color_green_decrement_button).setEnabled(green > 0);
+                this.findViewById(R.id.pref_accent_color_green_increment_button).setEnabled(green < 255);
+                this.findViewById(R.id.pref_accent_color_blue_decrement_button).setEnabled(blue > 0);
+                this.findViewById(R.id.pref_accent_color_blue_increment_button).setEnabled(blue < 255);
+
             } else {
                 this.findViewById(R.id.pref_accent_color_red_seekbar).setEnabled(false);
                 this.findViewById(R.id.pref_accent_color_green_seekbar).setEnabled(false);
                 this.findViewById(R.id.pref_accent_color_blue_seekbar).setEnabled(false);
+
+                this.findViewById(R.id.pref_accent_color_red_decrement_button).setEnabled(false);
+                this.findViewById(R.id.pref_accent_color_red_increment_button).setEnabled(false);
+                this.findViewById(R.id.pref_accent_color_green_decrement_button).setEnabled(false);
+                this.findViewById(R.id.pref_accent_color_green_increment_button).setEnabled(false);
+                this.findViewById(R.id.pref_accent_color_blue_decrement_button).setEnabled(false);
+                this.findViewById(R.id.pref_accent_color_blue_increment_button).setEnabled(false);
             }
 
         } else {
@@ -96,6 +184,13 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
             this.findViewById(R.id.pref_accent_color_blue_seekbar).setEnabled(false);
 
             this.findViewById(R.id.pref_accent_color_restart_notification).setVisibility(View.GONE);
+
+            this.findViewById(R.id.pref_accent_color_red_decrement_button).setEnabled(false);
+            this.findViewById(R.id.pref_accent_color_red_increment_button).setEnabled(false);
+            this.findViewById(R.id.pref_accent_color_green_decrement_button).setEnabled(false);
+            this.findViewById(R.id.pref_accent_color_green_increment_button).setEnabled(false);
+            this.findViewById(R.id.pref_accent_color_blue_decrement_button).setEnabled(false);
+            this.findViewById(R.id.pref_accent_color_blue_increment_button).setEnabled(false);
         }
     }
 
