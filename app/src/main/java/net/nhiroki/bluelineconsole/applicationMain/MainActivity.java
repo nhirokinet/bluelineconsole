@@ -7,7 +7,6 @@ import java.util.concurrent.Executors;
 
 import android.animation.LayoutTransition;
 import android.content.Intent;
-import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.text.Editable;
@@ -241,17 +240,10 @@ public class MainActivity extends BaseWindowActivity {
     private void setWholeLayout() {
         final EditText mainInputText = findViewById(R.id.mainInputText);
         final boolean textFilled = ! mainInputText.getText().toString().equals("");
-        Point displaySize = new Point();
-        this.getWindowManager().getDefaultDisplay().getSize(displaySize);
+
+        this.setWindowBoundarySize(textFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HIRZONTAL_MARGIN, 0);
 
         this.setWindowLocationGravity(textFilled ? Gravity.TOP : Gravity.CENTER_VERTICAL);
-
-        final int maxPanelWidth = (int)(600.0 * getResources().getDisplayMetrics().density);
-        final int panelWidth = Math.min(maxPanelWidth,
-                                        textFilled ? displaySize.x
-                                                   : (int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7))
-                                       );
-        this.setRootPadding((displaySize.x - panelWidth) / 2, 0);
 
         final double pixelsPerSp = getResources().getDisplayMetrics().scaledDensity;
 

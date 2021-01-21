@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -246,6 +247,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void applyAccentColor(int color) {
         // TODO: why? setTint doesn't work when resuming from another Activity even if called from onResume; setBackgroundColor works, although.
         // After this is resolved, applyAccentColor can be called from onResume instead of onCreate, and apply immediately after change.
+        // This behavior also seems to depend on Android version. Currently not to pursur perfect behavior here, just encourage users to restart.
         if (this.getCurrentTheme().equals(PREF_VALUE_THEME_DARK) || this.getCurrentTheme().equals(PREF_VALUE_THEME_LIGHT) || this.getCurrentTheme().equals(PREF_VALUE_THEME_DEFAULT)) {
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground(), color);
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);
@@ -257,16 +259,36 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     protected void onHeightChange() {}
 
-    protected void setRootPadding(int horizontal, int vertical) {
-        findViewById(R.id.baseWindowRootLinearLayout).setPadding(horizontal, vertical, horizontal, vertical);
-    }
+    protected static final int ROOT_WINDOW_FULL_WIDTH_IN_MOBILE = 1;
+    protected static final int ROOT_WINDOW_ALWAYS_HIRZONTAL_MARGIN = 2;
+    protected static final int ROOT_WINDOW_FULL_WIDTH_ALWAYS = 3;
 
-    protected void setNestingPadding(int step) {
-        findViewById(R.id.baseWindowRootLinearLayout).setPadding(
-                (int)(8 * step * getResources().getDisplayMetrics().density),
-                (int)(24 * step * getResources().getDisplayMetrics().density),
-                (int)(8 * step * getResources().getDisplayMetrics().density),
-                (int)(24 * step * getResources().getDisplayMetrics().density));
+    protected void setWindowBoundarySize(int widthMode, int windowNestStep) {
+        final int baseHorizontalMerginInPixels = (int)(8 * windowNestStep * getResources().getDisplayMetrics().density);
+        final int baseVerticalMerginInPixels = (int)(24 * windowNestStep * getResources().getDisplayMetrics().density);
+
+        if (widthMode == ROOT_WINDOW_FULL_WIDTH_ALWAYS) {
+            findViewById(R.id.baseWindowRootLinearLayout).setPadding(baseHorizontalMerginInPixels, baseVerticalMerginInPixels, baseHorizontalMerginInPixels, baseVerticalMerginInPixels);
+
+        } else {
+            final Point displaySize = new Point();
+            this.getWindowManager().getDefaultDisplay().getSize(displaySize);
+
+            final int maxPanelWidth;
+
+            maxPanelWidth = (int) (600 * getResources().getDisplayMetrics().density);
+
+            final int panelWidth;
+
+            if (widthMode == ROOT_WINDOW_ALWAYS_HIRZONTAL_MARGIN) {
+                panelWidth = Math.min((int) (displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7) - baseHorizontalMerginInPixels), maxPanelWidth - baseHorizontalMerginInPixels);
+            } else {
+                panelWidth = Math.min(maxPanelWidth - baseHorizontalMerginInPixels, displaySize.x - baseHorizontalMerginInPixels);
+            }
+
+            final int horizontal = Math.max((displaySize.x - panelWidth) / 2, baseHorizontalMerginInPixels);
+            findViewById(R.id.baseWindowRootLinearLayout).setPadding(horizontal, baseVerticalMerginInPixels, horizontal, baseVerticalMerginInPixels);
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -303,7 +325,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         ((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         ((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         ((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER)) {
+        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && !this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
             ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayoutOuter)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         }
         ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
@@ -314,7 +336,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         ((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
         ((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
         ((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER)) {
+        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
             ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayoutOuter)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
         }
         ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
@@ -347,7 +369,7 @@ public class BaseWindowActivity extends AppCompatActivity {
             centerLP.height = this._smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
             centerLL.setLayoutParams(centerLP);
 
-            if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER)) {
+            if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && ! this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
                 LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
                 centerLPOuter.height = this._smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
                 centerLLOuter.setLayoutParams(centerLPOuter);
@@ -362,7 +384,7 @@ public class BaseWindowActivity extends AppCompatActivity {
             centerLP.height = 0;
             centerLL.setLayoutParams(centerLP);
 
-            if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER)) {
+            if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && ! this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
                 LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
                 centerLPOuter.height = 0;
                 centerLLOuter.setLayoutParams(centerLPOuter);

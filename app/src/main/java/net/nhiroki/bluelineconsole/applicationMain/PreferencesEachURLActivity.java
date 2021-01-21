@@ -24,7 +24,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setNestingPadding(3);
+        this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 3);
 
         this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
