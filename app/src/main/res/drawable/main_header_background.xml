@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="18sp"
+    android:width="130sp"
+    android:viewportHeight="18"
+    android:viewportWidth="130"
+    android:autoMirrored="true"
+    >
+    <path
+        android:pathData="M0,18 L0,0 L119.61,0 L130,18"
+        android:fillColor="?bluelineconsoleFrameColor" />
+</vector>

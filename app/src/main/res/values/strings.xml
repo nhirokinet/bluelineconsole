@@ -39,11 +39,15 @@
     <string name="button_delete">Delete</string>
     <string name="button_close">Close</string>
 
+    <!-- Preferences general notes -->
+    <string name="note_take_effect_after_restart">This setting takes effect after restarting Blue Line Console.</string>
+
     <!-- Preferences, titles for headers and footers -->
     <string name="preferences_title_for_header_and_footer">Configuration</string>
     <string name="preferences_title_for_header_and_footer_url">URL</string>
     <string name="preferences_title_for_header_and_footer_add_custom_urls">Add URL</string>
     <string name="preferences_title_for_header_and_footer_edit_custom_urls">Edit URL</string>
+    <string name="preferences_title_for_header_and_footer_accent_color">Accent Color</string>
 
     <!-- Preferences categories, main screen -->
     <string name="preferences_category_main">General</string>
@@ -61,6 +65,7 @@
     <string name="preferences_item_text_match_strategy_title">Text search matching style</string>
     <string name="preferences_item_appearance_theme_title">Theme</string>
     <string name="preferences_item_appearance_theme_summary">When this option is changed, Blue Line Console restarts immediately.</string>
+    <string name="preferences_item_appearance_accent_color">Accent color</string>
     <string name="preferences_item_appearance_animation_title">Animation</string>
     <string name="preferences_item_apps_show_package_name_title">Show package name</string>
     <string name="preferences_item_apps_show_package_name_summary">Note: You can find apps by a part of package name even this check is off.</string>
@@ -75,6 +80,14 @@
     <string name="preferences_url_column_display_name">Display name</string>
     <string name="preferences_url_column_url">URL</string>
     <string name="preferences_url_column_has_query">Search engine (query is added at the end when enabled)</string>
+
+    <!-- Preferences items, accent color screens -->
+    <string name="preferences_accent_color_theme_default">Theme default</string>
+    <string name="preferences_accent_color_custom">Customize color</string>
+    <string name="preferences_accent_color_red">Red</string>
+    <string name="preferences_accent_color_green">Green</string>
+    <string name="preferences_accent_color_blue">Blue</string>
+    <string name="preferences_accent_color_theme_without_accent_color">Current theme (%1$s) does not support changing accent color.</string>
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">Invalid URL: must start with https:// or http:// and at least one more slash (\"/\").</string>

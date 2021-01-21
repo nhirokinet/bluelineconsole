@@ -6,6 +6,8 @@
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".applicationMain.BaseWindowActivity"
     >
     <LinearLayout
         android:id="@+id/baseWindowRootLinearLayout"

@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -16,11 +17,14 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import net.nhiroki.bluelineconsole.R;
+
 
 public class BaseWindowActivity extends AppCompatActivity {
     private final int _mainLayoutResID;
@@ -42,6 +46,10 @@ public class BaseWindowActivity extends AppCompatActivity {
         return new CharSequence[]{ context.getString(R.string.theme_name_default), context.getString(R.string.theme_name_light), context.getString(R.string.theme_name_dark),
                                    context.getString(R.string.theme_name_marine), context.getString(R.string.theme_name_old_computer), };
     }
+
+    public static final String PREF_NAME_ACCENT_COLOR = "pref_accent_color";
+    public static final String PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT = "theme_default";
+    public static final String PREF_VALUE_ACCENT_COLOR_PREFIX_COLOR = "color";
 
     public static final String PREF_NAME_ANIMATION = "pref_appearance_animation";
 
@@ -131,6 +139,8 @@ public class BaseWindowActivity extends AppCompatActivity {
             );
             mainFooterWrapper.setLayoutParams(mainFooterWrapperLayoutParam);
         }
+
+        this.onAccentColorChanged();
     }
 
     @Override
@@ -184,8 +194,65 @@ public class BaseWindowActivity extends AppCompatActivity {
         return this._currentTheme;
     }
 
+    protected CharSequence getCurrentThemeName() {
+        for (int i = 0; i < PREF_THEME_ENTRY_VALUES.length; ++i) {
+            if (PREF_THEME_ENTRY_VALUES[i].equals(this._currentTheme)) {
+                return BaseWindowActivity.getPrefThemeEntries(this)[i];
+            }
+        }
+        return this.getString(R.string.theme_name_default);
+    }
+
     protected void setComingBackFlag() {
         this._comingBack = true;
+    }
+
+    protected boolean themeSupportsAccentColorChange() {
+        return this.getCurrentTheme().equals(PREF_VALUE_THEME_DARK) || this.getCurrentTheme().equals(PREF_VALUE_THEME_LIGHT) || this.getCurrentTheme().equals(PREF_VALUE_THEME_DEFAULT);
+    }
+
+    @CallSuper
+    protected void onAccentColorChanged() {
+        String accentColorPreference = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_ACCENT_COLOR, PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT);
+
+        final int color;
+
+        if (accentColorPreference.equals(PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT)) {
+            TypedValue accentColorFromTheme = new TypedValue();
+            this.getTheme().resolveAttribute(R.attr.bluelineconsoleAccentColor, accentColorFromTheme, true);
+
+            color = accentColorFromTheme.data;
+
+        } else if(accentColorPreference.startsWith(PREF_VALUE_ACCENT_COLOR_PREFIX_COLOR + "-")) {
+            String[] colorStringSplit = accentColorPreference.split("-");
+
+            int red = Integer.parseInt(colorStringSplit[1]);
+            int green = Integer.parseInt(colorStringSplit[2]);
+            int blue = Integer.parseInt(colorStringSplit[3]);
+
+            color = (255 << 24) | (red << 16) | (green << 8) | blue;
+
+        } else {
+            TypedValue accentColorFromTheme = new TypedValue();
+            this.getTheme().resolveAttribute(R.attr.bluelineconsoleAccentColor, accentColorFromTheme, true);
+
+            color = accentColorFromTheme.data;
+        }
+
+        this.applyAccentColor(color);
+    }
+
+    @CallSuper
+    protected void applyAccentColor(int color) {
+        // TODO: why? setTint doesn't work when resuming from another Activity even if called from onResume; setBackgroundColor works, although.
+        // After this is resolved, applyAccentColor can be called from onResume instead of onCreate, and apply immediately after change.
+        if (this.getCurrentTheme().equals(PREF_VALUE_THEME_DARK) || this.getCurrentTheme().equals(PREF_VALUE_THEME_LIGHT) || this.getCurrentTheme().equals(PREF_VALUE_THEME_DEFAULT)) {
+            DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground(), color);
+            DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);
+            this.findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent).setBackgroundColor(color);
+            this.findViewById(R.id.baseWindowDefaultThemeFooterEndAccent).setBackgroundColor(color);
+            this.findViewById(R.id.baseWindowMainLinearLayoutOuter).setBackgroundColor(color);
+        }
     }
 
     protected void onHeightChange() {}

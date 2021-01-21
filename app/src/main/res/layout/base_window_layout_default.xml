@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/baseWindowMainLayoutRoot"
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".applicationMain.BaseWindowActivity"
     >
     <LinearLayout
         android:id="@+id/baseWindowRootLinearLayout"
@@ -30,25 +33,38 @@
             <LinearLayout
                 android:layout_width="3sp"
                 android:layout_height="match_parent"
+                android:id="@+id/baseWindowDefaultThemeHeaderStartAccent"
                 android:background="?bluelineconsoleAccentColor"
                 android:orientation="horizontal"
                 />
-            <TextView
-                android:clickable="false"
-                android:id="@+id/baseWindowMainHeaderTextView"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="3sp"
-                android:gravity="center_horizontal|top"
-                android:background="@drawable/main_header"
-                android:textColor="?bluelineconsoleFrameTextColor"
-                android:textStyle="bold"
-                android:layout_gravity="start"
-                android:text=""
-                android:textSize="12sp"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                />
+                android:background="@drawable/main_header_background"
+                android:orientation="vertical">
+                <!-- Sizes here must be consistent with corresponding drawables -->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/baseWindowDefaultThemeHeaderAccent"
+                    android:background="@drawable/main_header_accent"
+                    tools:ignore="ContentDescription"
+                    />
+                <TextView
+                    android:clickable="false"
+                    android:id="@+id/baseWindowMainHeaderTextView"
+                    android:layout_width="130sp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal|top"
+                    android:textColor="?bluelineconsoleFrameTextColor"
+                    android:textStyle="bold"
+                    android:layout_gravity="start"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/baseWindowMainLinearLayoutOuter"
@@ -95,26 +111,47 @@
             android:orientation="horizontal"
             android:animateLayoutChanges="true"
             >
-            <TextView
-                android:clickable="false"
-                android:id="@+id/baseWindowMainFooterTextView"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="4sp"
-                android:gravity="center_horizontal|bottom"
-                android:background="@drawable/main_footer"
-                android:textStyle="bold"
-                android:textColor="?bluelineconsoleFrameTextColor"
-                android:layout_gravity="end"
-                android:text=""
-                android:textSize="12sp"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                />
+                android:background="@drawable/main_footer_background"
+                android:orientation="vertical">
+                <!-- Sizes here must be consistent with corresponding drawables -->
+                <TextView
+                    android:clickable="false"
+                    android:id="@+id/baseWindowMainFooterTextView"
+                    android:layout_width="130sp"
+                    android:layout_height="15sp"
+                    android:paddingBottom="1sp"
+                    android:gravity="center_horizontal|bottom"
+                    android:textStyle="bold"
+                    android:textColor="?bluelineconsoleFrameTextColor"
+                    android:layout_gravity="end"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+                <!-- To place accent color strictly at bottom of main_footer_background, consume all remaining space -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    />
+                <ImageView
+                    android:id="@+id/baseWindowDefaultThemeFooterAccent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/main_footer_accent"
+                    tools:ignore="ContentDescription"
+                    />
+            </LinearLayout>
             <LinearLayout
+                android:id="@+id/baseWindowDefaultThemeFooterEndAccent"
                 android:layout_width="3sp"
                 android:layout_height="match_parent"
                 android:background="?bluelineconsoleAccentColor"
+                android:orientation="vertical"
                 />
         </LinearLayout>
     </LinearLayout>

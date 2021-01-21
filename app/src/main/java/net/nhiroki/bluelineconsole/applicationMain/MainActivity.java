@@ -88,6 +88,7 @@ public class MainActivity extends BaseWindowActivity {
                     return true;
                 }
 
+                //noinspection RedundantIfStatement
                 if (event.getAction() == KeyEvent.ACTION_UP && v.onKeyUp(keyCode, event)) {
                     return true;
                 }
