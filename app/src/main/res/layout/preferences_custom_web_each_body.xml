@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
+    tools:ignore="Overdraw"
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/url_preference_column_name"
+            android:text="@string/preferences_url_column_command_name"
             android:labelFor="@id/url_name"
             />
         <EditText
@@ -27,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/url_preference_column_display_name"
+            android:text="@string/preferences_url_column_display_name"
             android:labelFor="@id/url_display_name"
             />
         <EditText
@@ -39,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/url_preference_column_url"
+            android:text="@string/preferences_url_column_url"
             android:labelFor="@id/url_base_url"
             />
         <EditText
@@ -52,20 +53,20 @@
             android:id="@+id/url_has_query"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/url_preference_column_has_query"
+            android:text="@string/preferences_url_column_has_query"
             />
         <Button
             android:id="@+id/url_submit_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_button_text"
+            android:text="@string/button_add"
             android:drawableStart="@android:drawable/ic_menu_save"
             />
         <Button
             android:id="@+id/url_delete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/delete_button_text"
+            android:text="@string/button_delete"
             android:drawableStart="@android:drawable/ic_menu_delete"
             />
     </LinearLayout>

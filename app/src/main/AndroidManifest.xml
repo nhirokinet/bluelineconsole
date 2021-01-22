@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:fullBackupContent="@xml/backup_descriptor"
         >
         <activity
             android:name=".applicationMain.MainActivity"
@@ -36,20 +37,29 @@
             />
         <activity
             android:name=".applicationMain.PreferencesCustomWebActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".applicationMain.PreferencesEachURLActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesAccentColorActivity"
+            android:exported="false"
+            />
         <activity
             android:name=".applicationMain.StartUpHelpActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".commands.netutils.PingActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".commands.netutils.Ping6Activity"
-            android:exported="false" />
+            android:exported="false"
+            />
 
         <receiver android:name=".applicationMain.BootReceiver">
             <intent-filter>

@@ -2,13 +2,13 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainRootLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingVertical="0px"
     android:paddingHorizontal="0px"
     android:orientation="vertical"
-    android:background="?bluelineconsoleFrameColor"
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
@@ -35,6 +35,8 @@
             android:background="?android:colorBackground"
             android:imeOptions="actionGo|flagForceAscii|flagNoExtractUi|flagNoFullscreen"
             android:animateLayoutChanges="true"
+            tools:ignore="LabelFor"
+            android:importantForAutofill="no"
             >
             <requestFocus/>
         </EditText>
@@ -45,7 +47,6 @@
         android:layout_height="wrap_content"
         android:padding="0px"
         android:animateLayoutChanges="true"
-        android:background="?bluelineconsoleFrameColor"
         android:orientation="vertical"
         >
         <ScrollView

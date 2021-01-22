@@ -35,7 +35,7 @@ public class Ping6Activity extends BaseWindowActivity {
         super.onCreate(savedInstanceState);
 
         this.setHeaderFooterTexts(TARGET_COMMAND_SHORT, TARGET_COMMAND_SHORT);
-        this.setNestingPadding(1);
+        this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_ALWAYS, 1);
 
         this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
@@ -58,7 +58,7 @@ public class Ping6Activity extends BaseWindowActivity {
             this._command = pb.start();
             this._commandIS = new BufferedInputStream(this._command.getInputStream());
         } catch (IOException e) {
-            this.writeOutput(getString(R.string.err_could_not_start_command) + "\n");
+            this.writeOutput(getString(R.string.error_failure_could_not_start_command) + "\n");
         }
         ((TextView)findViewById(R.id.command_output_text_view)).setText("");
 

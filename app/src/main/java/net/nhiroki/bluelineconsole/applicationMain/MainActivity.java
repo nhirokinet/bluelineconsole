@@ -7,7 +7,6 @@ import java.util.concurrent.Executors;
 
 import android.animation.LayoutTransition;
 import android.content.Intent;
-import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.text.Editable;
@@ -34,6 +33,7 @@ public class MainActivity extends BaseWindowActivity {
     public static final int REQUEST_CODE_FOR_COMING_BACK = 1;
 
     private boolean _camebackFlag = false;
+    private boolean _paused = false;
 
     public MainActivity() {
         super(R.layout.main_activity_body, true);
@@ -87,14 +87,11 @@ public class MainActivity extends BaseWindowActivity {
                     return true;
                 }
 
+                //noinspection RedundantIfStatement
                 if (event.getAction() == KeyEvent.ACTION_UP && v.onKeyUp(keyCode, event)) {
                     return true;
                 }
 
-                if (mainInputText.onKeyDown(keyCode, event)) {
-                    mainInputText.requestFocus();
-                    return true;
-                }
                 return false;
             }
         });
@@ -111,13 +108,16 @@ public class MainActivity extends BaseWindowActivity {
         });
     }
 
-    protected void finalize() {
+    @Override
+    public void onDestroy() {
         this._commandSearchAggregator.close();
+        super.onDestroy();
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        this._paused = false;
 
         EditText mainInputText = findViewById(R.id.mainInputText);
 
@@ -227,6 +227,7 @@ public class MainActivity extends BaseWindowActivity {
     @Override
     protected void onPause() {
         _threadPool.shutdownNow();
+        this._paused = true;
         super.onPause();
     }
 
@@ -239,17 +240,10 @@ public class MainActivity extends BaseWindowActivity {
     private void setWholeLayout() {
         final EditText mainInputText = findViewById(R.id.mainInputText);
         final boolean textFilled = ! mainInputText.getText().toString().equals("");
-        Point displaySize = new Point();
-        this.getWindowManager().getDefaultDisplay().getSize(displaySize);
+
+        this.setWindowBoundarySize(textFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HIRZONTAL_MARGIN, 0);
 
         this.setWindowLocationGravity(textFilled ? Gravity.TOP : Gravity.CENTER_VERTICAL);
-
-        final int maxPanelWidth = (int)(600.0 * getResources().getDisplayMetrics().density);
-        final int panelWidth = Math.min(maxPanelWidth,
-                                        textFilled ? displaySize.x
-                                                   : (int)(displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7))
-                                       );
-        this.setRootPadding((displaySize.x - panelWidth) / 2, 0);
 
         final double pixelsPerSp = getResources().getDisplayMetrics().scaledDensity;
 
@@ -291,6 +285,10 @@ public class MainActivity extends BaseWindowActivity {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            if (MainActivity.this._paused) {
+                                // If activity is paused, doing something here is at least waste, sometimes dangerous
+                                return;
+                            }
                             executeSearch(s);
                             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
                         }

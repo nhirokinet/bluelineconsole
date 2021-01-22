@@ -1,75 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:paddingVertical="0px"
     android:paddingHorizontal="0px"
     android:animateLayoutChanges="true"
-    android:background="?bluelineconsoleFrameColor"
     android:orientation="vertical"
+    android:background="?android:colorBackground"
+    android:fillViewport="true"
+    tools:ignore="Overdraw"
     >
-    <ScrollView
+    <LinearLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?android:colorBackground"
-        android:fillViewport="true"
+        android:orientation="vertical"
+        android:padding="6sp"
+        android:gravity="start"
         >
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_gravity="start"
+            android:text="@string/startup_help_title"
+            android:textColor="?bluelineconsoleBaseTextColor"
+            android:textSize="12sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="6sp"
+            android:layout_gravity="start"
+            android:text="@string/startup_help_body_part1"
+            android:textColor="?bluelineconsoleBaseTextColor"
+            />
+        <TextView
+            android:id="@+id/startUpHelpingCommandTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6sp"
+            android:padding="3sp"
+            android:layout_gravity="start"
+            android:background="?bluelineconsoleBackgroundColorOfCommand"
+            android:textColor="?bluelineconsoleBaseTextColor"
+            android:typeface="monospace"
+            android:text="@string/startup_help_body_part2"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="6sp"
+            android:layout_gravity="start"
+            android:textColor="?bluelineconsoleBaseTextColor"
+            android:text="@string/startup_help_body_part3"
+            />
+        <CheckBox
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:padding="6sp"
-            android:gravity="start"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_gravity="start"
-                android:text="@string/notification_title_on_startup"
-                android:textColor="?bluelineconsoleBaseTextColor"
-                android:textSize="12sp"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="6sp"
-                android:layout_gravity="start"
-                android:text="@string/notification_detail_on_startup_pre"
-                android:textColor="?bluelineconsoleBaseTextColor"
-                />
-            <TextView
-                android:id="@+id/startUpHelpingCommandTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="6sp"
-                android:padding="3sp"
-                android:layout_gravity="start"
-                android:background="?bluelineconsoleBackgroundColorOfCommand"
-                android:textColor="?bluelineconsoleBaseTextColor"
-                android:typeface="monospace"
-                android:text="@string/notification_detail_on_startup_main"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="6sp"
-                android:layout_gravity="start"
-                android:textColor="?bluelineconsoleBaseTextColor"
-                android:text="@string/notification_detail_on_startup_post"
-                />
-            <CheckBox
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/startUpCheckBoxNotToContinue"
-                android:text="@string/notification_window_never_later" />
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/startUpOKButton"
-                android:textAllCaps="false"
-                android:text="@string/notification_window_close" />
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:id="@+id/startUpCheckBoxNotToContinue"
+            android:text="@string/startup_help_check_never_later" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/startUpOKButton"
+            android:textAllCaps="false"
+            android:text="@string/button_close" />
+    </LinearLayout>
+</ScrollView>

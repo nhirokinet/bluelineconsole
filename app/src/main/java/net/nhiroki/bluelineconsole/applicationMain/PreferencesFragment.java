@@ -29,7 +29,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         List<Pair<String, String>> searchEngines = (new WebSearchEnginesDatabase(this.getActivity())).getEngineConfigList();
 
         CharSequence[] search_engine_entries = new CharSequence[searchEngines.size() + 1];
-        search_engine_entries[0] = getString(R.string.pref_default_search_none);
+        search_engine_entries[0] = getString(R.string.preferences_item_default_search_option_none);
 
         CharSequence[] search_engine_entry_values = new CharSequence[searchEngines.size() + 1];
         search_engine_entry_values[0] = "none";

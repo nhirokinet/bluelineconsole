@@ -13,22 +13,22 @@ public class URLEntry {
 
     public @StringRes int validate() {
         if (this.name.equals("")) {
-            return R.string.err_invalid_url_name;
+            return R.string.error_invalid_url_command_name;
         }
 
         for (int i = 0; i < this.name.length(); ++i) {
             char c = this.name.charAt(i);
             if (!((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z'))) {
-                return R.string.err_invalid_url_name;
+                return R.string.error_invalid_url_command_name;
             }
         }
 
         if (this.display_name.equals("")) {
-            return R.string.err_display_name_is_empty;
+            return R.string.error_empty_display_name;
         }
 
         if (!url_base.startsWith("https://") && !url_base.startsWith("http://")) {
-            return R.string.err_invalid_url;
+            return R.string.error_invalid_url_least_validation_for_web;
         }
         int url_slash_count = 0;
         for (int i = 0; i < this.url_base.length(); ++i) {
@@ -37,7 +37,7 @@ public class URLEntry {
             }
         }
         if (url_slash_count < 3) {
-            return R.string.err_invalid_url;
+            return R.string.error_invalid_url_least_validation_for_web;
         }
         return 0;
     }

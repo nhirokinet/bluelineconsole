@@ -57,7 +57,7 @@ public class ApplicationDatabase {
         try {
             th.join();
         } catch (InterruptedException e) {
-
+            // waitingThreads are completed by interrupt, so this is expected behvior
         }
     }
 
