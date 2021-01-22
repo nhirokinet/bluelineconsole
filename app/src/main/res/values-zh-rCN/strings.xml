@@ -41,7 +41,7 @@
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
 	
-	<!-- Preferences general notes -->
+    <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">This setting takes effect after restarting Blue Line Console.</string>
 
     <!-- Preferences, titles for headers and footers -->
@@ -83,7 +83,7 @@
     <string name="preferences_url_column_url">URL</string>
     <string name="preferences_url_column_has_query">搜索引擎(启用后，查询将被添加在末尾)</string>
 	
-	<!-- Preferences items, accent color screens -->
+    <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">Theme default</string>
     <string name="preferences_accent_color_custom">Customize color</string>
     <string name="preferences_accent_color_red">Red</string>
