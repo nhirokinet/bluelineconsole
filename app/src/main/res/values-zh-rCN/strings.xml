@@ -49,7 +49,7 @@
     <string name="preferences_title_for_header_and_footer_url">URL</string>
     <string name="preferences_title_for_header_and_footer_add_custom_urls">添加 URL</string>
     <string name="preferences_title_for_header_and_footer_edit_custom_urls">编辑 URL</string>
-    <string name="preferences_title_for_header_and_footer_accent_color">Accent Color</string>
+    <string name="preferences_title_for_header_and_footer_accent_color">强调色</string>
 
     <!-- Preferences categories, main screen -->
     <string name="preferences_category_main">一般</string>
