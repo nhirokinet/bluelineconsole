@@ -42,7 +42,7 @@
     <string name="button_decrement_minimal">-</string>
 	
     <!-- Preferences general notes -->
-    <string name="note_take_effect_after_restart">This setting takes effect after restarting Blue Line Console.</string>
+    <string name="note_take_effect_after_restart">此设置在重启 Blue Line Console 后生效。</string>
 
     <!-- Preferences, titles for headers and footers -->
     <string name="preferences_title_for_header_and_footer">配置</string>
@@ -67,7 +67,7 @@
     <string name="preferences_item_text_match_strategy_title">文本搜索匹配样式</string>
     <string name="preferences_item_appearance_theme_title">主题</string>
     <string name="preferences_item_appearance_theme_summary">更改此选项时，Blue Line Console 会立即重新启动。</string>
-    <string name="preferences_item_appearance_accent_color">Accent color</string>
+    <string name="preferences_item_appearance_accent_color">强调色</string>
     <string name="preferences_item_appearance_animation_title">动画</string>
     <string name="preferences_item_apps_show_package_name_title">显示包名</string>
     <string name="preferences_item_apps_show_package_name_summary">注意:即使关闭了这个选项，你也可以通过包名的一部分找到应用程序。</string>
@@ -84,12 +84,12 @@
     <string name="preferences_url_column_has_query">搜索引擎(启用后，查询将被添加在末尾)</string>
 	
     <!-- Preferences items, accent color screens -->
-    <string name="preferences_accent_color_theme_default">Theme default</string>
-    <string name="preferences_accent_color_custom">Customize color</string>
-    <string name="preferences_accent_color_red">Red</string>
-    <string name="preferences_accent_color_green">Green</string>
-    <string name="preferences_accent_color_blue">Blue</string>
-    <string name="preferences_accent_color_theme_without_accent_color">Current theme (%1$s) does not support changing accent color.</string>
+    <string name="preferences_accent_color_theme_default">主题默认</string>
+    <string name="preferences_accent_color_custom">自定义颜色</string>
+    <string name="preferences_accent_color_red">红</string>
+    <string name="preferences_accent_color_green">绿</string>
+    <string name="preferences_accent_color_blue">蓝</string>
+    <string name="preferences_accent_color_theme_without_accent_color">当前主题 (%1$s) 不支持更改强调色。</string>
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠(\"/\").</string>
