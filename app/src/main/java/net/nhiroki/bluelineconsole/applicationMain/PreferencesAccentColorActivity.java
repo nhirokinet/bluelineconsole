@@ -176,21 +176,11 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
         } else {
             ((TextView)this.findViewById(R.id.pref_accent_color_title_textview)).setText(String.format(this.getString(R.string.preferences_accent_color_theme_without_accent_color), this.getCurrentThemeName()));
 
-            findViewById(R.id.pref_accent_color_theme_default_radio_button).setEnabled(false);
-            findViewById(R.id.pref_accent_color_custom_radio_button).setEnabled(false);
-
-            this.findViewById(R.id.pref_accent_color_red_seekbar).setEnabled(false);
-            this.findViewById(R.id.pref_accent_color_green_seekbar).setEnabled(false);
-            this.findViewById(R.id.pref_accent_color_blue_seekbar).setEnabled(false);
-
+            this.findViewById(R.id.pref_accent_color_theme_default_radio_button).setVisibility(View.GONE);
             this.findViewById(R.id.pref_accent_color_restart_notification).setVisibility(View.GONE);
-
-            this.findViewById(R.id.pref_accent_color_red_decrement_button).setEnabled(false);
-            this.findViewById(R.id.pref_accent_color_red_increment_button).setEnabled(false);
-            this.findViewById(R.id.pref_accent_color_green_decrement_button).setEnabled(false);
-            this.findViewById(R.id.pref_accent_color_green_increment_button).setEnabled(false);
-            this.findViewById(R.id.pref_accent_color_blue_decrement_button).setEnabled(false);
-            this.findViewById(R.id.pref_accent_color_blue_increment_button).setEnabled(false);
+            this.findViewById(R.id.pref_accent_color_custom_radio_button).setVisibility(View.GONE);
+            this.findViewById(R.id.pref_accent_color_monitor).setVisibility(View.GONE);
+            this.findViewById(R.id.pref_accent_color_seek_bar_table).setVisibility(View.GONE);
         }
     }
 

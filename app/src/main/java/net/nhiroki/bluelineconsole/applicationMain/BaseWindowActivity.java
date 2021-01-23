@@ -125,7 +125,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         mainViewStub.setLayoutResource(this._mainLayoutResID);
         mainViewStub.inflate();
 
-        this.findViewById(R.id.baseWindowRootLinearLayout).setOnClickListener(new ExitOnClickListener());
+        this.findViewById(R.id.baseWindowMainLayoutRoot).setOnClickListener(new ExitOnClickListener());
         ((LinearLayout)findViewById(R.id.baseWindowMainLinearLayout)).getChildAt(0).setOnClickListener(null);
 
         if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER)) {
@@ -327,6 +327,10 @@ public class BaseWindowActivity extends AppCompatActivity {
         ((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && !this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
             ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayoutOuter)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderImagePart)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterImagePart)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         }
         ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         ((ViewGroup) findViewById(R.id.baseWindowFooterWrapper)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
@@ -338,6 +342,10 @@ public class BaseWindowActivity extends AppCompatActivity {
         ((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
         if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
             ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayoutOuter)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
+            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
+            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
+            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderImagePart)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
+            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterImagePart)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
         }
         ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
         ((ViewGroup) findViewById(R.id.baseWindowFooterWrapper)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);

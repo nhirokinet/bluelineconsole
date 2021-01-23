@@ -54,6 +54,7 @@ public class MainActivity extends BaseWindowActivity {
 
         final EditText mainInputText = findViewById(R.id.mainInputText);
         mainInputText.requestFocus();
+        mainInputText.requestFocusFromTouch();
 
         final ListView candidateListView = findViewById(R.id.candidateListView);
         _resultCandidateListAdapter = new CandidateListAdapter(this, new ArrayList<CandidateEntry>(), candidateListView);
@@ -101,7 +102,8 @@ public class MainActivity extends BaseWindowActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                     candidateListView.requestFocus();
-                    return MainActivity.this._resultCandidateListAdapter.selectSecondChoice();
+                    candidateListView.requestFocusFromTouch();
+                    return MainActivity.this._resultCandidateListAdapter.selectChosenNowAsListView() && candidateListView.onKeyDown(keyCode, event);
                 }
                 return false;
             }
@@ -254,6 +256,7 @@ public class MainActivity extends BaseWindowActivity {
         mainInputText.setPadding((int) (editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp));
 
         mainInputText.requestFocus();
+        mainInputText.requestFocusFromTouch();
     }
 
     private void executeSearch(CharSequence s) {
