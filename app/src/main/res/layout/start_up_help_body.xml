@@ -60,12 +60,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/startUpCheckBoxNotToContinue"
-            android:text="@string/startup_help_check_never_later" />
+            android:text="@string/startup_help_check_never_later"
+            />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/startUpOKButton"
-            android:textAllCaps="false"
-            android:text="@string/button_close" />
+            android:text="@string/button_close"
+            />
     </LinearLayout>
 </ScrollView>
