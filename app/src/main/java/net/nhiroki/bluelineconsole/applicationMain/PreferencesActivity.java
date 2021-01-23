@@ -28,7 +28,7 @@ public class PreferencesActivity extends BaseWindowActivity {
 
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
     }
 
@@ -77,6 +77,6 @@ public class PreferencesActivity extends BaseWindowActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        this.changeBaseWindowElementSize(true);
+        this.changeBaseWindowElementSizeForAnimation(true);
     }
 }

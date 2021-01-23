@@ -26,7 +26,7 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
         this.setHeaderFooterTexts(getString(R.string.preferences_title_for_header_and_footer_accent_color), null);
         this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 2);
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
 
         ((SeekBar)this.findViewById(R.id.pref_accent_color_red_seekbar)).setOnSeekBarChangeListener(new ColorSeekBarChangeListener());
@@ -121,7 +121,7 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeBaseWindowElementSize(true);
+        this.changeBaseWindowElementSizeForAnimation(true);
     }
 
     @SuppressLint("DefaultLocale")

@@ -26,7 +26,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
 
         this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 3);
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
 
         findViewById(R.id.url_submit_button).setOnClickListener(new View.OnClickListener() {
@@ -99,6 +99,6 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeBaseWindowElementSize(true);
+        this.changeBaseWindowElementSizeForAnimation(true);
     }
 }
