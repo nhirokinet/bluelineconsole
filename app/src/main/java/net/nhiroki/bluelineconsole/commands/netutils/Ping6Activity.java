@@ -104,6 +104,7 @@ public class Ping6Activity extends BaseWindowActivity {
         try {
             th.join();
         } catch (InterruptedException e) {
+            th.interrupt();
         }
     }
 
@@ -118,6 +119,7 @@ public class Ping6Activity extends BaseWindowActivity {
             try {
                 this._readerThread.join();
             } catch (InterruptedException e) {
+                this._readerThread.interrupt();
             }
         }
     }

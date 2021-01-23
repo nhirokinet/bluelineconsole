@@ -1,6 +1,8 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -22,7 +24,7 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
         super.onCreate(savedInstanceState);
 
         this.setHeaderFooterTexts(getString(R.string.preferences_title_for_header_and_footer_accent_color), null);
-        this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_ALWAYS, 2);
+        this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 2);
 
         this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
@@ -122,23 +124,33 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSize(true);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void applyAccentColor(int color) {
         super.applyAccentColor(color);
-
-        this.findViewById(R.id.pref_accent_color_monitor).setBackgroundColor(color);
 
         int red = (color >> 16) & 0xff;
         int green = (color >> 8) & 0xff;
         int blue = color & 0xff;
 
+        int brightness = (red + green + blue) / 3;
+
+        TextView monitor = this.findViewById(R.id.pref_accent_color_monitor);
+        monitor.setBackgroundColor(color);
+        // Calculate readable text color from background, and thus not by theme.
+        int readableColorOnMonitor = brightness > 80 ? Color.BLACK : Color.WHITE;
+        monitor.setTextColor(readableColorOnMonitor);
+        this.findViewById(R.id.pref_accent_color_monitor_border).setBackgroundColor(readableColorOnMonitor);
+        monitor.setText(String.format("#%02X%02X%02X", red, green, blue));
+
+
         ((SeekBar) this.findViewById(R.id.pref_accent_color_red_seekbar)).setProgress(red);
         ((SeekBar) this.findViewById(R.id.pref_accent_color_green_seekbar)).setProgress(green);
         ((SeekBar) this.findViewById(R.id.pref_accent_color_blue_seekbar)).setProgress(blue);
 
-        ((TextView) this.findViewById(R.id.pref_accent_color_red_text)).setText(String.valueOf(red));
-        ((TextView) this.findViewById(R.id.pref_accent_color_green_text)).setText(String.valueOf(green));
-        ((TextView) this.findViewById(R.id.pref_accent_color_blue_text)).setText(String.valueOf(blue));
+        ((TextView) this.findViewById(R.id.pref_accent_color_red_text)).setText(String.format("%3d", red));
+        ((TextView) this.findViewById(R.id.pref_accent_color_green_text)).setText(String.format("%3d", green));
+        ((TextView) this.findViewById(R.id.pref_accent_color_blue_text)).setText(String.format("%3d", blue));
 
         String accentColorPreference = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_ACCENT_COLOR, PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT);
         if (accentColorPreference.startsWith(PREF_VALUE_ACCENT_COLOR_PREFIX_COLOR)) {

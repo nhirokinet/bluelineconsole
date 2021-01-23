@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
@@ -137,23 +136,8 @@ public class MainActivity extends BaseWindowActivity {
             _commandSearchAggregator = new CommandSearchAggregator(this);
 
             if (!_camebackFlag && showStartUpHelp) {
-                Thread th = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                MainActivity.this._camebackFlag = true;
-                                startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                            }
-                        });
-                    }
-                });
-                th.start();
-                try {
-                    th.join();
-                } catch (InterruptedException e) {
-                }
+                MainActivity.this._camebackFlag = true;
+                startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
             }
             mainInputText.addTextChangedListener(new MainInputTextListener(mainInputText.getText()));
 
@@ -172,23 +156,8 @@ public class MainActivity extends BaseWindowActivity {
                 _commandSearchAggregator.refresh(this);
 
                 if (showStartUpHelp) {
-                    Thread th = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            MainActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    MainActivity.this._camebackFlag = true;
-                                    startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                                }
-                            });
-                        }
-                    });
-                    th.start();
-                    try {
-                        th.join();
-                    } catch (InterruptedException e) {
-                    }
+                    MainActivity.this._camebackFlag = true;
+                    startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
                 }
                 _resultCandidateListAdapter.clear();
                 _resultCandidateListAdapter.notifyDataSetChanged();
@@ -196,26 +165,8 @@ public class MainActivity extends BaseWindowActivity {
                 mainInputText.setText("");
             }
         }
-        Thread th = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainActivity.this.enableBaseWindowAnimation();
 
-                        ((ViewGroup) findViewById(R.id.mainRootLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-                        ((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-                        ((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-                    }
-                });
-            }
-        });
-        th.start();
-        try {
-            th.join();
-        } catch (InterruptedException e) {
-        }
+        MainActivity.this.enableBaseWindowAnimation();
     }
 
     @Override
@@ -237,6 +188,24 @@ public class MainActivity extends BaseWindowActivity {
     protected void onHeightChange() {
         super.onHeightChange();
         this.setWholeLayout();
+    }
+
+    @Override
+    protected void enableWindowAnimationForElements() {
+        super.enableWindowAnimationForElements();
+
+        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainRootLinearLayout));
+        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout));
+        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout));
+    }
+
+    @Override
+    protected void disableWindowAnimationForElements() {
+        super.disableWindowAnimationForElements();
+
+        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainRootLinearLayout));
+        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout));
+        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout));
     }
 
     private void setWholeLayout() {
