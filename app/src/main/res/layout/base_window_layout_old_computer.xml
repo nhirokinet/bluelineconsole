@@ -26,6 +26,9 @@
             android:layout_height="2dp"
             android:orientation="horizontal"
             android:background="?bluelineconsoleAccentColor"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
             android:animateLayoutChanges="true"
             />
         <LinearLayout
@@ -35,6 +38,9 @@
             android:layout_gravity="start"
             android:background="?android:colorBackground"
             android:orientation="horizontal"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
             android:animateLayoutChanges="true"
             >
             <TextView
@@ -59,6 +65,9 @@
             android:layout_height="2dp"
             android:orientation="horizontal"
             android:background="?bluelineconsoleAccentColor"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
             android:animateLayoutChanges="true"
             />
         <LinearLayout
@@ -70,6 +79,9 @@
             android:layout_margin="0px"
             android:orientation="vertical"
             android:background="?android:colorBackground"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
             android:animateLayoutChanges="true"
             >
             <ViewStub
@@ -86,6 +98,9 @@
             android:layout_marginTop="-2dp"
             android:orientation="horizontal"
             android:background="?bluelineconsoleAccentColor"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
             android:animateLayoutChanges="true"
             />
     </LinearLayout>

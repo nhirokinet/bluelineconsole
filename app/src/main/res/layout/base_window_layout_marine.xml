@@ -28,6 +28,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="@drawable/marine_main_window"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
             tools:ignore="UselessParent"
             >
             <LinearLayout
