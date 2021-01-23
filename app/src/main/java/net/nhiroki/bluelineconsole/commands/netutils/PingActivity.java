@@ -37,7 +37,7 @@ public class PingActivity extends BaseWindowActivity {
         this.setHeaderFooterTexts(TARGET_COMMAND_SHORT, TARGET_COMMAND_SHORT);
         this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_ALWAYS, 1);
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
     }
 
@@ -127,6 +127,6 @@ public class PingActivity extends BaseWindowActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeBaseWindowElementSize(true);
+        this.changeBaseWindowElementSizeForAnimation(true);
     }
 }

@@ -40,14 +40,14 @@ public class StartUpHelpActivity extends BaseWindowActivity {
             }
         });
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeBaseWindowElementSize(hasFocus);
+        this.changeBaseWindowElementSizeForAnimation(hasFocus);
     }
 
     @Override

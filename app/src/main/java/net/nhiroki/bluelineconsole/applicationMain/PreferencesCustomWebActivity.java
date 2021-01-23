@@ -37,7 +37,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
         this.setHeaderFooterTexts(getString(R.string.preferences_title_for_header_and_footer_url), null);
         this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 2);
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
 
         Button addButton = findViewById(R.id.customURLListAddButton);
@@ -76,7 +76,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeBaseWindowElementSize(true);
+        this.changeBaseWindowElementSizeForAnimation(true);
     }
 
     private static class URLListAdapter extends ArrayAdapter<URLEntry> {

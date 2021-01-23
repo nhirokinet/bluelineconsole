@@ -380,13 +380,14 @@ public class BaseWindowActivity extends AppCompatActivity {
         }
     }
 
-    protected void changeBaseWindowElementSize(boolean visible) {
+    protected void changeBaseWindowElementSizeForAnimation(boolean visible) {
         LinearLayout centerLL = findViewById(R.id.baseWindowMainLinearLayout);
         View centerLLOuter = findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter);
         View mainLL = centerLL.getChildAt(0);
         LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
 
-        if (visible) {
+        // This is for animation, so if animation is disabled no reason to make invisible
+        if (visible || !this.getAnimationEnabledPreferenceValue()) {
             mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
             mainLP.height = this._smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
             mainLL.setLayoutParams(mainLP);
