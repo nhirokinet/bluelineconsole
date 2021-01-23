@@ -48,14 +48,24 @@
                 android:text="@string/preferences_accent_color_custom"
                 />
         </RadioGroup>
-        <ImageView
-            android:id="@+id/pref_accent_color_monitor"
+        <LinearLayout
+            android:id="@+id/pref_accent_color_monitor_border"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="?bluelineconsoleAccentColor"
-            tools:ignore="ContentDescription"
-            />
+            android:padding="2dp"
+            >
+            <TextView
+                android:id="@+id/pref_accent_color_monitor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:fontFamily="monospace"
+                android:background="?bluelineconsoleAccentColor"
+                />
+        </LinearLayout>
         <TableLayout
             android:id="@+id/pref_accent_color_seek_bar_table"
             android:layout_width="match_parent"
@@ -89,11 +99,13 @@
                     />
                 <TextView
                     android:id="@+id/pref_accent_color_red_text"
-                    android:layout_width="30sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="3sp"
                     android:textAlignment="textEnd"
                     android:textDirection="ltr"
                     android:textColor="?bluelineconsoleBaseTextColor"
+                    android:fontFamily="monospace"
                     />
                 <Button
                     android:id="@+id/pref_accent_color_red_increment_button"
@@ -132,11 +144,13 @@
                     />
                 <TextView
                     android:id="@+id/pref_accent_color_green_text"
-                    android:layout_width="30sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="3sp"
                     android:textAlignment="textEnd"
                     android:textDirection="ltr"
                     android:textColor="?bluelineconsoleBaseTextColor"
+                    android:fontFamily="monospace"
                     />
                 <Button
                     android:id="@+id/pref_accent_color_green_increment_button"
@@ -175,11 +189,13 @@
                     />
                 <TextView
                     android:id="@+id/pref_accent_color_blue_text"
-                    android:layout_width="30sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="3sp"
                     android:textAlignment="textEnd"
                     android:textDirection="ltr"
                     android:textColor="?bluelineconsoleBaseTextColor"
+                    android:fontFamily="monospace"
                     />
                 <Button
                     android:id="@+id/pref_accent_color_blue_increment_button"

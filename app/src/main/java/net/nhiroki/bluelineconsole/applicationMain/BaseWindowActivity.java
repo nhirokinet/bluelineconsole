@@ -33,7 +33,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     private boolean _comingBack = false;
     private String _currentTheme;
 
-    private boolean _animationEnabled = false;
+    private boolean _animationHasBeenEnabled = false;
 
     public static final String PREF_NAME_THEME = "pref_appearance_theme";
     private static final String PREF_VALUE_THEME_DEFAULT = "default";
@@ -153,7 +153,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         final boolean animationEnabledBySetting = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_NAME_ANIMATION, true);
 
         if (animationEnabledBySetting) {
-            if (this._animationEnabled) {
+            if (this._animationHasBeenEnabled) {
                 this.enableWindowAnimationForElements();
             }
         } else {
@@ -253,7 +253,7 @@ public class BaseWindowActivity extends AppCompatActivity {
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);
             this.findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent).setBackgroundColor(color);
             this.findViewById(R.id.baseWindowDefaultThemeFooterEndAccent).setBackgroundColor(color);
-            this.findViewById(R.id.baseWindowMainLinearLayoutOuter).setBackgroundColor(color);
+            this.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter).setBackgroundColor(color);
         }
     }
 
@@ -315,40 +315,58 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected void enableBaseWindowAnimation() {
-        this._animationEnabled = true;
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_NAME_ANIMATION, true)) {
+        this._animationHasBeenEnabled = true;
+        if (this.getAnimationEnabledPreferenceValue()) {
             this.enableWindowAnimationForElements();
         }
     }
 
-    private void enableWindowAnimationForElements() {
-        ((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && !this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
-            ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayoutOuter)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderImagePart)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterImagePart)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        }
-        ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowFooterWrapper)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+    protected boolean getAnimationEnabledPreferenceValue() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_NAME_ANIMATION, true);
     }
 
-    private void disableWindowAnimationForElements() {
-        ((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
-            ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayoutOuter)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderImagePart)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-            ((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterImagePart)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
+    protected void enableWindowAnimationForEachViewGroup(ViewGroup viewGroup) {
+        LayoutTransition lt = viewGroup.getLayoutTransition();
+        lt.enableTransitionType(LayoutTransition.CHANGING);
+        viewGroup.setLayoutTransition(lt);
+    }
+
+    protected void disableWindowAnimationForEachViewGroup(ViewGroup viewGroup) {
+        LayoutTransition lt = viewGroup.getLayoutTransition();
+        lt.disableTransitionType(LayoutTransition.CHANGING);
+        viewGroup.setLayoutTransition(lt);
+    }
+
+    @CallSuper
+    protected void enableWindowAnimationForElements() {
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot));
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout));
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper));
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout));
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowFooterWrapper));
+        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && ! this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter));
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent));
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent));
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderImagePart));
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterImagePart));
         }
-        ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowFooterWrapper)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
+    }
+
+    @CallSuper
+    protected void disableWindowAnimationForElements() {
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot));
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout));
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper));
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout));
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowFooterWrapper));
+        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && ! this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter));
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent));
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent));
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderImagePart));
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterImagePart));
+        }
     }
 
     protected double getWindowBodyAvailableHeight() {
@@ -364,7 +382,7 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     protected void changeBaseWindowElementSize(boolean visible) {
         LinearLayout centerLL = findViewById(R.id.baseWindowMainLinearLayout);
-        View centerLLOuter = findViewById(R.id.baseWindowMainLinearLayoutOuter);
+        View centerLLOuter = findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter);
         View mainLL = centerLL.getChildAt(0);
         LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
 

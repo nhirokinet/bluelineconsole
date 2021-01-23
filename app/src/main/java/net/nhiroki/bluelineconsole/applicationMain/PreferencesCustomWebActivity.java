@@ -35,7 +35,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
         super.onCreate(savedInstanceState);
 
         this.setHeaderFooterTexts(getString(R.string.preferences_title_for_header_and_footer_url), null);
-        this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_ALWAYS, 2);
+        this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 2);
 
         this.changeBaseWindowElementSize(false);
         this.enableBaseWindowAnimation();
@@ -88,7 +88,7 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             if (convertView == null) {
-                convertView = LayoutInflater.from(this.getContext()).inflate(R.layout.url_entry_view, null);
+                convertView = LayoutInflater.from(this.getContext()).inflate(R.layout.url_entry_view, parent, false);
             }
             TextView nameTextView = convertView.findViewById(R.id.urlNameOnEntryView);
             nameTextView.setText(this.getItem(position).name);

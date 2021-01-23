@@ -22,6 +22,7 @@
         android:focusableInTouchMode="false"
         >
         <!-- Linter complaints that this LinearLayout or parent LinearLayout is useless, but I think both are needed. -->
+        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowIntermediateWrapper"
             android:layout_width="match_parent"
@@ -31,7 +32,7 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:clickable="true"
-            tools:ignore="UselessParent"
+            tools:ignore="KeyboardInaccessibleWidget,UselessParent"
             >
             <LinearLayout
                 android:id="@+id/baseWindowHeaderWrapper"

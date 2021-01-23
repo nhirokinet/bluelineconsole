@@ -43,7 +43,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     @NonNull
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidateentryview, null);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidateentryview, parent, false);
         }
 
         final CandidateEntry cand = this.getItem(position);
