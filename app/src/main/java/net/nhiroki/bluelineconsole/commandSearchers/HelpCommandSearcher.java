@@ -2,6 +2,8 @@ package net.nhiroki.bluelineconsole.commandSearchers;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import net.nhiroki.bluelineconsole.commands.help.HelpCandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
@@ -27,6 +29,7 @@ public class HelpCommandSearcher implements CommandSearcher {
     public void waitUntilPrepared() {}
 
     @Override
+    @NonNull
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 

@@ -2,6 +2,8 @@ package net.nhiroki.bluelineconsole.interfaces;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
 public interface CommandSearcher {
@@ -33,5 +35,6 @@ public interface CommandSearcher {
      * @param context Android Context for the corresponding Activity
      * @return List of result
      */
+    @NonNull
     List<CandidateEntry> searchCandidateEntries(String s, Context context);
 }
