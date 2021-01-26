@@ -21,7 +21,7 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         >
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -33,7 +33,7 @@
             android:animateLayoutChanges="true"
             tools:ignore="KeyboardInaccessibleWidget"
             />
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowHeaderWrapper"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:focusableInTouchMode="false"
                 />
         </LinearLayout>
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
@@ -76,7 +76,7 @@
             android:animateLayoutChanges="true"
             tools:ignore="KeyboardInaccessibleWidget"
             />
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowMainLinearLayout"
             android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                 android:animateLayoutChanges="true"
                 />
         </LinearLayout>
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowFooterWrapper"
             android:layout_width="match_parent"

@@ -43,6 +43,7 @@ public class NetUtilCommandSearcher implements CommandSearcher {
     public void waitUntilPrepared() {}
 
     @Override
+    @NonNull
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List <CandidateEntry> ret = new ArrayList<>();
 

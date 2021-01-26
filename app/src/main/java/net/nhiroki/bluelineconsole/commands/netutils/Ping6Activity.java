@@ -34,7 +34,7 @@ public class Ping6Activity extends BaseWindowActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setHeaderFooterTexts(TARGET_COMMAND_SHORT, TARGET_COMMAND_SHORT);
+        this.setHeaderFooterTexts(TARGET_COMMAND_SHORT, null);
         this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_ALWAYS, 1);
 
         this.changeBaseWindowElementSizeForAnimation(false);

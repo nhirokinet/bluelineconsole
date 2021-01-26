@@ -22,7 +22,7 @@
         android:focusableInTouchMode="false"
         >
         <!-- Linter complaints that this LinearLayout or parent LinearLayout is useless, but I think both are needed. -->
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowIntermediateWrapper"
             android:layout_width="match_parent"
@@ -37,9 +37,9 @@
             <LinearLayout
                 android:id="@+id/baseWindowHeaderWrapper"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:animateLayoutChanges="true"
                 >
                 <TextView
@@ -83,11 +83,11 @@
             -->
             <LinearLayout
                 android:id="@+id/baseWindowFooterWrapper"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="18sp"
                 android:layout_marginTop="-18sp"
                 android:layout_gravity="center_horizontal"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:animateLayoutChanges="true"
                 >
                 <TextView
@@ -99,7 +99,7 @@
                     android:gravity="center_horizontal|bottom"
                     android:textStyle="bold"
                     android:textColor="?bluelineconsoleFrameTextColor"
-                    android:layout_gravity="end"
+                    android:layout_gravity="center"
                     android:text=""
                     android:textSize="12sp"
                     android:focusable="false"

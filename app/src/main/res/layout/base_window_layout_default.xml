@@ -22,7 +22,7 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         >
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowHeaderWrapper"
             android:layout_height="wrap_content"
@@ -81,7 +81,37 @@
                     />
             </LinearLayout>
         </LinearLayout>
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <LinearLayout
+            android:id="@+id/baseWindowDefaultThemeMainLayoutTopEdge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="0sp"
+            android:paddingHorizontal="3sp"
+            android:background="?bluelineconsoleAccentColor"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:animateLayoutChanges="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            tools:ignore="KeyboardInaccessibleWidget"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                android:paddingBottom="6dp"
+                android:paddingHorizontal="7dp"
+                android:layout_margin="0px"
+                android:orientation="vertical"
+                android:background="?bluelineconsoleFrameColor"
+                android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                >
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/baseWindowDefaultThemeMainLinearLayoutOuter"
             android:layout_width="match_parent"
@@ -102,7 +132,8 @@
                 android:id="@+id/baseWindowMainLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="6dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="6dp"
                 android:paddingHorizontal="7dp"
                 android:layout_margin="0px"
                 android:orientation="vertical"
@@ -124,7 +155,7 @@
           layout_marginTop is actually set to -(18sp + 1 physical pixel).
           BaseWindowActivity.onCreate() decrease 1 physical pixel from layout_marginTop.
         -->
-        <!-- Linter complaints clickable and not focusable, not accesible from keyboard. No problem, this is just not to pass click event and dismiss -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowFooterWrapper"
             android:layout_width="wrap_content"
