@@ -102,7 +102,7 @@
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ (\"/\") を含む必要があります</string>
-    <string name="error_invalid_url_command_name">コマンドはアルファベットの小文字と数字だけを含むことができ、一文字以上である必要があります。</string>
+    <string name="error_invalid_url_command_name">コマンドは半角空白を含むことはできず、一文字以上である必要があります。</string>
     <string name="error_empty_display_name">表示名が空です。</string>
 
     <!-- Error messages, system errors -->

@@ -45,7 +45,6 @@
                 android:id="@+id/url_each_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="flagForceAscii"
                 android:inputType="text"
                 tools:ignore="TextFields" />
             <TextView
