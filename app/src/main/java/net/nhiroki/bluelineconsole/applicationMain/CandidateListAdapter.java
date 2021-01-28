@@ -43,7 +43,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     @NonNull
     public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidateentryview, null);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidateentryview, parent, false);
         }
 
         final CandidateEntry cand = this.getItem(position);
@@ -72,15 +72,10 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         convertView.setBackgroundColor((position == getChosenNowExplicitly())?  selectedItemBackground.data: Color.TRANSPARENT);
 
         if (cand.getIcon(getContext()) == null) {
-            convertView.findViewById(R.id.candidateIconView).setPaddingRelative(0, 0, 0, 0);
-
             iconView.setImageResource(android.R.color.transparent);
             iconView.setVisibility(View.GONE);
+
         } else {
-            int iconViewPadding = (int)(10 * getContext().getResources().getDisplayMetrics().density + 0.5);
-
-            convertView.findViewById(R.id.candidateIconView).setPaddingRelative(0, iconViewPadding, iconViewPadding / 4, iconViewPadding);
-
             iconView.setImageDrawable(cand.getIcon(getContext()));
             iconView.setVisibility(View.VISIBLE);
         }
@@ -135,29 +130,14 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         return chosenNowExplicitly;
     }
 
-    private int getSecondChoice() {
-        int first = getChosenNowExplicitly();
-        if (getChosenNowExplicitly() < 0) {
-            first = 0;
-        }
-        for (int i = first + 1; i < this.getCount(); ++i) {
-            if (this.getItem(i).hasEvent()) {
-                return i;
-            }
-        }
-
-        return CHOICE_UNAVAILABLE;
-    }
-
-    public boolean selectSecondChoice() {
-        int choice = getSecondChoice();
+    public boolean selectChosenNowAsListView() {
+        int choice = this.getChosenNowExplicitly();
 
         if (choice == CHOICE_UNAVAILABLE) {
             return false;
         }
 
         this.chosenNowExplicitly = CHOICE_KNOWN_BY_LISTVIEW;
-        this.listView.requestFocus();
         this.listView.setSelection(choice);
         return true;
     }

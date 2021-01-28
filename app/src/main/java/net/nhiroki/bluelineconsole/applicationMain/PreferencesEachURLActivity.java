@@ -10,11 +10,14 @@ import android.widget.Toast;
 import androidx.appcompat.widget.SwitchCompat;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
+import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
 
 public class PreferencesEachURLActivity extends BaseWindowActivity {
-    private int _entry_id = -1;
+    private String _entry_id = null;
+    private boolean _entry_enabled_when_started = false;
 
     public PreferencesEachURLActivity() {
         super(R.layout.preferences_custom_web_each_body, true);
@@ -26,18 +29,28 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
 
         this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 3);
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
 
-        findViewById(R.id.url_submit_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.url_each_submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final boolean enabled_choice = ((SwitchCompat)findViewById(R.id.url_each_enabled)).isChecked();
+
+                if (PreferencesEachURLActivity.this._entry_id != null && enabled_choice != PreferencesEachURLActivity.this._entry_enabled_when_started) {
+                    new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).setEntryEnabledById(PreferencesEachURLActivity.this, PreferencesEachURLActivity.this._entry_id, enabled_choice);
+                }
+
+                if (PreferencesEachURLActivity.this._entry_id != null && ! PreferencesEachURLActivity.this._entry_id.startsWith("custom-web-")) {
+                    PreferencesEachURLActivity.this.finish();
+                    return;
+                }
                 URLEntry entry = new URLEntry();
-                entry.id = PreferencesEachURLActivity.this._entry_id;
-                entry.name = ((EditText)findViewById(R.id.url_name)).getText().toString();
-                entry.display_name = ((EditText)findViewById(R.id.url_display_name)).getText().toString();
-                entry.url_base = ((EditText)findViewById(R.id.url_base_url)).getText().toString();
-                entry.has_query = ((SwitchCompat)findViewById(R.id.url_has_query)).isChecked();
+                entry.id = PreferencesEachURLActivity.this._entry_id ==null ? 0 : Integer.parseInt(PreferencesEachURLActivity.this._entry_id.split("-")[2]);
+                entry.name = ((EditText)findViewById(R.id.url_each_name)).getText().toString();
+                entry.display_name = ((EditText)findViewById(R.id.url_each_display_name)).getText().toString();
+                entry.url_base = ((EditText)findViewById(R.id.url_each_base_url)).getText().toString();
+                entry.has_query = ((SwitchCompat)findViewById(R.id.url_each_has_query)).isChecked();
 
                 int err = entry.validate();
 
@@ -46,8 +59,11 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
                     return;
                 }
 
-                if (PreferencesEachURLActivity.this._entry_id == 0) {
-                    URLPreferences.getInstance(PreferencesEachURLActivity.this).add(entry);
+                if (PreferencesEachURLActivity.this._entry_id == null) {
+                    long id = URLPreferences.getInstance(PreferencesEachURLActivity.this).add(entry);
+                    if (!enabled_choice) {
+                        new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).setEntryEnabledById(PreferencesEachURLActivity.this, "custom-web-" + id, enabled_choice);
+                    }
                 } else {
                     URLPreferences.getInstance(PreferencesEachURLActivity.this).update(entry);
                 }
@@ -55,10 +71,15 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             }
         });
 
-        findViewById(R.id.url_delete_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.url_each_delete_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                URLPreferences.getInstance(PreferencesEachURLActivity.this).deleteById(PreferencesEachURLActivity.this._entry_id);
+                if (PreferencesEachURLActivity.this._entry_id == null || ! PreferencesEachURLActivity.this._entry_id.startsWith("custom-web-")) {
+                    return;
+                }
+                int id = Integer.parseInt(PreferencesEachURLActivity.this._entry_id.split("-")[2]);
+                URLPreferences.getInstance(PreferencesEachURLActivity.this).deleteById(id);
+                new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).unsetEntryEnabledById(PreferencesEachURLActivity.this, PreferencesEachURLActivity.this._entry_id);
                 PreferencesEachURLActivity.this.finish();
             }
         });
@@ -70,35 +91,54 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
 
         Intent from_intent = this.getIntent();
 
-        this._entry_id = from_intent.getIntExtra("id", 0);
+        this._entry_id = from_intent.getStringExtra("id_for_preference_value");
 
-        if (this._entry_id == 0) {
+        if (this._entry_id == null) {
             // new
             this.setHeaderFooterTexts(this.getString(R.string.preferences_title_for_header_and_footer_add_custom_urls), null);
-            ((Button)findViewById(R.id.url_submit_button)).setText(R.string.button_add);
-            findViewById(R.id.url_delete_button).setVisibility(View.GONE);
+            ((Button)findViewById(R.id.url_each_submit_button)).setText(R.string.button_add);
+            this.findViewById(R.id.url_each_name).setEnabled(true);
+            this.findViewById(R.id.url_each_display_name).setEnabled(true);
+            this.findViewById(R.id.url_each_base_url).setEnabled(true);
+            this.findViewById(R.id.url_each_has_query).setEnabled(true);
+            this.findViewById(R.id.url_each_submit_button).setVisibility(View.VISIBLE);
+            this.findViewById(R.id.url_each_delete_button).setVisibility(View.GONE);
 
-            ((EditText)findViewById(R.id.url_name)).setText("");
-            ((EditText)findViewById(R.id.url_display_name)).setText("");
-            ((EditText)findViewById(R.id.url_base_url)).setText("");
-            ((SwitchCompat)findViewById(R.id.url_has_query)).setChecked(false);
+            ((EditText)findViewById(R.id.url_each_name)).setText("");
+            ((EditText)findViewById(R.id.url_each_display_name)).setText("");
+            ((EditText)findViewById(R.id.url_each_base_url)).setText("");
+            ((SwitchCompat)findViewById(R.id.url_each_has_query)).setChecked(false);
+            ((SwitchCompat)findViewById(R.id.url_each_enabled)).setChecked(true);
+            this._entry_enabled_when_started = true;
+
+            findViewById(R.id.url_each_varies_with_locale).setVisibility(View.GONE);
 
         } else {
-            this.setHeaderFooterTexts(this.getString(R.string.preferences_title_for_header_and_footer_edit_custom_urls), null);
-            ((Button)findViewById(R.id.url_submit_button)).setText(R.string.button_update);
-            findViewById(R.id.url_delete_button).setVisibility(View.VISIBLE);
+            final WebSearchEngine entry = new WebSearchEnginesDatabase(this).getURLByIdForPreferences(this._entry_id, this.getResources().getConfiguration().locale);
 
-            URLEntry entry = URLPreferences.getInstance(this).getById(this._entry_id);
-            ((EditText)findViewById(R.id.url_name)).setText(entry.name);
-            ((EditText)findViewById(R.id.url_display_name)).setText(entry.display_name);
-            ((EditText)findViewById(R.id.url_base_url)).setText(entry.url_base);
-            ((SwitchCompat)findViewById(R.id.url_has_query)).setChecked(entry.has_query);
+            this.setHeaderFooterTexts(this.getString(R.string.preferences_title_for_header_and_footer_edit_custom_urls), null);
+            ((Button)findViewById(R.id.url_each_submit_button)).setText(R.string.button_update);
+            findViewById(R.id.url_each_delete_button).setVisibility(View.VISIBLE);
+            this.findViewById(R.id.url_each_name).setEnabled(!entry.preset);
+            this.findViewById(R.id.url_each_display_name).setEnabled(!entry.preset);
+            this.findViewById(R.id.url_each_base_url).setEnabled(!entry.preset);
+            this.findViewById(R.id.url_each_has_query).setEnabled(!entry.preset);
+            this.findViewById(R.id.url_each_delete_button).setVisibility(entry.preset ? View.GONE : View.VISIBLE);
+
+            ((EditText)findViewById(R.id.url_each_name)).setText(entry.name);
+            ((EditText)findViewById(R.id.url_each_display_name)).setText(entry.display_name);
+            ((EditText)findViewById(R.id.url_each_base_url)).setText(entry.url_base);
+            ((SwitchCompat)findViewById(R.id.url_each_has_query)).setChecked(entry.has_query);
+            ((SwitchCompat)findViewById(R.id.url_each_enabled)).setChecked(entry.enabled);
+            this._entry_enabled_when_started = entry.enabled;
+
+            findViewById(R.id.url_each_varies_with_locale).setVisibility(entry.varies_with_locale ? View.VISIBLE : View.GONE);
         }
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeBaseWindowElementSize(true);
+        this.changeBaseWindowElementSizeForAnimation(true);
     }
 }

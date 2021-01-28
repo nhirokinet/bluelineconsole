@@ -1,6 +1,7 @@
 package net.nhiroki.bluelineconsole.commands.urls;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Pair;
 
@@ -18,7 +19,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class WebSearchEnginesDatabase {
-    public static final String PREF_NAME = "pref_default_search";
+    public static final String PREF_KEY_DEFAULT_SEARCH = "pref_default_search";
+    public static final String PREF_KEY_DISABLED_URLS = "pref_url_disabled_ids";
 
     private static final Set<String> WIKIPEDIA_SUPPORTING_LANGS = new HashSet<>(
             Arrays.asList(
@@ -100,51 +102,104 @@ public class WebSearchEnginesDatabase {
         }
     };
 
-    private final List<URLEntry> _customSearches = new ArrayList<>();
-    private final List<URLEntry> _customStaticURLs = new ArrayList<>();
-    private final Context _context;  // only for database access, because this may be taken from another Activity
+    private List<URLEntry> _customEntries = new ArrayList<>();
+    private Set<String> _disabledURLIDs = new HashSet<>();
 
     public WebSearchEnginesDatabase(Context context) {
-        this._context = context;
-        this.refresh();
+        this.refresh(context);
     }
 
-    public void refresh() {
-        List<URLEntry> entries = URLPreferences.getInstance(this._context).getAllEntries();
-        this._customSearches.clear();
-        this._customStaticURLs.clear();
-
-        for (URLEntry e : entries) {
-            if (e.has_query) {
-                this._customSearches.add(e);
-            } else {
-                this._customStaticURLs.add(e);
-            }
-        }
+    public void refresh(Context context) {
+        this._customEntries = URLPreferences.getInstance(context).getAllEntries();
+        this._disabledURLIDs = this.getDisabledEntries(context);
     }
 
-    public List<Pair<String, String>> getEngineConfigList() {
-        List<Pair<String, String>> ret = new ArrayList<>();
+    // allow_duplicate is for the case of referencing to the entry selected before changing locale
+    public List<WebSearchEngine> getURLListForLocale(final Locale locale, final boolean allow_duplicate) {
+        List<WebSearchEngine> ret = new ArrayList<>();
 
-        for (URLEntry e : this._customSearches) {
-            ret.add(new Pair<>("custom-web-" + e.id, e.display_name));
+        for (URLEntry e: this._customEntries) {
+            ret.add(new WebSearchEngine("custom-web-" + e.id, e.name, e.display_name, e.display_name, e.url_base, e.has_query, false, false, this._disabledURLIDs));
         }
 
-        ret.add(new Pair<>("default-web-wikipedia", "Wikipedia"));
-        ret.add(new Pair<>("default-web-wikipedia-en", "Wikipedia (English)"));
-        ret.add(new Pair<>("default-web-duckduckgo", "DuckDuckGo"));
-        ret.add(new Pair<>("default-web-bing", "Bing"));
-        ret.add(new Pair<>("default-web-bing-en", "Bing (English)"));
-        ret.add(new Pair<>("default-web-yahoo", "Yahoo"));
-        ret.add(new Pair<>("default-web-yahoo-en-us", "Yahoo (English, US)"));
-        ret.add(new Pair<>("default-web-google", "Google"));
-        ret.add(new Pair<>("default-web-google-en", "Google (English)"));
+        String wikipediaLangCode = locale.getLanguage();
+        if (!WIKIPEDIA_SUPPORTING_LANGS.contains(wikipediaLangCode)) {
+            wikipediaLangCode = "en";
+        }
+        ret.add(new WebSearchEngine("default-web-wikipedia", "wikipedia", "Wikipedia (" + wikipediaLangCode + ")", "Wikipedia", "https://" + wikipediaLangCode + ".wikipedia.org/wiki/", true, true, true, this._disabledURLIDs));
+        if (allow_duplicate || !wikipediaLangCode.equals("en")) {
+            ret.add(new WebSearchEngine("default-web-wikipedia-en", "wikipedia", "Wikipedia (en)", "Wikipedia (English)", "https://en.wikipedia.org/wiki/", true, true, false, this._disabledURLIDs));
+        }
+
+        ret.add(new WebSearchEngine("default-web-duckduckgo", "duckduckgo", "DuckDuckGo", "DuckDuckGo", "https://duckduckgo.com/?q=", true, true, false, this._disabledURLIDs));
+
+        ret.add(new WebSearchEngine("default-web-bing", "bing", "Bing", "Bing", "https://www.bing.com/search?q=", true, true, false, this._disabledURLIDs));
+        ret.add(new WebSearchEngine("default-web-bing-en", "bing", "Bing (English)", "Bing (English)", "https://www.bing.com/search?setlang=en-us&q=", true, true, false, this._disabledURLIDs));
+
+        String yahooCountryCode = locale.getCountry();
+        final String localeAsString = locale.toString();
+
+        if (localeAsString.equals("fr_CA")) {
+            yahooCountryCode = "qc";
+        }
+        if (localeAsString.equals("es_US")) {
+            yahooCountryCode = "espanol";
+        }
+
+        if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(yahooCountryCode)) {
+            yahooCountryCode = "US";
+        }
+        ret.add(new WebSearchEngine("default-web-yahoo", "yahoo", YAHOO_SEARCH_IN_THE_WORLD.get(yahooCountryCode).first, "Yahoo", YAHOO_SEARCH_IN_THE_WORLD.get(yahooCountryCode).second, true, true, true, this._disabledURLIDs));
+        if (allow_duplicate || ! yahooCountryCode.equals("US")) {
+            ret.add(new WebSearchEngine("default-web-yahoo-en-us", "yahoo", "Yahoo (United States)", "Yahoo (English, US)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second, true, true, false, this._disabledURLIDs));
+        }
+
+        ret.add(new WebSearchEngine("default-web-google", "google", "Google", "Google", "https://www.google.com/search?q=", true, true, false, this._disabledURLIDs));
+        ret.add(new WebSearchEngine("default-web-google-en", "google", "Google (English)", "Google (English)", "https://www.google.com/search?hl=en&q=", true, true, false, this._disabledURLIDs));
 
         return ret;
     }
 
-    public WebSearchEngine getEngineByPreference(Context context, Locale locale) {
-        final String pref_str = PreferenceManager.getDefaultSharedPreferences(context).getString(PREF_NAME, "none");
+    public WebSearchEngine getURLByIdForPreferences(String pref_str, Locale locale) {
+        for (WebSearchEngine e: this.getURLListForLocale(locale, true)) {
+            if (e.id_for_preference_value.equals(pref_str)) {
+                return e;
+            }
+        }
+
+        return null;
+    }
+
+    public void setEntryEnabledById(Context context, String entry_id, boolean enabled) {
+        Set<String> val = this.getDisabledEntries(context);
+        if (enabled) {
+            val.remove(entry_id);
+        } else {
+            val.add(entry_id);
+        }
+
+        SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefEdit.putStringSet(PREF_KEY_DISABLED_URLS, val);
+        prefEdit.apply();
+    }
+
+    public void unsetEntryEnabledById(Context context, String entry_id) {
+        Set<String> val = this.getDisabledEntries(context);
+        val.remove(entry_id);
+
+        SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefEdit.putStringSet(PREF_KEY_DISABLED_URLS, val);
+        prefEdit.apply();
+    }
+
+    public Set<String> getDisabledEntries(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getStringSet(PREF_KEY_DISABLED_URLS, new HashSet<String>());
+    }
+
+
+    public WebSearchEngine getDefaultEngineByPreference(Context context) {
+        final String pref_str = PreferenceManager.getDefaultSharedPreferences(context).getString(PREF_KEY_DEFAULT_SEARCH, "none");
+        final Locale locale = context.getResources().getConfiguration().locale;
 
         if (pref_str == null) {
             return null;
@@ -154,129 +209,33 @@ public class WebSearchEnginesDatabase {
             return null;
         }
 
-        for (URLEntry e : this._customSearches) {
-            if (pref_str.equals("custom-web-" + e.id)) {
-                return new WebSearchEngine(e.display_name, e.url_base);
+        for (WebSearchEngine e: this.getURLListForLocale(locale, true)) {
+            if (e.id_for_preference_value.equals(pref_str) && e.has_query) {
+                return e;
             }
-        }
-
-        if (pref_str.equals("default-web-wikipedia")) {
-            String langCode = locale.getLanguage();
-            if (!WIKIPEDIA_SUPPORTING_LANGS.contains(langCode)) {
-                langCode = "en";
-            }
-            return new WebSearchEngine("Wikipedia (" + langCode + ")", "https://" + langCode + ".wikipedia.org/wiki/");
-        }
-
-        if (pref_str.equals("default-web-wikipedia-en")) {
-            return new WebSearchEngine("Wikipedia (en)", "https://en.wikipedia.org/wiki/");
-        }
-
-        if (pref_str.equals("default-web-duckduckgo")) {
-            return new WebSearchEngine("DuckDuckGo", "https://duckduckgo.com/?q=");
-        }
-
-        if (pref_str.equals("default-web-bing")) {
-            return new WebSearchEngine("Bing", "https://www.bing.com/search?q=");
-        }
-
-        if (pref_str.equals("default-web-bing-en")) {
-            return new WebSearchEngine("Bing (English, US)", "https://www.bing.com/search?setlang=en-us&q=");
-        }
-
-        if (pref_str.equals("default-web-yahoo")) {
-            String countryCode = locale.getCountry();
-            String localeAsString = locale.toString();
-
-            if (localeAsString.equals("fr_CA")) {
-                countryCode = "qc";
-            }
-            if (localeAsString.equals("es_US")) {
-                countryCode = "espanol";
-            }
-
-
-            if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(countryCode)) {
-                countryCode = "US";
-            }
-            return new WebSearchEngine(YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).first, YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).second);
-        }
-
-        if (pref_str.equals("default-web-yahoo-en-us")) {
-            return new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second);
-        }
-
-        if (pref_str.equals("default-web-google")) {
-            return new WebSearchEngine("Google", "https://www.google.com/search?q=");
-        }
-
-        if (pref_str.equals("default-web-google-en")) {
-            return new WebSearchEngine("Google (English)", "https://www.google.com/search?hl=en&q=");
         }
 
         return null;
     }
 
-    public List<WebSearchEngine> getEngineListByNameQuery(Context context, String engine, Locale locale) {
+    public List<WebSearchEngine> searchEngineListByNameQuery(Context context, String engine) {
         List<WebSearchEngine> ret = new ArrayList<>();
 
-        for (URLEntry e : this._customSearches) {
-            if (StringMatchStrategy.match(context, engine, e.name, true) != -1) {
-                ret.add(new WebSearchEngine(e.display_name, e.url_base));
+        for (WebSearchEngine e: this.getURLListForLocale(context.getResources().getConfiguration().locale, false)) {
+            if (e.enabled && e.has_query && StringMatchStrategy.match(context, engine, e.name, true) != -1) {
+                ret.add(e);
             }
-        }
-
-        if (StringMatchStrategy.match(context, engine, "wikipedia", true) != -1) {
-            String langCode = locale.getLanguage();
-            if (!WIKIPEDIA_SUPPORTING_LANGS.contains(langCode)) {
-                langCode = "en";
-            }
-            ret.add(new WebSearchEngine("Wikipedia (" + langCode + ")", "https://" + langCode + ".wikipedia.org/wiki/"));
-            ret.add(new WebSearchEngine("Wikipedia (en)", "https://en.wikipedia.org/wiki/"));
-        }
-
-        if (StringMatchStrategy.match(context, engine, "duckduckgo", true) != -1) {
-            ret.add(new WebSearchEngine("DuckDuckGo", "https://duckduckgo.com/?q="));
-        }
-
-        if (StringMatchStrategy.match(context, engine, "bing", true) != -1) {
-            ret.add(new WebSearchEngine("Bing", "https://www.bing.com/search?q="));
-            ret.add(new WebSearchEngine("Bing (English, US)", "https://www.bing.com/search?setlang=en-us&q="));
-        }
-
-        if (StringMatchStrategy.match(context, engine, "yahoo", true) != -1) {
-            String countryCode = locale.getCountry();
-            String localeAsString = locale.toString();
-
-            if (localeAsString.equals("fr_CA")) {
-                countryCode = "qc";
-            }
-            if (localeAsString.equals("es_US")) {
-                countryCode = "espanol";
-            }
-
-
-            if (!YAHOO_SEARCH_IN_THE_WORLD.containsKey(countryCode)) {
-                countryCode = "US";
-            }
-            ret.add(new WebSearchEngine(YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).first, YAHOO_SEARCH_IN_THE_WORLD.get(countryCode).second));
-            ret.add(new WebSearchEngine("Yahoo (United States)", YAHOO_SEARCH_IN_THE_WORLD.get("US").second));
-        }
-
-        if (StringMatchStrategy.match(context, engine, "google", true) != -1) {
-            ret.add(new WebSearchEngine("Google", "https://www.google.com/search?q="));
-            ret.add(new WebSearchEngine("Google (English)", "https://www.google.com/search?hl=en&q="));
         }
 
         return ret;
     }
 
-    public List<WebSearchEngine> getStaticPageListByNameQuery(Context context, String query) {
+    public List<WebSearchEngine> searchStaticPageListByNameQuery(Context context, String query) {
         List<WebSearchEngine> ret = new ArrayList<>();
 
-        for (URLEntry e : this._customStaticURLs) {
-            if (StringMatchStrategy.match(context, query, e.name, true) != -1) {
-                ret.add(new WebSearchEngine(e.display_name, e.url_base));
+        for (WebSearchEngine e: this.getURLListForLocale(context.getResources().getConfiguration().locale, false)) {
+            if (e.enabled && !e.has_query && StringMatchStrategy.match(context, query, e.name, true) != -1) {
+                ret.add(e);
             }
         }
 

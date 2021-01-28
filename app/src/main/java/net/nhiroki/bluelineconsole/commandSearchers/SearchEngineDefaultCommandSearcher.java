@@ -30,7 +30,7 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
 
     @Override
     public void refresh(Context context) {
-        this._searchEngineDB.refresh();
+        this._searchEngineDB.refresh(context);
     }
 
     @Override
@@ -45,10 +45,11 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
     }
 
     @Override
+    @NonNull
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        WebSearchEngine searchEngine = this._searchEngineDB.getEngineByPreference(context,  context.getResources().getConfiguration().locale);
+        WebSearchEngine searchEngine = this._searchEngineDB.getDefaultEngineByPreference(context);
 
         if (searchEngine != null) {
             cands.add(new SearchEngineCandidateEntry(context, s, searchEngine.display_name, searchEngine.url_base));

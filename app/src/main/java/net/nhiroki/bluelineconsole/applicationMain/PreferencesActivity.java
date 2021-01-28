@@ -19,7 +19,7 @@ public class PreferencesActivity extends BaseWindowActivity {
         super.onCreate(savedInstanceStates);
 
         this.setHeaderFooterTexts(getString(R.string.preferences_title_for_header_and_footer), null);
-        this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_ALWAYS, 1);
+        this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 1);
 
         this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);
 
@@ -28,7 +28,7 @@ public class PreferencesActivity extends BaseWindowActivity {
 
         setResult(RESULT_OK, new Intent(this, MainActivity.class));
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
     }
 
@@ -77,6 +77,6 @@ public class PreferencesActivity extends BaseWindowActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        this.changeBaseWindowElementSize(true);
+        this.changeBaseWindowElementSizeForAnimation(true);
     }
 }

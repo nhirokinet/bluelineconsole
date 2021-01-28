@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -28,12 +29,14 @@ import net.nhiroki.bluelineconsole.R;
 
 
 public class BaseWindowActivity extends AppCompatActivity {
-    private final int _mainLayoutResID;
+    private final @LayoutRes int _mainLayoutResID;
     private final boolean _smallWindow;
     private boolean _comingBack = false;
     private String _currentTheme;
+    private boolean _isDefaultLayOut = true;
+    private boolean _hasFooter = true;
 
-    private boolean _animationEnabled = false;
+    private boolean _animationHasBeenEnabled = false;
 
     public static final String PREF_NAME_THEME = "pref_appearance_theme";
     private static final String PREF_VALUE_THEME_DEFAULT = "default";
@@ -104,6 +107,7 @@ public class BaseWindowActivity extends AppCompatActivity {
             case PREF_VALUE_THEME_MARINE:
                 this.setTheme(R.style.AppThemeMarine);
                 this.setContentView(R.layout.base_window_layout_marine);
+                this._isDefaultLayOut = false;
 
                 LinearLayout centerLL = findViewById(R.id.baseWindowIntermediateWrapper);
                 LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
@@ -113,6 +117,8 @@ public class BaseWindowActivity extends AppCompatActivity {
             case PREF_VALUE_THEME_OLD_COMPUTER:
                 this.setTheme(R.style.AppThemeOldComputer);
                 this.setContentView(R.layout.base_window_layout_old_computer);
+                this._isDefaultLayOut = false;
+                this._hasFooter = false;
                 break;
             case PREF_VALUE_THEME_LIGHT:
             default:
@@ -125,10 +131,10 @@ public class BaseWindowActivity extends AppCompatActivity {
         mainViewStub.setLayoutResource(this._mainLayoutResID);
         mainViewStub.inflate();
 
-        this.findViewById(R.id.baseWindowRootLinearLayout).setOnClickListener(new ExitOnClickListener());
+        this.findViewById(R.id.baseWindowMainLayoutRoot).setOnClickListener(new ExitOnClickListener());
         ((LinearLayout)findViewById(R.id.baseWindowMainLinearLayout)).getChildAt(0).setOnClickListener(null);
 
-        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER)) {
+        if (this._hasFooter) {
             // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in base_window_layout.xml .
             View mainFooterWrapper = findViewById(R.id.baseWindowFooterWrapper);
             ViewGroup.MarginLayoutParams mainFooterWrapperLayoutParam = (ViewGroup.MarginLayoutParams) mainFooterWrapper.getLayoutParams();
@@ -142,6 +148,62 @@ public class BaseWindowActivity extends AppCompatActivity {
         }
 
         this.onAccentColorChanged();
+
+        // TitleBarDragOnTouchListener has some state, it is safer to create different instance
+        this.findViewById(R.id.baseWindowHeaderWrapper).setOnTouchListener(new TitleBarDragOnTouchListener());
+        if (this._isDefaultLayOut) {
+            this.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setOnTouchListener(new TitleBarDragOnTouchListener());
+        }
+    }
+
+    private class TitleBarDragOnTouchListener implements View.OnTouchListener {
+        private float paddingLeftOffset = (float) 0.0;
+        private float paddingTopOffset = (float) 0.0;
+        private float paddingRightOffset = (float) 0.0;
+        private float paddingBottomOffset = (float) 0.0;
+
+        // Click never happens
+        @SuppressLint("ClickableViewAccessibility")
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    View window = BaseWindowActivity.this.findViewById(R.id.baseWindowRootLinearLayout);
+                    paddingLeftOffset = window.getPaddingLeft() - event.getRawX();
+                    paddingTopOffset = window.getPaddingTop() - event.getRawY();
+                    paddingRightOffset = window.getPaddingRight() + event.getRawX();
+                    paddingBottomOffset = window.getPaddingBottom() + event.getRawY();
+
+                    BaseWindowActivity.this.disableWindowAnimationForElements();
+                    return true;
+
+                }
+                case MotionEvent.ACTION_MOVE: {
+                    View window = BaseWindowActivity.this.findViewById(R.id.baseWindowRootLinearLayout);
+
+                    window.setPadding((int) (paddingLeftOffset + event.getRawX()), (int) (paddingTopOffset + event.getRawY()),
+                            (int) (paddingRightOffset - event.getRawX()), (int) (paddingBottomOffset - event.getRawY()));
+
+                    return true;
+
+                }
+                case MotionEvent.ACTION_UP: {
+                    View window = BaseWindowActivity.this.findViewById(R.id.baseWindowRootLinearLayout);
+
+                    window.setPadding((int) (paddingLeftOffset + event.getRawX()), (int) (paddingTopOffset + event.getRawY()),
+                            (int) (paddingRightOffset - event.getRawX()), (int) (paddingBottomOffset - event.getRawY()));
+
+                    if (BaseWindowActivity.this.getAnimationEnabledPreferenceValue()) {
+                        if (BaseWindowActivity.this._animationHasBeenEnabled) {
+                            BaseWindowActivity.this.enableWindowAnimationForElements();
+                        }
+                    }
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     @Override
@@ -150,10 +212,10 @@ public class BaseWindowActivity extends AppCompatActivity {
 
         this._comingBack = false;
 
-        final boolean animationEnabledBySetting = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_NAME_ANIMATION, true);
+        final boolean animationEnabledBySetting = this.getAnimationEnabledPreferenceValue();
 
         if (animationEnabledBySetting) {
-            if (this._animationEnabled) {
+            if (this._animationHasBeenEnabled) {
                 this.enableWindowAnimationForElements();
             }
         } else {
@@ -248,19 +310,20 @@ public class BaseWindowActivity extends AppCompatActivity {
         // TODO: why? setTint doesn't work when resuming from another Activity even if called from onResume; setBackgroundColor works, although.
         // After this is resolved, applyAccentColor can be called from onResume instead of onCreate, and apply immediately after change.
         // This behavior also seems to depend on Android version. Currently not to pursur perfect behavior here, just encourage users to restart.
-        if (this.getCurrentTheme().equals(PREF_VALUE_THEME_DARK) || this.getCurrentTheme().equals(PREF_VALUE_THEME_LIGHT) || this.getCurrentTheme().equals(PREF_VALUE_THEME_DEFAULT)) {
+        if (this._isDefaultLayOut) {
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground(), color);
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);
             this.findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent).setBackgroundColor(color);
             this.findViewById(R.id.baseWindowDefaultThemeFooterEndAccent).setBackgroundColor(color);
-            this.findViewById(R.id.baseWindowMainLinearLayoutOuter).setBackgroundColor(color);
+            this.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter).setBackgroundColor(color);
+            this.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setBackgroundColor(color);
         }
     }
 
     protected void onHeightChange() {}
 
     protected static final int ROOT_WINDOW_FULL_WIDTH_IN_MOBILE = 1;
-    protected static final int ROOT_WINDOW_ALWAYS_HIRZONTAL_MARGIN = 2;
+    protected static final int ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN = 2;
     protected static final int ROOT_WINDOW_FULL_WIDTH_ALWAYS = 3;
 
     protected void setWindowBoundarySize(int widthMode, int windowNestStep) {
@@ -280,7 +343,7 @@ public class BaseWindowActivity extends AppCompatActivity {
 
             final int panelWidth;
 
-            if (widthMode == ROOT_WINDOW_ALWAYS_HIRZONTAL_MARGIN) {
+            if (widthMode == ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN) {
                 panelWidth = Math.min((int) (displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7) - baseHorizontalMerginInPixels), maxPanelWidth - baseHorizontalMerginInPixels);
             } else {
                 panelWidth = Math.min(maxPanelWidth - baseHorizontalMerginInPixels, displaySize.x - baseHorizontalMerginInPixels);
@@ -293,20 +356,11 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     protected void setHeaderFooterTexts(CharSequence headerText, CharSequence footerText) {
-        ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(headerText);
-        if (this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER)) {
-            if (footerText == null) {
-                ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(headerText);
-            } else {
-                ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(headerText + " " + footerText);
-            }
-        } else {
-            if (footerText == null) {
-                ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(headerText);
-            } else {
-                ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(footerText);
-            }
+        if (this._hasFooter) {
             ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(headerText);
+            ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(footerText == null ? headerText : footerText);
+        } else {
+            ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(footerText == null ? headerText : (headerText + " " + footerText));
         }
     }
 
@@ -315,36 +369,62 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected void enableBaseWindowAnimation() {
-        this._animationEnabled = true;
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_NAME_ANIMATION, true)) {
+        this._animationHasBeenEnabled = true;
+        if (this.getAnimationEnabledPreferenceValue()) {
             this.enableWindowAnimationForElements();
         }
     }
 
-    private void enableWindowAnimationForElements() {
-        ((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && !this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
-            ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayoutOuter)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        }
-        ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowFooterWrapper)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+    protected boolean getAnimationEnabledPreferenceValue() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_NAME_ANIMATION, true);
     }
 
-    private void disableWindowAnimationForElements() {
-        ((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
-            ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayoutOuter)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
+    protected void enableWindowAnimationForEachViewGroup(ViewGroup viewGroup) {
+        LayoutTransition lt = viewGroup.getLayoutTransition();
+        lt.enableTransitionType(LayoutTransition.CHANGING);
+        viewGroup.setLayoutTransition(lt);
+    }
+
+    protected void disableWindowAnimationForEachViewGroup(ViewGroup viewGroup) {
+        LayoutTransition lt = viewGroup.getLayoutTransition();
+        lt.disableTransitionType(LayoutTransition.CHANGING);
+        viewGroup.setLayoutTransition(lt);
+    }
+
+    @CallSuper
+    protected void enableWindowAnimationForElements() {
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot));
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout));
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper));
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout));
+        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowFooterWrapper));
+        if (this._isDefaultLayOut) {
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter));
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent));
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent));
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderImagePart));
+            enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterImagePart));
         }
-        ((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
-        ((ViewGroup) findViewById(R.id.baseWindowFooterWrapper)).getLayoutTransition().disableTransitionType(LayoutTransition.CHANGING);
+    }
+
+    @CallSuper
+    protected void disableWindowAnimationForElements() {
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot));
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout));
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper));
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout));
+        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowFooterWrapper));
+        if (this._isDefaultLayOut) {
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter));
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent));
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent));
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderImagePart));
+            disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterImagePart));
+        }
     }
 
     protected double getWindowBodyAvailableHeight() {
-        return findViewById(R.id.baseWindowMainLayoutRoot).getHeight() - findViewById(R.id.baseWindowHeaderWrapper).getHeight() * 2.0;
+        return findViewById(R.id.baseWindowMainLayoutRoot).getHeight() - findViewById(R.id.baseWindowHeaderWrapper).getHeight() * (this._hasFooter ? 2.0 : 1.0);
     }
 
     private class ExitOnClickListener implements View.OnClickListener {
@@ -354,13 +434,14 @@ public class BaseWindowActivity extends AppCompatActivity {
         }
     }
 
-    protected void changeBaseWindowElementSize(boolean visible) {
+    protected void changeBaseWindowElementSizeForAnimation(boolean visible) {
         LinearLayout centerLL = findViewById(R.id.baseWindowMainLinearLayout);
-        View centerLLOuter = findViewById(R.id.baseWindowMainLinearLayoutOuter);
+        View centerLLOuter = findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter);
         View mainLL = centerLL.getChildAt(0);
         LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
 
-        if (visible) {
+        // This is for animation, so if animation is disabled no reason to make invisible
+        if (visible || !this.getAnimationEnabledPreferenceValue()) {
             mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
             mainLP.height = this._smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
             mainLL.setLayoutParams(mainLP);

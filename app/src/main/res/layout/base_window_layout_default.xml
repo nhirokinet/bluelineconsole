@@ -22,6 +22,7 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         >
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowHeaderWrapper"
             android:layout_height="wrap_content"
@@ -29,6 +30,10 @@
             android:layout_gravity="start"
             android:orientation="horizontal"
             android:animateLayoutChanges="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            tools:ignore="KeyboardInaccessibleWidget"
             >
             <LinearLayout
                 android:layout_width="3sp"
@@ -36,12 +41,20 @@
                 android:id="@+id/baseWindowDefaultThemeHeaderStartAccent"
                 android:background="?bluelineconsoleAccentColor"
                 android:orientation="horizontal"
+                android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 />
             <LinearLayout
+                android:id="@+id/baseWindowDefaultThemeHeaderImagePart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/main_header_background"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                >
                 <!-- Sizes here must be consistent with corresponding drawables -->
                 <ImageView
                     android:layout_width="wrap_content"
@@ -49,6 +62,8 @@
                     android:id="@+id/baseWindowDefaultThemeHeaderAccent"
                     android:background="@drawable/main_header_accent"
                     tools:ignore="ContentDescription"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     />
                 <TextView
                     android:clickable="false"
@@ -66,8 +81,39 @@
                     />
             </LinearLayout>
         </LinearLayout>
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
-            android:id="@+id/baseWindowMainLinearLayoutOuter"
+            android:id="@+id/baseWindowDefaultThemeMainLayoutTopEdge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="0sp"
+            android:paddingHorizontal="3sp"
+            android:background="?bluelineconsoleAccentColor"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:animateLayoutChanges="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            tools:ignore="KeyboardInaccessibleWidget"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                android:paddingBottom="6dp"
+                android:paddingHorizontal="7dp"
+                android:layout_margin="0px"
+                android:orientation="vertical"
+                android:background="?bluelineconsoleFrameColor"
+                android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                >
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/baseWindowDefaultThemeMainLinearLayoutOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="0sp"
@@ -77,17 +123,24 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:animateLayoutChanges="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            tools:ignore="KeyboardInaccessibleWidget"
             >
             <LinearLayout
                 android:id="@+id/baseWindowMainLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="6dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="6dp"
                 android:paddingHorizontal="7dp"
                 android:layout_margin="0px"
                 android:orientation="vertical"
                 android:background="?bluelineconsoleFrameColor"
                 android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 >
                 <ViewStub
                     android:layout_width="match_parent"
@@ -102,6 +155,7 @@
           layout_marginTop is actually set to -(18sp + 1 physical pixel).
           BaseWindowActivity.onCreate() decrease 1 physical pixel from layout_marginTop.
         -->
+        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
         <LinearLayout
             android:id="@+id/baseWindowFooterWrapper"
             android:layout_width="wrap_content"
@@ -110,12 +164,19 @@
             android:layout_gravity="end"
             android:orientation="horizontal"
             android:animateLayoutChanges="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            tools:ignore="KeyboardInaccessibleWidget"
             >
             <LinearLayout
+                android:id="@+id/baseWindowDefaultThemeFooterImagePart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/main_footer_background"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:animateLayoutChanges="true"
+                >
                 <!-- Sizes here must be consistent with corresponding drawables -->
                 <TextView
                     android:clickable="false"
@@ -137,6 +198,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     />
                 <ImageView
                     android:id="@+id/baseWindowDefaultThemeFooterAccent"
@@ -144,6 +207,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/main_footer_accent"
                     tools:ignore="ContentDescription"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     />
             </LinearLayout>
             <LinearLayout
@@ -152,6 +217,9 @@
                 android:layout_height="match_parent"
                 android:background="?bluelineconsoleAccentColor"
                 android:orientation="vertical"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:animateLayoutChanges="true"
                 />
         </LinearLayout>
     </LinearLayout>

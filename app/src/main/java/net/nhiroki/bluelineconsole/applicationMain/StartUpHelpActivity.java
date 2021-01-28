@@ -11,6 +11,8 @@ import android.widget.CheckBox;
 import net.nhiroki.bluelineconsole.R;
 
 public class StartUpHelpActivity extends BaseWindowActivity {
+    public static final String PREF_KEY_SHOW_STARTUP_HELP = "pref_main_show_startup_help";
+
     public StartUpHelpActivity() {
         super(R.layout.start_up_help_body, true);
     }
@@ -26,28 +28,28 @@ public class StartUpHelpActivity extends BaseWindowActivity {
         this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);
 
         // Window nest count is 1, but make margin larger because background window is smaller and hides
-        this.setWindowBoundarySize(ROOT_WINDOW_ALWAYS_HIRZONTAL_MARGIN, 2);
+        this.setWindowBoundarySize(ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN, 2);
 
         findViewById(R.id.startUpOKButton).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if (((CheckBox) findViewById(R.id.startUpCheckBoxNotToContinue)).isChecked()) {
                     SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(StartUpHelpActivity.this).edit();
-                    prefEdit.putBoolean("pref_main_show_startup_help", false);
+                    prefEdit.putBoolean(PREF_KEY_SHOW_STARTUP_HELP, false);
                     prefEdit.apply();
                 }
                 StartUpHelpActivity.this.finish();
             }
         });
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeBaseWindowElementSize(hasFocus);
+        this.changeBaseWindowElementSizeForAnimation(hasFocus);
     }
 
     @Override

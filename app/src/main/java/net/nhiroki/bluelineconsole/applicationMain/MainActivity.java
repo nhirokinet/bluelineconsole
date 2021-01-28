@@ -5,20 +5,18 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.animation.LayoutTransition;
 import android.content.Intent;
-import android.preference.PreferenceManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.view.View;
 import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
@@ -47,14 +45,6 @@ public class MainActivity extends BaseWindowActivity {
 
         AppNotification.update(this);
 
-        LinearLayout mainLL = findViewById(R.id.mainInputTextWrapperLinearLayout);
-        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-        mainLP.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        mainLL.setLayoutParams(mainLP);
-
-        final EditText mainInputText = findViewById(R.id.mainInputText);
-        mainInputText.requestFocus();
-
         final ListView candidateListView = findViewById(R.id.candidateListView);
         _resultCandidateListAdapter = new CandidateListAdapter(this, new ArrayList<CandidateEntry>(), candidateListView);
         candidateListView.setAdapter(_resultCandidateListAdapter);
@@ -63,20 +53,6 @@ public class MainActivity extends BaseWindowActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 _resultCandidateListAdapter.invokeEvent(position, MainActivity.this);
-            }
-        });
-
-        mainInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (_resultCandidateListAdapter.isEmpty()) {
-                    return false;
-                }
-                if (event == null || event.getAction() != KeyEvent.ACTION_UP) {
-                    _resultCandidateListAdapter.invokeFirstChoiceEvent(MainActivity.this);
-                    return true;
-                }
-                return false;
             }
         });
 
@@ -96,12 +72,31 @@ public class MainActivity extends BaseWindowActivity {
             }
         });
 
+        final EditText mainInputText = findViewById(R.id.mainInputText);
+        mainInputText.requestFocus();
+        mainInputText.requestFocusFromTouch();
+
+        mainInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (_resultCandidateListAdapter.isEmpty()) {
+                    return false;
+                }
+                if (event == null || event.getAction() != KeyEvent.ACTION_UP) {
+                    _resultCandidateListAdapter.invokeFirstChoiceEvent(MainActivity.this);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         mainInputText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
                     candidateListView.requestFocus();
-                    return MainActivity.this._resultCandidateListAdapter.selectSecondChoice();
+                    candidateListView.requestFocusFromTouch();
+                    return MainActivity.this._resultCandidateListAdapter.selectChosenNowAsListView() && candidateListView.onKeyDown(keyCode, event);
                 }
                 return false;
             }
@@ -119,7 +114,7 @@ public class MainActivity extends BaseWindowActivity {
         super.onResume();
         this._paused = false;
 
-        EditText mainInputText = findViewById(R.id.mainInputText);
+        final EditText mainInputText = findViewById(R.id.mainInputText);
 
         if (!this.getCurrentTheme().equals(this.readThemeFromConfig())) {
             Intent intent = this.getPackageManager().getLaunchIntentForPackage("net.nhiroki.bluelineconsole");
@@ -128,30 +123,15 @@ public class MainActivity extends BaseWindowActivity {
         }
         _threadPool = Executors.newSingleThreadExecutor();
 
-        boolean showStartUpHelp = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_main_show_startup_help", true);
+        final boolean showStartUpHelp = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(StartUpHelpActivity.PREF_KEY_SHOW_STARTUP_HELP, true);
 
         if (_commandSearchAggregator == null) {
             // first time after onCreate()
             _commandSearchAggregator = new CommandSearchAggregator(this);
 
             if (!_camebackFlag && showStartUpHelp) {
-                Thread th = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                MainActivity.this._camebackFlag = true;
-                                startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                            }
-                        });
-                    }
-                });
-                th.start();
-                try {
-                    th.join();
-                } catch (InterruptedException e) {
-                }
+                MainActivity.this._camebackFlag = true;
+                startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
             }
             mainInputText.addTextChangedListener(new MainInputTextListener(mainInputText.getText()));
 
@@ -170,23 +150,8 @@ public class MainActivity extends BaseWindowActivity {
                 _commandSearchAggregator.refresh(this);
 
                 if (showStartUpHelp) {
-                    Thread th = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            MainActivity.this.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    MainActivity.this._camebackFlag = true;
-                                    startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                                }
-                            });
-                        }
-                    });
-                    th.start();
-                    try {
-                        th.join();
-                    } catch (InterruptedException e) {
-                    }
+                    MainActivity.this._camebackFlag = true;
+                    startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
                 }
                 _resultCandidateListAdapter.clear();
                 _resultCandidateListAdapter.notifyDataSetChanged();
@@ -194,26 +159,8 @@ public class MainActivity extends BaseWindowActivity {
                 mainInputText.setText("");
             }
         }
-        Thread th = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainActivity.this.enableBaseWindowAnimation();
 
-                        ((ViewGroup) findViewById(R.id.mainRootLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-                        ((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-                        ((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout)).getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-                    }
-                });
-            }
-        });
-        th.start();
-        try {
-            th.join();
-        } catch (InterruptedException e) {
-        }
+        MainActivity.this.enableBaseWindowAnimation();
     }
 
     @Override
@@ -237,11 +184,29 @@ public class MainActivity extends BaseWindowActivity {
         this.setWholeLayout();
     }
 
+    @Override
+    protected void enableWindowAnimationForElements() {
+        super.enableWindowAnimationForElements();
+
+        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainRootLinearLayout));
+        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout));
+        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout));
+    }
+
+    @Override
+    protected void disableWindowAnimationForElements() {
+        super.disableWindowAnimationForElements();
+
+        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainRootLinearLayout));
+        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout));
+        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout));
+    }
+
     private void setWholeLayout() {
         final EditText mainInputText = findViewById(R.id.mainInputText);
         final boolean textFilled = ! mainInputText.getText().toString().equals("");
 
-        this.setWindowBoundarySize(textFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HIRZONTAL_MARGIN, 0);
+        this.setWindowBoundarySize(textFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN, 0);
 
         this.setWindowLocationGravity(textFilled ? Gravity.TOP : Gravity.CENTER_VERTICAL);
 
@@ -254,6 +219,7 @@ public class MainActivity extends BaseWindowActivity {
         mainInputText.setPadding((int) (editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp), (int)(editTextSizeSp * 0.3 * pixelsPerSp));
 
         mainInputText.requestFocus();
+        mainInputText.requestFocusFromTouch();
     }
 
     private void executeSearch(CharSequence s) {
@@ -263,13 +229,13 @@ public class MainActivity extends BaseWindowActivity {
         _resultCandidateListAdapter.addAll(cands);
         _resultCandidateListAdapter.notifyDataSetChanged();
 
-        setWholeLayout();
-
         if (cands.isEmpty()) {
             findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, 0, 0, 0);
         } else {
             findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, (int)(6 * getResources().getDisplayMetrics().density + 0.5), 0, 0);
         }
+
+        setWholeLayout();
     }
 
     private void onCommandInput(final CharSequence s) {

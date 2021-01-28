@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This layout is mainly consist of texts, so for this file unify unit to sp in this file even if not text size -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_weight="1"
-    android:paddingTop="2dp"
-    android:paddingBottom="2dp"
-    android:paddingStart="10dp"
-    android:paddingEnd="10dp"
+    android:paddingVertical="7sp"
+    android:paddingHorizontal="15sp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:duplicateParentState="true"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
     >
-
     <ImageView
         android:id="@+id/candidateIconView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="0dp"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_marginVertical="0sp"
+        android:layout_marginEnd="12sp"
+        android:padding="0sp"
         android:clickable="false"
         android:focusable="false"
+        android:focusableInTouchMode="false"
         tools:ignore="ContentDescription"
         />
-
     <LinearLayout
         android:id="@+id/candidateIntermediateLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingVertical="3sp"
         android:clickable="false"
         android:focusable="false"
+        android:focusableInTouchMode="false"
         >
-
         <TextView
             android:id="@+id/candidateTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
+            android:paddingTop="2sp"
+            android:paddingBottom="2sp"
             android:clickable="false"
             android:focusable="false"
+            android:focusableInTouchMode="false"
             android:textColor="?bluelineconsoleBaseTextColor"
             />
-
         <LinearLayout
             android:id="@+id/candidatedetaillinearlistview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingStart="6dp"
-            android:paddingEnd="0dp"
+            android:paddingStart="6sp"
+            android:paddingEnd="0sp"
             android:orientation="vertical"
             android:clickable="false"
             android:focusable="false"
             android:duplicateParentState="true"
             />
-
     </LinearLayout>
-
 </LinearLayout>

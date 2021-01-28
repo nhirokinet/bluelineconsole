@@ -34,10 +34,10 @@ public class PingActivity extends BaseWindowActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setHeaderFooterTexts(TARGET_COMMAND_SHORT, TARGET_COMMAND_SHORT);
+        this.setHeaderFooterTexts(TARGET_COMMAND_SHORT, null);
         this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_ALWAYS, 1);
 
-        this.changeBaseWindowElementSize(false);
+        this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
     }
 
@@ -104,6 +104,7 @@ public class PingActivity extends BaseWindowActivity {
         try {
             th.join();
         } catch (InterruptedException e) {
+            th.interrupt();
         }
     }
 
@@ -118,6 +119,7 @@ public class PingActivity extends BaseWindowActivity {
             try {
                 this._readerThread.join();
             } catch (InterruptedException e) {
+                this._readerThread.interrupt();
             }
         }
     }
@@ -125,6 +127,6 @@ public class PingActivity extends BaseWindowActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.changeBaseWindowElementSize(true);
+        this.changeBaseWindowElementSizeForAnimation(true);
     }
 }

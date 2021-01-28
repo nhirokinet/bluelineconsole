@@ -44,6 +44,7 @@ public class PreferencesCommandSearcher implements CommandSearcher {
     }
 
     @Override
+    @NonNull
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
