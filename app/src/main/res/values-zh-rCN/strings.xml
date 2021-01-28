@@ -76,7 +76,7 @@
     <string name="preferences_item_default_search_title">默认搜索引擎</string>
     <string name="preferences_item_default_search_summary">总是在列表的底部显示特定的搜索引擎</string>
     <string name="preferences_item_default_search_option_none">（无）</string>
-    <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">Notify IME as English input on command input window</string>
+    <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">Notify English input to keyboard input software on command input window</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">Command input window uses setImeHintLocales and sets to English locale. Behavior differs between keyboard input softwares.</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">Set IME_FLAG_FORCE_ASCII flag on command input window</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII is intended to use ASCII characters for input. Behavior differs between keyboard input softwares.</string>
