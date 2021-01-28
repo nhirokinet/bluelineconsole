@@ -76,10 +76,10 @@
     <string name="preferences_item_default_search_title">デフォルト検索エンジン</string>
     <string name="preferences_item_default_search_summary">常に設定した検索エンジンでの検索を一覧に表示します</string>
     <string name="preferences_item_default_search_option_none">（なし）</string>
-    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">コマンド入力窓で IME_FLAG_FORCE_ASCII を有効にする</string>
-    <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII は ASCII 文字（英数、記号）入力を IME に指示するものですが IME により挙動が異なります。</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">コマンド入力窓で、 IME に指示する言語を英語にする</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">コマンド入力窓で setImeHintLocales を用いて、 IME に英語入力であると指示します。IME により挙動が異なります。</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">コマンド入力窓で IME_FLAG_FORCE_ASCII を有効にする</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII は ASCII 文字（英数、記号）入力を IME に指示するものですが IME により挙動が異なります。</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">URL 追加</string>

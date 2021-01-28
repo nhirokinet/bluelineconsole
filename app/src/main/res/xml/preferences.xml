@@ -100,16 +100,16 @@
         app:iconSpaceReserved="false"
         >
         <SwitchPreference
-            android:key="pref_mainedittext_flagforceascii"
-            android:title="@string/preferences_item_advanced_main_edittext_flagforceascii_title"
-            android:summary="@string/preferences_item_advanced_main_edittext_flagforceascii_summary"
+            android:key="pref_mainedittext_hint_locale_english"
+            android:title="@string/preferences_item_advanced_main_edittext_hint_locale_english_title"
+            android:summary="@string/preferences_item_advanced_main_edittext_hint_locale_english_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             />
         <SwitchPreference
-            android:key="pref_mainedittext_hint_locale_english"
-            android:title="@string/preferences_item_advanced_main_edittext_hint_locale_english_title"
-            android:summary="@string/preferences_item_advanced_main_edittext_hint_locale_english_summary"
+            android:key="pref_mainedittext_flagforceascii"
+            android:title="@string/preferences_item_advanced_main_edittext_flagforceascii_title"
+            android:summary="@string/preferences_item_advanced_main_edittext_flagforceascii_summary"
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             />
