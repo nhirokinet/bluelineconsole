@@ -102,7 +102,7 @@
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">Invalid URL: must start with https:// or http:// and at least one more slash (\"/\").</string>
-    <string name="error_invalid_url_command_name">Invalid name: command can contain only digits and lower alphabets, and must not be empty</string>
+    <string name="error_invalid_url_command_name">Invalid name: command cannot include space, and must not be empty</string>
     <string name="error_empty_display_name">Display name is empty</string>
 
     <!-- Error messages, system errors -->

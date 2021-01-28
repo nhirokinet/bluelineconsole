@@ -102,7 +102,7 @@
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠(\"/\").</string>
-    <string name="error_invalid_url_command_name">无效的名称：命令只能包含数字和小写字母，且不能为空。</string>
+    <string name="error_invalid_url_command_name">Invalid name: command cannot include space, and must not be empty</string>
     <string name="error_empty_display_name">显示名称为空</string>
 
     <!-- Error messages, system errors -->
