@@ -56,6 +56,7 @@
     <string name="preferences_category_appearance">Appearance</string>
     <string name="preferences_category_apps">Launching Apps</string>
     <string name="preferences_category_urls">Web Pages and Searches</string>
+    <string name="preferences_category_advanced">Advanced</string>
 
     <!-- Preferences items, main screen -->
     <string name="preferences_item_main_show_startup_help_title">Show help on startup</string>
@@ -75,6 +76,10 @@
     <string name="preferences_item_default_search_title">Default Search Engine</string>
     <string name="preferences_item_default_search_summary">Always show specific search engine on the bottom of list</string>
     <string name="preferences_item_default_search_option_none">(None)</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">Set IME_FLAG_FORCE_ASCII flag on command input window</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII is intended to use ASCII characters for input. Behavior differs between IMEs.</string>
+    <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">Notify IME as English input on command input window</string>
+    <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">Command input window uses setImeHintLocales and sets to English locale. Behavior differs between IMEs.</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">Add custom URL or search engine</string>

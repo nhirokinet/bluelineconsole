@@ -5,7 +5,6 @@
     >
     <PreferenceCategory
         android:title="@string/preferences_category_main"
-        android:key="pref_main_category"
         app:iconSpaceReserved="false"
         >
         <SwitchPreference
@@ -65,7 +64,6 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/preferences_category_apps"
-        android:key="pref_apps_category"
         app:iconSpaceReserved="false"
         >
         <SwitchPreference
@@ -78,7 +76,6 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/preferences_category_urls"
-        android:key="pref_urls_category"
         app:iconSpaceReserved="false"
         >
         <Preference
@@ -95,6 +92,25 @@
             android:defaultValue="none"
             android:title="@string/preferences_item_default_search_title"
             android:summary="@string/preferences_item_default_search_summary"
+            app:iconSpaceReserved="false"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/preferences_category_advanced"
+        app:iconSpaceReserved="false"
+        >
+        <SwitchPreference
+            android:key="pref_mainedittext_flagforceascii"
+            android:title="@string/preferences_item_advanced_main_edittext_flagforceascii_title"
+            android:summary="@string/preferences_item_advanced_main_edittext_flagforceascii_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            />
+        <SwitchPreference
+            android:key="pref_mainedittext_hint_locale_english"
+            android:title="@string/preferences_item_advanced_main_edittext_hint_locale_english_title"
+            android:summary="@string/preferences_item_advanced_main_edittext_hint_locale_english_summary"
+            android:defaultValue="false"
             app:iconSpaceReserved="false"
             />
     </PreferenceCategory>

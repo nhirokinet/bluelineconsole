@@ -2,11 +2,14 @@ package net.nhiroki.bluelineconsole.applicationMain;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.LocaleList;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,11 +26,15 @@ import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 
+import static android.view.inputmethod.EditorInfo.IME_FLAG_FORCE_ASCII;
+
 public class MainActivity extends BaseWindowActivity {
     private CandidateListAdapter _resultCandidateListAdapter;
     private CommandSearchAggregator _commandSearchAggregator;
     private ExecutorService _threadPool;
 
+    public static final String PREF_KEY_MAIN_EDITTEXT_FLAG_FORCE_ASCII = "pref_mainedittext_flagforceascii";
+    public static final String PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH = "pref_mainedittext_hint_locale_english";
     public static final int REQUEST_CODE_FOR_COMING_BACK = 1;
 
     private boolean _camebackFlag = false;
@@ -73,6 +80,18 @@ public class MainActivity extends BaseWindowActivity {
         });
 
         final EditText mainInputText = findViewById(R.id.mainInputText);
+        if (Build.VERSION.SDK_INT >= 24) {
+            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH, false)) {
+                mainInputText.setImeHintLocales(new LocaleList(new Locale("en")));
+            }
+        }
+
+        // flagForceAscii enabled at layout.
+        // Disabling on layout and enabling here did not resolve my problem.
+        // Also it seems to go around every languages even disabled here
+        if (! PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_MAIN_EDITTEXT_FLAG_FORCE_ASCII, false)) {
+            mainInputText.setImeOptions(mainInputText.getImeOptions() & ~IME_FLAG_FORCE_ASCII);
+        }
         mainInputText.requestFocus();
         mainInputText.requestFocusFromTouch();
 
@@ -115,6 +134,19 @@ public class MainActivity extends BaseWindowActivity {
         this._paused = false;
 
         final EditText mainInputText = findViewById(R.id.mainInputText);
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_MAIN_EDITTEXT_FLAG_FORCE_ASCII, false)) {
+            mainInputText.setImeOptions(mainInputText.getImeOptions() | IME_FLAG_FORCE_ASCII);
+        } else {
+            mainInputText.setImeOptions(mainInputText.getImeOptions() & ~IME_FLAG_FORCE_ASCII);
+        }
+
+        if (Build.VERSION.SDK_INT >= 24) {
+            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH, false)) {
+                mainInputText.setImeHintLocales(new LocaleList(new Locale("en")));
+            } else {
+                mainInputText.setImeHintLocales(null);
+            }
+        }
 
         if (!this.getCurrentTheme().equals(this.readThemeFromConfig())) {
             Intent intent = this.getPackageManager().getLaunchIntentForPackage("net.nhiroki.bluelineconsole");
