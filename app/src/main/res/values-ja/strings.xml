@@ -77,11 +77,15 @@
     <string name="preferences_item_default_search_option_none">（なし）</string>
 
     <!-- Preferences items, URL screens -->
+    <string name="preferences_url_add_button">URL 追加</string>
     <string name="preferences_url_column_command_name">コマンド名</string>
     <string name="preferences_url_column_display_name">表示名</string>
     <string name="preferences_url_column_url">URL</string>
     <string name="preferences_url_column_has_query">検索エンジン（有効にするとクエリが URL 末尾に追加されます）</string>
-    <string name="preferences_url_add_button">URL 追加</string>
+    <string name="preferences_url_property_enabled">有効</string>
+    <string name="preferences_url_property_disabled">無効</string>
+    <string name="preferences_url_property_preset">プリセット</string>
+    <string name="preferences_url_varies_with_locale">言語設定を変更するとこの内容も変わります</string>
 
     <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">テーマの初期設定</string>

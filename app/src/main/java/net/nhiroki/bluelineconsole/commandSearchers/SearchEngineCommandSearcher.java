@@ -19,7 +19,6 @@ import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class SearchEngineCommandSearcher implements CommandSearcher {
     private final WebSearchEnginesDatabase _searchEngineDB;
@@ -31,7 +30,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
 
     @Override
     public void refresh(Context context) {
-        this._searchEngineDB.refresh();
+        this._searchEngineDB.refresh(context);
     }
 
     @Override
@@ -51,14 +50,12 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         List<CandidateEntry> cands = new ArrayList<>();
 
         if (s.contains(" ")){
-            Locale locale = context.getResources().getConfiguration().locale;
-
             int split = s.indexOf(' ');
             String engine = s.substring(0, split).toLowerCase();
             String query = s.substring(split + 1);
 
             if (!engine.equals("")) {
-                List<WebSearchEngine> searchEngines = this._searchEngineDB.getEngineListByNameQuery(context, engine, locale);
+                List<WebSearchEngine> searchEngines = this._searchEngineDB.searchEngineListByNameQuery(context, engine);
 
                 for (WebSearchEngine e: searchEngines) {
                     cands.add(new SearchEngineCandidateEntry(context, query, e.display_name, e.url_base));
@@ -67,7 +64,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
 
         } else {
             if (!s.equals("")) {
-                List<WebSearchEngine> urls = this._searchEngineDB.getStaticPageListByNameQuery(context, s);
+                List<WebSearchEngine> urls = this._searchEngineDB.searchStaticPageListByNameQuery(context, s);
                 for (WebSearchEngine e: urls) {
                     cands.add(new StaticPageCandidateEntry(context, e.display_name, e.url_base));
                 }

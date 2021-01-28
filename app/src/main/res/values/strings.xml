@@ -71,7 +71,7 @@
     <string name="preferences_item_appearance_animation_title">Animation</string>
     <string name="preferences_item_apps_show_package_name_title">Show package name</string>
     <string name="preferences_item_apps_show_package_name_summary">Note: You can find apps by a part of package name even this check is off.</string>
-    <string name="preferences_item_display_custom_urls_title">Custom pages and searches</string>
+    <string name="preferences_item_display_custom_urls_title">Web pages and searches</string>
     <string name="preferences_item_default_search_title">Default Search Engine</string>
     <string name="preferences_item_default_search_summary">Always show specific search engine on the bottom of list</string>
     <string name="preferences_item_default_search_option_none">(None)</string>
@@ -82,6 +82,10 @@
     <string name="preferences_url_column_display_name">Display name</string>
     <string name="preferences_url_column_url">URL</string>
     <string name="preferences_url_column_has_query">Search engine (query is added at the end when enabled)</string>
+    <string name="preferences_url_property_enabled">Enabled</string>
+    <string name="preferences_url_property_disabled">Disabled</string>
+    <string name="preferences_url_property_preset">Preset</string>
+    <string name="preferences_url_varies_with_locale">Varies with device language setting</string>
 
     <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">Theme default</string>
