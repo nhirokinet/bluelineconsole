@@ -44,14 +44,14 @@ public class URLPreferences extends SQLiteOpenHelper {
         // Nothing to do now because database structure have not been modified
     }
 
-    public void add(URLEntry entry) {
+    public long add(URLEntry entry) {
         ContentValues cv = new ContentValues();
         cv.put("name", entry.name);
         cv.put("display_name", entry.display_name);
         cv.put("url_base", entry.url_base);
         cv.put("has_query", entry.has_query);
 
-        this.getWritableDatabase().insert("url_info", null, cv);
+        return this.getWritableDatabase().insert("url_info", null, cv);
     }
 
     public List<URLEntry> getAllEntries() {
@@ -73,28 +73,6 @@ public class URLPreferences extends SQLiteOpenHelper {
         curEntry.close();
 
         return ret;
-    }
-
-    public URLEntry getById(int id) {
-        String[] args = new String[1];
-        args[0] = String.valueOf(id);
-
-        Cursor curEntry = this.getReadableDatabase().query("url_info", columnsInDB, "id = ?", args, null, null, null);
-
-        if (curEntry.moveToNext()) {
-            URLEntry e = new URLEntry();
-            e.id = curEntry.getInt(curEntry.getColumnIndex("id"));
-            e.name = curEntry.getString(curEntry.getColumnIndex("name"));
-            e.display_name = curEntry.getString(curEntry.getColumnIndex("display_name"));
-            e.url_base = curEntry.getString(curEntry.getColumnIndex("url_base"));
-            e.has_query = curEntry.getInt(curEntry.getColumnIndex("has_query")) != 0;
-
-            curEntry.close();
-            return e;
-        }
-
-        curEntry.close();
-        return null;
     }
 
     public void deleteById(int id) {

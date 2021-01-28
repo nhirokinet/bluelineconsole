@@ -12,62 +12,86 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preferences_url_column_command_name"
-            android:labelFor="@id/url_name"
-            />
-        <EditText
-            android:id="@+id/url_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="flagForceAscii"
-            android:inputType="text"
-            tools:ignore="TextFields" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preferences_url_column_display_name"
-            android:labelFor="@id/url_display_name"
-            />
-        <EditText
-            android:id="@+id/url_display_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            tools:ignore="TextFields" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preferences_url_column_url"
-            android:labelFor="@id/url_base_url"
-            />
-        <EditText
-            android:id="@+id/url_base_url"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textUri"
-            />
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/url_has_query"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/preferences_url_column_has_query"
-            />
-        <Button
-            android:id="@+id/url_submit_button"
+            android:id="@+id/url_each_enabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button_add"
-            android:drawableStart="@android:drawable/ic_menu_save"
+            android:text="@string/preferences_url_property_enabled"
+            android:background="?bluelineconsoleFrameColor"
+            android:padding="5dp"
             />
-        <Button
-            android:id="@+id/url_delete_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/button_delete"
-            android:drawableStart="@android:drawable/ic_menu_delete"
-            />
+            android:padding="5dp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/url_each_varies_with_locale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/preferences_url_varies_with_locale"
+                android:textColor="?bluelineconsoleBaseTextColor"
+                android:paddingBottom="10sp"
+                android:visibility="gone"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/preferences_url_column_command_name"
+                android:labelFor="@id/url_each_name"
+                />
+            <EditText
+                android:id="@+id/url_each_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="flagForceAscii"
+                android:inputType="text"
+                tools:ignore="TextFields" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/preferences_url_column_display_name"
+                android:labelFor="@id/url_each_display_name"
+                />
+            <EditText
+                android:id="@+id/url_each_display_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                tools:ignore="TextFields" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/preferences_url_column_url"
+                android:labelFor="@id/url_each_base_url"
+                />
+            <EditText
+                android:id="@+id/url_each_base_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri"
+                />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/url_each_has_query"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/preferences_url_column_has_query"
+                />
+            <Button
+                android:id="@+id/url_each_submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_add"
+                android:drawableStart="@android:drawable/ic_menu_save"
+                />
+            <Button
+                android:id="@+id/url_each_delete_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/button_delete"
+                android:drawableStart="@android:drawable/ic_menu_delete"
+                />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
