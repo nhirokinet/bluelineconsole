@@ -56,7 +56,7 @@
     <string name="preferences_category_appearance">外观</string>
     <string name="preferences_category_apps">启动应用</string>
     <string name="preferences_category_urls">网页和搜索</string>
-	<string name="preferences_category_advanced">高级</string>
+    <string name="preferences_category_advanced">高级</string>
 	
     <!-- Preferences items, main screen -->
     <string name="preferences_item_main_show_startup_help_title">应用启动时显示帮助</string>
@@ -76,7 +76,7 @@
     <string name="preferences_item_default_search_title">默认搜索引擎</string>
     <string name="preferences_item_default_search_summary">总是在列表的底部显示特定的搜索引擎</string>
     <string name="preferences_item_default_search_option_none">（无）</string>
-	<string name="preferences_item_advanced_main_edittext_hint_locale_english_title">在命令输入窗口上通知英语输入到键盘输入软件</string>
+    <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">在命令输入窗口上通知英语输入到键盘输入软件</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">命令输入窗口使用 setImeHintLocales 并设为英语语言环境。不同的键盘输入软件有不同的行为。</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">在命令输入窗口上设置 IME_FLAG_FORCE_ASCII  标志</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII 表示打算使用 ASCII 字符进行输入。不同的键盘输入软件有不同的行为。</string>
