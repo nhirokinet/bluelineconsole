@@ -1,6 +1,7 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.preference.ListPreference;
@@ -29,7 +30,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         final List<WebSearchEngine> urlListForLocale = new WebSearchEnginesDatabase(PreferencesFragment.this.getContext()).getURLListForLocale(PreferencesFragment.this.getContext().getResources().getConfiguration().locale, true);
 
         int webSearchEngineCount = 0;
-        for (WebSearchEngine e: urlListForLocale) {
+        for (WebSearchEngine e : urlListForLocale) {
             if (e.has_query) {
                 ++webSearchEngineCount;
             }
@@ -43,7 +44,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
 
         int searchEnginePos = 1;
 
-        for (WebSearchEngine e: urlListForLocale) {
+        for (WebSearchEngine e : urlListForLocale) {
             if (e.has_query) {
                 search_engine_entry_values[searchEnginePos] = e.id_for_preference_value;
                 search_engine_entries[searchEnginePos] = e.display_name_locale_independent;
@@ -56,8 +57,8 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
 
         int stringMatchStrategySize = StringMatchStrategy.STRATEGY_LIST.length;
 
-        CharSequence[]  string_match_strategy_entries = new CharSequence[stringMatchStrategySize];
-        CharSequence[]  string_match_strategy_entry_values = new CharSequence[stringMatchStrategySize];
+        CharSequence[] string_match_strategy_entries = new CharSequence[stringMatchStrategySize];
+        CharSequence[] string_match_strategy_entry_values = new CharSequence[stringMatchStrategySize];
 
         for (int i = 0; i < stringMatchStrategySize; ++i) {
             string_match_strategy_entries[i] = StringMatchStrategy.getStrategyName(this.getActivity(), StringMatchStrategy.STRATEGY_LIST[i]);
@@ -73,7 +74,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
                     public boolean onPreferenceClick(Preference preference) {
                         // Not a perfect behavior, main window disappears
                         // This config is not to be used everyday, it is enough if just not too confusing
-                        ((PreferencesActivity)PreferencesFragment.this.getActivity()).setComingBackFlag();
+                        ((PreferencesActivity) PreferencesFragment.this.getActivity()).setComingBackFlag();
                         Intent intent = new Intent(ACTION_VOICE_INPUT_SETTINGS);
                         PreferencesFragment.this.startActivity(intent);
                         return true;
@@ -93,5 +94,9 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
                     }
                 }
         );
+
+        if (Build.VERSION.SDK_INT < 24) {
+            findPreference(MainActivity.PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH).setVisible(false);
+        }
     }
 }
