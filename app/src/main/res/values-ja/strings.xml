@@ -12,6 +12,7 @@
     <string name="calculator_precision_no_error">誤差なし</string>
     <string name="calculator_precision_rounding">演算中の丸め処理あり</string>
     <string name="calculator_error_division_by_zero">0 による除算</string>
+    <string name="calculator_error_unit_conversion_failure">\"%1$s\" を \"%2$s\" に換算できません</string>
 
     <!-- Command searcher texts for results -->
     <string name="result_search_query_on_engine_format">%2$s で \"%1$s\" を検索</string>
@@ -123,7 +124,7 @@
         \n-&#032;アプリケーション名（例： Blue Line Console）の一部
         \n-&#032;パッケージ名（例： net.nhiroki.bluelineconsole）の一部
         \n-&#032;URL （例： https://example.com/）
-        \n-&#032;計算式（例： 2+3*5）
+        \n-&#032;計算式（例： 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
         \n-&#032;下記のコマンド一覧のいずれか（例： help）
         \n
         \n利用可能なコマンド:
