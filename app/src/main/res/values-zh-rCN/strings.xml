@@ -12,7 +12,7 @@
     <string name="calculator_precision_no_error">无差错</string>
     <string name="calculator_precision_rounding">进位舍入</string>
     <string name="calculator_error_division_by_zero">除以 0</string>
-	<string name="calculator_error_unit_conversion_failure">无法将 \"%1$s\" 转换为 \"%2$s\"</string>
+    <string name="calculator_error_unit_conversion_failure">无法将 \"%1$s\" 转换为 \"%2$s\"</string>
     
     <!-- Command searcher texts for results -->
     <string name="result_search_query_on_engine_format">在 %2$s 上搜索 \"%1$s\"</string>
