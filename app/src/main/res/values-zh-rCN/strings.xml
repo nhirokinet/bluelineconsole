@@ -12,8 +12,8 @@
     <string name="calculator_precision_no_error">无差错</string>
     <string name="calculator_precision_rounding">进位舍入</string>
     <string name="calculator_error_division_by_zero">除以 0</string>
-    <string name="calculator_error_unit_conversion_failure">Cannot convert \"%1$s\" to \"%2$s\"</string>
-
+    <string name="calculator_error_unit_conversion_failure">无法将 \"%1$s\" 转换为 \"%2$s\"</string>
+    
     <!-- Command searcher texts for results -->
     <string name="result_search_query_on_engine_format">在 %2$s 上搜索 \"%1$s\"</string>
     <string name="result_static_webpage_format">访问 %1$s</string>
@@ -103,7 +103,7 @@
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠(\"/\").</string>
-    <string name="error_invalid_url_command_name">无效名称：命令不能包含空格且不能为空</string>
+    <string name="error_invalid_url_command_name">无效的名称：命令不能包含空格且不能为空</string>
     <string name="error_empty_display_name">显示名称为空</string>
 
     <!-- Error messages, system errors -->
@@ -125,7 +125,7 @@
         \n-&#032;应用名称的一部分（比如，Blue Line Console）
         \n-&#032;包名的一部分（比如，net.nhiroki.bluelineconsole）
         \n-&#032;URL（比如，https://example.com/）
-        \n-&#032;算数计算（比如， 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
+        \n-&#032;计算公式 （比如， 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
         \n-&#032;下列命令之一 （比如，help）
         \n
         \n可用命令：

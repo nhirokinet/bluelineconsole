@@ -6,10 +6,10 @@ Blue Line Console 通过键盘启动你的应用程序、网络搜索引擎和�
 
 你可以输入以下列表之一搜索应用程序或命令。
 
-- 应用名的一部分（比如， Blue Line Console）
+- 应用名的一部分（比如，Blue Line Console）
 - 包名的一部分（比如， net.nhiroki.bluelineconsole）
 - URL
-- 算数计算（比如， 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
+- 计算公式 （比如， 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
 - 下列命令之一（比如， help）
 
 可用命令：
