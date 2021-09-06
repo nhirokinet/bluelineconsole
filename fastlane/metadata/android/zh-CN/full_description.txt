@@ -9,7 +9,7 @@ Blue Line Console 通过键盘启动你的应用程序、网络搜索引擎和�
 - 应用名的一部分（比如，Blue Line Console）
 - 包名的一部分（比如， net.nhiroki.bluelineconsole）
 - URL
-- 计算公式 （比如， 2+3*5, 1 英寸等于多少厘米, 1 米+1 英寸, 1 米加 1 英寸等于多少厘米）
+- 计算公式 （比如， 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
 - 下列命令之一（比如， help）
 
 可用命令：
