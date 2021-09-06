@@ -12,6 +12,7 @@
     <string name="calculator_precision_no_error">No Error</string>
     <string name="calculator_precision_rounding">Half rounding up while calculation</string>
     <string name="calculator_error_division_by_zero">Division by 0</string>
+    <string name="calculator_error_unit_conversion_failure">Cannot convert \"%1$s\" to \"%2$s\"</string>
 
     <!-- Command searcher texts for results -->
     <string name="result_search_query_on_engine_format">Search \"%1$s\" on %2$s</string>
@@ -124,7 +125,7 @@
         \n-&#032;Part of application name (e.g. Blue Line Console)
         \n-&#032;Part of package name (e.g. net.nhiroki.bluelineconsole)
         \n-&#032;URL (e.g. https://example.com/)
-        \n-&#032;Calculation formula (e.g. 2+3*5)
+        \n-&#032;Calculation formula (e.g. 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm)
         \n-&#032;One of commands below (e.g. help)
         \n
         \nAvailable commands:

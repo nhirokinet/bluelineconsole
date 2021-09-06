@@ -9,7 +9,7 @@ Blue Line Console は、キーボードで素早く必要なアプリやウェ�
 - アプリケーション名（例： Blue Line Console）の一部
 - パッケージ名（例： net.nhiroki.bluelineconsole）の一部
 - URL
-- 計算式（例： 2+3*5）
+- 計算式（例： 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
 - 下記のコマンド一覧のいずれか（例： help）
 
 利用可能なコマンド:

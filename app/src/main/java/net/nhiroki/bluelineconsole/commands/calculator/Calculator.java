@@ -1,26 +1,49 @@
 package net.nhiroki.bluelineconsole.commands.calculator;
 
+import net.nhiroki.bluelineconsole.commands.calculator.units.CombinedUnit;
+import net.nhiroki.bluelineconsole.commands.calculator.units.UnitDirectory;
+
 import java.math.BigDecimal;
 import java.util.Stack;
 
 public class Calculator {
-    public static CalculatorNumber calculate(final String expression) throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        try {
-            final ParseResult parseResult = calculateInBigDecimal(expression, 0, CalculatorNumber.Precision.PRECISION_NO_ERROR);
-            if (parseResult.getConsumedChars() == expression.length()) {
-                return (CalculatorNumber)parseResult.getFormulaPart();
+    public static CalculatorNumber calculate(String expression) throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        CombinedUnit finalUnit = null;
+
+        String[] split_expression = expression.split(" ");
+        if (split_expression.length > 2 && split_expression[split_expression.length - 2].equals("in")) {
+            try {
+                String[] unitnameSplit = split_expression[split_expression.length - 1].split("/");
+
+                if (unitnameSplit.length == 1) {
+                    finalUnit = UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[0]);
+                    expression = "";
+                    for (int i = 0; i < split_expression.length - 2; ++i) {
+                        expression += split_expression[i] + " ";
+                    }
+                }
+                if (unitnameSplit.length == 2) {
+                    finalUnit = UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[0]).divide(UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[1]));
+                    expression = "";
+                    for (int i = 0; i < split_expression.length - 2; ++i) {
+                        expression += split_expression[i] + " ";
+                    }
+                }
+            } catch (CalculatorExceptions.IllegalFormulaException e) {
+                // Do nothing and continue
             }
-        } catch (CalculatorExceptions.PrecisionNotAchievableException e) {
-            // Just trying next below
         }
 
-        try {
-            final ParseResult parseResult = calculateInBigDecimal(expression, 0, CalculatorNumber.Precision.PRECISION_SCALE_20);
-            if (parseResult.getConsumedChars() == expression.length()) {
-                return (CalculatorNumber) parseResult.getFormulaPart();
+
+        final ParseResult parseResult = calculateInBigDecimal(expression, 0);
+        if (parseResult.getConsumedChars() == expression.length()) {
+            CalculatorNumber result = (CalculatorNumber)parseResult.getFormulaPart();
+            if (finalUnit != null) {
+                result = result.convertUnit(finalUnit);
             }
-        } catch (CalculatorExceptions.PrecisionNotAchievableException e) {
-            // Failed, and no more to try
+            result = result.generateFinalDecimalValue();
+
+            return result;
         }
 
         throw new CalculatorExceptions.IllegalFormulaException();
@@ -52,19 +75,6 @@ public class Calculator {
         }
     }
 
-    private static BigDecimal normalizeBigDecimal(final BigDecimal in, final int targetPrecision) {
-        if (in.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.ZERO;
-        }
-        BigDecimal ret = in.stripTrailingZeros();
-        if (targetPrecision == CalculatorNumber.Precision.PRECISION_NO_ERROR && ret.scale() < 0) {
-            //noinspection BigDecimalMethodWithoutRoundingCalled
-            ret = ret.setScale(0);
-        }
-
-        return ret;
-    }
-
     private static int skipSpaces(final String expressions, final int start) {
         int ret = 0;
 
@@ -74,7 +84,7 @@ public class Calculator {
         return ret;
     }
 
-    private static ParseResult readFormulaPart(final String expression, final int start) throws CalculatorExceptions.IllegalFormulaException {
+    private static ParseResult readFormulaPart(String expression, final int start) throws CalculatorExceptions.IllegalFormulaException {
         if (start >= expression.length()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
@@ -135,7 +145,37 @@ public class Calculator {
                         ret = ret.multiply(BigDecimal.TEN).add(currentDigit);
                     }
                 }
-                return new ParseResult(new CalculatorNumber.BigDecimalNumber(ret, CalculatorNumber.Precision.PRECISION_NO_ERROR), curpos - start);
+                for (; curpos < expression.length() && expression.charAt(curpos) == ' '; ++curpos) {
+                }
+                String unitname = "";
+                while (curpos < expression.length() && expression.charAt(curpos) == ' ') {
+                    ++curpos;
+                }
+                for (; curpos < expression.length() && (('a' <= expression.charAt(curpos) && expression.charAt(curpos) <= 'z') || ('A' <= expression.charAt(curpos) && expression.charAt(curpos) <= 'Z')); ++curpos) {
+                    unitname += expression.charAt(curpos);
+                }
+                CombinedUnit unit = null;
+                if (! unitname.isEmpty()) {
+                    unit = UnitDirectory.getInstance().getCombinedUnitFromName(unitname);
+                }
+                if (! unitname.isEmpty() && curpos < expression.length() - 1 && expression.charAt(curpos) == '/') {
+                    String unitname2 = "";
+                    int tmpcurpos = curpos + 1;
+                    for (; tmpcurpos < expression.length() && (('a' <= expression.charAt(tmpcurpos) && expression.charAt(tmpcurpos) <= 'z') || ('A' <= expression.charAt(tmpcurpos) && expression.charAt(tmpcurpos) <= 'Z')); ++tmpcurpos) {
+                        unitname2 += expression.charAt(tmpcurpos);
+                    }
+
+                    if (! unitname2.isEmpty()) {
+                        try {
+                            CombinedUnit unit2 = UnitDirectory.getInstance().getCombinedUnitFromName(unitname2);
+                            unit = unit.divide(unit2);
+                            curpos = tmpcurpos;
+                        } catch (CalculatorExceptions.IllegalFormulaException e) {
+                            // We did not see anything after slash
+                        }
+                    }
+                }
+                return new ParseResult(new CalculatorNumber.BigDecimalNumber(ret, CalculatorNumber.Precision.PRECISION_NO_ERROR, unit), curpos - start);
             }
 
             default:
@@ -143,8 +183,8 @@ public class Calculator {
         }
     }
 
-    private static void popUntilLowerPriorityInBigDecimal(Stack<FormulaPart> expressionStack, Stack<Operator> operatorsStack, final int priority, final int targetPrecision)
-            throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.PrecisionNotAchievableException, CalculatorExceptions.CalculationException {
+    private static void popUntilLowerPriorityInBigDecimal(Stack<FormulaPart> expressionStack, Stack<Operator> operatorsStack, final int priority)
+            throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
 
         while ( !operatorsStack.empty() &&
                 operatorsStack.peek() instanceof Operator.InfixOperator &&
@@ -173,21 +213,21 @@ public class Calculator {
                 throw new CalculatorExceptions.IllegalFormulaException();
             }
 
-            CalculatorNumber cn = (CalculatorNumber) expressionStack.pop();
+            CalculatorNumber.BigDecimalNumber cn = (CalculatorNumber.BigDecimalNumber) expressionStack.pop();
 
             while (innerOperatorStack.size() > 0) {
                 Operator.InfixOperator op = (Operator.InfixOperator) innerOperatorStack.pop();
-                CalculatorNumber cn2 = innerNumberStack.pop();
+                CalculatorNumber.BigDecimalNumber cn2 = (CalculatorNumber.BigDecimalNumber) innerNumberStack.pop();
 
-                cn = op.operate(cn.getBigDecimal(), cn2.getBigDecimal(), targetPrecision);
+                cn = op.operate(cn, cn2);
             }
             expressionStack.push(cn);
         }
     }
 
     // TODO: more readable implementation
-    private static ParseResult calculateInBigDecimal (final String expression, final int start, final int targetPrecision)
-            throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.PrecisionNotAchievableException, CalculatorExceptions.CalculationException {
+    private static ParseResult calculateInBigDecimal (String expression, final int start)
+            throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         int curPos = start;
         Stack<FormulaPart> expressionStack = new Stack<>();
         Stack<Operator> operatorsStack = new Stack<>();
@@ -213,10 +253,11 @@ public class Calculator {
 
                 if (expression.charAt(curPos) == '(') {
                     ++curPos;
-                    ParseResult intermediate = calculateInBigDecimal(expression, curPos, targetPrecision);
+                    ParseResult intermediate = calculateInBigDecimal(expression, curPos);
 
                     curPos += intermediate.getConsumedChars();
-                    expressionStack.push(new CalculatorNumber.BigDecimalNumber(((CalculatorNumber.BigDecimalNumber) intermediate.getFormulaPart()).getBigDecimal().multiply(new BigDecimal("-1")), targetPrecision));
+                    CalculatorNumber.BigDecimalNumber tmp = (CalculatorNumber.BigDecimalNumber) intermediate.getFormulaPart();
+                    expressionStack.push(tmp.multiply(new CalculatorNumber.BigDecimalNumber(new BigDecimal("-1"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null)));
                     if (expression.length() == curPos || expression.charAt(curPos) != ')') {
                         throw new CalculatorExceptions.IllegalFormulaException();
                     }
@@ -227,7 +268,8 @@ public class Calculator {
 
                 ParseResult part = readFormulaPart(expression, curPos);
                 if (part.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber) {
-                    expressionStack.push(new CalculatorNumber.BigDecimalNumber(((CalculatorNumber.BigDecimalNumber)part.getFormulaPart()).getBigDecimal().multiply(new BigDecimal("-1")), targetPrecision));
+                    CalculatorNumber.BigDecimalNumber tmp = (CalculatorNumber.BigDecimalNumber) part.getFormulaPart();
+                    expressionStack.push(tmp.multiply(new CalculatorNumber.BigDecimalNumber(new BigDecimal("-1"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null)));
                 } else {
                     throw new CalculatorExceptions.IllegalFormulaException();
                 }
@@ -239,7 +281,7 @@ public class Calculator {
 
             if (curChar == '(') {
                 ++curPos;
-                ParseResult intermediate = calculateInBigDecimal(expression, curPos, targetPrecision);
+                ParseResult intermediate = calculateInBigDecimal(expression, curPos);
 
                 curPos += intermediate.getConsumedChars();
                 expressionStack.push(intermediate.getFormulaPart());
@@ -267,7 +309,7 @@ public class Calculator {
                     if (expressionStack.empty() || ! (expressionStack.peek() instanceof CalculatorNumber)) {
                         throw new CalculatorExceptions.IllegalFormulaException();
                     }
-                    popUntilLowerPriorityInBigDecimal(expressionStack, operatorsStack, ((Operator.InfixOperator) part.getFormulaPart()).getPriority(), targetPrecision);
+                    popUntilLowerPriorityInBigDecimal(expressionStack, operatorsStack, ((Operator.InfixOperator) part.getFormulaPart()).getPriority());
                 } else {
                     throw new CalculatorExceptions.IllegalFormulaException();
                 }
@@ -275,7 +317,7 @@ public class Calculator {
 
             if (part.getFormulaPart() instanceof CalculatorNumber) {
                 if (! (part.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber)) {
-                    throw new CalculatorExceptions.PrecisionNotAchievableException();
+                    throw new CalculatorExceptions.IllegalFormulaException();
                 }
                 tmpOk = true;
                 if (!expressionStack.empty() && !(expressionStack.peek() instanceof Operator.InfixOperator)) {
@@ -294,13 +336,13 @@ public class Calculator {
             }
         }
 
-        popUntilLowerPriorityInBigDecimal(expressionStack, operatorsStack, 0, targetPrecision);
+        popUntilLowerPriorityInBigDecimal(expressionStack, operatorsStack, 0);
 
         if (expressionStack.size() == 1) {
             if (expressionStack.get(0) instanceof CalculatorNumber.BigDecimalNumber) {
                 CalculatorNumber result = (CalculatorNumber)expressionStack.get(0);
 
-                return new ParseResult(new CalculatorNumber.BigDecimalNumber(normalizeBigDecimal(result.getBigDecimal(), targetPrecision), targetPrecision), curPos - start);
+                return new ParseResult(result, curPos - start);
             }
         }
 

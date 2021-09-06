@@ -58,8 +58,12 @@ public class CalculatorCommandSearcher implements CommandSearcher {
             title = ltr + s;
             try {
                 CalculatorNumber res = Calculator.calculate(s);
-                resultText = ltr + "= " + res.toString();
+                resultText = ltr + "= " + res.generateFinalString();
                 subText = String.format(context.getString(R.string.calculator_precision_format), getPrecisionText(context, res.getPrecision()));
+
+            } catch (CalculatorExceptions.UnitConversionException e) {
+                resultText = String.format(context.getString(R.string.calculator_error_unit_conversion_failure), e.getFrom().calculateDisplayName(), e.getTo().calculateDisplayName());
+                subText = null;
 
             } catch (CalculatorExceptions.IllegalFormulaException e) {
                 resultText = "= ...";

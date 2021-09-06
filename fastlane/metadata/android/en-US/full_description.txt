@@ -9,7 +9,7 @@ You can input one of below list to search apps or commands.
 - Part of application name (e.g. Blue Line Console)
 - Part of package name (e.g. net.nhiroki.bluelineconsole)
 - URL
-- Calculation formula (e.g. 2+3*5)
+- Calculation formula (e.g. 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm)
 - One of commands below (e.g. help)
 
 Available commands:
