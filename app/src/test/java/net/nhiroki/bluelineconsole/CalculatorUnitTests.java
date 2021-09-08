@@ -61,6 +61,7 @@ public class CalculatorUnitTests {
         assertBigDecimal("123456789*(1+3.4)/(1.30-1/5)", "493827156", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 / 3.0 * 3.00", "1", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 / (1+2.0) * 3.00", "1", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 / 6 + 3 / 8 + 1 / 3 + 1 / 8", "1", CalculatorNumber.Precision.PRECISION_NO_ERROR);
 
         // If no precise operation available, scale is set to 20
         assertBigDecimal("1/3", "0.33333333333333333333", CalculatorNumber.Precision.PRECISION_SCALE_20);
@@ -69,6 +70,7 @@ public class CalculatorUnitTests {
         // Unit conversion function test
         assertBigDecimal("1 inch in cm", "2.54 cm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 inches in cm", "2.54 cm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 / (1 cm / 1 inch)", "2.54", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("2 inch in mm", "50.8 mm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("2 inches   in mm", "50.8 mm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("2 cm + 3 inch", "9.62 cm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
@@ -95,6 +97,39 @@ public class CalculatorUnitTests {
         assertBigDecimal("(3*9.80665) * 1kg * 1m / 1s / 1s in kgf", "3 kgf", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("(1kg*1m/1s/1s+1kgf)/1s", "10.80665 m⋅kg/s³", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1kg*1m/1s/1s+1kgf", "10.80665 N", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("2 celsius + 1 kelvin", "276.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("2 kelvin + 1 celsius", "276.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("2 celsius + 1 celsius", "549.3 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("2 celsius - 1 celsius", "1 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("212 fahrenheit - 99 celsius", "1 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("0 celsius * 2", "546.3 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("2 * 0 celsius", "546.3 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("0 celsius / 273.15 kelvin", "1", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("273.15 kelvin / 0 celsius", "1", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("3 celsius in kelvin", "276.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("3 kelvin in celsius", "-270.15 celsius", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("32 fahrenheit + 1 kelvin", "274.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kelvin + 212 fahrenheit", "374.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("32 fahrenheit + 32 fahrenheit", "546.3 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("32 fahrenheit in kelvin", "273.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("212 fahrenheit in kelvin", "373.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("273.15 kelvin in fahrenheit", "32 fahrenheit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("373.15 kelvin in fahrenheit", "212 fahrenheit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("-100 celsius in fahrenheit", "-148 fahrenheit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("-123 kelvin in kelvin", "-123 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("-123 celsius in celsius", "-123 celsius", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("-123 fahrenheit in fahrenheit", "-123 fahrenheit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("123 kelvin in kelvin", "123 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("123 celsius in celsius", "123 celsius", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("123 fahrenheit in fahrenheit", "123 fahrenheit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("123 celsius + 0K in celsius", "123 celsius", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("123 fahrenheit + 0K in fahrenheit", "123 fahrenheit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("0 celsius in fahrenheit", "32 fahrenheit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("100 celsius in fahrenheit", "212 fahrenheit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("32 fahrenheit in celsius", "0 celsius", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("212 fahrenheit in celsius", "100 celsius", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("273.15 celsius / 0 celsius", "2", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Mbit in kbit", "1000 kbit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
 
         // Superscript generation test
         assertBigDecimal("1m", "1 m", CalculatorNumber.Precision.PRECISION_NO_ERROR);
@@ -121,11 +156,48 @@ public class CalculatorUnitTests {
         assertBigDecimal("1 km in m", "1000 m", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 m in cm", "100 cm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 cm in mm", "10 mm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
-        assertBigDecimal("1 inch in cm", "2.54 cm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 nmi in m", "1852 m", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kg in g", "1000 g", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 liter in milliliter", "1000 milliliter", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1cm * 1cm * 1cm in milliliter", "1 milliliter", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+
+        // Each unit rate test for imperial units
+        assertBigDecimal("1 yd in m", "0.9144 m", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 ft in inch", "12 inch", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 yard in ft", "3 ft", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 mile in yard", "1760 yard", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 lb in kg", "0.45359237 kg", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 lb in oz", "16 oz", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 mph * 1h", "1 mile", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+
+        // Each unit rate test for informational units
+        assertBigDecimal("1 KiB in byte", "1024 byte", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 MiB in KiB", "1024 KiB", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 GiB in MiB", "1024 MiB", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 TiB in GiB", "1024 GiB", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kB in byte", "1000 byte", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 MB in kB", "1000 kB", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 GB in MB", "1000 MB", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 TB in GB", "1000 GB", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Kibit in bit", "1024 bit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Mibit in Kibit", "1024 Kibit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Gibit in Mibit", "1024 Mibit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Tibit in Gibit", "1024 Gibit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kbit in byte", "125 byte", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kbit in bit", "1000 bit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Mbit in kbit", "1000 kbit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Gbit in Mbit", "1000 Mbit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Tbit in Gbit", "1000 Gbit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+
+        /// Each unit rate test for complex units
+        assertBigDecimal("1 knot * 1h", "1 nmi", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 kgf in N", "9.80665 N", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kg * 1m / 1s / 1s in N", "1 N", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 byte / 1bps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1kB / 1kbps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1MB / 1Mbps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1GB / 1Gbps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1TB / 1Tbps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
     }
 
     @Test
@@ -146,7 +218,6 @@ public class CalculatorUnitTests {
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
             assertEquals("4/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
         }
-
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+3.142", 1);
@@ -245,6 +316,11 @@ public class CalculatorUnitTests {
     }
 
     @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
+    public void calculatorDivByZero3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("1/(-273.15 celsius)");
+    }
+
+    @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZeroScale20_1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("(1/3)+(1/(3-4+1))");
     }
@@ -267,5 +343,25 @@ public class CalculatorUnitTests {
     @Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1m / 1s + 1s / 1m");
+    }
+
+    @Test(expected = CalculatorExceptions.UnitConversionException.class)
+    public void calculatorUnitConversionError4() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("1 celsius + 1m");
+    }
+
+    @Test(expected = CalculatorExceptions.UnitConversionException.class)
+    public void calculatorUnitConversionError5() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("1 m + 1 celsius");
+    }
+
+    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    public void calculatorUnitConversionError6() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("1 celsius/s");
+    }
+
+    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    public void calculatorUnitConversionError7() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("1 s/celsius");
     }
 }

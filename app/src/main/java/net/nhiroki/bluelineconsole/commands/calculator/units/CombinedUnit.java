@@ -1,11 +1,11 @@
 package net.nhiroki.bluelineconsole.commands.calculator.units;
 
-import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
 import net.nhiroki.bluelineconsole.commands.calculator.CalculatorNumber;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,29 +24,65 @@ public class CombinedUnit {
         this.positiveUnits.add(unit);
     }
 
-    public CombinedUnit(List<Unit> positiveUnits, List<Unit> negativeUnits) {
-        this.positiveUnits = positiveUnits;
-        this.negativeUnits = negativeUnits;
-    }
-
-    public CombinedUnit(Unit[] positiveUnits, Unit[] negativeUnits) {
+    public CombinedUnit(Unit[] positiveUnits, Unit[] negativeUnits) throws CalculatorExceptions.IllegalFormulaException {
         for (Unit u: positiveUnits) {
+            if (! u.isCalculatable()) {
+                throw new CalculatorExceptions.IllegalFormulaException();
+            }
             this.positiveUnits.add(u);
         }
         for (Unit u: negativeUnits) {
+            if (! u.isCalculatable()) {
+                throw new CalculatorExceptions.IllegalFormulaException();
+            }
             this.negativeUnits.add(u);
         }
     }
 
-    public static CombinedUnit createFractionCombinedUnit(Unit numerator, Unit denominator) {
+    public static CombinedUnit createFractionCombinedUnit(Unit numerator, Unit denominator) throws CalculatorExceptions.IllegalFormulaException {
         CombinedUnit ret = new CombinedUnit();
+        if (! numerator.isCalculatable()) {
+            throw new CalculatorExceptions.IllegalFormulaException();
+        }
+        if (! denominator.isCalculatable()) {
+            throw new CalculatorExceptions.IllegalFormulaException();
+        }
         ret.positiveUnits.add(numerator);
         ret.negativeUnits.add(denominator);
 
         return ret;
     }
 
-    public boolean equals(CombinedUnit o) {
+    public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+        if (this.positiveUnits.size() != 1 || this.negativeUnits.size() != 0) {
+            throw new CalculatorExceptions.UnitConversionException(this, this);
+        }
+        return this.positiveUnits.get(0).makeCalculatableFromThisUnit(input);
+    }
+
+    public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+        if (this.positiveUnits.size() != 1 || this.negativeUnits.size() != 0) {
+            throw new CalculatorExceptions.UnitConversionException(this, this);
+        }
+        return this.positiveUnits.get(0).makeThisUnitFromCalculatable(input);
+    }
+
+    public boolean isCalculatable() {
+        for (Unit u: this.positiveUnits) {
+            if (!u.isCalculatable()) {
+                return false;
+            }
+        }
+        for (Unit u: this.negativeUnits) {
+            if (!u.isCalculatable()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean equals(@Nullable CombinedUnit o) {
         this.normalize();
 
         if (o == null) {
@@ -118,7 +154,7 @@ public class CombinedUnit {
         return ret;
     }
 
-    public boolean dimensionEquals(CombinedUnit o) {
+    public boolean dimensionEquals(@Nullable CombinedUnit o) {
         this.normalize();
 
         if (o == null) {
@@ -156,7 +192,7 @@ public class CombinedUnit {
         return true;
     }
 
-    public CalculatorNumber.BigDecimalNumber calculateRatioAgainst(CombinedUnit o) throws CalculatorExceptions.UnitConversionException {
+    public CalculatorNumber.BigDecimalNumber calculateRatioAgainst(CombinedUnit o) throws CalculatorExceptions.UnitConversionException, CalculatorExceptions.IllegalFormulaException {
         CombinedUnit diff = this.divide(o);
         if (! diff.dimensionEquals(null)) {
             throw new CalculatorExceptions.UnitConversionException(this, o);
@@ -299,13 +335,21 @@ public class CombinedUnit {
         return this.toString();
     }
 
-    public CombinedUnit multiply(CombinedUnit o) {
+    public CombinedUnit multiply(@Nullable CombinedUnit o) throws CalculatorExceptions.IllegalFormulaException {
         if (this == null) {
             return o;
         }
 
+        if (! this.isCalculatable()) {
+            throw new CalculatorExceptions.IllegalFormulaException();
+        }
+
         if (o == null) {
             return this;
+        }
+
+        if (! o.isCalculatable()) {
+            throw new CalculatorExceptions.IllegalFormulaException();
         }
 
         CombinedUnit ret = new CombinedUnit();
@@ -325,13 +369,21 @@ public class CombinedUnit {
         return ret;
     }
 
-    public CombinedUnit divide(CombinedUnit o) {
+    public CombinedUnit divide(CombinedUnit o) throws CalculatorExceptions.IllegalFormulaException {
         if (o == null) {
             return this;
         }
 
+        if (! o.isCalculatable()) {
+            throw new CalculatorExceptions.IllegalFormulaException();
+        }
+
         CombinedUnit ret = new CombinedUnit();
         if (this != null) {
+            if (! this.isCalculatable()) {
+                throw new CalculatorExceptions.IllegalFormulaException();
+            }
+
             ret.positiveUnits = new ArrayList<>(this.positiveUnits);
             ret.negativeUnits = new ArrayList<>(this.negativeUnits);
         }

@@ -34,7 +34,6 @@ public class Calculator {
             }
         }
 
-
         final ParseResult parseResult = calculateInBigDecimal(expression, 0);
         if (parseResult.getConsumedChars() == expression.length()) {
             CalculatorNumber result = (CalculatorNumber)parseResult.getFormulaPart();
@@ -269,7 +268,7 @@ public class Calculator {
                 ParseResult part = readFormulaPart(expression, curPos);
                 if (part.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber) {
                     CalculatorNumber.BigDecimalNumber tmp = (CalculatorNumber.BigDecimalNumber) part.getFormulaPart();
-                    expressionStack.push(tmp.multiply(new CalculatorNumber.BigDecimalNumber(new BigDecimal("-1"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null)));
+                    expressionStack.push(tmp.applyMinusJustToNumber());
                 } else {
                     throw new CalculatorExceptions.IllegalFormulaException();
                 }
