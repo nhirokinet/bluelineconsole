@@ -16,6 +16,11 @@ public class CalculatorExceptions {
             this.to = (to == null) ? new CombinedUnit() : to;
         }
 
+        @Override
+        public String toString() {
+            return "UnitConversionException (from: " + this.from.toString() + ", to: " + this.to.toString() + ")";
+        }
+
         public CombinedUnit getFrom() {
             return from;
         }

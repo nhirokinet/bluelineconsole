@@ -33,7 +33,7 @@ public interface Operator extends FormulaPart {
     }
 
     class MultiplyOperator implements InfixOperator {
-        public CalculatorNumber.BigDecimalNumber operate(CalculatorNumber.BigDecimalNumber o1, CalculatorNumber.BigDecimalNumber o2) {
+        public CalculatorNumber.BigDecimalNumber operate(CalculatorNumber.BigDecimalNumber o1, CalculatorNumber.BigDecimalNumber o2) throws CalculatorExceptions.UnitConversionException, CalculatorExceptions.IllegalFormulaException {
             return o1.multiply(o2);
         }
 
@@ -43,8 +43,7 @@ public interface Operator extends FormulaPart {
     }
 
     class DivideOperator implements InfixOperator {
-        public CalculatorNumber.BigDecimalNumber operate(CalculatorNumber.BigDecimalNumber o1, CalculatorNumber.BigDecimalNumber o2)
-                throws CalculatorExceptions.DivisionByZeroException {
+        public CalculatorNumber.BigDecimalNumber operate(CalculatorNumber.BigDecimalNumber o1, CalculatorNumber.BigDecimalNumber o2) throws CalculatorExceptions.DivisionByZeroException, CalculatorExceptions.UnitConversionException, CalculatorExceptions.IllegalFormulaException {
             return o1.divide(o2);
         }
 
