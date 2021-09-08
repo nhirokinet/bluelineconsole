@@ -122,6 +122,9 @@ public class ApplicationDatabase {
 
         List <ApplicationInfo> applicationInfoList = packageManager.getInstalledApplications(0);
         for (ApplicationInfo applicationInfo : applicationInfoList) {
+            if (! applicationInfo.enabled) {
+                continue;
+            }
 
             PackageInfo packageInfo;
             try {
