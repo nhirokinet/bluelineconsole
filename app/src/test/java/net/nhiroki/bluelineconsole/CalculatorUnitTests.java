@@ -364,4 +364,24 @@ public class CalculatorUnitTests {
     public void calculatorUnitConversionError7() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1 s/celsius");
     }
+
+    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    public void calculatorUnitOnly1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("m");
+    }
+
+    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    public void calculatorUnitOnly2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("1 s m");
+    }
+
+    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    public void calculatorUnitOnly3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("1 s * m");
+    }
+
+    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    public void calculatorUnitOnly4() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        Calculator.calculate("1 s/m m");
+    }
 }
