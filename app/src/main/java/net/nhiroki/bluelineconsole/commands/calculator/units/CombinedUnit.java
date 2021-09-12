@@ -17,11 +17,14 @@ public class CombinedUnit {
     private List<Unit> positiveUnits = new ArrayList<>();
     private List<Unit> negativeUnits = new ArrayList<>();
 
+    private List<Unit> explicitUnits = new ArrayList<>();
+
     public CombinedUnit() {
     }
 
     public CombinedUnit(Unit unit) {
         this.positiveUnits.add(unit);
+        this.explicitUnits.add(unit);
     }
 
     public CombinedUnit(Unit[] positiveUnits, Unit[] negativeUnits) throws CalculatorExceptions.IllegalFormulaException {
@@ -51,6 +54,30 @@ public class CombinedUnit {
         ret.negativeUnits.add(denominator);
 
         return ret;
+    }
+
+    public CombinedUnit explicitCombinedUnit() {
+        CombinedUnit ret = new CombinedUnit();
+
+        ret.positiveUnits = new ArrayList<>(this.positiveUnits);
+        ret.negativeUnits = new ArrayList<>(this.negativeUnits);
+
+        for (Unit u: ret.positiveUnits) {
+            ret.explicitUnits.add(u);
+        }
+
+        for (Unit u: ret.negativeUnits) {
+            ret.explicitUnits.add(u);
+        }
+
+        return ret;
+    }
+
+    public CombinedUnit explicitCombinedUnitIfSingle() {
+        if (this.positiveUnits.size() + this.negativeUnits.size() == 1) {
+            return this.explicitCombinedUnit();
+        }
+        return this;
     }
 
     public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
@@ -137,6 +164,30 @@ public class CombinedUnit {
         return true;
     }
 
+    public Unit[] getPositiveUnits() {
+        this.normalize();
+
+        Unit[] ret = new Unit[this.positiveUnits.size()];
+
+        for (int i = 0; i < this.positiveUnits.size(); ++i) {
+            ret[i] = this.positiveUnits.get(i);
+        }
+
+        return ret;
+    }
+
+    public Unit[] getNegativeUnits() {
+        this.normalize();
+
+        Unit[] ret = new Unit[this.negativeUnits.size()];
+
+        for (int i = 0; i < this.negativeUnits.size(); ++i) {
+            ret[i] = this.negativeUnits.get(i);
+        }
+
+        return ret;
+    }
+
     public String generateIdentifiableIntArray() {
         Collections.sort(this.positiveUnits);
         Collections.sort(this.negativeUnits);
@@ -148,6 +199,29 @@ public class CombinedUnit {
         }
         ret += "/";
         for (Unit u: this.negativeUnits) {
+            ret += u.getUnitId() + ",";
+        }
+
+        return ret;
+    }
+
+    public String generateIdentifiableIntArrayWithoutDummy() {
+        Collections.sort(this.positiveUnits);
+        Collections.sort(this.negativeUnits);
+
+        String ret = "";
+
+        for (Unit u: this.positiveUnits) {
+            if (u.getDimensionId() == UnitDirectory.DIMENSION_DUMMY) {
+                continue;
+            }
+            ret += u.getUnitId() + ",";
+        }
+        ret += "/";
+        for (Unit u: this.negativeUnits) {
+            if (u.getDimensionId() == UnitDirectory.DIMENSION_DUMMY) {
+                continue;
+            }
             ret += u.getUnitId() + ",";
         }
 
@@ -227,6 +301,12 @@ public class CombinedUnit {
         Map<Integer, Unit> unitForDimension = new HashMap<>();
 
         CombinedUnit diff = new CombinedUnit();
+
+        for (Unit u: this.explicitUnits) {
+            if (! unitForDimension.containsKey(u.getDimensionId())) {
+                unitForDimension.put(u.getDimensionId(), u);
+            }
+        }
 
         for (Unit u: this.positiveUnits) {
             if (unitForDimension.containsKey(u.getDimensionId())) {
@@ -355,6 +435,7 @@ public class CombinedUnit {
         CombinedUnit ret = new CombinedUnit();
         ret.positiveUnits = new ArrayList<>(this.positiveUnits);
         ret.negativeUnits = new ArrayList<>(this.negativeUnits);
+        ret.explicitUnits = new ArrayList<>(this.explicitUnits);
 
         for (Unit u: o.positiveUnits) {
             ret.positiveUnits.add(u);
@@ -362,6 +443,10 @@ public class CombinedUnit {
 
         for (Unit u: o.negativeUnits) {
             ret.negativeUnits.add(u);
+        }
+
+        for (Unit u: o.explicitUnits) {
+            ret.explicitUnits.add(u);
         }
 
         ret.normalize();
@@ -386,6 +471,7 @@ public class CombinedUnit {
 
             ret.positiveUnits = new ArrayList<>(this.positiveUnits);
             ret.negativeUnits = new ArrayList<>(this.negativeUnits);
+            ret.explicitUnits = new ArrayList<>(this.explicitUnits);
         }
 
         for (Unit u: o.positiveUnits) {
@@ -394,6 +480,10 @@ public class CombinedUnit {
 
         for (Unit u: o.negativeUnits) {
             ret.positiveUnits.add(u);
+        }
+
+        for (Unit u: o.explicitUnits) {
+            ret.explicitUnits.add(u);
         }
 
         ret.normalize();

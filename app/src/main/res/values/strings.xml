@@ -110,6 +110,9 @@
     <string name="error_failure_could_not_start_command">ERROR: could not start command</string>
     <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" is not a launchable package.</string>
 
+    <!-- Error messages, app internal errors -->
+    <string name="error_calculator_internal_error">Unknown calculator internal error</string>
+
     <!-- Startup Help Activity -->
     <string name="startup_help_title_for_header_and_footer">Notification</string>
     <string name="startup_help_title">About help command</string>

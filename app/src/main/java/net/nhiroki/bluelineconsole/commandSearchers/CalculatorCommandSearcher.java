@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commands.calculator.Calculator;
@@ -50,33 +51,33 @@ public class CalculatorCommandSearcher implements CommandSearcher {
 
     private static class CalculatorCandidateEntry implements CandidateEntry {
         private final String title;
-        private String resultText;
-        private String subText;
+        private List <Pair<String, String>> results;
 
         CalculatorCandidateEntry(String s, Context context) {
-            char ltr = 0x200e;
-            title = ltr + s;
+            this.results = new ArrayList<>();
+
+            final char ltr = 0x200e;
+            this.title = ltr + s;
+
             try {
-                CalculatorNumber res = Calculator.calculate(s);
-                resultText = ltr + "= " + res.generateFinalString();
-                subText = String.format(context.getString(R.string.calculator_precision_format), getPrecisionText(context, res.getPrecision()));
+                List<CalculatorNumber> res = Calculator.calculate(s);
+                for (CalculatorNumber r: res) {
+                    this.results.add(new Pair<String, String>(ltr + (r.getPrecision() == CalculatorNumber.Precision.PRECISION_NO_ERROR ? "= " : "≒ ") + r.generateFinalString(),
+                                                              String.format(context.getString(R.string.calculator_precision_format), getPrecisionText(context, r.getPrecision()))));
+                }
 
             } catch (CalculatorExceptions.UnitConversionException e) {
-                resultText = String.format(context.getString(R.string.calculator_error_unit_conversion_failure), e.getFrom().calculateDisplayName(), e.getTo().calculateDisplayName());
-                subText = null;
+                this.results.add(new Pair<String, String>(String.format(context.getString(R.string.calculator_error_unit_conversion_failure), e.getFrom().calculateDisplayName(), e.getTo().calculateDisplayName()), null));
 
             } catch (CalculatorExceptions.IllegalFormulaException e) {
-                resultText = "= ...";
-                subText = null;
+                this.results.add(new Pair<String, String>("= ...", null));
 
             } catch (CalculatorExceptions.DivisionByZeroException e) {
-                resultText = context.getString(R.string.calculator_error_division_by_zero);
-                subText = null;
+                this.results.add(new Pair<String, String>(context.getString(R.string.calculator_error_division_by_zero), null));
 
-            } catch (CalculatorExceptions.CalculationException e) {
+            } catch (Exception e) {
                 // Keep this function new not to happen this error
-                resultText = "Unknown calculation error";
-                subText = null;
+                this.results.add(new Pair<String, String>(context.getString(R.string.error_calculator_internal_error), e.toString()));
             }
         }
 
@@ -97,23 +98,25 @@ public class CalculatorCommandSearcher implements CommandSearcher {
             ret.setOrientation(LinearLayout.VERTICAL);
             ret.setTextDirection(View.TEXT_DIRECTION_LTR);
 
-            TextView resultView = new TextView(context);
+            for (Pair<String, String> r: this.results) {
+                TextView resultView = new TextView(context);
 
-            TypedValue baseTextColor = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+                TypedValue baseTextColor = new TypedValue();
+                context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
-            resultView.setText(resultText);
-            resultView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
-            resultView.setTypeface(null, Typeface.BOLD);
-            resultView.setTextColor(baseTextColor.data);
+                resultView.setText(r.first);
+                resultView.setTextSize(TypedValue.COMPLEX_UNIT_SP, r.first.length() < 16 ? 60 : 36);
+                resultView.setTypeface(null, Typeface.BOLD);
+                resultView.setTextColor(baseTextColor.data);
 
-            ret.addView(resultView);
+                ret.addView(resultView);
 
-            if (subText != null) {
-                TextView precisionView = new TextView(context);
-                precisionView.setText(subText);
-                precisionView.setTypeface(null, Typeface.BOLD);
-                ret.addView(precisionView);
+                if (r.second != null) {
+                    TextView precisionView = new TextView(context);
+                    precisionView.setText(r.second);
+                    precisionView.setTypeface(null, Typeface.BOLD);
+                    ret.addView(precisionView);
+                }
             }
 
             return ret;

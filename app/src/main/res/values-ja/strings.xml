@@ -110,6 +110,9 @@
     <string name="error_failure_could_not_start_command">エラー：コマンドを開始できませんでした</string>
     <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" は開くことができません。</string>
 
+    <!-- Error messages, app internal errors -->
+    <string name="error_calculator_internal_error">計算機エラー</string>
+
     <!-- Startup Help Activity -->
     <string name="startup_help_title_for_header_and_footer">Notification</string>
     <string name="startup_help_title">help の使い方</string>
