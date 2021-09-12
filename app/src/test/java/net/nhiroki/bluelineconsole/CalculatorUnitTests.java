@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import net.nhiroki.bluelineconsole.commands.calculator.Calculator;
 import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
@@ -19,8 +20,21 @@ import net.nhiroki.bluelineconsole.commands.calculator.ParseResult;
 public class CalculatorUnitTests {
     private static void assertBigDecimal(String expression, String result, int precision)
             throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        assertEquals(result, Calculator.calculate(expression).generateFinalDecimalValue().generateFinalString());
-        assertEquals(precision, Calculator.calculate(expression).getPrecision());
+        CalculatorNumber actual = Calculator.calculate(expression).get(0);
+
+        assertEquals(result, actual.generateFinalString());
+        assertEquals(precision, actual.getPrecision());
+    }
+
+    private static void assertSecondaryBigDecimal(String expression, String result, int precision)
+            throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+        List<CalculatorNumber> actual = Calculator.calculate(expression);
+        if (result == null && actual.size() == 1) {
+            return;
+        }
+
+        assertEquals(result, actual.get(1).generateFinalString());
+        assertEquals(precision, actual.get(1).getPrecision());
     }
 
     @Test
@@ -97,6 +111,15 @@ public class CalculatorUnitTests {
         assertBigDecimal("(3*9.80665) * 1kg * 1m / 1s / 1s in kgf", "3 kgf", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("(1kg*1m/1s/1s+1kgf)/1s", "10.80665 m⋅kg/s³", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1kg*1m/1s/1s+1kgf", "10.80665 N", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("(1mile/1km)-1", "0.609344", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("(1mile/1km)+2", "3.609344", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("(1mile/1km)*1", "1.609344", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1*(1mile/1km)", "1.609344", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("(1mile/1km)/1", "1.609344", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1/(1km/1mile)", "1.609344", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("10km*((1mile/1km)-1) in km", "6.09344 km", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+
+        // Uncalculatable units system test
         assertBigDecimal("2 celsius + 1 kelvin", "276.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("2 kelvin + 1 celsius", "276.15 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("2 celsius + 1 celsius", "549.3 K", CalculatorNumber.Precision.PRECISION_NO_ERROR);
@@ -161,6 +184,14 @@ public class CalculatorUnitTests {
         assertBigDecimal("1 liter in milliliter", "1000 milliliter", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1cm * 1cm * 1cm in milliliter", "1 milliliter", CalculatorNumber.Precision.PRECISION_NO_ERROR);
 
+        // Each unit rate test for complex SI units
+        assertBigDecimal("1V*1A", "1 W", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1V*1A*1s", "1 J", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 Hz", "1 /s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1/1s", "1 /s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("7.2km/h/1m in Hz", "2 /s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("7.2km/h/1m in /s", "2 /s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+
         // Each unit rate test for imperial units
         assertBigDecimal("1 yd in m", "0.9144 m", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 ft in inch", "12 inch", CalculatorNumber.Precision.PRECISION_NO_ERROR);
@@ -169,6 +200,9 @@ public class CalculatorUnitTests {
         assertBigDecimal("1 lb in kg", "0.45359237 kg", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 lb in oz", "16 oz", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 mph * 1h", "1 mile", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 lbf / 1 lb", "9.80665 m/s²", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 lbf / 1 inch / 1inch", "1 lbf/inch²", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+
 
         // Each unit rate test for informational units
         assertBigDecimal("1 KiB in byte", "1024 byte", CalculatorNumber.Precision.PRECISION_NO_ERROR);
@@ -190,14 +224,44 @@ public class CalculatorUnitTests {
         assertBigDecimal("1 Tbit in Gbit", "1000 Gbit", CalculatorNumber.Precision.PRECISION_NO_ERROR);
 
         /// Each unit rate test for complex units
+        assertBigDecimal("1 cal in J", "4.184 J", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kcal in kJ", "4.184 kJ", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kcal in J", "4184 J", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 knot * 1h", "1 nmi", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 kgf in N", "9.80665 N", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1 kgf / 1 kg", "9.80665 m/s²", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 kg * 1m / 1s / 1s in N", "1 N", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1 byte / 1bps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1kB / 1kbps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1MB / 1Mbps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1GB / 1Gbps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("1TB / 1Tbps", "8 s", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1m*1m*1m in liter", "1000 liter", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1liter in milliliter", "1000 milliliter", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1V*1A*1s", "1 J", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1V*1A", "1 W", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1V/1A", "1 ohm", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1kV*1A", "1 kW", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1000V*1A in kW", "1 kW", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1kJ in J", "1000 J", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1Pa*1m*1m", "1 N", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1hPa in Pa", "100 Pa", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1kPa in Pa", "1000 Pa", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertBigDecimal("1MPa in kPa", "1000 kPa", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+
+        // Preferred units test
+        assertSecondaryBigDecimal("31h / 3", "10:20:00", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("10h / 3", "3:20:00", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("1h / 3", "0:20:00", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("1h / 30", "0:02:00", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("1h / 120", "0:00:30", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("1h / 1200", "0:00:03", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("12h / 12000", "0:00:03.6", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertEquals(Calculator.calculate("1h / 12000").size(), 1);
+        assertSecondaryBigDecimal("30km / (270km/h)", "0:06:40", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("25h", "1d 01:00:00", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("35h", "1d 11:00:00", CalculatorNumber.Precision.PRECISION_NO_ERROR);
+        assertSecondaryBigDecimal("2lb*40inch*40inch/1s/1s", "0.93644689097344 J", CalculatorNumber.Precision.PRECISION_NO_ERROR);
     }
 
     @Test

@@ -3,9 +3,18 @@ package net.nhiroki.bluelineconsole.commands.calculator;
 import net.nhiroki.bluelineconsole.commands.calculator.units.CombinedUnit;
 
 public class CalculatorExceptions {
-    public static class PrecisionNotAchievableException extends Exception {}
     public static class IllegalFormulaException extends Exception {}
-    public static class CalculationException extends Exception {}
+    public static class CalculationException extends Exception {
+        String error_message = "";
+        public CalculationException() {}
+        public CalculationException(String error_message) {
+            this.error_message = error_message;
+        }
+
+        public String toString() {
+            return this.getClass().getSimpleName() + ": " + this.error_message;
+        }
+    }
     public static class DivisionByZeroException extends CalculationException {}
     public static class UnitConversionException extends CalculationException {
         private final CombinedUnit from;
@@ -18,7 +27,7 @@ public class CalculatorExceptions {
 
         @Override
         public String toString() {
-            return "UnitConversionException (from: " + this.from.toString() + ", to: " + this.to.toString() + ")";
+            return "Failed to convert unit from " + this.from.toString() + " to " + this.to.toString() + ")";
         }
 
         public CombinedUnit getFrom() {

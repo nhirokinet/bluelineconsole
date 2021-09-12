@@ -1,16 +1,23 @@
 package net.nhiroki.bluelineconsole.commands.calculator.units;
 
+import java.math.BigDecimal;
+
+import androidx.annotation.NonNull;
+
 import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
 import net.nhiroki.bluelineconsole.commands.calculator.CalculatorNumber;
-
-import java.math.BigDecimal;
 
 public interface Unit extends Comparable<Unit> {
     String getUnitName();
     int getUnitId();
     int getDimensionId();
-    boolean isCalculatable();
+
+    // For celsius and fahrenheit, which is not quantity, but still used in life and conversion needed.
+    // They both can be converted to kelvin, which is calculatable.
+    boolean isCalculatable(); 
+    @NonNull
     CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException;
+    @NonNull
     CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException;
 
     class NormalUnit implements Unit {

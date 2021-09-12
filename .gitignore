@@ -6,6 +6,7 @@
 /.idea/libraries
 /.idea/compiler.xml
 /.idea/jarRepositories.xml
+/.idea/deploymentTargetDropDown.xml
 .DS_Store
 /build
 /captures

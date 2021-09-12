@@ -4,10 +4,12 @@ import net.nhiroki.bluelineconsole.commands.calculator.units.CombinedUnit;
 import net.nhiroki.bluelineconsole.commands.calculator.units.UnitDirectory;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Calculator {
-    public static CalculatorNumber calculate(String expression) throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+    public static List<CalculatorNumber> calculate(String expression) throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         CombinedUnit finalUnit = null;
 
         String[] split_expression = expression.split(" ");
@@ -16,14 +18,15 @@ public class Calculator {
                 String[] unitnameSplit = split_expression[split_expression.length - 1].split("/");
 
                 if (unitnameSplit.length == 1) {
-                    finalUnit = UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[0]);
+                    finalUnit = UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[0]).explicitCombinedUnit();
                     expression = "";
                     for (int i = 0; i < split_expression.length - 2; ++i) {
                         expression += split_expression[i] + " ";
                     }
                 }
                 if (unitnameSplit.length == 2) {
-                    finalUnit = UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[0]).divide(UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[1]));
+                    CombinedUnit positive = unitnameSplit[0].isEmpty() ? new CombinedUnit() : UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[0]).explicitCombinedUnit();
+                    finalUnit = positive.divide(UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[1])).explicitCombinedUnit();
                     expression = "";
                     for (int i = 0; i < split_expression.length - 2; ++i) {
                         expression += split_expression[i] + " ";
@@ -40,9 +43,17 @@ public class Calculator {
             if (finalUnit != null) {
                 result = result.convertUnit(finalUnit);
             }
-            result = result.generateFinalDecimalValue();
+            List <CalculatorNumber> ret = new ArrayList<>();
+            ret.add(result.generateFinalDecimalValue());
 
-            return result;
+            if (finalUnit == null) {
+                CalculatorNumber secondary = result.generatePossiblyPreferredOutputValue();
+                if (secondary != null) {
+                    ret.add(secondary);
+                }
+            }
+
+            return ret;
         }
 
         throw new CalculatorExceptions.IllegalFormulaException();
@@ -83,7 +94,7 @@ public class Calculator {
         return ret;
     }
 
-    private static ParseResult readFormulaPart(String expression, final int start) throws CalculatorExceptions.IllegalFormulaException {
+    private static ParseResult readFormulaPart(String expression, final int start) throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         if (start >= expression.length()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
@@ -155,7 +166,7 @@ public class Calculator {
                 }
                 CombinedUnit unit = null;
                 if (! unitname.isEmpty()) {
-                    unit = UnitDirectory.getInstance().getCombinedUnitFromName(unitname);
+                    unit = UnitDirectory.getInstance().getCombinedUnitFromName(unitname).explicitCombinedUnitIfSingle();
                 }
                 if (! unitname.isEmpty() && curpos < expression.length() - 1 && expression.charAt(curpos) == '/') {
                     String unitname2 = "";
@@ -166,7 +177,7 @@ public class Calculator {
 
                     if (! unitname2.isEmpty()) {
                         try {
-                            CombinedUnit unit2 = UnitDirectory.getInstance().getCombinedUnitFromName(unitname2);
+                            CombinedUnit unit2 = UnitDirectory.getInstance().getCombinedUnitFromName(unitname2).explicitCombinedUnitIfSingle();
                             unit = unit.divide(unit2);
                             curpos = tmpcurpos;
                         } catch (CalculatorExceptions.IllegalFormulaException e) {

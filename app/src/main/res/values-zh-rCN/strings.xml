@@ -110,6 +110,9 @@
     <string name="error_failure_could_not_start_command">错误：无法启动命令</string>
     <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" 不是一个可启动的包。</string>
 
+    <!-- Error messages, app internal errors -->
+    <string name="error_calculator_internal_error">Unknown calculator internal error</string>
+
     <!-- Startup Help Activity -->
     <string name="startup_help_title_for_header_and_footer">通知</string>
     <string name="startup_help_title">关于“help” 命令</string>
