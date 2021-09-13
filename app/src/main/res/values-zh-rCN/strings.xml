@@ -111,7 +111,7 @@
     <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" 不是一个可启动的包。</string>
 
     <!-- Error messages, app internal errors -->
-    <string name="error_calculator_internal_error">Unknown calculator internal error</string>
+    <string name="error_calculator_internal_error">未知的计算器内部错误</string>
 
     <!-- Startup Help Activity -->
     <string name="startup_help_title_for_header_and_footer">通知</string>
