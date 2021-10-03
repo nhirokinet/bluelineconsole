@@ -430,6 +430,11 @@ public class MainActivity extends BaseWindowActivity {
         _resultCandidateListAdapter.addAll(cands);
         _resultCandidateListAdapter.notifyDataSetChanged();
 
+        if (this._widgetExists) {
+            final ListView candidateListView = findViewById(R.id.candidateListView);
+            candidateListView.setSelection(0);
+        }
+
         if (cands.isEmpty() && !this._widgetExists) {
             findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, 0, 0, 0);
         } else {
