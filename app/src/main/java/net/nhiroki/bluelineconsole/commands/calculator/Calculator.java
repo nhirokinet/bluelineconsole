@@ -94,7 +94,7 @@ public class Calculator {
         return ret;
     }
 
-    private static ParseResult readFormulaPart(String expression, final int start) throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
+    private static ParseResult readFormulaPart(String expression, final int start) throws CalculatorExceptions.IllegalFormulaException {
         if (start >= expression.length()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }

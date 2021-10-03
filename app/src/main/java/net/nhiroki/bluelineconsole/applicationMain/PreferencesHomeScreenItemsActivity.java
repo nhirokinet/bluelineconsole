@@ -110,9 +110,7 @@ public class PreferencesHomeScreenItemsActivity extends BaseWindowActivity {
     }
 
     private static class MyAdapter extends ArrayAdapter<ObjectOnList> {
-
-        private List<AppWidgetsHostManager.HomeScreenWidgetInfo> homeScreenWidgetInfoList;
-        private Context context;
+        private final Context context;
 
         public MyAdapter(Context context) {
             super(context, 0, new ArrayList<ObjectOnList>());
@@ -120,6 +118,7 @@ public class PreferencesHomeScreenItemsActivity extends BaseWindowActivity {
         }
 
         @Override
+        @NonNull
         public View getView(int position,  View convertView, @NonNull ViewGroup parent) {
             LinearLayout ret = new LinearLayout(context);
             ret.setOrientation(LinearLayout.VERTICAL);
