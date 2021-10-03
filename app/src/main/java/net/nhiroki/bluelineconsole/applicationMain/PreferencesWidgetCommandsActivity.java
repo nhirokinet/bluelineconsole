@@ -87,7 +87,7 @@ public class PreferencesWidgetCommandsActivity extends BaseWindowActivity {
     }
 
     private static class WidgetCommandAdapter extends ArrayAdapter<AppWidgetsHostManager.WidgetCommand> {
-        private Context context;
+        private final Context context;
 
         public WidgetCommandAdapter(@NonNull Context context) {
             super(context,0, new ArrayList<AppWidgetsHostManager.WidgetCommand>());
