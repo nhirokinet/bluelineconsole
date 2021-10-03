@@ -6,6 +6,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.appwidget.AppWidgetHostView;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,7 +52,7 @@ public class MainActivity extends BaseWindowActivity {
     private boolean _widgetExists = false;
     private boolean _homeItemExists = false;
 
-    private LinearLayout linearLayoutForWidgets = null;
+    private WidgetSupportingLinearLayout linearLayoutForWidgets = null;
     private ListView.FixedViewInfo linearLayoutForWidgetsInfo = null;
 
     private final ArrayList<ListView.FixedViewInfo> headerViewInfos = new ArrayList<>();
@@ -58,6 +60,43 @@ public class MainActivity extends BaseWindowActivity {
     private final AppWidgetsHostManager appWidgetsHostManager = new AppWidgetsHostManager(this);
     public MainActivity() {
         super(R.layout.main_activity_body, true);
+    }
+
+    private static class WidgetSupportingLinearLayout extends LinearLayout {
+        private int currentWidth = 0;
+
+        public WidgetSupportingLinearLayout(Context context) {
+            super(context);
+        }
+
+        // updateAppWidgetSize() call seems to be mandatory for some widgets.
+        // To achieve this, know precise size on onSizeChanged and apply this.
+        @Override
+        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+            super.onSizeChanged(w, h, oldw, oldh);
+            this.currentWidth = w - this.getPaddingLeft() - this.getPaddingRight();
+
+            for (int i = 0; i < this.getChildCount(); ++i) {
+                try {
+                    View child = this.getChildAt(i);
+                    if (child instanceof AppWidgetHostView) {
+                        int height = child.getLayoutParams().height;
+                        ((AppWidgetHostView) child).updateAppWidgetSize(null, currentWidth, height, currentWidth, height);
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
+        @Override
+        public void addView(View child) {
+            super.addView(child);
+            if (child instanceof AppWidgetHostView) {
+                int height = child.getLayoutParams().height;
+                ((AppWidgetHostView) child).updateAppWidgetSize(null, currentWidth, height, currentWidth, height);
+            }
+        }
     }
 
     @Override
@@ -73,7 +112,7 @@ public class MainActivity extends BaseWindowActivity {
         final ListView candidateListView = findViewById(R.id.candidateListView);
         _resultCandidateListAdapter = new CandidateListAdapter(this, new ArrayList<CandidateEntry>(), candidateListView);
 
-        this.linearLayoutForWidgets = new LinearLayout(this);
+        this.linearLayoutForWidgets = new WidgetSupportingLinearLayout(this);
         this.linearLayoutForWidgets.setPadding(0, 0, 0, 0);
         this.linearLayoutForWidgets.setOrientation(LinearLayout.VERTICAL);
         linearLayoutForWidgetsInfo = candidateListView.new FixedViewInfo();
