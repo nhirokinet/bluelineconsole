@@ -79,7 +79,7 @@ public class URLPreferences extends SQLiteOpenHelper {
         String[] args = new String[1];
         args[0] = String.valueOf(id);
 
-        this.getReadableDatabase().delete("url_info", "id = ?", args);
+        this.getWritableDatabase().delete("url_info", "id = ?", args);
     }
 
     public void update(URLEntry entry) {
