@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.BIND_APPWIDGET" />
     <uses-permission
         android:name="android.permission.QUERY_ALL_PACKAGES"
         tools:ignore="QueryAllPackagesPermission" />
@@ -14,14 +15,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
         android:fullBackupContent="@xml/backup_descriptor"
         >
         <activity
             android:name=".applicationMain.MainActivity"
+            android:label="@string/app_name"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.ASSIST" />
@@ -32,33 +35,95 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".applicationMain.HomeActivity"
+            android:label="@string/app_name"
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeHome"
+            android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".applicationMain.NotificationMigrationLostActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
             android:name=".applicationMain.PreferencesActivity"
             android:exported="false"
+            android:theme="@style/AppTheme"
             />
         <activity
             android:name=".applicationMain.PreferencesCustomWebActivity"
             android:exported="false"
+            android:theme="@style/AppTheme"
             />
         <activity
             android:name=".applicationMain.PreferencesEachURLActivity"
             android:exported="false"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateVisible|adjustResize"
             />
         <activity
             android:name=".applicationMain.PreferencesAccentColorActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesWidgetCommandsActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesWidgetCommandEachActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesWidgetCommandSelectWidget"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesHomeScreenItemsActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesHomeScreenAddWidgetActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesHomeScreenEachDefaultItemCommandActivity"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
+            android:name=".applicationMain.PreferencesHomeScreenEachWidgetActivity"
+            android:theme="@style/AppTheme"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.StartUpHelpActivity"
+            android:theme="@style/AppTheme"
             android:exported="false"
             />
         <activity
             android:name=".commands.netutils.PingActivity"
+            android:theme="@style/AppTheme"
             android:exported="false"
             />
         <activity
             android:name=".commands.netutils.Ping6Activity"
             android:exported="false"
+            android:theme="@style/AppTheme"
             />
 
         <receiver android:name=".applicationMain.BootReceiver">

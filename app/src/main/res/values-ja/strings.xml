@@ -50,13 +50,20 @@
     <string name="preferences_title_for_header_and_footer_url">URL</string>
     <string name="preferences_title_for_header_and_footer_add_custom_urls">Add URL</string>
     <string name="preferences_title_for_header_and_footer_edit_custom_urls">Edit URL</string>
+    <string name="preferences_title_for_header_and_footer_widget_commands">Widget Commands</string>
     <string name="preferences_title_for_header_and_footer_accent_color">Accent Color</string>
+    <string name="preferences_title_for_header_home_screen_default_items">Home Screen</string>
+    <string name="preferences_title_for_footer_home_screen_default_items">Default Items</string>
+    <string name="preferences_title_for_header_and_footer_home_screen_add_widget">Add Widget</string>
+    <string name="preferences_title_for_header_and_footer_widget">Widget</string>
 
     <!-- Preferences categories, main screen -->
     <string name="preferences_category_main">一般</string>
     <string name="preferences_category_apps">アプリ起動</string>
     <string name="preferences_category_appearance">外観</string>
     <string name="preferences_category_urls">Web ページと Web 検索</string>
+    <string name="preferences_category_custom_commands">カスタムコマンド</string>
+    <string name="preferences_category_home_screen">ホームスクリーン</string>
     <string name="preferences_category_advanced">上級者向けオプション</string>
 
     <!-- Preferences, titles for headers and footers -->
@@ -77,6 +84,9 @@
     <string name="preferences_item_default_search_title">デフォルト検索エンジン</string>
     <string name="preferences_item_default_search_summary">常に設定した検索エンジンでの検索を一覧に表示します</string>
     <string name="preferences_item_default_search_option_none">（なし）</string>
+    <string name="preferences_item_custom_commands_widgets">ウィジェットコマンド（実験的機能）</string>
+    <string name="preferences_item_home_screen_default_items">ホームスクリーンの項目</string>
+    <string name="preferences_item_home_screen_default_items_summary">ホームスクリーンとして起動され、コマンドが何も入力されていない場合に表示する項目を設定します</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">コマンド入力窓で、キーボード入力ソフトウェアに指示する言語を英語にする</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">コマンド入力窓で setImeHintLocales を用いて、キーボード入力ソフトウェア英語入力であると指示します。キーボード入力ソフトにより挙動が異なります。</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">コマンド入力窓で IME_FLAG_FORCE_ASCII を有効にする</string>
@@ -101,14 +111,36 @@
     <string name="preferences_accent_color_blue">青</string>
     <string name="preferences_accent_color_theme_without_accent_color">ご利用中のテーマ（%1$s）ではアクセントカラーの変更はできません。</string>
 
+    <!-- Preferences item, home screen default items screens -->
+    <string name="preferences_home_screen_add_command_button">コマンドを追加する</string>
+    <string name="preferences_home_screen_add_widget_button">ウィジェットを追加する（実験的機能）</string>
+    <string name="preferences_home_screen_add_widget_select_message">追加するウィジェットを選択してください（必ずコマンドの前に追加されます）</string>
+    <string name="preferences_home_screen_widget_label">ウィジェット</string>
+    <string name="preferences_home_screen_command_label">コマンド</string>
+
+    <!-- Preferences item, widgets related messages -->
+    <string name="preferences_widget_height_px">高さ（ピクセル）</string>
+    <string name="preferences_widget_minimum_height_show">高さの最小値: %1$d ピクセル</string>
+    <string name="preferences_widget_default_height_show">高さの初期設定: %1$d ピクセル</string>
+    <string name="preferences_widget_configure_the_widget">ウィジェットの設定</string>
+
+    <!-- Preferences item, widget commands related messages -->
+    <string name="preferences_command_widget_command_add">ウィジェットコマンドを追加</string>
+    <string name="preferences_command_widget_command_new_label">新規ウィジェットコマンド</string>
+    <string name="preferences_command_widget_command_save_and_select_widget">保存してウィジェットを選択</string>
+    <string name="preferences_command_widget_command_command">コマンド名</string>
+    <string name="preferences_command_widget_command_abbreviation">コマンド名は省略可能</string>
+    <string name="preferences_command_widget_command_abbreviable_label">略記可</string>
+
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ (\"/\") を含む必要があります</string>
-    <string name="error_invalid_url_command_name">コマンドは半角空白を含むことはできず、一文字以上である必要があります。</string>
+    <string name="error_invalid_command_name">コマンドは半角空白を含むことはできず、一文字以上である必要があります。</string>
     <string name="error_empty_display_name">表示名が空です。</string>
 
     <!-- Error messages, system errors -->
     <string name="error_failure_could_not_start_command">エラー：コマンドを開始できませんでした</string>
     <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" は開くことができません。</string>
+    <string name="error_failure_could_not_connect_to_the_widget">エラー：ウィジェットに接続できませんでした</string>
 
     <!-- Error messages, app internal errors -->
     <string name="error_calculator_internal_error">計算機エラー</string>
@@ -119,6 +151,13 @@
     <string name="startup_help_body_part1">コマンド入力欄に</string>
     <string name="startup_help_body_part3">と入力すると、使い方を表示できます。</string>
     <string name="startup_help_check_never_later">次回以降このヒントを表示しない</string>
+
+    <!-- Migration message -->
+    <string name="migration_lost_happened_message">
+        Blue Line Console の外側でデータの復元が行われたようです。
+        \n
+        \nウィジェットは移行できませんので、設定が失われています。必要なら config から再度ウィジェット設定を行ってください。
+    </string>
 
     <!-- Help -->
     <string name="app_help_text">

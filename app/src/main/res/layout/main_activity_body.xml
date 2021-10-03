@@ -114,6 +114,7 @@
             android:padding="0px"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:headerDividersEnabled="true"
             />
     </LinearLayout>
 </LinearLayout>

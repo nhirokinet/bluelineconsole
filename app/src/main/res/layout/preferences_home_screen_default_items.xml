@@ -2,22 +2,30 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".applicationMain.PreferencesCustomWebActivity"
+    tools:context=".applicationMain.PreferencesHomeScreenItemsActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
     android:orientation="vertical"
     >
     <Button
-        android:id="@+id/customURLListAddButton"
+        android:id="@+id/homeScreenAddQueryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/preferences_url_add_button"
+        android:text="@string/preferences_home_screen_add_command_button"
+        android:layout_margin="3dp"
+        android:drawableStart="@android:drawable/ic_menu_add"
+        />
+    <Button
+        android:id="@+id/homeScreenAddWidgetButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/preferences_home_screen_add_widget_button"
         android:layout_margin="3dp"
         android:drawableStart="@android:drawable/ic_menu_add"
         />
     <ListView
-        android:id="@+id/customURLList"
+        android:id="@+id/homeScreenDefaultItemList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"

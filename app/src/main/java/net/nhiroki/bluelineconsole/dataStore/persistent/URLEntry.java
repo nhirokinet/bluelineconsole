@@ -13,13 +13,13 @@ public class URLEntry {
 
     public @StringRes int validate() {
         if (this.name.equals("")) {
-            return R.string.error_invalid_url_command_name;
+            return R.string.error_invalid_command_name;
         }
 
         for (int i = 0; i < this.name.length(); ++i) {
             char c = this.name.charAt(i);
             if (c == ' ') {
-                return R.string.error_invalid_url_command_name;
+                return R.string.error_invalid_command_name;
             }
         }
 

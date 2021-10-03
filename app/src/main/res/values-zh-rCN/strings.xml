@@ -50,13 +50,20 @@
     <string name="preferences_title_for_header_and_footer_url">URL</string>
     <string name="preferences_title_for_header_and_footer_add_custom_urls">添加 URL</string>
     <string name="preferences_title_for_header_and_footer_edit_custom_urls">编辑 URL</string>
+    <string name="preferences_title_for_header_and_footer_widget_commands">Widget Commands</string>
     <string name="preferences_title_for_header_and_footer_accent_color">强调色</string>
+    <string name="preferences_title_for_header_home_screen_default_items">Home Screen</string>
+    <string name="preferences_title_for_footer_home_screen_default_items">Default Items</string>
+    <string name="preferences_title_for_header_and_footer_home_screen_add_widget">Add Widget</string>
+    <string name="preferences_title_for_header_and_footer_widget">Widget</string>
 
     <!-- Preferences categories, main screen -->
     <string name="preferences_category_main">一般</string>
     <string name="preferences_category_appearance">外观</string>
     <string name="preferences_category_apps">启动应用</string>
     <string name="preferences_category_urls">网页和搜索</string>
+    <string name="preferences_category_custom_commands">Custom commands</string>
+    <string name="preferences_category_home_screen">Home Screen</string>
     <string name="preferences_category_advanced">高级</string>
 	
     <!-- Preferences items, main screen -->
@@ -77,6 +84,9 @@
     <string name="preferences_item_default_search_title">默认搜索引擎</string>
     <string name="preferences_item_default_search_summary">总是在列表的底部显示特定的搜索引擎</string>
     <string name="preferences_item_default_search_option_none">（无）</string>
+    <string name="preferences_item_custom_commands_widgets">Widget commands (experimental)</string>
+    <string name="preferences_item_home_screen_default_items">Home screen items</string>
+    <string name="preferences_item_home_screen_default_items_summary">Display results and widgets when nothing is input at home screen, when Blue Line Console is set to home app.</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">在命令输入窗口上通知英语输入到键盘输入软件</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">命令输入窗口使用 setImeHintLocales 并设为英语语言环境。不同的键盘输入软件有不同的行为。</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">在命令输入窗口上设置 IME_FLAG_FORCE_ASCII  标志</string>
@@ -101,14 +111,36 @@
     <string name="preferences_accent_color_blue">蓝</string>
     <string name="preferences_accent_color_theme_without_accent_color">当前主题 (%1$s) 不支持更改强调色。</string>
 
+    <!-- Preferences item, home screen default items screens -->
+    <string name="preferences_home_screen_add_command_button">Add command</string>
+    <string name="preferences_home_screen_add_widget_button">Add widget (experimental)</string>
+    <string name="preferences_home_screen_add_widget_select_message">Select widget to add (always added before query):</string>
+    <string name="preferences_home_screen_widget_label">Widget</string>
+    <string name="preferences_home_screen_command_label">Command</string>
+
+    <!-- Preferences item, widgets related messages -->
+    <string name="preferences_widget_height_px">Height (px)</string>
+    <string name="preferences_widget_minimum_height_show">Minimum Height: %1$d px</string>
+    <string name="preferences_widget_default_height_show">Default Height: %1$d px</string>
+    <string name="preferences_widget_configure_the_widget">Configure the widget</string>
+
+    <!-- Preferences item, widget commands related messages -->
+    <string name="preferences_command_widget_command_add">Add widget command</string>
+    <string name="preferences_command_widget_command_new_label">New widget command</string>
+    <string name="preferences_command_widget_command_save_and_select_widget">Save and select widget</string>
+    <string name="preferences_command_widget_command_command">Command name</string>
+    <string name="preferences_command_widget_command_abbreviation">Command name can be abbreviated</string>
+    <string name="preferences_command_widget_command_abbreviable_label">Abbreviable</string>
+
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠(\"/\").</string>
-    <string name="error_invalid_url_command_name">无效的名称：命令不能包含空格且不能为空</string>
+    <string name="error_invalid_command_name">无效的名称：命令不能包含空格且不能为空</string>
     <string name="error_empty_display_name">显示名称为空</string>
 
     <!-- Error messages, system errors -->
     <string name="error_failure_could_not_start_command">错误：无法启动命令</string>
     <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" 不是一个可启动的包。</string>
+    <string name="error_failure_could_not_connect_to_the_widget">ERROR: could not connect to the widget</string>
 
     <!-- Error messages, app internal errors -->
     <string name="error_calculator_internal_error">未知的计算器内部错误</string>
@@ -120,6 +152,13 @@
     
     <string name="startup_help_body_part3">看看该怎么用。</string>
     <string name="startup_help_check_never_later">不再显示这条消息</string>
+
+    <!-- Migration message -->
+    <string name="migration_lost_happened_message">
+        Data seems to be restored outside of Blue Line Console.
+        \n
+        \nWidgets cannot be migrated and are lost. Reconfigure widget settings from config if necessary.
+    </string>
 
     <!-- Help -->
     <string name="app_help_text">
