@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.commandSearchers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.applicationMain.PreferencesActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -79,7 +79,7 @@ public class PreferencesCommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(Activity activity) {
+                public void launch(BaseWindowActivity activity) {
                     activity.startActivityForResult(new Intent(activity, PreferencesActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
                 }
             };

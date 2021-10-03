@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.TypedValue;
@@ -26,13 +25,13 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private final ListView listView;
     private int chosenNowExplicitly = CHOICE_NOT_SET_YET;
 
-    private final Activity activity;
+    private final BaseWindowActivity activity;
 
     private static final int CHOICE_NOT_SET_YET       = -1;
     private static final int CHOICE_UNAVAILABLE       = -2;
     private static final int CHOICE_KNOWN_BY_LISTVIEW = -3;
 
-    CandidateListAdapter(Activity activity, List<CandidateEntry> objects, ListView listView) {
+    CandidateListAdapter(BaseWindowActivity activity, List<CandidateEntry> objects, ListView listView) {
         super(activity, 0, objects);
 
         this.activity = activity;
