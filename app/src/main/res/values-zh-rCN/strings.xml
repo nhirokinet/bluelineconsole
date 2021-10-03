@@ -121,7 +121,7 @@
     <!-- Preferences item, widgets related messages -->
     <string name="preferences_widget_height_px">高度 （px）</string>
     <string name="preferences_widget_minimum_height_show">最小高度：%1$d px</string>
-    <string name="preferences_widget_default_height_show">默认高度： %1$d px</string>
+    <string name="preferences_widget_default_height_show">默认高度：%1$d px</string>
     <string name="preferences_widget_configure_the_widget">配置小部件</string>
 
     <!-- Preferences item, widget commands related messages -->
