@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.commandSearchers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -16,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.applications.ApplicationDatabase;
 import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformation;
@@ -132,18 +133,24 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public EventLauncher getEventLauncher(Context context) {
+        public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(Activity activity) {
+                public void launch(BaseWindowActivity activity) {
                     String packageName = AppOpenCandidateEntry.this.applicationInformation.getPackageName();
                     Intent intent = activity.getPackageManager().getLaunchIntentForPackage(AppOpenCandidateEntry.this.applicationInformation.getPackageName());
+                    if (packageName.equals(context.getPackageName())) {
+                        // special case that happens to some curious behavior in home app
+                        activity.finishIfNotHome();
+                        activity.startActivity(new Intent(activity, MainActivity.class));
+                        return;
+                    }
                     if (intent == null) {
                         Toast.makeText(activity, String.format(activity.getString(R.string.error_failure_not_found_opening_application_with_class), packageName), Toast.LENGTH_LONG).show();
                         return;
                     }
                     activity.startActivity(intent);
-                    activity.finish();
+                    activity.finishIfNotHome();
                 }
             };
         }

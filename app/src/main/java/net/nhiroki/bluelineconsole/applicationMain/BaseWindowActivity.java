@@ -68,6 +68,12 @@ public class BaseWindowActivity extends AppCompatActivity {
         this._smallWindow = smallWindow;
     }
 
+    public void finishIfNotHome() {
+        if (! this._iAmHomeActivity) {
+            this.finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this._currentTheme = this.readThemeFromConfig();
