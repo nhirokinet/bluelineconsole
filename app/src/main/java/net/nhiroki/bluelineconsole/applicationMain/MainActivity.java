@@ -76,12 +76,14 @@ public class MainActivity extends BaseWindowActivity {
             super.onSizeChanged(w, h, oldw, oldh);
             this.currentWidth = w - this.getPaddingLeft() - this.getPaddingRight();
 
+            double density = this.getContext().getResources().getDisplayMetrics().density;
+
             for (int i = 0; i < this.getChildCount(); ++i) {
                 try {
                     View child = this.getChildAt(i);
                     if (child instanceof AppWidgetHostView) {
                         int height = child.getLayoutParams().height;
-                        ((AppWidgetHostView) child).updateAppWidgetSize(null, currentWidth, height, currentWidth, height);
+                        ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
                     }
                 } catch (Exception e) {
 
@@ -92,9 +94,12 @@ public class MainActivity extends BaseWindowActivity {
         @Override
         public void addView(View child) {
             super.addView(child);
+
+            double density = this.getContext().getResources().getDisplayMetrics().density;
+
             if (child instanceof AppWidgetHostView) {
                 int height = child.getLayoutParams().height;
-                ((AppWidgetHostView) child).updateAppWidgetSize(null, currentWidth, height, currentWidth, height);
+                ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
             }
         }
     }
