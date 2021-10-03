@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:paddingVertical="0px"
+    android:paddingHorizontal="0px"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical"
+    android:background="?android:colorBackground"
+    android:fillViewport="true"
+    tools:ignore="Overdraw"
+    >
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="6sp"
+        android:gravity="start"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="6sp"
+            android:layout_gravity="start"
+            android:text="@string/migration_lost_happened_message"
+            android:textColor="?bluelineconsoleBaseTextColor"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/startUpOKButton"
+            android:text="@string/button_close"
+            />
+    </LinearLayout>
+</ScrollView>

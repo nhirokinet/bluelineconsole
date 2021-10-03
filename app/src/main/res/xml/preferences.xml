@@ -96,6 +96,35 @@
             />
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="@string/preferences_category_custom_commands"
+        app:iconSpaceReserved="false"
+        >
+        <Preference
+            android:title="@string/preferences_item_custom_commands_widgets"
+            app:iconSpaceReserved="false"
+            >
+            <intent
+                android:targetClass="net.nhiroki.bluelineconsole.applicationMain.PreferencesWidgetCommandsActivity"
+                android:targetPackage="net.nhiroki.bluelineconsole"
+                />
+        </Preference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/preferences_category_home_screen"
+        app:iconSpaceReserved="false"
+        >
+        <Preference
+            android:title="@string/preferences_item_home_screen_default_items"
+            android:summary="@string/preferences_item_home_screen_default_items_summary"
+            app:iconSpaceReserved="false"
+            >
+            <intent
+                android:targetClass="net.nhiroki.bluelineconsole.applicationMain.PreferencesHomeScreenItemsActivity"
+                android:targetPackage="net.nhiroki.bluelineconsole"
+                />
+        </Preference>
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/preferences_category_advanced"
         app:iconSpaceReserved="false"
         >

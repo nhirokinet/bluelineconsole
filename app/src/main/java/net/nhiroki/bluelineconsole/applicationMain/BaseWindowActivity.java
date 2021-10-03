@@ -29,6 +29,8 @@ import net.nhiroki.bluelineconsole.R;
 
 
 public class BaseWindowActivity extends AppCompatActivity {
+    protected boolean _iAmHomeActivity = false;
+
     private final @LayoutRes int _mainLayoutResID;
     private final boolean _smallWindow;
     private boolean _comingBack = false;
@@ -101,11 +103,11 @@ public class BaseWindowActivity extends AppCompatActivity {
 
         switch (actualTheme) {
             case PREF_VALUE_THEME_DARK:
-                this.setTheme(R.style.AppThemeDark);
+                this.setTheme(this._iAmHomeActivity ? R.style.AppThemeDarkHome : R.style.AppThemeDark);
                 this.setContentView(R.layout.base_window_layout_default);
                 break;
             case PREF_VALUE_THEME_MARINE:
-                this.setTheme(R.style.AppThemeMarine);
+                this.setTheme(this._iAmHomeActivity ? R.style.AppThemeMarineHome : R.style.AppThemeMarine);
                 this.setContentView(R.layout.base_window_layout_marine);
                 this._isDefaultLayOut = false;
 
@@ -115,14 +117,14 @@ public class BaseWindowActivity extends AppCompatActivity {
                 centerLL.setLayoutParams(centerLP);
                 break;
             case PREF_VALUE_THEME_OLD_COMPUTER:
-                this.setTheme(R.style.AppThemeOldComputer);
+                this.setTheme(this._iAmHomeActivity ? R.style.AppThemeOldComputerHome : R.style.AppThemeOldComputer);
                 this.setContentView(R.layout.base_window_layout_old_computer);
                 this._isDefaultLayOut = false;
                 this._hasFooter = false;
                 break;
             case PREF_VALUE_THEME_LIGHT:
             default:
-                this.setTheme(R.style.AppTheme);
+                this.setTheme(this._iAmHomeActivity ? R.style.AppThemeHome : R.style.AppTheme);
                 this.setContentView(R.layout.base_window_layout_default);
                 break;
         }
@@ -131,7 +133,9 @@ public class BaseWindowActivity extends AppCompatActivity {
         mainViewStub.setLayoutResource(this._mainLayoutResID);
         mainViewStub.inflate();
 
-        this.findViewById(R.id.baseWindowMainLayoutRoot).setOnClickListener(new ExitOnClickListener());
+        if (! this._iAmHomeActivity) {
+            this.findViewById(R.id.baseWindowMainLayoutRoot).setOnClickListener(new ExitOnClickListener());
+        }
         ((LinearLayout)findViewById(R.id.baseWindowMainLinearLayout)).getChildAt(0).setOnClickListener(null);
 
         if (this._hasFooter) {
@@ -318,6 +322,10 @@ public class BaseWindowActivity extends AppCompatActivity {
             this.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter).setBackgroundColor(color);
             this.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setBackgroundColor(color);
         }
+    }
+
+    protected void originalOnStop() {
+        super.onStop();
     }
 
     protected void onHeightChange() {}

@@ -98,11 +98,11 @@ public class CalculatorCommandSearcher implements CommandSearcher {
             ret.setOrientation(LinearLayout.VERTICAL);
             ret.setTextDirection(View.TEXT_DIRECTION_LTR);
 
+            TypedValue baseTextColor = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+
             for (Pair<String, String> r: this.results) {
                 TextView resultView = new TextView(context);
-
-                TypedValue baseTextColor = new TypedValue();
-                context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
                 resultView.setText(r.first);
                 resultView.setTextSize(TypedValue.COMPLEX_UNIT_SP, r.first.length() < 16 ? 60 : 36);
