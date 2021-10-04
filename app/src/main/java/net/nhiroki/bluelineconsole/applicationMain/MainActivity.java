@@ -38,8 +38,8 @@ import static android.view.inputmethod.EditorInfo.IME_FLAG_FORCE_ASCII;
 
 public class MainActivity extends BaseWindowActivity {
     private CandidateListAdapter _resultCandidateListAdapter;
-    private CommandSearchAggregator _commandSearchAggregator;
-    private ExecutorService _threadPool;
+    private CommandSearchAggregator _commandSearchAggregator = null;
+    private ExecutorService _threadPool = null;
 
     public static final String PREF_KEY_MAIN_EDITTEXT_FLAG_FORCE_ASCII = "pref_mainedittext_flagforceascii";
     public static final String PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH = "pref_mainedittext_hint_locale_english";
@@ -252,7 +252,9 @@ public class MainActivity extends BaseWindowActivity {
 
     @Override
     protected void onDestroy() {
-        this._commandSearchAggregator.close();
+        if (this._commandSearchAggregator != null) {
+            this._commandSearchAggregator.close();
+        }
         super.onDestroy();
     }
 
@@ -275,7 +277,7 @@ public class MainActivity extends BaseWindowActivity {
             }
         }
 
-        if (!this.getCurrentTheme().equals(this.readThemeFromConfig())) {
+        if (!this.getCurrentTheme().equals(this.readThemeFromConfig()) || (this._iAmHomeActivity && this.accentColorHasChanged())) {
             this.finish();
             this.startActivity(new Intent(this, this.getClass()));
             return;
@@ -329,7 +331,9 @@ public class MainActivity extends BaseWindowActivity {
 
     @Override
     protected void onPause() {
-        _threadPool.shutdownNow();
+        if (_threadPool != null) {
+            _threadPool.shutdownNow();
+        }
         this._paused = true;
         super.onPause();
     }

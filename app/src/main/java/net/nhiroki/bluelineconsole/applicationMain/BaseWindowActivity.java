@@ -38,6 +38,8 @@ public class BaseWindowActivity extends AppCompatActivity {
     private boolean _isDefaultLayOut = true;
     private boolean _hasFooter = true;
 
+    private String currentAccentColor;
+
     private boolean _animationHasBeenEnabled = false;
 
     public static final String PREF_NAME_THEME = "pref_appearance_theme";
@@ -288,6 +290,8 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void onAccentColorChanged() {
         String accentColorPreference = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_ACCENT_COLOR, PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT);
 
+        this.currentAccentColor = accentColorPreference;
+
         final int color;
 
         if (accentColorPreference.equals(PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT)) {
@@ -313,6 +317,12 @@ public class BaseWindowActivity extends AppCompatActivity {
         }
 
         this.applyAccentColor(color);
+    }
+
+    protected boolean accentColorHasChanged() {
+        String accentColorPreference = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_ACCENT_COLOR, PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT);
+
+        return ! accentColorPreference.equals(this.currentAccentColor);
     }
 
     @CallSuper
