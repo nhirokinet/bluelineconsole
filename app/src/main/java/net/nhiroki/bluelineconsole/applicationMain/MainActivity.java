@@ -320,6 +320,8 @@ public class MainActivity extends BaseWindowActivity {
             this.executeSearch(mainInputText.getText());
         }
 
+        this._camebackFlag = false;
+
         MainActivity.this.enableBaseWindowAnimation();
     }
 
