@@ -148,6 +148,11 @@ public final class AppWidgetsHostManager {
         this.widgetsSetting.deleteHomeScreenWidgetById(homeScreenWidgetInfo.id);
     }
 
+    public void deleteWidgetCommand(WidgetCommand widgetCommand) {
+        new AppWidgetHost(this.context.getApplicationContext(), MY_WIDGET_HOST_ID).deleteAppWidgetId(widgetCommand.appWidgetId);
+        this.widgetsSetting.deleteWidgetCommandById(widgetCommand.id);
+    }
+
     public void addHomeScreenAppWidget(int appWidgetId) {
         AppWidgetProviderInfo info = android.appwidget.AppWidgetManager.getInstance(this.context.getApplicationContext()).getAppWidgetInfo(appWidgetId);
         HomeScreenWidgetInfo homeScreenWidgetInfo = new HomeScreenWidgetInfo(0, info, appWidgetId);
