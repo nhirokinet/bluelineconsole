@@ -23,6 +23,7 @@
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
+            android:stateNotNeeded="true"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
@@ -40,6 +41,7 @@
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
+            android:stateNotNeeded="true"
             android:theme="@style/AppThemeHome"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
