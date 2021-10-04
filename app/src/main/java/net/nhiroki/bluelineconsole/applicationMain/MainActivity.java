@@ -329,7 +329,6 @@ public class MainActivity extends BaseWindowActivity {
 
     @Override
     protected void onPause() {
-        this.appWidgetsHostManager.stopListening();
         _threadPool.shutdownNow();
         this._paused = true;
         super.onPause();
@@ -339,6 +338,12 @@ public class MainActivity extends BaseWindowActivity {
     protected void onHeightChange() {
         super.onHeightChange();
         this.setWholeLayout();
+    }
+
+    @Override
+    protected void onStop() {
+        this.appWidgetsHostManager.stopListening();
+        super.onStop();
     }
 
     @Override
