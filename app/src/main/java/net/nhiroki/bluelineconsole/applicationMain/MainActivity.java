@@ -153,7 +153,7 @@ public class MainActivity extends BaseWindowActivity {
          *  - ListView.dispatchDraw(Canvas) calls mAdapter.isEnabled(int), which will crash when header is added.
          *  - For original ArrayAdapter, isEnabled(int position) simply returns true, regardless of position. This is just inherited from BaseAdapter.
          *  - For HeaderViewListAdapter, isEnabled(int position) lookup for position.
-         *    - The occasional crashes occured here, by looking up footer info list, and which exceeds the size.
+         *    - The occasional crashes occurred here, by looking up footer info list, and which exceeds the size.
          *
          * Therefore this is likely to be a bug in SDK, and is likely to be caused that ListView.dispatchDraw lookups adapter's status for out-of-bound index,
          * but triggered by addHeaderView because original ArrayAdapter simply returns true for isEnabled(int position), even if position is out-of-bound.
