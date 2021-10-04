@@ -100,7 +100,7 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
             @Override
             public void onClick(View v) {
                 if (PreferencesWidgetCommandEachActivity.this.widgetCommand != null) {
-                    WidgetsSetting.getInstance(PreferencesWidgetCommandEachActivity.this).deleteWidgetCommandById(PreferencesWidgetCommandEachActivity.this.widgetCommand.id);
+                    PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.deleteWidgetCommand(PreferencesWidgetCommandEachActivity.this.widgetCommand);
                     PreferencesWidgetCommandEachActivity.this.finish();
                 }
             }
