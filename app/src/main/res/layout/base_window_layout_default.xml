@@ -32,7 +32,7 @@
             android:animateLayoutChanges="true"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:clickable="true"
+            android:clickable="false"
             tools:ignore="KeyboardInaccessibleWidget"
             >
             <LinearLayout
@@ -94,7 +94,7 @@
             android:animateLayoutChanges="true"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:clickable="true"
+            android:clickable="false"
             tools:ignore="KeyboardInaccessibleWidget"
             >
             <LinearLayout
@@ -147,6 +147,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/baseWindowMainViewStub"
                     android:animateLayoutChanges="true"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -166,7 +168,7 @@
             android:animateLayoutChanges="true"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:clickable="true"
+            android:clickable="false"
             tools:ignore="KeyboardInaccessibleWidget"
             >
             <LinearLayout
@@ -176,6 +178,8 @@
                 android:background="@drawable/main_footer_background"
                 android:orientation="vertical"
                 android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 >
                 <!-- Sizes here must be consistent with corresponding drawables -->
                 <TextView
