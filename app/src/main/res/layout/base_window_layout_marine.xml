@@ -31,7 +31,7 @@
             android:background="@drawable/marine_main_window"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:clickable="true"
+            android:clickable="false"
             tools:ignore="KeyboardInaccessibleWidget,UselessParent"
             >
             <LinearLayout
@@ -41,6 +41,8 @@
                 android:layout_gravity="center"
                 android:orientation="vertical"
                 android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 >
                 <TextView
                     android:clickable="false"
@@ -68,12 +70,16 @@
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 >
                 <ViewStub
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/baseWindowMainViewStub"
                     android:animateLayoutChanges="true"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     />
             </LinearLayout>
             <!--
@@ -89,6 +95,8 @@
                 android:layout_gravity="center_horizontal"
                 android:orientation="vertical"
                 android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 >
                 <TextView
                     android:clickable="false"
