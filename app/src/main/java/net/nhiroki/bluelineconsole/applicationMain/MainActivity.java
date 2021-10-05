@@ -317,7 +317,7 @@ public class MainActivity extends BaseWindowActivity {
         }
 
         if (this._camebackFlag || this._iAmHomeActivity || ! mainInputText.getText().toString().isEmpty()) {
-            this.executeSearch(mainInputText.getText());
+            this.onCommandInput(mainInputText.getText());
         }
 
         this._camebackFlag = false;
@@ -390,7 +390,7 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void executeSearch(CharSequence s) {
-        List<CandidateEntry> cands = _commandSearchAggregator.searchCandidateEntries(s.toString(), MainActivity.this);
+        List<CandidateEntry> cands = s.toString().isEmpty() ? new ArrayList<CandidateEntry>() :_commandSearchAggregator.searchCandidateEntries(s.toString(), MainActivity.this);
 
         this._widgetExists = false;
         linearLayoutForWidgets.removeAllViews();
@@ -403,36 +403,14 @@ public class MainActivity extends BaseWindowActivity {
             List<HomeScreenSetting.HomeScreenDefaultItem> homeScreenDefaultItemList = HomeScreenSetting.getInstance(this).getAllHomeScreenDefaultItems();
 
             this._homeItemExists = !homeScreenDefaultItemList.isEmpty();
-            if (_commandSearchAggregator.isPrepared() || homeScreenDefaultItemList.isEmpty()) { // avoid waste waitUntilPrepared if already prepared
-                findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
+            findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
 
-                for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
-                    cands.addAll(_commandSearchAggregator.searchCandidateEntries(item.data, MainActivity.this));
-                    for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(item.data)) {
-                        this._widgetExists = true;
-                        linearLayoutForWidgets.addView(widget);
-                    }
+            for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
+                cands.addAll(_commandSearchAggregator.searchCandidateEntries(item.data, MainActivity.this));
+                for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(item.data)) {
+                    this._widgetExists = true;
+                    linearLayoutForWidgets.addView(widget);
                 }
-
-            } else {
-                findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
-                _threadPool.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        _commandSearchAggregator.waitUntilPrepared();
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (MainActivity.this._paused) {
-                                    // If activity is paused, doing something here is at least waste, sometimes dangerous
-                                    return;
-                                }
-                                executeSearch("");
-                                findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
-                            }
-                        });
-                    }
-                });
             }
         }
 
@@ -467,7 +445,7 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void onCommandInput(final CharSequence s) {
-        if (_commandSearchAggregator.isPrepared()) { // avoid waste waitUntilPrepared if already prepared
+        if (_commandSearchAggregator.isPrepared() || (s.toString().isEmpty() && !this._iAmHomeActivity)) { // avoid waste waitUntilPrepared if already prepared
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
             executeSearch(s);
         } else {
