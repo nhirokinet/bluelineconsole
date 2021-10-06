@@ -12,6 +12,7 @@
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
+    android:clickable="false"
     >
     <LinearLayout
         android:id="@+id/mainInputTextWrapperLinearLayout"

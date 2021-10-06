@@ -79,27 +79,6 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
             iconView.setVisibility(View.VISIBLE);
         }
 
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CandidateListAdapter.this.invokeEvent(position, getContext());
-            }
-        });
-
-        convertView.findViewById(R.id.candidateIconView).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CandidateListAdapter.this.invokeEvent(position, getContext());
-            }
-        });
-
-        convertView.findViewById(R.id.candidateIntermediateLinearLayout).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CandidateListAdapter.this.invokeEvent(position, getContext());
-            }
-        });
-
         return convertView;
     }
 

@@ -24,6 +24,7 @@
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:importantForAccessibility="no"
         tools:ignore="ContentDescription"
         />
     <LinearLayout
