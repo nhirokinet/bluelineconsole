@@ -279,7 +279,7 @@ public class MainActivity extends BaseWindowActivity {
             }
         }
 
-        if (!this.getCurrentTheme().equals(this.readThemeFromConfig()) || (this._iAmHomeActivity && this.accentColorHasChanged())) {
+        if (!this.getCurrentTheme().equals(this.readThemeFromConfig())) {
             this.finish();
             this.startActivity(new Intent(this, this.getClass()));
             return;
