@@ -47,7 +47,6 @@ public class MainActivity extends BaseWindowActivity {
     public static final int REQUEST_CODE_FOR_COMING_BACK = 1;
 
     private boolean _camebackFlag = false;
-    private boolean _paused = false;
 
     private boolean showStartUpHelp = false;
     private boolean _migrationLostHappened = false;
@@ -64,6 +63,8 @@ public class MainActivity extends BaseWindowActivity {
 
     private EditText mainInputText;
     private ListView candidateListView;
+
+    private int resumeId = 0;
 
     public MainActivity() {
         super(R.layout.main_activity_body, true);
@@ -261,7 +262,8 @@ public class MainActivity extends BaseWindowActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        this._paused = false;
+
+        ++this.resumeId;
 
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_MAIN_EDITTEXT_FLAG_FORCE_ASCII, false)) {
             mainInputText.setImeOptions(mainInputText.getImeOptions() | IME_FLAG_FORCE_ASCII);
@@ -333,10 +335,10 @@ public class MainActivity extends BaseWindowActivity {
 
     @Override
     protected void onPause() {
+        ++this.resumeId;
         if (_threadPool != null) {
             _threadPool.shutdownNow();
         }
-        this._paused = true;
         super.onPause();
     }
 
@@ -450,6 +452,8 @@ public class MainActivity extends BaseWindowActivity {
             executeSearch(s);
         } else {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
+            final int myResumeId = this.resumeId;
+
             _threadPool.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -457,8 +461,8 @@ public class MainActivity extends BaseWindowActivity {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (MainActivity.this._paused) {
-                                // If activity is paused, doing something here is at least waste, sometimes dangerous
+                            if (MainActivity.this.resumeId != myResumeId) {
+                                // Already different session, canceling the operation.
                                 return;
                             }
                             executeSearch(s);
