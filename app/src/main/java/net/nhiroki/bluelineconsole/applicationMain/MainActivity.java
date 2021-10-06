@@ -83,8 +83,15 @@ public class MainActivity extends BaseWindowActivity {
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             super.onSizeChanged(w, h, oldw, oldh);
+
+            if (w == 0 || h == 0) {
+                return;
+            }
             this.currentWidth = w - this.getPaddingLeft() - this.getPaddingRight();
 
+            if (this.currentWidth <= 0) {
+                return;
+            }
             double density = this.getContext().getResources().getDisplayMetrics().density;
 
             for (int i = 0; i < this.getChildCount(); ++i) {
@@ -93,6 +100,7 @@ public class MainActivity extends BaseWindowActivity {
                     if (child instanceof AppWidgetHostView) {
                         int height = child.getLayoutParams().height;
                         ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
+                        child.invalidate();
                     }
                 } catch (Exception e) {
                     // For case that children changes in another thread
@@ -106,9 +114,10 @@ public class MainActivity extends BaseWindowActivity {
 
             double density = this.getContext().getResources().getDisplayMetrics().density;
 
-            if (child instanceof AppWidgetHostView) {
+            if (currentWidth > 0 && child instanceof AppWidgetHostView) {
                 int height = child.getLayoutParams().height;
                 ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
+                child.invalidate();
             }
         }
     }
