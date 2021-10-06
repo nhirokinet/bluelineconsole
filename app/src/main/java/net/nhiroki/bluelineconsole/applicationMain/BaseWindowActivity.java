@@ -38,8 +38,6 @@ public class BaseWindowActivity extends AppCompatActivity {
     private boolean _isDefaultLayOut = true;
     private boolean _hasFooter = true;
 
-    private String currentAccentColor;
-
     private boolean _animationHasBeenEnabled = false;
 
     public static final String PREF_NAME_THEME = "pref_appearance_theme";
@@ -159,12 +157,14 @@ public class BaseWindowActivity extends AppCompatActivity {
             mainFooterWrapper.setLayoutParams(mainFooterWrapperLayoutParam);
         }
 
-        this.onAccentColorChanged();
-
         // TitleBarDragOnTouchListener has some state, it is safer to create different instance
         this.findViewById(R.id.baseWindowHeaderWrapper).setOnTouchListener(new TitleBarDragOnTouchListener());
         if (this._isDefaultLayOut) {
             this.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setOnTouchListener(new TitleBarDragOnTouchListener());
+
+            // Make setTint() in onResume() to work
+            this.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground().mutate();
+            this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground().mutate();
         }
     }
 
@@ -250,6 +250,8 @@ public class BaseWindowActivity extends AppCompatActivity {
                 BaseWindowActivity.this.onHeightChange();
             }
         });
+
+        this.onAccentColorChanged();
     }
 
     @Override
@@ -286,11 +288,8 @@ public class BaseWindowActivity extends AppCompatActivity {
         return this.getCurrentTheme().equals(PREF_VALUE_THEME_DARK) || this.getCurrentTheme().equals(PREF_VALUE_THEME_LIGHT) || this.getCurrentTheme().equals(PREF_VALUE_THEME_DEFAULT);
     }
 
-    @CallSuper
-    protected void onAccentColorChanged() {
+    protected int getAccentColor() {
         String accentColorPreference = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_ACCENT_COLOR, PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT);
-
-        this.currentAccentColor = accentColorPreference;
 
         final int color;
 
@@ -316,20 +315,16 @@ public class BaseWindowActivity extends AppCompatActivity {
             color = accentColorFromTheme.data;
         }
 
-        this.applyAccentColor(color);
+        return color;
     }
 
-    protected boolean accentColorHasChanged() {
-        String accentColorPreference = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_ACCENT_COLOR, PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT);
-
-        return ! accentColorPreference.equals(this.currentAccentColor);
+    @CallSuper
+    protected void onAccentColorChanged() {
+        this.applyAccentColor(this.getAccentColor());
     }
 
     @CallSuper
     protected void applyAccentColor(int color) {
-        // TODO: why? setTint doesn't work when resuming from another Activity even if called from onResume; setBackgroundColor works, although.
-        // After this is resolved, applyAccentColor can be called from onResume instead of onCreate, and apply immediately after change.
-        // This behavior also seems to depend on Android version. Currently not to pursur perfect behavior here, just encourage users to restart.
         if (this._isDefaultLayOut) {
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground(), color);
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);
