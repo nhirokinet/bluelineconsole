@@ -44,6 +44,7 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
                     int appWidgetId = PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.allocateAppWidgetId();
 
                     PreferencesWidgetCommandEachActivity.this.widgetCommand = new AppWidgetsHostManager.WidgetCommand(0, null, appWidgetId);
+
                     PreferencesWidgetCommandEachActivity.this.widgetCommand.command = ((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_command_name)).getText().toString();
                     PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((androidx.appcompat.widget.SwitchCompat) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
 
@@ -51,6 +52,8 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
 
                     if (err != 0) {
                         Toast.makeText(PreferencesWidgetCommandEachActivity.this, err, Toast.LENGTH_LONG).show();
+                        PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.deleteAppWidgetId(appWidgetId);
+                        PreferencesWidgetCommandEachActivity.this.widgetCommand = null;
                         return;
                     }
 
