@@ -12,6 +12,7 @@
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
+    android:clickable="false"
     >
     <LinearLayout
         android:id="@+id/mainInputTextWrapperLinearLayout"
@@ -20,6 +21,8 @@
         android:padding="0px"
         android:background="?bluelineconsoleFrameColor"
         android:animateLayoutChanges="true"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         >
         <EditText
             android:id="@+id/mainInputText"
@@ -48,12 +51,16 @@
         android:padding="0px"
         android:animateLayoutChanges="true"
         android:orientation="vertical"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         >
         <ScrollView
             android:id="@+id/commandSearchWaitingNotification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             >
             <LinearLayout
                 android:layout_width="match_parent"

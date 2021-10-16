@@ -127,9 +127,7 @@ public class CalculatorNumber implements FormulaPart {
                     if (shouldConvertTo != null) {
                         displayedResult = displayedResult.convertUnit(shouldConvertTo);
                     }
-                } catch (CalculatorExceptions.IllegalFormulaException e) {
-                    throw new RuntimeException("Unit unifying failure");
-                } catch (CalculatorExceptions.UnitConversionException e) {
+                } catch (CalculatorExceptions.IllegalFormulaException | CalculatorExceptions.UnitConversionException e) {
                     throw new RuntimeException("Unit unifying failure");
                 }
             }
@@ -166,7 +164,7 @@ public class CalculatorNumber implements FormulaPart {
             try {
                 BigDecimalNumber ret = this.convertUnit(new CombinedUnit(UnitDirectory.getInstance().getSecond())).generateFinalDecimalValue();
 
-                if (ret.val.abs().compareTo(BigDecimal.ONE) == -1) {
+                if (ret.val.abs().compareTo(BigDecimal.ONE) < 0) {
                     return null;
                 }
                 ret.specialOutputForSpecialTime = true;
@@ -192,9 +190,7 @@ public class CalculatorNumber implements FormulaPart {
                             return previousOutput != null ? previousOutput.generateFinalDecimalValue() : output.generateFinalDecimalValue();
                         }
                         previousOutput = output;
-                    } catch (CalculatorExceptions.UnitConversionException e) {
-                        continue;
-                    } catch (CalculatorExceptions.IllegalFormulaException e) {
+                    } catch (CalculatorExceptions.UnitConversionException | CalculatorExceptions.IllegalFormulaException e) {
                         continue;
                     }
                 }
@@ -234,7 +230,7 @@ public class CalculatorNumber implements FormulaPart {
                 BigDecimal positiveVal = this.val;
                 String prefix = "";
 
-                if (positiveVal.compareTo(BigDecimal.ZERO) == -1) {
+                if (positiveVal.compareTo(BigDecimal.ZERO) < 0) {
                     positiveVal = this.val.multiply(new BigDecimal("-1"));
                     prefix = "-";
                 }

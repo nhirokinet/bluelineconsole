@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.commandSearchers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -8,6 +7,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.netutils.PingActivity;
@@ -95,7 +95,7 @@ public class NetUtilCommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(Activity activity) {
+                public void launch(BaseWindowActivity activity) {
                     Intent intent = new Intent(context, PingActivity.class);
                     intent.putExtra("host", PingCandidateEntry.this._host);
                     activity.startActivityForResult(intent, MainActivity.REQUEST_CODE_FOR_COMING_BACK);
@@ -141,7 +141,7 @@ public class NetUtilCommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(Activity activity) {
+                public void launch(BaseWindowActivity activity) {
                     Intent intent = new Intent(context, Ping6Activity.class);
                     intent.putExtra("host", Ping6CandidateEntry.this._host);
                     activity.startActivityForResult(intent, MainActivity.REQUEST_CODE_FOR_COMING_BACK);

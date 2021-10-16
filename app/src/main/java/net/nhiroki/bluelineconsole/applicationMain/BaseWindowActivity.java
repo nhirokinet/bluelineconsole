@@ -41,11 +41,11 @@ public class BaseWindowActivity extends AppCompatActivity {
     private boolean _animationHasBeenEnabled = false;
 
     public static final String PREF_NAME_THEME = "pref_appearance_theme";
-    private static final String PREF_VALUE_THEME_DEFAULT = "default";
-    private static final String PREF_VALUE_THEME_LIGHT = "light";
-    private static final String PREF_VALUE_THEME_DARK = "dark";
-    private static final String PREF_VALUE_THEME_OLD_COMPUTER = "old_computer";
-    private static final String PREF_VALUE_THEME_MARINE = "marine";
+    public static final String PREF_VALUE_THEME_DEFAULT = "default";
+    public static final String PREF_VALUE_THEME_LIGHT = "light";
+    public static final String PREF_VALUE_THEME_DARK = "dark";
+    public static final String PREF_VALUE_THEME_OLD_COMPUTER = "old_computer";
+    public static final String PREF_VALUE_THEME_MARINE = "marine";
 
     public static final CharSequence[] PREF_THEME_ENTRY_VALUES = { PREF_VALUE_THEME_DEFAULT, PREF_VALUE_THEME_LIGHT, PREF_VALUE_THEME_DARK, PREF_VALUE_THEME_MARINE, PREF_VALUE_THEME_OLD_COMPUTER };
     public static CharSequence[] getPrefThemeEntries(Context context) {
@@ -66,6 +66,27 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected BaseWindowActivity(@LayoutRes int mainLayoutResID, boolean smallWindow) {
         this._mainLayoutResID = mainLayoutResID;
         this._smallWindow = smallWindow;
+    }
+
+    public void finishIfNotHome() {
+        if (! this._iAmHomeActivity) {
+            this.finish();
+        }
+    }
+
+    public static boolean isSystemCurrentlyNightMode(Context context) {
+        return Build.VERSION.SDK_INT >= 29 && (context.getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    // preferenceThemeName can be modified for case onPreferenceChange() which is called just before th change
+    public static String determineActualTheme(Context context, String preferenceThemeName) {
+        String ret = preferenceThemeName;
+
+        if (ret.equals(PREF_VALUE_THEME_DEFAULT)) {
+            ret = isSystemCurrentlyNightMode(context) ? PREF_VALUE_THEME_DARK : PREF_VALUE_THEME_LIGHT;
+        }
+
+        return ret;
     }
 
     @Override
@@ -90,14 +111,10 @@ public class BaseWindowActivity extends AppCompatActivity {
                 break;
         }
 
-        String actualTheme = this._currentTheme;
+        final String actualTheme = determineActualTheme(this, this._currentTheme);
 
         super.onCreate(savedInstanceState);
 
-        if (this._currentTheme.equals(PREF_VALUE_THEME_DEFAULT)) {
-            boolean system_is_dark_theme = Build.VERSION.SDK_INT >= 29 && (this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-            actualTheme = system_is_dark_theme ? PREF_VALUE_THEME_DARK : PREF_VALUE_THEME_LIGHT;
-        }
 
         this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -151,12 +168,14 @@ public class BaseWindowActivity extends AppCompatActivity {
             mainFooterWrapper.setLayoutParams(mainFooterWrapperLayoutParam);
         }
 
-        this.onAccentColorChanged();
-
         // TitleBarDragOnTouchListener has some state, it is safer to create different instance
         this.findViewById(R.id.baseWindowHeaderWrapper).setOnTouchListener(new TitleBarDragOnTouchListener());
         if (this._isDefaultLayOut) {
             this.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setOnTouchListener(new TitleBarDragOnTouchListener());
+
+            // Make setTint() in onResume() to work
+            this.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground().mutate();
+            this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground().mutate();
         }
     }
 
@@ -242,6 +261,8 @@ public class BaseWindowActivity extends AppCompatActivity {
                 BaseWindowActivity.this.onHeightChange();
             }
         });
+
+        this.onAccentColorChanged();
     }
 
     @Override
@@ -254,7 +275,11 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected String readThemeFromConfig() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_THEME, PREF_VALUE_THEME_DEFAULT);
+        return readThemeFromConfigStatic(this);
+    }
+
+    public static String readThemeFromConfigStatic(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(PREF_NAME_THEME, PREF_VALUE_THEME_DEFAULT);
     }
 
     protected String getCurrentTheme() {
@@ -278,8 +303,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         return this.getCurrentTheme().equals(PREF_VALUE_THEME_DARK) || this.getCurrentTheme().equals(PREF_VALUE_THEME_LIGHT) || this.getCurrentTheme().equals(PREF_VALUE_THEME_DEFAULT);
     }
 
-    @CallSuper
-    protected void onAccentColorChanged() {
+    protected int getAccentColor() {
         String accentColorPreference = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_ACCENT_COLOR, PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT);
 
         final int color;
@@ -306,14 +330,16 @@ public class BaseWindowActivity extends AppCompatActivity {
             color = accentColorFromTheme.data;
         }
 
-        this.applyAccentColor(color);
+        return color;
+    }
+
+    @CallSuper
+    protected void onAccentColorChanged() {
+        this.applyAccentColor(this.getAccentColor());
     }
 
     @CallSuper
     protected void applyAccentColor(int color) {
-        // TODO: why? setTint doesn't work when resuming from another Activity even if called from onResume; setBackgroundColor works, although.
-        // After this is resolved, applyAccentColor can be called from onResume instead of onCreate, and apply immediately after change.
-        // This behavior also seems to depend on Android version. Currently not to pursur perfect behavior here, just encourage users to restart.
         if (this._isDefaultLayOut) {
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground(), color);
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);

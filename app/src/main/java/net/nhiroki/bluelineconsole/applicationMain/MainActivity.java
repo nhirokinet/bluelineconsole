@@ -6,6 +6,8 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import android.appwidget.AppWidgetHostView;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,47 +35,112 @@ import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 
 import static android.view.inputmethod.EditorInfo.IME_FLAG_FORCE_ASCII;
 
+
 public class MainActivity extends BaseWindowActivity {
     private CandidateListAdapter _resultCandidateListAdapter;
-    private CommandSearchAggregator _commandSearchAggregator;
-    private ExecutorService _threadPool;
+    private CommandSearchAggregator _commandSearchAggregator = null;
+    private ExecutorService _threadPool = null;
 
     public static final String PREF_KEY_MAIN_EDITTEXT_FLAG_FORCE_ASCII = "pref_mainedittext_flagforceascii";
     public static final String PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH = "pref_mainedittext_hint_locale_english";
+
     public static final int REQUEST_CODE_FOR_COMING_BACK = 1;
 
     private boolean _camebackFlag = false;
-    private boolean _paused = false;
 
+    private boolean showStartUpHelp = false;
     private boolean _migrationLostHappened = false;
 
     private boolean _widgetExists = false;
     private boolean _homeItemExists = false;
 
-    private LinearLayout linearLayoutForWidgets = null;
+    private WidgetSupportingLinearLayout linearLayoutForWidgets = null;
     private ListView.FixedViewInfo linearLayoutForWidgetsInfo = null;
 
     private final ArrayList<ListView.FixedViewInfo> headerViewInfos = new ArrayList<>();
 
     private final AppWidgetsHostManager appWidgetsHostManager = new AppWidgetsHostManager(this);
+
+    private EditText mainInputText;
+    private ListView candidateListView;
+
+    private int resumeId = 0;
+
     public MainActivity() {
         super(R.layout.main_activity_body, true);
     }
+
+
+    private static class WidgetSupportingLinearLayout extends LinearLayout {
+        private int currentWidth = 0;
+
+        public WidgetSupportingLinearLayout(Context context) {
+            super(context);
+        }
+
+        // updateAppWidgetSize() call seems to be mandatory for some widgets.
+        // To achieve this, know precise size on onSizeChanged and apply this.
+        @Override
+        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+            super.onSizeChanged(w, h, oldw, oldh);
+
+            if (w == 0 || h == 0) {
+                return;
+            }
+            this.currentWidth = w - this.getPaddingLeft() - this.getPaddingRight();
+
+            if (this.currentWidth <= 0) {
+                return;
+            }
+            double density = this.getContext().getResources().getDisplayMetrics().density;
+
+            for (int i = 0; i < this.getChildCount(); ++i) {
+                try {
+                    View child = this.getChildAt(i);
+                    if (child instanceof AppWidgetHostView) {
+                        int height = child.getLayoutParams().height;
+                        ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
+                        child.invalidate();
+                    }
+                } catch (Exception e) {
+                    // For case that children changes in another thread
+                }
+            }
+        }
+
+        @Override
+        public void addView(View child) {
+            super.addView(child);
+
+            double density = this.getContext().getResources().getDisplayMetrics().density;
+
+            if (currentWidth > 0 && child instanceof AppWidgetHostView) {
+                int height = child.getLayoutParams().height;
+                ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
+                child.invalidate();
+            }
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        this.mainInputText = findViewById(R.id.mainInputText);
+
         this._migrationLostHappened = WidgetsSetting.migrationLostHappened(this);
+        this.showStartUpHelp = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(StartUpHelpActivity.PREF_KEY_SHOW_STARTUP_HELP, true);
+
 
         this.setHeaderFooterTexts(getString(R.string.app_name), String.format(getString(R.string.displayedFullVersionString), BuildConfig.VERSION_NAME));
 
         AppNotification.update(this);
 
-        final ListView candidateListView = findViewById(R.id.candidateListView);
+        this.candidateListView = findViewById(R.id.candidateListView);
         _resultCandidateListAdapter = new CandidateListAdapter(this, new ArrayList<CandidateEntry>(), candidateListView);
 
-        this.linearLayoutForWidgets = new LinearLayout(this);
+        this.linearLayoutForWidgets = new WidgetSupportingLinearLayout(this);
         this.linearLayoutForWidgets.setPadding(0, 0, 0, 0);
         this.linearLayoutForWidgets.setOrientation(LinearLayout.VERTICAL);
         linearLayoutForWidgetsInfo = candidateListView.new FixedViewInfo();
@@ -96,7 +163,7 @@ public class MainActivity extends BaseWindowActivity {
          *  - ListView.dispatchDraw(Canvas) calls mAdapter.isEnabled(int), which will crash when header is added.
          *  - For original ArrayAdapter, isEnabled(int position) simply returns true, regardless of position. This is just inherited from BaseAdapter.
          *  - For HeaderViewListAdapter, isEnabled(int position) lookup for position.
-         *    - The occasional crashes occured here, by looking up footer info list, and which exceeds the size.
+         *    - The occasional crashes occurred here, by looking up footer info list, and which exceeds the size.
          *
          * Therefore this is likely to be a bug in SDK, and is likely to be caused that ListView.dispatchDraw lookups adapter's status for out-of-bound index,
          * but triggered by addHeaderView because original ArrayAdapter simply returns true for isEnabled(int position), even if position is out-of-bound.
@@ -126,7 +193,7 @@ public class MainActivity extends BaseWindowActivity {
          * the widget get stuck.
          * For header, View can directly injected, so using this. For this reason, widgets always appears first.
          */
-        ((ListView)findViewById(R.id.candidateListView)).addHeaderView(linearLayoutForWidgets);
+        candidateListView.addHeaderView(linearLayoutForWidgets);
 
         candidateListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -151,7 +218,6 @@ public class MainActivity extends BaseWindowActivity {
             }
         });
 
-        final EditText mainInputText = findViewById(R.id.mainInputText);
         if (Build.VERSION.SDK_INT >= 24) {
             if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH, false)) {
                 mainInputText.setImeHintLocales(new LocaleList(new Locale("en")));
@@ -196,16 +262,18 @@ public class MainActivity extends BaseWindowActivity {
 
     @Override
     protected void onDestroy() {
-        this._commandSearchAggregator.close();
+        if (this._commandSearchAggregator != null) {
+            this._commandSearchAggregator.close();
+        }
         super.onDestroy();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this._paused = false;
 
-        final EditText mainInputText = findViewById(R.id.mainInputText);
+        ++this.resumeId;
+
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_KEY_MAIN_EDITTEXT_FLAG_FORCE_ASCII, false)) {
             mainInputText.setImeOptions(mainInputText.getImeOptions() | IME_FLAG_FORCE_ASCII);
         } else {
@@ -221,83 +289,49 @@ public class MainActivity extends BaseWindowActivity {
         }
 
         if (!this.getCurrentTheme().equals(this.readThemeFromConfig())) {
-            Intent intent = this.getPackageManager().getLaunchIntentForPackage("net.nhiroki.bluelineconsole");
             this.finish();
-            this.startActivity(intent);
+            this.startActivity(new Intent(this, this.getClass()));
+            return;
         }
-        _threadPool = Executors.newSingleThreadExecutor();
 
-        final boolean showStartUpHelp = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(StartUpHelpActivity.PREF_KEY_SHOW_STARTUP_HELP, true);
+        _threadPool = Executors.newSingleThreadExecutor();
 
         if (_commandSearchAggregator == null) {
             // first time after onCreate()
             _commandSearchAggregator = new CommandSearchAggregator(this);
-
-            if (!_camebackFlag && showStartUpHelp) {
-                MainActivity.this._camebackFlag = true;
-                startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-            }
-            if (_migrationLostHappened) {
-                this._migrationLostHappened = false;
-                MainActivity.this._camebackFlag = true;
-                startActivityForResult(new Intent(MainActivity.this, NotificationMigrationLostActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-            }
             mainInputText.addTextChangedListener(new MainInputTextListener(mainInputText.getText()));
 
-            if (this._iAmHomeActivity) {
-                this.executeSearch(mainInputText.getText());
-            }
-
         } else {
-            if (_camebackFlag) {
-                if (_migrationLostHappened) {
-                    this._migrationLostHappened = false;
-                    MainActivity.this._camebackFlag = true;
-                    startActivityForResult(new Intent(MainActivity.this, NotificationMigrationLostActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                }
-                List<CandidateEntry> cands = _commandSearchAggregator.searchCandidateEntries(mainInputText.getText().toString(), MainActivity.this);
-                _commandSearchAggregator.refresh(this);
+            if (! _camebackFlag) {
+                mainInputText.setText("");
 
-                _resultCandidateListAdapter.clear();
-                _resultCandidateListAdapter.addAll(cands);
-                _resultCandidateListAdapter.notifyDataSetChanged();
-
-                _camebackFlag = false;
-
-                _commandSearchAggregator.refresh(this);
-
-            } else {
                 if (!this._iAmHomeActivity) {
                     _commandSearchAggregator.refresh(this);
-
-                    if (showStartUpHelp) {
-                        MainActivity.this._camebackFlag = true;
-                        startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                    }
-                    if (_migrationLostHappened) {
-                        this._migrationLostHappened = false;
-                        MainActivity.this._camebackFlag = true;
-                        startActivityForResult(new Intent(MainActivity.this, NotificationMigrationLostActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                    }
                     _resultCandidateListAdapter.clear();
                     _resultCandidateListAdapter.notifyDataSetChanged();
-
-                    mainInputText.setText("");
-                } else {
-                    if (showStartUpHelp) {
-                        MainActivity.this._camebackFlag = true;
-                        startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                    }
-                    if (_migrationLostHappened) {
-                        this._migrationLostHappened = false;
-                        MainActivity.this._camebackFlag = true;
-                        startActivityForResult(new Intent(MainActivity.this, NotificationMigrationLostActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                    }
-                    mainInputText.setText("");
-                    this.executeSearch("");
                 }
             }
         }
+
+        if (this.showStartUpHelp) {
+            this.showStartUpHelp = false;
+            this._camebackFlag = true;
+            startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
+            return;
+        }
+
+        if (this._migrationLostHappened) {
+            this._migrationLostHappened = false;
+            this._camebackFlag = true;
+            startActivityForResult(new Intent(MainActivity.this, NotificationMigrationLostActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
+            return;
+        }
+
+        if (this._camebackFlag || this._iAmHomeActivity || ! mainInputText.getText().toString().isEmpty()) {
+            this.onCommandInput(mainInputText.getText());
+        }
+
+        this._camebackFlag = false;
 
         MainActivity.this.enableBaseWindowAnimation();
     }
@@ -305,17 +339,15 @@ public class MainActivity extends BaseWindowActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_FOR_COMING_BACK && resultCode == RESULT_OK) {
-            _camebackFlag = true;
-        }
-        _camebackFlag = true;
+        this._camebackFlag = requestCode == REQUEST_CODE_FOR_COMING_BACK && resultCode == RESULT_OK;
     }
 
     @Override
     protected void onPause() {
-        this.appWidgetsHostManager.stopListening();
-        _threadPool.shutdownNow();
-        this._paused = true;
+        ++this.resumeId;
+        if (_threadPool != null) {
+            _threadPool.shutdownNow();
+        }
         super.onPause();
     }
 
@@ -323,6 +355,12 @@ public class MainActivity extends BaseWindowActivity {
     protected void onHeightChange() {
         super.onHeightChange();
         this.setWholeLayout();
+    }
+
+    @Override
+    protected void onStop() {
+        this.appWidgetsHostManager.stopListening();
+        super.onStop();
     }
 
     @Override
@@ -344,8 +382,7 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void setWholeLayout() {
-        final EditText mainInputText = findViewById(R.id.mainInputText);
-        final boolean contentFilled = !mainInputText.getText().toString().equals("") || this._widgetExists || this._homeItemExists;
+        final boolean contentFilled = !mainInputText.getText().toString().isEmpty() || this._widgetExists || this._homeItemExists;
 
         this.setWindowBoundarySize(contentFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN, 0);
 
@@ -364,9 +401,7 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void executeSearch(CharSequence s) {
-        List<CandidateEntry> cands = _commandSearchAggregator.searchCandidateEntries(s.toString(), MainActivity.this);
-
-        final EditText mainInputText = findViewById(R.id.mainInputText);
+        List<CandidateEntry> cands = s.toString().isEmpty() ? new ArrayList<CandidateEntry>() :_commandSearchAggregator.searchCandidateEntries(s.toString(), MainActivity.this);
 
         this._widgetExists = false;
         linearLayoutForWidgets.removeAllViews();
@@ -379,37 +414,14 @@ public class MainActivity extends BaseWindowActivity {
             List<HomeScreenSetting.HomeScreenDefaultItem> homeScreenDefaultItemList = HomeScreenSetting.getInstance(this).getAllHomeScreenDefaultItems();
 
             this._homeItemExists = !homeScreenDefaultItemList.isEmpty();
-            if (_commandSearchAggregator.isPrepared() || homeScreenDefaultItemList.isEmpty()) { // avoid waste waitUntilPrepared if already prepared
-                findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
+            findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
 
-                for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
-                    cands.addAll(_commandSearchAggregator.searchCandidateEntries(item.data, MainActivity.this));
-                    for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(item.data)) {
-                        this._widgetExists = true;
-                        linearLayoutForWidgets.addView(widget);
-                    }
+            for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
+                cands.addAll(_commandSearchAggregator.searchCandidateEntries(item.data, MainActivity.this));
+                for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(item.data)) {
+                    this._widgetExists = true;
+                    linearLayoutForWidgets.addView(widget);
                 }
-
-
-            } else {
-                findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
-                _threadPool.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        _commandSearchAggregator.waitUntilPrepared();
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (MainActivity.this._paused) {
-                                    // If activity is paused, doing something here is at least waste, sometimes dangerous
-                                    return;
-                                }
-                                executeSearch("");
-                                findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
-                            }
-                        });
-                    }
-                });
             }
         }
 
@@ -431,7 +443,6 @@ public class MainActivity extends BaseWindowActivity {
         _resultCandidateListAdapter.notifyDataSetChanged();
 
         if (this._widgetExists) {
-            final ListView candidateListView = findViewById(R.id.candidateListView);
             candidateListView.setSelection(0);
         }
 
@@ -445,11 +456,13 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void onCommandInput(final CharSequence s) {
-        if (_commandSearchAggregator.isPrepared()) { // avoid waste waitUntilPrepared if already prepared
+        if (_commandSearchAggregator.isPrepared() || (s.toString().isEmpty() && !this._iAmHomeActivity)) { // avoid waste waitUntilPrepared if already prepared
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
             executeSearch(s);
         } else {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
+            final int myResumeId = this.resumeId;
+
             _threadPool.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -457,8 +470,8 @@ public class MainActivity extends BaseWindowActivity {
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if (MainActivity.this._paused) {
-                                // If activity is paused, doing something here is at least waste, sometimes dangerous
+                            if (MainActivity.this.resumeId != myResumeId) {
+                                // Already different session, canceling the operation.
                                 return;
                             }
                             executeSearch(s);

@@ -29,6 +29,8 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
 
+        this.loadCurrentColor(this.getAccentColor());
+
         ((SeekBar)this.findViewById(R.id.pref_accent_color_red_seekbar)).setOnSeekBarChangeListener(new ColorSeekBarChangeListener());
         ((SeekBar)this.findViewById(R.id.pref_accent_color_green_seekbar)).setOnSeekBarChangeListener(new ColorSeekBarChangeListener());
         ((SeekBar)this.findViewById(R.id.pref_accent_color_blue_seekbar)).setOnSeekBarChangeListener(new ColorSeekBarChangeListener());
@@ -125,10 +127,7 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
     }
 
     @SuppressLint("DefaultLocale")
-    @Override
-    protected void applyAccentColor(int color) {
-        super.applyAccentColor(color);
-
+    private void loadCurrentColor (int color) {
         int red = (color >> 16) & 0xff;
         int green = (color >> 8) & 0xff;
         int blue = color & 0xff;
@@ -189,9 +188,8 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
             ((TextView)this.findViewById(R.id.pref_accent_color_title_textview)).setText(String.format(this.getString(R.string.preferences_accent_color_theme_without_accent_color), this.getCurrentThemeName()));
 
             this.findViewById(R.id.pref_accent_color_theme_default_radio_button).setVisibility(View.GONE);
-            this.findViewById(R.id.pref_accent_color_restart_notification).setVisibility(View.GONE);
             this.findViewById(R.id.pref_accent_color_custom_radio_button).setVisibility(View.GONE);
-            this.findViewById(R.id.pref_accent_color_monitor).setVisibility(View.GONE);
+            this.findViewById(R.id.pref_accent_color_monitor_border).setVisibility(View.GONE);
             this.findViewById(R.id.pref_accent_color_seek_bar_table).setVisibility(View.GONE);
         }
     }
@@ -212,7 +210,7 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
 
         prefEdit.apply();
         this.onAccentColorChanged();
-
+        this.loadCurrentColor(this.getAccentColor());
     }
 
     private class ColorSeekBarChangeListener implements SeekBar.OnSeekBarChangeListener {

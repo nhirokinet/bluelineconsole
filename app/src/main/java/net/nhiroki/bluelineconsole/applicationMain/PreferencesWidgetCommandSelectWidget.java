@@ -125,7 +125,6 @@ public class PreferencesWidgetCommandSelectWidget extends BaseWindowActivity {
 
             default:
                 // Unknown request, start normally
-                return;
         }
     }
 

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widgetLauncherRootLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/baseWindowMainLayoutRoot"
-    android:animateLayoutChanges="true"
+    android:animateLayoutChanges="false"
     android:focusable="false"
     android:focusableInTouchMode="false"
+    android:theme="@style/AppThemeDarkHome"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".applicationMain.BaseWindowActivity"
     >
     <LinearLayout
-        android:id="@+id/baseWindowRootLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -23,34 +22,28 @@
         android:focusableInTouchMode="false"
         >
         <LinearLayout
-            android:id="@+id/baseWindowHeaderWrapper"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="start"
             android:orientation="horizontal"
-            android:animateLayoutChanges="true"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:clickable="false"
             tools:ignore="KeyboardInaccessibleWidget"
             >
             <LinearLayout
-                android:layout_width="3sp"
+                android:layout_width="3dp"
                 android:layout_height="match_parent"
-                android:id="@+id/baseWindowDefaultThemeHeaderStartAccent"
                 android:background="?bluelineconsoleAccentColor"
                 android:orientation="horizontal"
-                android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 />
             <LinearLayout
-                android:id="@+id/baseWindowDefaultThemeHeaderImagePart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="130dp"
+                android:layout_height="18dp"
                 android:background="@drawable/main_header_background"
                 android:orientation="vertical"
-                android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 >
@@ -60,162 +53,111 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/baseWindowDefaultThemeHeaderAccent"
                     android:background="@drawable/main_header_accent"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     tools:ignore="ContentDescription"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
                     />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="0sp"
+            android:paddingHorizontal="3dp"
+            android:background="?bluelineconsoleAccentColor"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:animateLayoutChanges="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                android:paddingBottom="6dp"
+                android:paddingHorizontal="7dp"
+                android:layout_margin="0px"
+                android:orientation="vertical"
+                android:background="?bluelineconsoleFrameColor"
+                android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                >
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="0sp"
+            android:paddingHorizontal="3dp"
+            android:layout_marginBottom="18dp"
+            android:background="?bluelineconsoleAccentColor"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:animateLayoutChanges="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="0dp"
+                android:paddingBottom="6dp"
+                android:paddingHorizontal="7dp"
+                android:layout_margin="0px"
+                android:orientation="vertical"
+                android:background="?bluelineconsoleFrameColor"
+                android:animateLayoutChanges="true"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                >
                 <TextView
-                    android:clickable="false"
-                    android:id="@+id/baseWindowMainHeaderTextView"
-                    android:layout_width="130sp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal|top"
-                    android:textColor="?bluelineconsoleFrameTextColor"
-                    android:textStyle="bold"
-                    android:layout_gravity="start"
-                    android:text=""
-                    android:textSize="12sp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-        <!-- Linter complaints clickable and not focusable, not accessible from keyboard. No problem, this is just not to pass click event and dismiss -->
-        <LinearLayout
-            android:id="@+id/baseWindowDefaultThemeMainLayoutTopEdge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="0sp"
-            android:paddingHorizontal="3sp"
-            android:background="?bluelineconsoleAccentColor"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:animateLayoutChanges="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:clickable="false"
-            tools:ignore="KeyboardInaccessibleWidget"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="0dp"
-                android:paddingBottom="6dp"
-                android:paddingHorizontal="7dp"
-                android:layout_margin="0px"
-                android:orientation="vertical"
-                android:background="?bluelineconsoleFrameColor"
-                android:animateLayoutChanges="true"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                >
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/baseWindowDefaultThemeMainLinearLayoutOuter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="0sp"
-            android:paddingHorizontal="3sp"
-            android:layout_marginBottom="18sp"
-            android:background="?bluelineconsoleAccentColor"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:animateLayoutChanges="true"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:clickable="false"
-            tools:ignore="KeyboardInaccessibleWidget"
-            >
-            <LinearLayout
-                android:id="@+id/baseWindowMainLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="0dp"
-                android:paddingBottom="6dp"
-                android:paddingHorizontal="7dp"
-                android:layout_margin="0px"
-                android:orientation="vertical"
-                android:background="?bluelineconsoleFrameColor"
-                android:animateLayoutChanges="true"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                >
-                <ViewStub
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/baseWindowMainViewStub"
-                    android:animateLayoutChanges="true"
+                    android:layout_height="match_parent"
+                    android:textColor="?bluelineconsoleBaseTextColor"
+                    android:background="?android:colorBackground"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:clickable="false"
                     />
             </LinearLayout>
         </LinearLayout>
-        <!--
-          To fill the gap between baseWindowFooterWrapper and View just above,
-          layout_marginTop is actually set to -(18sp + 1 physical pixel).
-          BaseWindowActivity.onCreate() decrease 1 physical pixel from layout_marginTop.
-        -->
         <LinearLayout
-            android:id="@+id/baseWindowFooterWrapper"
             android:layout_width="wrap_content"
-            android:layout_height="18sp"
-            android:layout_marginTop="-18sp"
+            android:layout_height="18dp"
+            android:layout_marginTop="-18dp"
             android:layout_gravity="end"
             android:orientation="horizontal"
             android:animateLayoutChanges="true"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:clickable="false"
-            tools:ignore="KeyboardInaccessibleWidget"
             >
             <LinearLayout
-                android:id="@+id/baseWindowDefaultThemeFooterImagePart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="130dp"
+                android:layout_height="18dp"
                 android:background="@drawable/main_footer_background"
                 android:orientation="vertical"
                 android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:gravity="bottom"
                 >
-                <!-- Sizes here must be consistent with corresponding drawables -->
-                <TextView
-                    android:clickable="false"
-                    android:id="@+id/baseWindowMainFooterTextView"
-                    android:layout_width="130sp"
-                    android:layout_height="15sp"
-                    android:paddingBottom="1sp"
-                    android:gravity="center_horizontal|bottom"
-                    android:textStyle="bold"
-                    android:textColor="?bluelineconsoleFrameTextColor"
-                    android:layout_gravity="end"
-                    android:text=""
-                    android:textSize="12sp"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    />
-                <!-- To place accent color strictly at bottom of main_footer_background, consume all remaining space -->
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    />
                 <ImageView
-                    android:id="@+id/baseWindowDefaultThemeFooterAccent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="3dp"
                     android:background="@drawable/main_footer_accent"
-                    tools:ignore="ContentDescription"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:gravity="bottom"
                     />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/baseWindowDefaultThemeFooterEndAccent"
-                android:layout_width="3sp"
+                android:layout_width="3dp"
                 android:layout_height="match_parent"
                 android:background="?bluelineconsoleAccentColor"
                 android:orientation="vertical"
@@ -225,4 +167,4 @@
                 />
         </LinearLayout>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

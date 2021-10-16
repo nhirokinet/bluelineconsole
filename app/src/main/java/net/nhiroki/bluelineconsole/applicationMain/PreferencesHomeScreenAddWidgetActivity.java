@@ -119,7 +119,6 @@ public class PreferencesHomeScreenAddWidgetActivity extends BaseWindowActivity {
 
             default:
                 // Unknown request, start normally
-                return;
         }
     }
 

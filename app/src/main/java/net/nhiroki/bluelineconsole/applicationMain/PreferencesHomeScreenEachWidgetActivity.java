@@ -60,8 +60,8 @@ public class PreferencesHomeScreenEachWidgetActivity extends BaseWindowActivity 
         this.heightEdit.setText(String.valueOf(homeScreenWidgetInfo.heightPx));
 
 
+        TextView widgetNameView = this.findViewById(R.id.widget_display_name);
         if (homeScreenWidgetInfo.appWidgetProviderInfo != null) {
-            TextView widgetNameView = this.findViewById(R.id.widget_display_name);
             widgetNameView.setText(homeScreenWidgetInfo.appWidgetProviderInfo.loadLabel(this.getPackageManager()));
 
             ((TextView) this.findViewById(R.id.widget_minimum_height)).setText(String.format(this.getString(R.string.preferences_widget_minimum_height_show), this.homeScreenWidgetInfo.appWidgetProviderInfo.minResizeHeight));
@@ -81,7 +81,6 @@ public class PreferencesHomeScreenEachWidgetActivity extends BaseWindowActivity 
             }
 
         } else {
-            TextView widgetNameView = this.findViewById(R.id.widget_display_name);
             widgetNameView.setText(this.getString(R.string.error_failure_could_not_connect_to_the_widget));
 
             this.findViewById(R.id.widget_each_configure).setVisibility(View.GONE);

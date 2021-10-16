@@ -231,6 +231,8 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         args[0] = String.valueOf(entry.id);
 
         ContentValues cv = new ContentValues();
+        cv.put("command", entry.command);
+        cv.put("abbreviation", entry.abbreviation ? 1 : 0);
         cv.put("height_px", entry.heightPx);
 
         this.getWritableDatabase().update("widget_commands", cv, "id = ?", args);
