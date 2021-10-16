@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/baseWindowMainLayoutRoot"
+    android:id="@+id/widgetLauncherRootLinearLayout"
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
@@ -11,7 +12,6 @@
     tools:context=".applicationMain.BaseWindowActivity"
     >
     <LinearLayout
-        android:id="@+id/baseWindowRootLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -75,9 +75,8 @@
             tools:ignore="KeyboardInaccessibleWidget"
             />
         <LinearLayout
-            android:id="@+id/baseWindowMainLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:paddingVertical="12sp"
             android:paddingHorizontal="0sp"
             android:layout_margin="0px"
@@ -89,13 +88,14 @@
             android:animateLayoutChanges="true"
             tools:ignore="KeyboardInaccessibleWidget"
             >
-            <ViewStub
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/baseWindowMainViewStub"
-                android:animateLayoutChanges="true"
+                android:layout_height="match_parent"
+                android:textColor="?bluelineconsoleBaseTextColor"
+                android:background="?android:colorBackground"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 />
         </LinearLayout>
         <LinearLayout
@@ -112,4 +112,4 @@
             tools:ignore="KeyboardInaccessibleWidget"
             />
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
