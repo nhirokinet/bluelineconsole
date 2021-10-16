@@ -49,8 +49,8 @@
                 >
                 <!-- Sizes here must be consistent with corresponding drawables -->
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="130dp"
+                    android:layout_height="3dp"
                     android:id="@+id/baseWindowDefaultThemeHeaderAccent"
                     android:background="@drawable/main_header_accent"
                     android:focusable="false"
