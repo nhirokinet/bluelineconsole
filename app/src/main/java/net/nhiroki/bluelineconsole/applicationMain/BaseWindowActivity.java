@@ -41,11 +41,11 @@ public class BaseWindowActivity extends AppCompatActivity {
     private boolean _animationHasBeenEnabled = false;
 
     public static final String PREF_NAME_THEME = "pref_appearance_theme";
-    private static final String PREF_VALUE_THEME_DEFAULT = "default";
-    private static final String PREF_VALUE_THEME_LIGHT = "light";
-    private static final String PREF_VALUE_THEME_DARK = "dark";
-    private static final String PREF_VALUE_THEME_OLD_COMPUTER = "old_computer";
-    private static final String PREF_VALUE_THEME_MARINE = "marine";
+    public static final String PREF_VALUE_THEME_DEFAULT = "default";
+    public static final String PREF_VALUE_THEME_LIGHT = "light";
+    public static final String PREF_VALUE_THEME_DARK = "dark";
+    public static final String PREF_VALUE_THEME_OLD_COMPUTER = "old_computer";
+    public static final String PREF_VALUE_THEME_MARINE = "marine";
 
     public static final CharSequence[] PREF_THEME_ENTRY_VALUES = { PREF_VALUE_THEME_DEFAULT, PREF_VALUE_THEME_LIGHT, PREF_VALUE_THEME_DARK, PREF_VALUE_THEME_MARINE, PREF_VALUE_THEME_OLD_COMPUTER };
     public static CharSequence[] getPrefThemeEntries(Context context) {
@@ -74,6 +74,21 @@ public class BaseWindowActivity extends AppCompatActivity {
         }
     }
 
+    public static boolean isSystemCurrentlyNightMode(Context context) {
+        return Build.VERSION.SDK_INT >= 29 && (context.getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    // preferenceThemeName can be modified for case onPreferenceChange() which is called just before th change
+    public static String determineActualTheme(Context context, String preferenceThemeName) {
+        String ret = preferenceThemeName;
+
+        if (ret.equals(PREF_VALUE_THEME_DEFAULT)) {
+            ret = isSystemCurrentlyNightMode(context) ? PREF_VALUE_THEME_DARK : PREF_VALUE_THEME_LIGHT;
+        }
+
+        return ret;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this._currentTheme = this.readThemeFromConfig();
@@ -96,14 +111,10 @@ public class BaseWindowActivity extends AppCompatActivity {
                 break;
         }
 
-        String actualTheme = this._currentTheme;
+        final String actualTheme = determineActualTheme(this, this._currentTheme);
 
         super.onCreate(savedInstanceState);
 
-        if (this._currentTheme.equals(PREF_VALUE_THEME_DEFAULT)) {
-            boolean system_is_dark_theme = Build.VERSION.SDK_INT >= 29 && (this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-            actualTheme = system_is_dark_theme ? PREF_VALUE_THEME_DARK : PREF_VALUE_THEME_LIGHT;
-        }
 
         this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -264,7 +275,11 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected String readThemeFromConfig() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_THEME, PREF_VALUE_THEME_DEFAULT);
+        return readThemeFromConfigStatic(this);
+    }
+
+    public static String readThemeFromConfigStatic(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(PREF_NAME_THEME, PREF_VALUE_THEME_DEFAULT);
     }
 
     protected String getCurrentTheme() {

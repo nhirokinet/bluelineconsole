@@ -12,6 +12,7 @@ import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
+import net.nhiroki.bluelineconsole.widget.LauncherWidgetProvider;
 
 import java.util.List;
 
@@ -89,6 +90,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
                 new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        LauncherWidgetProvider.updateTheme(PreferencesFragment.this.getContext(), (String)newValue);
                         PreferencesFragment.this.getActivity().finish();
                         return true;
                     }

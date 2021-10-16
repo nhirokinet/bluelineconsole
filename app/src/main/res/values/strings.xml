@@ -26,6 +26,9 @@
     <string name="theme_name_marine">Marine</string>
     <string name="theme_name_old_computer">Old Computer</string>
 
+    <!-- Widgets -->
+    <string name="widget_launcher_label">Blue Line Console shortcut</string>
+
     <!-- String match strategies -->
     <string name="string_match_strategy_substring">Normal</string>
     <string name="string_match_strategy_skipped_substring">Skipped substring (e.g. \"abd\" for \"abcdef\")</string>

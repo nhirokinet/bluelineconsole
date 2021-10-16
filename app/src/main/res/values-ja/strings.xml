@@ -26,6 +26,9 @@
     <string name="theme_name_marine">マリン</string>
     <string name="theme_name_old_computer">オールド・コンピュータ</string>
 
+    <!-- Widgets -->
+    <string name="widget_launcher_label">Blue Line Console のショートカット</string>
+
     <!-- String match strategies -->
     <string name="string_match_strategy_substring">通常</string>
     <string name="string_match_strategy_skipped_substring">一部一致 （例： \"abd\" で \"abcdef\" がヒット）</string>
