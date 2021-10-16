@@ -27,7 +27,7 @@
     <string name="theme_name_old_computer">旧电脑</string>
 
     <!-- Widgets -->
-    <string name="widget_launcher_label">Blue Line Console Shortcuts</string>
+    <string name="widget_launcher_label">Blue Line Console shortcut</string>
 
     <!-- String match strategies -->
     <string name="string_match_strategy_substring">正常</string>
