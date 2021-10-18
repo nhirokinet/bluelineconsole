@@ -31,7 +31,7 @@ public class DateCommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        if (s.toLowerCase().equals("date")) {
+        if (s.equalsIgnoreCase("date")) {
             cands.add(new ClockCandidateEntry());
         }
 

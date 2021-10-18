@@ -357,15 +357,15 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void onHeightChange() {}
 
     protected static final int ROOT_WINDOW_FULL_WIDTH_IN_MOBILE = 1;
-    protected static final int ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN = 2;
+    protected static final int ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN = 2;
     protected static final int ROOT_WINDOW_FULL_WIDTH_ALWAYS = 3;
 
     protected void setWindowBoundarySize(int widthMode, int windowNestStep) {
-        final int baseHorizontalMerginInPixels = (int)(8 * windowNestStep * getResources().getDisplayMetrics().density);
-        final int baseVerticalMerginInPixels = (int)(24 * windowNestStep * getResources().getDisplayMetrics().density);
+        final int baseHorizontalMarginInPixels = (int)(8 * windowNestStep * getResources().getDisplayMetrics().density);
+        final int baseVerticalMarginInPixels = (int)(24 * windowNestStep * getResources().getDisplayMetrics().density);
 
         if (widthMode == ROOT_WINDOW_FULL_WIDTH_ALWAYS) {
-            findViewById(R.id.baseWindowRootLinearLayout).setPadding(baseHorizontalMerginInPixels, baseVerticalMerginInPixels, baseHorizontalMerginInPixels, baseVerticalMerginInPixels);
+            findViewById(R.id.baseWindowRootLinearLayout).setPadding(baseHorizontalMarginInPixels, baseVerticalMarginInPixels, baseHorizontalMarginInPixels, baseVerticalMarginInPixels);
 
         } else {
             final Point displaySize = new Point();
@@ -377,14 +377,14 @@ public class BaseWindowActivity extends AppCompatActivity {
 
             final int panelWidth;
 
-            if (widthMode == ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN) {
-                panelWidth = Math.min((int) (displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7) - baseHorizontalMerginInPixels), maxPanelWidth - baseHorizontalMerginInPixels);
+            if (widthMode == ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN) {
+                panelWidth = Math.min((int) (displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7) - baseHorizontalMarginInPixels), maxPanelWidth - baseHorizontalMarginInPixels);
             } else {
-                panelWidth = Math.min(maxPanelWidth - baseHorizontalMerginInPixels, displaySize.x - baseHorizontalMerginInPixels);
+                panelWidth = Math.min(maxPanelWidth - baseHorizontalMarginInPixels, displaySize.x - baseHorizontalMarginInPixels);
             }
 
-            final int horizontal = Math.max((displaySize.x - panelWidth) / 2, baseHorizontalMerginInPixels);
-            findViewById(R.id.baseWindowRootLinearLayout).setPadding(horizontal, baseVerticalMerginInPixels, horizontal, baseVerticalMerginInPixels);
+            final int horizontal = Math.max((displaySize.x - panelWidth) / 2, baseHorizontalMarginInPixels);
+            findViewById(R.id.baseWindowRootLinearLayout).setPadding(horizontal, baseVerticalMarginInPixels, horizontal, baseVerticalMarginInPixels);
         }
     }
 

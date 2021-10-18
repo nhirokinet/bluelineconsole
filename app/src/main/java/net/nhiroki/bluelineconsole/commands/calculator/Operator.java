@@ -1,13 +1,11 @@
 package net.nhiroki.bluelineconsole.commands.calculator;
 
-import java.math.BigDecimal;
-
 public interface Operator extends FormulaPart {
     int getPriority(); // strictly greater than 0
 
     interface InfixOperator extends Operator {
         CalculatorNumber.BigDecimalNumber operate(CalculatorNumber.BigDecimalNumber o1, CalculatorNumber.BigDecimalNumber o2)
-                throws CalculatorExceptions.CalculationException, CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.UnitConversionException;
+                throws CalculatorExceptions.CalculationException, CalculatorExceptions.IllegalFormulaException;
     }
 
 

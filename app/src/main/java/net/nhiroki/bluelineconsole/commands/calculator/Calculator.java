@@ -15,22 +15,24 @@ public class Calculator {
         String[] split_expression = expression.split(" ");
         if (split_expression.length > 2 && split_expression[split_expression.length - 2].equals("in")) {
             try {
-                String[] unitnameSplit = split_expression[split_expression.length - 1].split("/");
+                final String[] unitNameSplit = split_expression[split_expression.length - 1].split("/");
 
-                if (unitnameSplit.length == 1) {
-                    finalUnit = UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[0]).explicitCombinedUnit();
-                    expression = "";
+                if (unitNameSplit.length == 1) {
+                    finalUnit = UnitDirectory.getInstance().getCombinedUnitFromName(unitNameSplit[0]).explicitCombinedUnit();
+                    StringBuilder expressionBuilder = new StringBuilder();
                     for (int i = 0; i < split_expression.length - 2; ++i) {
-                        expression += split_expression[i] + " ";
+                        expressionBuilder.append(split_expression[i]).append(" ");
                     }
+                    expression = expressionBuilder.toString();
                 }
-                if (unitnameSplit.length == 2) {
-                    CombinedUnit positive = unitnameSplit[0].isEmpty() ? new CombinedUnit() : UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[0]).explicitCombinedUnit();
-                    finalUnit = positive.divide(UnitDirectory.getInstance().getCombinedUnitFromName(unitnameSplit[1])).explicitCombinedUnit();
-                    expression = "";
+                if (unitNameSplit.length == 2) {
+                    CombinedUnit positive = unitNameSplit[0].isEmpty() ? new CombinedUnit() : UnitDirectory.getInstance().getCombinedUnitFromName(unitNameSplit[0]).explicitCombinedUnit();
+                    finalUnit = positive.divide(UnitDirectory.getInstance().getCombinedUnitFromName(unitNameSplit[1])).explicitCombinedUnit();
+                    StringBuilder expressionBuilder = new StringBuilder();
                     for (int i = 0; i < split_expression.length - 2; ++i) {
-                        expression += split_expression[i] + " ";
+                        expressionBuilder.append(split_expression[i]).append(" ");
                     }
+                    expression = expressionBuilder.toString();
                 }
             } catch (CalculatorExceptions.IllegalFormulaException e) {
                 // Do nothing and continue
@@ -136,9 +138,9 @@ public class Calculator {
 
                 boolean seenPeriod = false;
 
-                int curpos = start;
-                for (; curpos < expression.length() && (('0' <= expression.charAt(curpos) && expression.charAt(curpos) <= '9') || expression.charAt(curpos) == '.'); ++curpos) {
-                    if (expression.charAt(curpos) == '.') {
+                int curPos = start;
+                for (; curPos < expression.length() && (('0' <= expression.charAt(curPos) && expression.charAt(curPos) <= '9') || expression.charAt(curPos) == '.'); ++curPos) {
+                    if (expression.charAt(curPos) == '.') {
                         if (seenPeriod) {
                             throw new CalculatorExceptions.IllegalFormulaException();
                         }
@@ -146,7 +148,7 @@ public class Calculator {
                         continue;
                     }
 
-                    final BigDecimal currentDigit = new BigDecimal(expression.charAt(curpos) - '0');
+                    final BigDecimal currentDigit = new BigDecimal(expression.charAt(curPos) - '0');
                     if (seenPeriod) {
                         //noinspection BigDecimalMethodWithoutRoundingCalled
                         multiplier = multiplier.divide(BigDecimal.TEN);
@@ -155,37 +157,39 @@ public class Calculator {
                         ret = ret.multiply(BigDecimal.TEN).add(currentDigit);
                     }
                 }
-                for (; curpos < expression.length() && expression.charAt(curpos) == ' '; ++curpos) {
+                while (curPos < expression.length() && expression.charAt(curPos) == ' ') {
+                    ++curPos;
                 }
-                String unitname = "";
-                while (curpos < expression.length() && expression.charAt(curpos) == ' ') {
-                    ++curpos;
+                StringBuilder unitName = new StringBuilder();
+                while (curPos < expression.length() && expression.charAt(curPos) == ' ') {
+                    ++curPos;
                 }
-                for (; curpos < expression.length() && (('a' <= expression.charAt(curpos) && expression.charAt(curpos) <= 'z') || ('A' <= expression.charAt(curpos) && expression.charAt(curpos) <= 'Z')); ++curpos) {
-                    unitname += expression.charAt(curpos);
+                for (; curPos < expression.length() && (('a' <= expression.charAt(curPos) && expression.charAt(curPos) <= 'z') || ('A' <= expression.charAt(curPos) && expression.charAt(curPos) <= 'Z')); ++curPos) {
+                    unitName.append(expression.charAt(curPos));
                 }
                 CombinedUnit unit = null;
-                if (! unitname.isEmpty()) {
-                    unit = UnitDirectory.getInstance().getCombinedUnitFromName(unitname).explicitCombinedUnitIfSingle();
-                }
-                if (! unitname.isEmpty() && curpos < expression.length() - 1 && expression.charAt(curpos) == '/') {
-                    String unitname2 = "";
-                    int tmpcurpos = curpos + 1;
-                    for (; tmpcurpos < expression.length() && (('a' <= expression.charAt(tmpcurpos) && expression.charAt(tmpcurpos) <= 'z') || ('A' <= expression.charAt(tmpcurpos) && expression.charAt(tmpcurpos) <= 'Z')); ++tmpcurpos) {
-                        unitname2 += expression.charAt(tmpcurpos);
-                    }
+                if (unitName.length() > 0) {
+                    unit = UnitDirectory.getInstance().getCombinedUnitFromName(unitName.toString()).explicitCombinedUnitIfSingle();
 
-                    if (! unitname2.isEmpty()) {
-                        try {
-                            CombinedUnit unit2 = UnitDirectory.getInstance().getCombinedUnitFromName(unitname2).explicitCombinedUnitIfSingle();
-                            unit = unit.divide(unit2);
-                            curpos = tmpcurpos;
-                        } catch (CalculatorExceptions.IllegalFormulaException e) {
-                            // We did not see anything after slash
+                    if (curPos < expression.length() - 1 && expression.charAt(curPos) == '/') {
+                        StringBuilder unitName2 = new StringBuilder();
+                        int tmpCurPos = curPos + 1;
+                        for (; tmpCurPos < expression.length() && (('a' <= expression.charAt(tmpCurPos) && expression.charAt(tmpCurPos) <= 'z') || ('A' <= expression.charAt(tmpCurPos) && expression.charAt(tmpCurPos) <= 'Z')); ++tmpCurPos) {
+                            unitName2.append(expression.charAt(tmpCurPos));
+                        }
+
+                        if (unitName2.length() > 0) {
+                            try {
+                                CombinedUnit unit2 = UnitDirectory.getInstance().getCombinedUnitFromName(unitName2.toString()).explicitCombinedUnitIfSingle();
+                                unit = unit.divide(unit2);
+                                curPos = tmpCurPos;
+                            } catch (CalculatorExceptions.IllegalFormulaException e) {
+                                // We did not see anything after slash
+                            }
                         }
                     }
                 }
-                return new ParseResult(new CalculatorNumber.BigDecimalNumber(ret, CalculatorNumber.Precision.PRECISION_NO_ERROR, unit), curpos - start);
+                return new ParseResult(new CalculatorNumber.BigDecimalNumber(ret, CalculatorNumber.Precision.PRECISION_NO_ERROR, unit), curPos - start);
             }
 
             default:
@@ -236,24 +240,20 @@ public class Calculator {
     }
 
     // TODO: more readable implementation
-    private static ParseResult calculateInBigDecimal (String expression, final int start)
+    private static ParseResult calculateInBigDecimal (final String expression, final int start)
             throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         int curPos = start;
-        Stack<FormulaPart> expressionStack = new Stack<>();
-        Stack<Operator> operatorsStack = new Stack<>();
+        final Stack<FormulaPart> expressionStack = new Stack<>();
+        final Stack<Operator> operatorsStack = new Stack<>();
 
-        while (true) {
-            if (curPos >= expression.length()) {
-                break;
-            }
-
-            int spaces = skipSpaces(expression, curPos);
+        while (curPos < expression.length()) {
+            final int spaces = skipSpaces(expression, curPos);
             if (spaces > 0) {
                 curPos += spaces;
                 continue;
             }
 
-            char curChar = expression.charAt(curPos);
+            final char curChar = expression.charAt(curPos);
 
             if (curPos == start && curChar == '-') {
                 ++curPos;
@@ -263,10 +263,10 @@ public class Calculator {
 
                 if (expression.charAt(curPos) == '(') {
                     ++curPos;
-                    ParseResult intermediate = calculateInBigDecimal(expression, curPos);
+                    final ParseResult intermediate = calculateInBigDecimal(expression, curPos);
 
                     curPos += intermediate.getConsumedChars();
-                    CalculatorNumber.BigDecimalNumber tmp = (CalculatorNumber.BigDecimalNumber) intermediate.getFormulaPart();
+                    final CalculatorNumber.BigDecimalNumber tmp = (CalculatorNumber.BigDecimalNumber) intermediate.getFormulaPart();
                     expressionStack.push(tmp.multiply(new CalculatorNumber.BigDecimalNumber(new BigDecimal("-1"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null)));
                     if (expression.length() == curPos || expression.charAt(curPos) != ')') {
                         throw new CalculatorExceptions.IllegalFormulaException();
@@ -276,7 +276,7 @@ public class Calculator {
                     continue;
                 }
 
-                ParseResult part = readFormulaPart(expression, curPos);
+                final ParseResult part = readFormulaPart(expression, curPos);
                 if (part.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber) {
                     CalculatorNumber.BigDecimalNumber tmp = (CalculatorNumber.BigDecimalNumber) part.getFormulaPart();
                     expressionStack.push(tmp.applyMinusJustToNumber());
@@ -291,7 +291,7 @@ public class Calculator {
 
             if (curChar == '(') {
                 ++curPos;
-                ParseResult intermediate = calculateInBigDecimal(expression, curPos);
+                final ParseResult intermediate = calculateInBigDecimal(expression, curPos);
 
                 curPos += intermediate.getConsumedChars();
                 expressionStack.push(intermediate.getFormulaPart());
@@ -309,7 +309,7 @@ public class Calculator {
                 break;
             }
 
-            ParseResult part = readFormulaPart(expression, curPos);
+            final ParseResult part = readFormulaPart(expression, curPos);
             curPos += part.getConsumedChars();
 
             boolean tmpOk = false;

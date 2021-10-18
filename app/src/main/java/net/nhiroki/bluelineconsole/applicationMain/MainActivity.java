@@ -384,7 +384,7 @@ public class MainActivity extends BaseWindowActivity {
     private void setWholeLayout() {
         final boolean contentFilled = !mainInputText.getText().toString().isEmpty() || this._widgetExists || this._homeItemExists;
 
-        this.setWindowBoundarySize(contentFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN, 0);
+        this.setWindowBoundarySize(contentFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN, 0);
 
         this.setWindowLocationGravity(contentFilled ? Gravity.TOP : Gravity.CENTER_VERTICAL);
 

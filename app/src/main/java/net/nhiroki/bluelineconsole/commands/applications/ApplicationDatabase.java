@@ -57,7 +57,7 @@ public class ApplicationDatabase {
         try {
             th.join();
         } catch (InterruptedException e) {
-            // waitingThreads are completed by interrupt, so this is expected behvior
+            // waitingThreads are completed by interrupt, so this is expected behavior
         }
     }
 
@@ -139,8 +139,8 @@ public class ApplicationDatabase {
             ApplicationInformation applicationInformation;
 
             if (applicationMap.containsKey(applicationInfo.packageName)) {
-                ApplicationInformation cachedInfo;
-                cachedInfo = applicationMap.get(applicationInfo.packageName);
+                final ApplicationInformation cachedInfo = applicationMap.get(applicationInfo.packageName);
+                assert cachedInfo != null;
                 appCacheToRemove.remove(applicationInfo.packageName);
 
                 if (cachedInfo.getVersion() == thisAppVersion && ((!cachedInfo.getLaunchable()) || cachedInfo.getLocale().equals(localeStr))) {

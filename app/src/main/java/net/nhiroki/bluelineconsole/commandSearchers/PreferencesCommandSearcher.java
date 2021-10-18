@@ -48,7 +48,7 @@ public class PreferencesCommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        if (s.toLowerCase().equals(COMMAND_STRING)) {
+        if (s.equalsIgnoreCase(COMMAND_STRING)) {
             cands.add(new PreferencesCandidateEntry());
         }
 

@@ -97,14 +97,14 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         private final ApplicationInformation applicationInformation;
         private final ApplicationInfo androidApplicationInfo;
         private final String title;
-        private final boolean displayPackagename;
+        private final boolean displayPackageName;
 
         // Getting app title in Android is slow, so app title also should be given via constructor from cache.
         AppOpenCandidateEntry(Context context, ApplicationInformation applicationInformation, ApplicationInfo androidApplicationInfo, String appTitle) {
             this.applicationInformation = applicationInformation;
             this.androidApplicationInfo = androidApplicationInfo;
             this.title = appTitle;
-            this.displayPackagename = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("pref_apps_show_package_name", false);
+            this.displayPackageName = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("pref_apps_show_package_name", false);
         }
 
         @Override
@@ -115,7 +115,7 @@ public class ApplicationCommandSearcher implements CommandSearcher {
 
         @Override
         public View getView(Context context) {
-            if(!displayPackagename) {
+            if(!displayPackageName) {
                 return null;
             }
 

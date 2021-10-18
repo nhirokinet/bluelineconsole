@@ -26,7 +26,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
     private static boolean migrationLostchecked = false;
     private static boolean migrationLost = false;
 
-    private Context context;
+    private final Context context;
 
 
     public static boolean migrationLostHappened(Context context) {
@@ -180,7 +180,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"},
                                                   "id = ?", new String[]{String.valueOf(id)},  null, null, null);
 
-        while (curEntry.moveToNext()) {
+        if (curEntry.moveToNext()) {
             int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
             AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
             AppWidgetsHostManager.WidgetCommand e = new AppWidgetsHostManager.WidgetCommand(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
