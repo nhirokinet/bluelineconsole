@@ -1,8 +1,8 @@
-package net.nhiroki.bluelineconsole.commands.calculator;
+package net.nhiroki.lib.bluelinecalculator;
 
 import androidx.annotation.NonNull;
 
-import net.nhiroki.bluelineconsole.commands.calculator.units.CombinedUnit;
+import net.nhiroki.lib.bluelinecalculator.units.CombinedUnit;
 
 public class CalculatorExceptions {
     public static class IllegalFormulaException extends Exception {}

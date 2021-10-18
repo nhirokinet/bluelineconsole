@@ -1,7 +1,7 @@
-package net.nhiroki.bluelineconsole.commands.calculator;
+package net.nhiroki.lib.bluelinecalculator;
 
-import net.nhiroki.bluelineconsole.commands.calculator.units.CombinedUnit;
-import net.nhiroki.bluelineconsole.commands.calculator.units.UnitDirectory;
+import net.nhiroki.lib.bluelinecalculator.units.CombinedUnit;
+import net.nhiroki.lib.bluelinecalculator.units.UnitDirectory;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

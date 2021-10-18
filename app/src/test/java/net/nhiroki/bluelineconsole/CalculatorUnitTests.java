@@ -7,14 +7,13 @@ import static org.junit.Assert.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import java.math.BigDecimal;
 import java.util.List;
 
-import net.nhiroki.bluelineconsole.commands.calculator.Calculator;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorNumber;
-import net.nhiroki.bluelineconsole.commands.calculator.Operator;
-import net.nhiroki.bluelineconsole.commands.calculator.ParseResult;
+import net.nhiroki.lib.bluelinecalculator.Calculator;
+import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
+import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
+import net.nhiroki.lib.bluelinecalculator.Operator;
+import net.nhiroki.lib.bluelinecalculator.ParseResult;
 
 
 public class CalculatorUnitTests {

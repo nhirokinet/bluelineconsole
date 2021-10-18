@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.commands.calculator;
+package net.nhiroki.lib.bluelinecalculator;
 
 public interface Operator extends FormulaPart {
     int getPriority(); // strictly greater than 0

@@ -1,10 +1,10 @@
-package net.nhiroki.bluelineconsole.commands.calculator.units;
+package net.nhiroki.lib.bluelinecalculator.units;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorNumber;
+import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
+import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

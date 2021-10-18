@@ -12,9 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.commands.calculator.Calculator;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorNumber;
+import net.nhiroki.lib.bluelinecalculator.Calculator;
+import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
+import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;

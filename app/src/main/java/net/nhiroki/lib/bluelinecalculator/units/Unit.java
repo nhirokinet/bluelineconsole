@@ -1,11 +1,11 @@
-package net.nhiroki.bluelineconsole.commands.calculator.units;
+package net.nhiroki.lib.bluelinecalculator.units;
 
 import java.math.BigDecimal;
 
 import androidx.annotation.NonNull;
 
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorNumber;
+import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
+import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 
 public interface Unit extends Comparable<Unit> {
     String getUnitName();
