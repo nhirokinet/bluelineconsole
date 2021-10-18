@@ -1,6 +1,7 @@
 package net.nhiroki.bluelineconsole.commands.calculator.units;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
@@ -62,13 +63,9 @@ public class CombinedUnit {
         ret.positiveUnits = new ArrayList<>(this.positiveUnits);
         ret.negativeUnits = new ArrayList<>(this.negativeUnits);
 
-        for (Unit u: ret.positiveUnits) {
-            ret.explicitUnits.add(u);
-        }
+        ret.explicitUnits.addAll(ret.positiveUnits);
 
-        for (Unit u: ret.negativeUnits) {
-            ret.explicitUnits.add(u);
-        }
+        ret.explicitUnits.addAll(ret.negativeUnits);
 
         return ret;
     }
@@ -125,25 +122,25 @@ public class CombinedUnit {
             return false;
         }
 
-        int pos_me_array[] = new int[this.positiveUnits.size()];
+        int[] pos_me_array = new int[this.positiveUnits.size()];
         for (int i = 0; i < this.positiveUnits. size(); ++i) {
             pos_me_array[i] = this.positiveUnits.get(i).getUnitId();
         }
         Arrays.sort(pos_me_array);
 
-        int pos_ob_array[] = new int[o.positiveUnits.size()];
+        int[] pos_ob_array = new int[o.positiveUnits.size()];
         for (int i = 0; i < o.positiveUnits. size(); ++i) {
             pos_ob_array[i] = o.positiveUnits.get(i).getUnitId();
         }
         Arrays.sort(pos_ob_array);
 
-        int neg_me_array[] = new int[this.negativeUnits.size()];
+        int[] neg_me_array = new int[this.negativeUnits.size()];
         for (int i = 0; i < this.negativeUnits. size(); ++i) {
             neg_me_array[i] = this.negativeUnits.get(i).getUnitId();
         }
         Arrays.sort(neg_me_array);
 
-        int neg_ob_array[] = new int[o.negativeUnits.size()];
+        int[] neg_ob_array = new int[o.negativeUnits.size()];
         for (int i = 0; i < o.negativeUnits. size(); ++i) {
             neg_ob_array[i] = o.negativeUnits.get(i).getUnitId();
         }
@@ -192,40 +189,40 @@ public class CombinedUnit {
         Collections.sort(this.positiveUnits);
         Collections.sort(this.negativeUnits);
 
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
 
         for (Unit u: this.positiveUnits) {
-            ret += u.getUnitId() + ",";
+            ret.append(u.getUnitId()).append(",");
         }
-        ret += "/";
+        ret.append("/");
         for (Unit u: this.negativeUnits) {
-            ret += u.getUnitId() + ",";
+            ret.append(u.getUnitId()).append(",");
         }
 
-        return ret;
+        return ret.toString();
     }
 
     public String generateIdentifiableIntArrayWithoutDummy() {
         Collections.sort(this.positiveUnits);
         Collections.sort(this.negativeUnits);
 
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
 
         for (Unit u: this.positiveUnits) {
             if (u.getDimensionId() == UnitDirectory.DIMENSION_DUMMY) {
                 continue;
             }
-            ret += u.getUnitId() + ",";
+            ret.append(u.getUnitId()).append(",");
         }
-        ret += "/";
+        ret.append("/");
         for (Unit u: this.negativeUnits) {
             if (u.getDimensionId() == UnitDirectory.DIMENSION_DUMMY) {
                 continue;
             }
-            ret += u.getUnitId() + ",";
+            ret.append(u.getUnitId()).append(",");
         }
 
-        return ret;
+        return ret.toString();
     }
 
     public boolean dimensionEquals(@Nullable CombinedUnit o) {
@@ -239,7 +236,7 @@ public class CombinedUnit {
             return false;
         }
 
-        int pos_me_array[] = new int[this.positiveUnits.size() + o.negativeUnits.size()];
+        int[] pos_me_array = new int[this.positiveUnits.size() + o.negativeUnits.size()];
         for (int i = 0; i < this.positiveUnits.size(); ++i) {
             pos_me_array[i] = this.positiveUnits.get(i).getDimensionId();
         }
@@ -248,7 +245,7 @@ public class CombinedUnit {
         }
         Arrays.sort(pos_me_array);
 
-        int neg_me_array[] = new int[this.negativeUnits.size() + o.positiveUnits.size()];
+        int[] neg_me_array = new int[this.negativeUnits.size() + o.positiveUnits.size()];
         for (int i = 0; i < this.negativeUnits.size(); ++i) {
             neg_me_array[i] = this.negativeUnits.get(i).getDimensionId();
         }
@@ -333,24 +330,25 @@ public class CombinedUnit {
     }
 
     @Override
+    @NonNull
     public String toString() {
         Collections.sort(this.positiveUnits);
         Collections.sort(this.negativeUnits);
 
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
 
         for (int i = 0; i < this.positiveUnits.size(); ++i) {
             if (i != 0) {
-                ret += "⋅";
+                ret.append("⋅");
             }
             int exp = 1;
             while (i < this.positiveUnits.size() - 1 && this.positiveUnits.get(i + 1).getUnitId() == this.positiveUnits.get(i).getUnitId()) {
                 ++exp;
                 ++i;
             }
-            ret += this.positiveUnits.get(i).getUnitName();
+            ret.append(this.positiveUnits.get(i).getUnitName());
             if (exp > 1) {
-                String expStr = "";
+                StringBuilder expStr = new StringBuilder();
                 while (exp > 0) {
                     char c;
                     if (exp % 10 == 1) {
@@ -362,27 +360,27 @@ public class CombinedUnit {
                     } else {
                         c = (char)('⁰' + exp % 10);
                     }
-                    expStr = c + expStr;
+                    expStr.insert(0, c);
                     exp /= 10;
                 }
-                ret += expStr;
+                ret.append(expStr);
             }
         }
 
         if (! this.negativeUnits.isEmpty()) {
-            ret += "/";
+            ret.append("/");
             for (int i = 0; i < this.negativeUnits.size(); ++i) {
                 if (i != 0) {
-                    ret += "⋅";
+                    ret.append("⋅");
                 }
                 int exp = 1;
                 while (i < this.negativeUnits.size() - 1 && this.negativeUnits.get(i + 1).getUnitId() == this.negativeUnits.get(i).getUnitId()) {
                     ++exp;
                     ++i;
                 }
-                ret += this.negativeUnits.get(i).getUnitName();
+                ret.append(this.negativeUnits.get(i).getUnitName());
                 if (exp > 1) {
-                    String expStr = "";
+                    StringBuilder expStr = new StringBuilder();
                     while (exp > 0) {
                         char c;
                         if (exp % 10 == 1) {
@@ -394,15 +392,15 @@ public class CombinedUnit {
                         } else {
                             c = (char)('⁰' + exp % 10);
                         }
-                        expStr = c + expStr;
+                        expStr.insert(0, c);
                         exp /= 10;
                     }
-                    ret += expStr;
+                    ret.append(expStr);
                 }
             }
         }
 
-        return ret;
+        return ret.toString();
     }
 
     public String calculateDisplayName() {
@@ -416,10 +414,6 @@ public class CombinedUnit {
     }
 
     public CombinedUnit multiply(@Nullable CombinedUnit o) throws CalculatorExceptions.IllegalFormulaException {
-        if (this == null) {
-            return o;
-        }
-
         if (! this.isCalculatable()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
@@ -437,17 +431,11 @@ public class CombinedUnit {
         ret.negativeUnits = new ArrayList<>(this.negativeUnits);
         ret.explicitUnits = new ArrayList<>(this.explicitUnits);
 
-        for (Unit u: o.positiveUnits) {
-            ret.positiveUnits.add(u);
-        }
+        ret.positiveUnits.addAll(o.positiveUnits);
 
-        for (Unit u: o.negativeUnits) {
-            ret.negativeUnits.add(u);
-        }
+        ret.negativeUnits.addAll(o.negativeUnits);
 
-        for (Unit u: o.explicitUnits) {
-            ret.explicitUnits.add(u);
-        }
+        ret.explicitUnits.addAll(o.explicitUnits);
 
         ret.normalize();
 
@@ -464,27 +452,19 @@ public class CombinedUnit {
         }
 
         CombinedUnit ret = new CombinedUnit();
-        if (this != null) {
-            if (! this.isCalculatable()) {
-                throw new CalculatorExceptions.IllegalFormulaException();
-            }
-
-            ret.positiveUnits = new ArrayList<>(this.positiveUnits);
-            ret.negativeUnits = new ArrayList<>(this.negativeUnits);
-            ret.explicitUnits = new ArrayList<>(this.explicitUnits);
+        if (! this.isCalculatable()) {
+            throw new CalculatorExceptions.IllegalFormulaException();
         }
 
-        for (Unit u: o.positiveUnits) {
-            ret.negativeUnits.add(u);
-        }
+        ret.positiveUnits = new ArrayList<>(this.positiveUnits);
+        ret.negativeUnits = new ArrayList<>(this.negativeUnits);
+        ret.explicitUnits = new ArrayList<>(this.explicitUnits);
 
-        for (Unit u: o.negativeUnits) {
-            ret.positiveUnits.add(u);
-        }
+        ret.negativeUnits.addAll(o.positiveUnits);
 
-        for (Unit u: o.explicitUnits) {
-            ret.explicitUnits.add(u);
-        }
+        ret.positiveUnits.addAll(o.negativeUnits);
+
+        ret.explicitUnits.addAll(o.explicitUnits);
 
         ret.normalize();
 

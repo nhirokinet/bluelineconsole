@@ -48,9 +48,9 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).getProgress();
-                        if (oldval > 0) {
-                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).setProgress(oldval - 1);
+                        final int oldVal = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).getProgress();
+                        if (oldVal > 0) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).setProgress(oldVal - 1);
                             PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
                         }
                     }
@@ -60,9 +60,9 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).getProgress();
-                        if (oldval < 255) {
-                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).setProgress(oldval + 1);
+                        final int oldVal = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).getProgress();
+                        if (oldVal < 255) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_red_seekbar)).setProgress(oldVal + 1);
                             PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
                         }
                     }
@@ -73,9 +73,9 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).getProgress();
-                        if (oldval > 0) {
-                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).setProgress(oldval - 1);
+                        final int oldVal = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).getProgress();
+                        if (oldVal > 0) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).setProgress(oldVal - 1);
                             PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
                         }
                     }
@@ -85,9 +85,9 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).getProgress();
-                        if (oldval < 255) {
-                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).setProgress(oldval + 1);
+                        final int oldVal = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).getProgress();
+                        if (oldVal < 255) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_green_seekbar)).setProgress(oldVal + 1);
                             PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
                         }
                     }
@@ -98,9 +98,9 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).getProgress();
-                        if (oldval > 0) {
-                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).setProgress(oldval - 1);
+                        final int oldVal = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).getProgress();
+                        if (oldVal > 0) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).setProgress(oldVal - 1);
                             PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
                         }
                     }
@@ -110,9 +110,9 @@ public class PreferencesAccentColorActivity extends BaseWindowActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int oldval = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).getProgress();
-                        if (oldval < 255) {
-                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).setProgress(oldval + 1);
+                        final int oldVal = ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).getProgress();
+                        if (oldVal < 255) {
+                            ((SeekBar) PreferencesAccentColorActivity.this.findViewById(R.id.pref_accent_color_blue_seekbar)).setProgress(oldVal + 1);
                             PreferencesAccentColorActivity.this.writeNewAccentColorPreferences();
                         }
                     }

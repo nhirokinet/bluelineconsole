@@ -24,7 +24,7 @@ public class NotificationMigrationLostActivity extends BaseWindowActivity {
         this.setWindowLocationGravity(Gravity.CENTER_VERTICAL);
 
         // Window nest count is 1, but make margin larger because background window is smaller and hides
-        this.setWindowBoundarySize(ROOT_WINDOW_ALWAYS_HORZONTAL_MARGIN, 2);
+        this.setWindowBoundarySize(ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN, 2);
 
         findViewById(R.id.startUpOKButton).setOnClickListener(new View.OnClickListener(){
             @Override

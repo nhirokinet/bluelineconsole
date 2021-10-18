@@ -1,5 +1,7 @@
 package net.nhiroki.bluelineconsole.commands.calculator;
 
+import androidx.annotation.NonNull;
+
 import net.nhiroki.bluelineconsole.commands.calculator.units.CombinedUnit;
 
 public class CalculatorExceptions {
@@ -11,6 +13,7 @@ public class CalculatorExceptions {
             this.error_message = error_message;
         }
 
+        @NonNull
         public String toString() {
             return this.getClass().getSimpleName() + ": " + this.error_message;
         }
@@ -25,6 +28,7 @@ public class CalculatorExceptions {
             this.to = (to == null) ? new CombinedUnit() : to;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "Failed to convert unit from " + this.from.toString() + " to " + this.to.toString() + ")";
