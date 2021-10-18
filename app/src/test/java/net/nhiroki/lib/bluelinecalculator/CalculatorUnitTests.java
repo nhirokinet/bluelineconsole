@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole;
+package net.nhiroki.lib.bluelinecalculator;
 
 import org.junit.Test;
 
@@ -8,12 +8,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import java.util.List;
-
-import net.nhiroki.lib.bluelinecalculator.Calculator;
-import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
-import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
-import net.nhiroki.lib.bluelinecalculator.Operator;
-import net.nhiroki.lib.bluelinecalculator.ParseResult;
 
 
 public class CalculatorUnitTests {

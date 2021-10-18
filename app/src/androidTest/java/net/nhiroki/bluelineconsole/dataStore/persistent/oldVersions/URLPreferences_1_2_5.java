@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.dataStore.persistent;
+package net.nhiroki.bluelineconsole.dataStore.persistent.oldVersions;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,24 +6,27 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class URLPreferences extends SQLiteOpenHelper {
+
+public class URLPreferences_1_2_5 extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "url_preferences.sqlite";
     private static final int DATABASE_VERSION = 1;
     private static final String[] columnsInDB = {"id", "name", "display_name", "url_base", "has_query"};
 
-    private static URLPreferences _singleton = null;
+    private static URLPreferences_1_2_5 _singleton = null;
 
 
-    private URLPreferences(Context context) {
+    private URLPreferences_1_2_5(Context context) {
         super(context, DATABASE_NAME, null,  DATABASE_VERSION);
     }
 
-    public synchronized static URLPreferences getInstance(Context context) {
+    public synchronized static URLPreferences_1_2_5 getInstance(Context context) {
         if (_singleton == null) {
-            _singleton = new URLPreferences(context);
+            _singleton = new URLPreferences_1_2_5(context);
         }
         return _singleton;
     }
@@ -35,12 +38,12 @@ public class URLPreferences extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE url_info ("+
-                   "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                   "  name TEXT NOT NULL," +
-                   "  display_name TEXT NOT NULL," +
-                   "  url_base TEXT NOT NULL," +
-                   "  has_query BOOL NOT NULL" +
-                   ")"
+                "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "  name TEXT NOT NULL," +
+                "  display_name TEXT NOT NULL," +
+                "  url_base TEXT NOT NULL," +
+                "  has_query BOOL NOT NULL" +
+                ")"
         );
     }
 
