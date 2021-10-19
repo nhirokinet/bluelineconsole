@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.dataStore.deviceLocal;
+package net.nhiroki.bluelineconsole.dataStore.deviceLocal.oldVersions;
 
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.ContentValues;
@@ -15,13 +15,13 @@ import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WidgetsSetting extends SQLiteOpenHelper {
+public class WidgetsSetting_1_2_5 extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "widgets_setting.sqlite";
     private static final int DATABASE_VERSION = 1;
 
     private static final String PREFERENCE_FLAG_WIDGETS_SETTING_EXISTS = "flag_widgets_setting_exists";
 
-    private static WidgetsSetting _singleton = null;
+    private static WidgetsSetting_1_2_5 _singleton = null;
 
     private static boolean migrationLostchecked = false;
     private static boolean migrationLost = false;
@@ -55,18 +55,14 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         prefEdit.apply();
     }
 
-    public synchronized static WidgetsSetting getInstance(Context context) {
+    public synchronized static WidgetsSetting_1_2_5 getInstance(Context context) {
         if (_singleton == null) {
-            _singleton = new WidgetsSetting(context);
+            _singleton = new WidgetsSetting_1_2_5(context);
         }
         return _singleton;
     }
 
-    public static void destroyFilesForCleanTest(Context context) {
-        context.getDatabasePath(DATABASE_NAME).delete();
-    }
-
-    private WidgetsSetting(Context context) {
+    private WidgetsSetting_1_2_5(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
@@ -75,29 +71,23 @@ public class WidgetsSetting extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(
                 "CREATE TABLE home_screen_widgets (" +
-                "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                "  app_widget_id INTEGER NOT NULL," +
-                "  height_px INTEGER NOT NULL" +
-                ")");
+                        "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                        "  app_widget_id INTEGER NOT NULL," +
+                        "  height_px INTEGER NOT NULL" +
+                        ")");
         db.execSQL(
                 "CREATE TABLE widget_commands (" +
-                "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                "  command TEXT NOT NULL," +
-                "  abbreviation INTEGER NOT NULL," +
-                "  app_widget_id INTEGER NOT NULL," +
-                "  height_px INTEGER NOT NULL" +
-                ")");
+                        "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                        "  command TEXT NOT NULL," +
+                        "  abbreviation INTEGER NOT NULL," +
+                        "  app_widget_id INTEGER NOT NULL," +
+                        "  height_px INTEGER NOT NULL" +
+                        ")");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Nothing to do now because database structure have not been modified
-    }
-
-    @Override
-    public void close() {
-        _singleton = null;
-        super.close();
     }
 
     public long addWidgetToHomeScreen(AppWidgetsHostManager.HomeScreenWidgetInfo widgetInfo) {
@@ -130,7 +120,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
 
     public AppWidgetsHostManager.HomeScreenWidgetInfo getHomeScreenById(AppWidgetsHostManager appWidgetsHostManager, int id) {
         Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px"},
-                                                  "id = ?", new String[]{String.valueOf(id)}, null, null, null);
+                "id = ?", new String[]{String.valueOf(id)}, null, null, null);
 
         if (curEntry.moveToNext()) {
             int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
@@ -188,7 +178,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
 
     public AppWidgetsHostManager.WidgetCommand getWidgetCommandById(AppWidgetsHostManager appWidgetsHostManager, int id) {
         Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"},
-                                                  "id = ?", new String[]{String.valueOf(id)},  null, null, null);
+                "id = ?", new String[]{String.valueOf(id)},  null, null, null);
 
         if (curEntry.moveToNext()) {
             int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
@@ -216,6 +206,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         cv.put("height_px", entry.heightPx);
 
         return this.getWritableDatabase().insert("widget_commands", null, cv);
+
     }
 
     public void deleteWidgetCommandById(int id) {

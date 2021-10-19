@@ -21,11 +21,12 @@ public class URLPreferencesTest extends AndroidTestCase {
     public void setUp() throws Exception {
         super.setUp();
         this.setContext(InstrumentationRegistry.getInstrumentation().getTargetContext());
-        URLPreferences.destroyFilesForCleanTest(this.getContext());
     }
 
     @Test
-    public void urlPreferencesBasicFunctionTest() throws Exception {
+    public void urlPreferencesBasicFunctionTest() {
+        URLPreferences.destroyFilesForCleanTest(this.getContext());
+
         URLPreferences oldVersionInstance = URLPreferences.getInstance(this.getContext());
 
         List<URLEntry> entries = new ArrayList<>();
@@ -53,7 +54,9 @@ public class URLPreferencesTest extends AndroidTestCase {
     }
 
     @Test
-    public void upgradeFrom_1_2_5_Test() {
+    public void urlPreferencesUpgradeFrom_1_2_5_Test() {
+        URLPreferences.destroyFilesForCleanTest(this.getContext());
+
         net.nhiroki.bluelineconsole.dataStore.persistent.oldVersions.URLPreferences_1_2_5 oldVersionInstance =
                 net.nhiroki.bluelineconsole.dataStore.persistent.oldVersions.URLPreferences_1_2_5.getInstance(this.getContext());
 

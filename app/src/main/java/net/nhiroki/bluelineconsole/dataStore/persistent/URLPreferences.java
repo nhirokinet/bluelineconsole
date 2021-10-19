@@ -49,6 +49,12 @@ public class URLPreferences extends SQLiteOpenHelper {
         // Nothing to do now because database structure have not been modified
     }
 
+    @Override
+    public void close() {
+        _singleton = null;
+        super.close();
+    }
+
     public long add(URLEntry entry) {
         ContentValues cv = new ContentValues();
         cv.put("name", entry.name);
