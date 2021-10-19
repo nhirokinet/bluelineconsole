@@ -49,6 +49,7 @@ public class URLPreferencesTest extends AndroidTestCase {
         for (URLEntry e: entries) {
             oldVersionInstance.add(e);
         }
+        oldVersionInstance.close();
 
         this.entriesLoadTest(entries, this.getContext());
     }
