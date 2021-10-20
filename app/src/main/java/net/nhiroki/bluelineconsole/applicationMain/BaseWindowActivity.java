@@ -21,14 +21,14 @@ import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.fragment.app.FragmentActivity;
 
 import net.nhiroki.bluelineconsole.R;
 
 
-public class BaseWindowActivity extends FragmentActivity {
+public class BaseWindowActivity extends AppCompatActivity {
     protected boolean _iAmHomeActivity = false;
 
     private final @LayoutRes int _mainLayoutResID;
