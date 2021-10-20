@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,7 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
                     PreferencesWidgetCommandEachActivity.this.widgetCommand = new AppWidgetsHostManager.WidgetCommand(0, null, appWidgetId);
 
                     PreferencesWidgetCommandEachActivity.this.widgetCommand.command = ((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_command_name)).getText().toString();
-                    PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((androidx.appcompat.widget.SwitchCompat) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
+                    PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((Switch) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
 
                     int err = PreferencesWidgetCommandEachActivity.this.widgetCommand.validate();
 
@@ -74,7 +75,7 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
             public void onClick(View v) {
                 if (PreferencesWidgetCommandEachActivity.this.widgetCommand != null) {
                     PreferencesWidgetCommandEachActivity.this.widgetCommand.command = ((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_command_name)).getText().toString();
-                    PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((androidx.appcompat.widget.SwitchCompat) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
+                    PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((Switch) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
                     try {
                         PreferencesWidgetCommandEachActivity.this.widgetCommand.heightPx = Integer.valueOf(((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_height)).getText().toString());
                     } catch (NumberFormatException e) {
@@ -156,7 +157,7 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
 
             }
             ((EditText) this.findViewById(R.id.widget_edit_command_name)).setText(this.widgetCommand.command);
-            ((androidx.appcompat.widget.SwitchCompat) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).setChecked(this.widgetCommand.abbreviation);
+            ((Switch) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).setChecked(this.widgetCommand.abbreviation);
             ((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_height)).setText(String.valueOf(this.widgetCommand.heightPx));
 
             PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_height_area).setVisibility(View.VISIBLE);
@@ -167,7 +168,7 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
         } else {
             ((TextView) this.findViewById(R.id.widget_display_name)).setText(R.string.preferences_command_widget_command_new_label);
             ((EditText) this.findViewById(R.id.widget_edit_command_name)).setText("");
-            ((androidx.appcompat.widget.SwitchCompat) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).setChecked(false);
+            ((Switch) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).setChecked(false);
 
             PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_height_area).setVisibility(View.GONE);
             PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_each_configure).setVisibility(View.GONE);

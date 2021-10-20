@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <androidx.appcompat.widget.SwitchCompat
+        <Switch
             android:id="@+id/url_each_enabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textUri"
                 />
-            <androidx.appcompat.widget.SwitchCompat
+            <Switch
                 android:id="@+id/url_each_has_query"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
