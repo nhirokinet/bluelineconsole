@@ -8,6 +8,8 @@ on:
 
 jobs:
   test:
+    name: Android connectedCheck
+
     runs-on: macos-latest
     steps:
       - name: checkout
