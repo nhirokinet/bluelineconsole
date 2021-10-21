@@ -77,5 +77,7 @@ public class ApplicationInformationCacheTest extends AndroidTestCase {
             assertEquals(expectedApplicationInformationList.get(i).getVersion(), appsLoaded.get(i).getVersion());
             assertEquals(expectedApplicationInformationList.get(i).getPackageName(), appsLoaded.get(i).getPackageName());
         }
+
+        applicationInformationCache.close();
     }
 }
