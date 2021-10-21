@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Basic Gradle test
 
     runs-on: ubuntu-latest
 
