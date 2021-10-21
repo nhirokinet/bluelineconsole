@@ -21,6 +21,8 @@ public class ApplicationInformationCacheTest extends AndroidTestCase {
     public void setUp() throws Exception {
         super.setUp();
         this.setContext(InstrumentationRegistry.getInstrumentation().getTargetContext());
+
+        ApplicationInformationCache.destroyFilesForCleanTest(this.getContext());
     }
 
     @Test
