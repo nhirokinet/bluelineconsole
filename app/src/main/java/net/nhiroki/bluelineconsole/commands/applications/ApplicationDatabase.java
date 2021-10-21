@@ -183,6 +183,8 @@ public class ApplicationDatabase {
             applicationInformationCache.deleteCache(removeFromCache);
         }
         setPreparationCompleted();
+
+        applicationInformationCache.close();
     }
 
     // returns editable reference, but it is not assumed to be edited outside.
