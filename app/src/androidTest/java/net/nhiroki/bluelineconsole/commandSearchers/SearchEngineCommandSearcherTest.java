@@ -1,5 +1,4 @@
-package net.nhiroki.bluelineconsole.applicationMain;
-
+package net.nhiroki.bluelineconsole.commandSearchers;
 
 import android.content.SharedPreferences;
 import android.test.AndroidTestCase;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
-public class CommandSearchAggregatorTest extends AndroidTestCase {
+public class SearchEngineCommandSearcherTest extends AndroidTestCase {
     @Before
     @Override
     public void setUp() throws Exception {
@@ -31,19 +30,43 @@ public class CommandSearchAggregatorTest extends AndroidTestCase {
 
     @Test
     public void commandSearchAggregatorLeastBasicFunctionTest() {
-        this.setUpWebSettings();
+        this.setUpBasicWebSettings();
 
-        CommandSearchAggregator commandSearchAggregator = new CommandSearchAggregator(this.getContext());
+        SearchEngineCommandSearcher searchEngineCommandSearcher = new SearchEngineCommandSearcher(this.getContext());
 
         {
-            List<CandidateEntry> candidateEntryList = commandSearchAggregator.searchCandidateEntries("test_sit queryabc", this.getContext());
+            List<CandidateEntry> candidateEntryList = searchEngineCommandSearcher.searchCandidateEntries("test_site_for_test", this.getContext());
+            assertEquals(1, candidateEntryList.size());
+            assertTrue(candidateEntryList.get(0).getTitle().indexOf("Test Site 1") != -1);
+        }
+
+        {
+            List<CandidateEntry> candidateEntryList = searchEngineCommandSearcher.searchCandidateEntries("test_site", this.getContext());
+            assertEquals(2, candidateEntryList.size());
+            int testSite1Count = 0;
+            int testSite2Count = 0;
+
+            for (CandidateEntry entry : candidateEntryList) {
+                if (entry.getTitle().indexOf("Test Site 1") != -1) {
+                    testSite1Count += 1;
+                }
+                if (entry.getTitle().indexOf("Test Site 2") != -1) {
+                    testSite2Count += 1;
+                }
+            }
+            assertEquals(1, testSite1Count);
+            assertEquals(1, testSite2Count);
+        }
+
+        {
+            List<CandidateEntry> candidateEntryList = searchEngineCommandSearcher.searchCandidateEntries("test_sit queryabc", this.getContext());
             assertEquals(1, candidateEntryList.size());
             assertTrue(candidateEntryList.get(0).getTitle().indexOf("Test Site 3") != -1);
             assertTrue(candidateEntryList.get(0).getTitle().indexOf("queryabc") != -1);
         }
     }
 
-    private void setUpWebSettings() {
+    private void setUpBasicWebSettings() {
         SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(this.getContext()).edit();
         prefEdit.remove(WebSearchEnginesDatabase.PREF_KEY_DISABLED_URLS);
         prefEdit.remove(WebSearchEnginesDatabase.PREF_KEY_DEFAULT_SEARCH);
