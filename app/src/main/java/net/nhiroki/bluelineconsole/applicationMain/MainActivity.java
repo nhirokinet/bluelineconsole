@@ -400,12 +400,12 @@ public class MainActivity extends BaseWindowActivity {
         mainInputText.requestFocusFromTouch();
     }
 
-    private void executeSearch(CharSequence s) {
-        List<CandidateEntry> cands = s.toString().isEmpty() ? new ArrayList<CandidateEntry>() :_commandSearchAggregator.searchCandidateEntries(s.toString(), MainActivity.this);
+    private void executeSearch(String s) {
+        List<CandidateEntry> cands = s.isEmpty() ? new ArrayList<CandidateEntry>() :_commandSearchAggregator.searchCandidateEntries(s, MainActivity.this);
 
         this._widgetExists = false;
         linearLayoutForWidgets.removeAllViews();
-        if (this._iAmHomeActivity && mainInputText.getText().toString().equals("")) {
+        if (this._iAmHomeActivity && s.equals("")) {
             for (View widget: this.appWidgetsHostManager.createHomeScreenWidgets()) {
                 this._widgetExists = true;
                 linearLayoutForWidgets.addView(widget);
@@ -417,7 +417,7 @@ public class MainActivity extends BaseWindowActivity {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
 
             for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
-                cands.addAll(_commandSearchAggregator.searchCandidateEntries(item.data, MainActivity.this));
+                cands.addAll(_commandSearchAggregator.searchCandidateEntries(item.data, this));
                 for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(item.data)) {
                     this._widgetExists = true;
                     linearLayoutForWidgets.addView(widget);
@@ -425,7 +425,7 @@ public class MainActivity extends BaseWindowActivity {
             }
         }
 
-        for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(mainInputText.getText().toString())) {
+        for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(s)) {
             this._widgetExists = true;
             linearLayoutForWidgets.addView(widget);
         }
@@ -436,6 +436,10 @@ public class MainActivity extends BaseWindowActivity {
             }
         } else {
             this.headerViewInfos.clear();
+        }
+
+        if (! s.toString().isEmpty()) {
+            cands.addAll(_commandSearchAggregator.searchCandidateEntriesForLast(s, this));
         }
 
         _resultCandidateListAdapter.clear();
@@ -458,7 +462,7 @@ public class MainActivity extends BaseWindowActivity {
     private void onCommandInput(final CharSequence s) {
         if (_commandSearchAggregator.isPrepared() || (s.toString().isEmpty() && !this._iAmHomeActivity)) { // avoid waste waitUntilPrepared if already prepared
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
-            executeSearch(s);
+            executeSearch(s.toString());
         } else {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
             final int myResumeId = this.resumeId;
@@ -474,7 +478,7 @@ public class MainActivity extends BaseWindowActivity {
                                 // Already different session, canceling the operation.
                                 return;
                             }
-                            executeSearch(s);
+                            executeSearch(s.toString());
                             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
                         }
                     });
