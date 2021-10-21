@@ -41,6 +41,8 @@ public class CommandSearchAggregatorTest extends AndroidTestCase {
             assertTrue(candidateEntryList.get(0).getTitle().indexOf("Test Site 3") != -1);
             assertTrue(candidateEntryList.get(0).getTitle().indexOf("queryabc") != -1);
         }
+
+        commandSearchAggregator.close();
     }
 
     private void setUpWebSettings() {
