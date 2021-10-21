@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RunWith(AndroidJUnit4.class)
-public class HomeScreenSettingTest  extends AndroidTestCase {
+public class HomeScreenSettingTest extends AndroidTestCase {
     @Before
     @Override
     public void setUp() throws Exception {

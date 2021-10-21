@@ -21,6 +21,8 @@ public class URLPreferencesTest extends AndroidTestCase {
     public void setUp() throws Exception {
         super.setUp();
         this.setContext(InstrumentationRegistry.getInstrumentation().getTargetContext());
+
+        URLPreferences.getInstance(this.getContext()).close();
     }
 
     @Test
