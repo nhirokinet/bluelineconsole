@@ -9,6 +9,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
+import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformationCache;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -27,6 +28,8 @@ public class CommandSearchAggregatorTest extends AndroidTestCase {
     public void setUp() throws Exception {
         super.setUp();
         this.setContext(InstrumentationRegistry.getInstrumentation().getTargetContext());
+
+        ApplicationInformationCache.destroyFilesForCleanTest(this.getContext());
     }
 
     @Test
