@@ -37,6 +37,7 @@ public class CommandSearchAggregatorTest extends AndroidTestCase {
         this.setUpWebSettings();
 
         CommandSearchAggregator commandSearchAggregator = new CommandSearchAggregator(this.getContext());
+        commandSearchAggregator.waitUntilPrepared();
 
         {
             List<CandidateEntry> candidateEntryList = commandSearchAggregator.searchCandidateEntries("test_sit queryabc", this.getContext());
@@ -85,5 +86,7 @@ public class CommandSearchAggregatorTest extends AndroidTestCase {
         for (URLEntry e: entries) {
             urlPreferences.add(e);
         }
+
+        urlPreferences.close();
     }
 }

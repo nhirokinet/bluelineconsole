@@ -35,6 +35,10 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
     }
 
     public static void destroyFilesForCleanTest(Context context) {
+        if (_singleton != null) {
+            _singleton.close();
+            _singleton = null;
+        }
         context.getDatabasePath(DATABASE_NAME).delete();
     }
 

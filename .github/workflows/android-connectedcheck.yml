@@ -9,8 +9,12 @@ on:
 jobs:
   test:
     name: Android connectedCheck
-
     runs-on: macos-latest
+
+    strategy:
+      matrix:
+        api-level: [22, 29]
+
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -18,5 +22,5 @@ jobs:
       - name: Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.20.0
         with:
-          api-level: 29
+          api-level: ${{ matrix.api-level }}
           script: ./gradlew connectedCheck
