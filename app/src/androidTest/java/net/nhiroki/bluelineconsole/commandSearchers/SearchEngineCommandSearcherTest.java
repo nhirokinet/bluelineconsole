@@ -33,6 +33,7 @@ public class SearchEngineCommandSearcherTest extends AndroidTestCase {
         this.setUpBasicWebSettings();
 
         SearchEngineCommandSearcher searchEngineCommandSearcher = new SearchEngineCommandSearcher(this.getContext());
+        searchEngineCommandSearcher.waitUntilPrepared();
 
         {
             List<CandidateEntry> candidateEntryList = searchEngineCommandSearcher.searchCandidateEntries("test_site_for_test", this.getContext());
@@ -59,7 +60,7 @@ public class SearchEngineCommandSearcherTest extends AndroidTestCase {
         }
 
         {
-            List<CandidateEntry> candidateEntryList = searchEngineCommandSearcher.searchCandidateEntries("test_sit queryabc", this.getContext());
+            List<CandidateEntry> candidateEntryList = searchEngineCommandSearcher.searchCandidateEntries("test_site queryabc", this.getContext());
             assertEquals(1, candidateEntryList.size());
             assertTrue(candidateEntryList.get(0).getTitle().indexOf("Test Site 3") != -1);
             assertTrue(candidateEntryList.get(0).getTitle().indexOf("queryabc") != -1);
@@ -103,5 +104,7 @@ public class SearchEngineCommandSearcherTest extends AndroidTestCase {
         for (URLEntry e: entries) {
             urlPreferences.add(e);
         }
+
+        urlPreferences.close();
     }
 }
