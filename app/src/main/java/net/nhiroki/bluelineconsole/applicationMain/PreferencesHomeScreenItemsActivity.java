@@ -96,6 +96,8 @@ public class PreferencesHomeScreenItemsActivity extends BaseWindowActivity {
     protected void onResume() {
         super.onResume();
 
+        this.appWidgetsHostManager.garbageCollectForAppWidgetIds();
+
         this.myAdapter.clear();
         this.myAdapter.addAllWidgets(this.appWidgetsHostManager.fetchHomeScreenAppWidgets(), HomeScreenSetting.getInstance(this).getAllHomeScreenDefaultItems());
     }
