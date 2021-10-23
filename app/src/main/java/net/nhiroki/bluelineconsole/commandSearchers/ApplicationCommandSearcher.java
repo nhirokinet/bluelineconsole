@@ -164,5 +164,10 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         public Drawable getIcon(Context context) {
             return context.getPackageManager().getApplicationIcon(androidApplicationInfo);
         }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
+        }
     }
 }

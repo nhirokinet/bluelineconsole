@@ -64,6 +64,7 @@ public class BaseWindowActivity extends AppCompatActivity {
      * @param smallWindow Layout will be WRAP_CONTENT if set. Only for changeBaseWindowElementSize. If you do not use changeBaseWindowElementSize, set arbitrary value.
      */
     protected BaseWindowActivity(@LayoutRes int mainLayoutResID, boolean smallWindow) {
+        super();
         this._mainLayoutResID = mainLayoutResID;
         this._smallWindow = smallWindow;
     }

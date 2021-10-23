@@ -118,6 +118,11 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         public boolean hasEvent() {
             return true;
         }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
+        }
     }
 
     private static class SearchEngineCandidateEntry implements CandidateEntry {
@@ -166,6 +171,11 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         @Override
         public boolean hasEvent() {
             return true;
+        }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
         }
     }
 }

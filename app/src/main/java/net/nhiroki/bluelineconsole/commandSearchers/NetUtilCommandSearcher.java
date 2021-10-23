@@ -112,6 +112,11 @@ public class NetUtilCommandSearcher implements CommandSearcher {
         public boolean hasEvent() {
             return !this._host.equals("");
         }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
+        }
     }
 
     private static class Ping6CandidateEntry implements CandidateEntry {
@@ -157,6 +162,11 @@ public class NetUtilCommandSearcher implements CommandSearcher {
         @Override
         public boolean hasEvent() {
             return !this._host.equals("");
+        }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
         }
     }
 }

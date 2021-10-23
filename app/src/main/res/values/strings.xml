@@ -67,6 +67,7 @@
     <string name="preferences_category_urls">Web Pages and Searches</string>
     <string name="preferences_category_custom_commands">Custom commands</string>
     <string name="preferences_category_home_screen">Home Screen</string>
+    <string name="preferences_category_contacts">Contacts</string>
     <string name="preferences_category_advanced">Advanced</string>
 
     <!-- Preferences items, main screen -->
@@ -90,6 +91,8 @@
     <string name="preferences_item_custom_commands_widgets">Widget commands (experimental)</string>
     <string name="preferences_item_home_screen_default_items">Home screen items</string>
     <string name="preferences_item_home_screen_default_items_summary">Display results and widgets when nothing is input at home screen, when Blue Line Console is set to home app.</string>
+    <string name="preferences_item_contacts_enable_search">Enable contacts search</string>
+    <string name="preferences_item_contacts_search_permission_explanation">Enabling contacts search requires permission to read Contacts. You may be asked to grant the access to Contacts.</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">Notify English input to keyboard input software on command input window</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">Command input window uses setImeHintLocales and sets to English locale. Behavior differs between keyboard input softwares.</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">Set IME_FLAG_FORCE_ASCII flag on command input window</string>
@@ -134,6 +137,10 @@
     <string name="preferences_command_widget_command_command">Command name</string>
     <string name="preferences_command_widget_command_abbreviation">Command name can be abbreviated</string>
     <string name="preferences_command_widget_command_abbreviable_label">Abbreviable</string>
+
+    <!-- Contact search -->
+    <string name="contacts_action_dial_phone_number">Dial: %1$s</string>
+    <string name="contacts_action_email">E-mail: %1$s</string>
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">Invalid URL: must start with https:// or http:// and at least one more slash (\"/\").</string>

@@ -43,4 +43,9 @@ public interface CandidateEntry {
      * @return must exactly same as (getEventLauncher(context) != null).
      */
     boolean hasEvent();
+
+    /**
+     * @return whether it is sub-item of above item.
+     */
+    boolean isSubItem();
 }
