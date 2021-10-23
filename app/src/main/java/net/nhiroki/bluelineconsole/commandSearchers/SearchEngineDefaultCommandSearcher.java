@@ -104,5 +104,10 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
         public boolean hasEvent() {
             return true;
         }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
+        }
     }
 }

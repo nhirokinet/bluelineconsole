@@ -60,7 +60,15 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
             additionalLinearView.addView(detailView);
         }
 
-        titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, detailView == null ? 24 : 18);
+        titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, (detailView == null && !cand.isSubItem()) ? 24 : 18);
+        final double pixelsPerSp = this.getContext().getResources().getDisplayMetrics().scaledDensity;
+        if (cand.isSubItem()) {
+            convertView.setPaddingRelative((int)(31.0 * pixelsPerSp), (int)(7.0 * pixelsPerSp),
+                                           (int)(15.0 * pixelsPerSp), (int)(7.0 * pixelsPerSp));
+        } else {
+            convertView.setPaddingRelative((int)(15.0 * pixelsPerSp), (int)(7.0 * pixelsPerSp),
+                                           (int)(15.0 * pixelsPerSp), (int)(7.0 * pixelsPerSp));
+        }
 
         LinearLayout.LayoutParams iconLP = (LinearLayout.LayoutParams) iconView.getLayoutParams();
         iconLP.gravity = cand.hasLongView() ? Gravity.TOP : Gravity.CENTER_VERTICAL;

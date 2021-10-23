@@ -125,6 +125,18 @@
         </Preference>
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="@string/preferences_category_contacts"
+        app:iconSpaceReserved="false"
+        >
+        <SwitchPreference
+            android:key="pref_contact_search_enabled"
+            android:title="@string/preferences_item_contacts_enable_search"
+            android:summary="@string/preferences_item_contacts_search_permission_explanation"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/preferences_category_advanced"
         app:iconSpaceReserved="false"
         >

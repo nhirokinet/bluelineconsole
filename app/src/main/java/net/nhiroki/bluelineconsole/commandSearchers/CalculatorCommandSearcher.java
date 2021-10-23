@@ -148,5 +148,10 @@ public class CalculatorCommandSearcher implements CommandSearcher {
         public Drawable getIcon(Context context) {
             return null;
         }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
+        }
     }
 }

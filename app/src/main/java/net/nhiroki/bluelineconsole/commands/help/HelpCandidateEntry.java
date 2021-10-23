@@ -77,4 +77,9 @@ public class HelpCandidateEntry implements CandidateEntry {
             throw new RuntimeException("NameNotFoundException when finding my icon.");
         }
     }
+
+    @Override
+    public boolean isSubItem() {
+        return false;
+    }
 }

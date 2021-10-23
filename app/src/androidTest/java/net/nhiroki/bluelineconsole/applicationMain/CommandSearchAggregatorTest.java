@@ -8,6 +8,7 @@ import androidx.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import net.nhiroki.bluelineconsole.commandSearchers.ContactSearchCommandSearcher;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformationCache;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
@@ -28,6 +29,10 @@ public class CommandSearchAggregatorTest extends AndroidTestCase {
     public void setUp() throws Exception {
         super.setUp();
         this.setContext(InstrumentationRegistry.getInstrumentation().getTargetContext());
+
+        SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(this.getContext()).edit();
+        prefEdit.putBoolean(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY, false);
+        prefEdit.apply();
 
         ApplicationInformationCache.destroyFilesForCleanTest(this.getContext());
     }

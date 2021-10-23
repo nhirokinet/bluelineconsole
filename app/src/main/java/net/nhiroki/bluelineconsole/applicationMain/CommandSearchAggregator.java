@@ -4,6 +4,7 @@ import android.content.Context;
 
 import net.nhiroki.bluelineconsole.commandSearchers.ApplicationCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.CalculatorCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.ContactSearchCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.DateCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.HelpCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.NetUtilCommandSearcher;
@@ -34,9 +35,10 @@ public class CommandSearchAggregator {
         commandSearcherList.add(new SearchEngineCommandSearcher(context));
 
         // Command searchers which may return tons candidate should comes to the last of "search result"
+        commandSearcherList.add(new ContactSearchCommandSearcher());
         commandSearcherList.add(new ApplicationCommandSearcher());
 
-        // Always add default search engine at the last
+        // This is splitly called and order does not matter, and results are placed at last.
         commandSearcherListAlwaysLast.add(new SearchEngineDefaultCommandSearcher(context));
 
         refresh(context);
