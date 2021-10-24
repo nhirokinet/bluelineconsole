@@ -8,9 +8,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
-
-import androidx.appcompat.widget.SwitchCompat;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
@@ -42,7 +41,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
         findViewById(R.id.url_each_submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final boolean enabled_choice = ((SwitchCompat)findViewById(R.id.url_each_enabled)).isChecked();
+                final boolean enabled_choice = ((Switch)findViewById(R.id.url_each_enabled)).isChecked();
 
                 if (PreferencesEachURLActivity.this._entry_id != null && enabled_choice != PreferencesEachURLActivity.this._entry_enabled_when_started) {
                     new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).setEntryEnabledById(PreferencesEachURLActivity.this, PreferencesEachURLActivity.this._entry_id, enabled_choice);
@@ -57,7 +56,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
                 entry.name = ((EditText)findViewById(R.id.url_each_name)).getText().toString();
                 entry.display_name = ((EditText)findViewById(R.id.url_each_display_name)).getText().toString();
                 entry.url_base = ((EditText)findViewById(R.id.url_each_base_url)).getText().toString();
-                entry.has_query = ((SwitchCompat)findViewById(R.id.url_each_has_query)).isChecked();
+                entry.has_query = ((Switch)findViewById(R.id.url_each_has_query)).isChecked();
 
                 int err = entry.validate();
 
@@ -114,8 +113,8 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             ((EditText)findViewById(R.id.url_each_name)).setText("");
             ((EditText)findViewById(R.id.url_each_display_name)).setText("");
             ((EditText)findViewById(R.id.url_each_base_url)).setText("");
-            ((SwitchCompat)findViewById(R.id.url_each_has_query)).setChecked(false);
-            ((SwitchCompat)findViewById(R.id.url_each_enabled)).setChecked(true);
+            ((Switch)findViewById(R.id.url_each_has_query)).setChecked(false);
+            ((Switch)findViewById(R.id.url_each_enabled)).setChecked(true);
             this._entry_enabled_when_started = true;
 
             findViewById(R.id.url_each_varies_with_locale).setVisibility(View.GONE);
@@ -135,8 +134,8 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             ((EditText)findViewById(R.id.url_each_name)).setText(entry.name);
             ((EditText)findViewById(R.id.url_each_display_name)).setText(entry.display_name);
             ((EditText)findViewById(R.id.url_each_base_url)).setText(entry.url_base);
-            ((SwitchCompat)findViewById(R.id.url_each_has_query)).setChecked(entry.has_query);
-            ((SwitchCompat)findViewById(R.id.url_each_enabled)).setChecked(entry.enabled);
+            ((Switch)findViewById(R.id.url_each_has_query)).setChecked(entry.has_query);
+            ((Switch)findViewById(R.id.url_each_enabled)).setChecked(entry.enabled);
             this._entry_enabled_when_started = entry.enabled;
 
             findViewById(R.id.url_each_varies_with_locale).setVisibility(entry.varies_with_locale ? View.VISIBLE : View.GONE);

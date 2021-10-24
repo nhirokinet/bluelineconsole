@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             />
-        <androidx.appcompat.widget.SwitchCompat
+        <Switch
             android:id="@+id/widget_command_abbreviation_enabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

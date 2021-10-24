@@ -34,6 +34,14 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
         return _singleton;
     }
 
+    public static void destroyFilesForCleanTest(Context context) {
+        if (_singleton != null) {
+            _singleton.close();
+            _singleton = null;
+        }
+        context.getDatabasePath(DATABASE_NAME).delete();
+    }
+
     private HomeScreenSetting(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -51,6 +59,12 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Nothing to do now because database structure have not been modified
+    }
+
+    @Override
+    public void close() {
+        _singleton = null;
+        super.close();
     }
 
     public long addHomeScreenDefaultItem(HomeScreenDefaultItem homeScreenDefaultItem) {

@@ -96,6 +96,8 @@ public class PreferencesHomeScreenItemsActivity extends BaseWindowActivity {
     protected void onResume() {
         super.onResume();
 
+        this.appWidgetsHostManager.garbageCollectForAppWidgetIds();
+
         this.myAdapter.clear();
         this.myAdapter.addAllWidgets(this.appWidgetsHostManager.fetchHomeScreenAppWidgets(), HomeScreenSetting.getInstance(this).getAllHomeScreenDefaultItems());
     }
@@ -132,8 +134,8 @@ public class PreferencesHomeScreenItemsActivity extends BaseWindowActivity {
 
             TextView titleView = new TextView(this.context);
             titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
-            int titlewViewPadding = (int) (titleView.getTextSize() * 0.3);
-            titleView.setPadding(titlewViewPadding, titlewViewPadding, titlewViewPadding, titlewViewPadding);
+            int titleViewPadding = (int) (titleView.getTextSize() * 0.3);
+            titleView.setPadding(titleViewPadding, titleViewPadding, titleViewPadding, titleViewPadding);
             titleView.setTextColor(baseTextColor.data);
             int type = this.getItem(position).type;
             titleView.setText(type == TYPE_WIDGET ? R.string.preferences_home_screen_widget_label:R.string.preferences_home_screen_command_label);

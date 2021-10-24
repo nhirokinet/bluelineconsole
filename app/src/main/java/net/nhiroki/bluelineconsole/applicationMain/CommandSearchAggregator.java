@@ -4,6 +4,7 @@ import android.content.Context;
 
 import net.nhiroki.bluelineconsole.commandSearchers.ApplicationCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.CalculatorCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.ContactSearchCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.DateCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.HelpCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.NetUtilCommandSearcher;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 public class CommandSearchAggregator {
     private final List <CommandSearcher> commandSearcherList = new ArrayList<>();
+    private final List <CommandSearcher> commandSearcherListAlwaysLast = new ArrayList<>();
 
     CommandSearchAggregator(Context context) {
         // Starting with specific string
@@ -33,10 +35,11 @@ public class CommandSearchAggregator {
         commandSearcherList.add(new SearchEngineCommandSearcher(context));
 
         // Command searchers which may return tons candidate should comes to the last of "search result"
+        commandSearcherList.add(new ContactSearchCommandSearcher());
         commandSearcherList.add(new ApplicationCommandSearcher());
 
-        // Always add default search engine at the last
-        commandSearcherList.add(new SearchEngineDefaultCommandSearcher(context));
+        // This is splitly called and order does not matter, and results are placed at last.
+        commandSearcherListAlwaysLast.add(new SearchEngineDefaultCommandSearcher(context));
 
         refresh(context);
     }
@@ -72,11 +75,24 @@ public class CommandSearchAggregator {
 
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
-        if (s.equals("")) {
+        if (s.isEmpty()) {
             return cands;
         }
 
         for (CommandSearcher cs : commandSearcherList) {
+            cands.addAll(cs.searchCandidateEntries(s, context));
+        }
+
+        return cands;
+    }
+
+    public List<CandidateEntry> searchCandidateEntriesForLast(String s, Context context) {
+        List<CandidateEntry> cands = new ArrayList<>();
+        if (s.isEmpty()) {
+            return cands;
+        }
+
+        for (CommandSearcher cs : commandSearcherListAlwaysLast) {
             cands.addAll(cs.searchCandidateEntries(s, context));
         }
 

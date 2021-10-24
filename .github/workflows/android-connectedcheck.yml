@@ -1,0 +1,26 @@
+name: Android connectedCheck
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: Android connectedCheck
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        api-level: [22, 29]
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Android Emulator Runner
+        uses: ReactiveCircus/android-emulator-runner@v2.20.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          script: ./gradlew connectedCheck

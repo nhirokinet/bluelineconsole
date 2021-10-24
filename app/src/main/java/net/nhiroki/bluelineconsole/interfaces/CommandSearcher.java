@@ -31,7 +31,7 @@ public interface CommandSearcher {
 
     /**
      * Search for commands. Call only after isPrepared() is true, or waitUntilPrepared() returned.
-     * @param s Search query stromg
+     * @param s Search query string
      * @param context Android Context for the corresponding Activity
      * @return List of result
      */

@@ -31,7 +31,7 @@ public class DateCommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        if (s.toLowerCase().equals("date")) {
+        if (s.equalsIgnoreCase("date")) {
             cands.add(new ClockCandidateEntry());
         }
 
@@ -133,6 +133,11 @@ public class DateCommandSearcher implements CommandSearcher {
         @Override
         public Drawable getIcon(Context context) {
             return null;
+        }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
         }
     }
 }

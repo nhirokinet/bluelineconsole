@@ -12,9 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.commands.calculator.Calculator;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorNumber;
+import net.nhiroki.lib.bluelinecalculator.Calculator;
+import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
+import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -51,7 +51,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
 
     private static class CalculatorCandidateEntry implements CandidateEntry {
         private final String title;
-        private List <Pair<String, String>> results;
+        private final List <Pair<String, String>> results;
 
         CalculatorCandidateEntry(String s, Context context) {
             this.results = new ArrayList<>();
@@ -62,7 +62,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
             try {
                 List<CalculatorNumber> res = Calculator.calculate(s);
                 for (CalculatorNumber r: res) {
-                    this.results.add(new Pair<String, String>(ltr + (r.getPrecision() == CalculatorNumber.Precision.PRECISION_NO_ERROR ? "= " : "≒ ") + r.generateFinalString(),
+                    this.results.add(new Pair<>(ltr + (r.getPrecision() == CalculatorNumber.Precision.PRECISION_NO_ERROR ? "= " : "≒ ") + r.generateFinalString(),
                                                               String.format(context.getString(R.string.calculator_precision_format), getPrecisionText(context, r.getPrecision()))));
                 }
 
@@ -77,7 +77,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
 
             } catch (Exception e) {
                 // Keep this function new not to happen this error
-                this.results.add(new Pair<String, String>(context.getString(R.string.error_calculator_internal_error), e.toString()));
+                this.results.add(new Pair<>(context.getString(R.string.error_calculator_internal_error), e.toString()));
             }
         }
 
@@ -147,6 +147,11 @@ public class CalculatorCommandSearcher implements CommandSearcher {
         @Override
         public Drawable getIcon(Context context) {
             return null;
+        }
+
+        @Override
+        public boolean isSubItem() {
+            return false;
         }
     }
 }

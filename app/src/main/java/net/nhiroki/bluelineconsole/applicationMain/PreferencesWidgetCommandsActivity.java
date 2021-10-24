@@ -82,6 +82,9 @@ public class PreferencesWidgetCommandsActivity extends BaseWindowActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        this.appWidgetsHostManager.garbageCollectForAppWidgetIds();
+
         listViewAdapter.clear();
         listViewAdapter.addAll(WidgetsSetting.getInstance(this).getAllWidgetCommands(this.appWidgetsHostManager));
     }

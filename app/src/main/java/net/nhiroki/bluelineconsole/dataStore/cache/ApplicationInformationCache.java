@@ -19,6 +19,10 @@ public class ApplicationInformationCache extends SQLiteOpenHelper {
         super(context, new File(context.getCacheDir(), DATABASE_NAME).toString(), null,  DATABASE_VERSION);
     }
 
+    public static void destroyFilesForCleanTest(Context context) {
+        new File(context.getCacheDir(), DATABASE_NAME).delete();
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE appinfo ("+
@@ -33,9 +37,7 @@ public class ApplicationInformationCache extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This database is just a cache, so don't hesitate to purge
-        db.execSQL("DROP TABLE IF EXISTS appinfo");
-        onCreate(db);
+        // Nothing to do now because database structure have not been modified
     }
 
     public List<ApplicationInformation> getAllApplicationCaches() {

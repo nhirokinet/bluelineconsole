@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 1 dp is defined as approx 1px in 160 dpi, so 160dp is approx 25mm, 200dp is approx 32mm. I think it is acceptable limitation for now... -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minHeight="40dp"
+    android:minHeight="80dp"
+    android:minResizeHeight="40dp"
     android:minWidth="200dp"
     android:minResizeWidth="160dp"
     android:updatePeriodMillis="0"

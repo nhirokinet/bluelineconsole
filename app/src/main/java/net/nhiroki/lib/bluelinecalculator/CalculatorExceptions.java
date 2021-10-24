@@ -1,6 +1,8 @@
-package net.nhiroki.bluelineconsole.commands.calculator;
+package net.nhiroki.lib.bluelinecalculator;
 
-import net.nhiroki.bluelineconsole.commands.calculator.units.CombinedUnit;
+import androidx.annotation.NonNull;
+
+import net.nhiroki.lib.bluelinecalculator.units.CombinedUnit;
 
 public class CalculatorExceptions {
     public static class IllegalFormulaException extends Exception {}
@@ -11,6 +13,7 @@ public class CalculatorExceptions {
             this.error_message = error_message;
         }
 
+        @NonNull
         public String toString() {
             return this.getClass().getSimpleName() + ": " + this.error_message;
         }
@@ -25,6 +28,7 @@ public class CalculatorExceptions {
             this.to = (to == null) ? new CombinedUnit() : to;
         }
 
+        @NonNull
         @Override
         public String toString() {
             return "Failed to convert unit from " + this.from.toString() + " to " + this.to.toString() + ")";

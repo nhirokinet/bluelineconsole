@@ -1,7 +1,9 @@
 package net.nhiroki.bluelineconsole.wrapperForAndroid;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetHost;
@@ -10,6 +12,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +28,7 @@ import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
 
 
 public final class AppWidgetsHostManager {
-    private static final int MY_WIDGET_HOST_ID = 1001;
+    public static final int MY_WIDGET_HOST_ID = 1001;
 
     private final Context context;
     private AppWidgetHost widgetHost = null;
@@ -115,6 +118,28 @@ public final class AppWidgetsHostManager {
         }
 
         return ret;
+    }
+
+    public void garbageCollectForAppWidgetIds() {
+        if (Build.VERSION.SDK_INT >= 26) {
+            AppWidgetHost appWidgetHost = new AppWidgetHost(this.context.getApplicationContext(), MY_WIDGET_HOST_ID);
+
+            Set<Integer> usedAppWidgetIds = new HashSet<>();
+
+            for (HomeScreenWidgetInfo homeScreenWidgetInfo: this.fetchHomeScreenAppWidgets()) {
+                usedAppWidgetIds.add(homeScreenWidgetInfo.appWidgetId);
+            }
+
+            for (WidgetCommand widgetCommand: WidgetsSetting.getInstance(this.context).getAllWidgetCommands(this)) {
+                usedAppWidgetIds.add(widgetCommand.appWidgetId);
+            }
+
+            for (int appWidgetId: appWidgetHost.getAppWidgetIds()) {
+                if (! usedAppWidgetIds.contains(appWidgetId)) {
+                    appWidgetHost.deleteAppWidgetId(appWidgetId);
+                }
+            }
+        }
     }
 
     public List<HomeScreenWidgetInfo> fetchHomeScreenAppWidgets() {

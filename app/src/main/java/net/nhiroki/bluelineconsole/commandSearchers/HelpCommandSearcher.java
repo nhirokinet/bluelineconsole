@@ -33,7 +33,7 @@ public class HelpCommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        if (s.toLowerCase().equals("help")) {
+        if (s.equalsIgnoreCase("help")) {
             cands.add(new HelpCandidateEntry());
         }
 

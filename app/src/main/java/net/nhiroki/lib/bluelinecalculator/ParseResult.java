@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.commands.calculator;
+package net.nhiroki.lib.bluelinecalculator;
 
 public class ParseResult {
     private final FormulaPart formulaPart;

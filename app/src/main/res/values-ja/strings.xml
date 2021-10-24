@@ -67,6 +67,7 @@
     <string name="preferences_category_urls">Web ページと Web 検索</string>
     <string name="preferences_category_custom_commands">カスタムコマンド</string>
     <string name="preferences_category_home_screen">ホームスクリーン</string>
+    <string name="preferences_category_contacts">連絡先</string>
     <string name="preferences_category_advanced">上級者向けオプション</string>
 
     <!-- Preferences, titles for headers and footers -->
@@ -90,6 +91,8 @@
     <string name="preferences_item_custom_commands_widgets">ウィジェットコマンド（実験的機能）</string>
     <string name="preferences_item_home_screen_default_items">ホームスクリーンの項目</string>
     <string name="preferences_item_home_screen_default_items_summary">ホームスクリーンとして起動され、コマンドが何も入力されていない場合に表示する項目を設定します</string>
+    <string name="preferences_item_contacts_enable_search">連絡先からの検索を有効にする</string>
+    <string name="preferences_item_contacts_search_permission_explanation">有効にする場合は連絡先からの読み込み権限が必要になります。別途明示的な許可操作を求められる場合があります。</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">コマンド入力窓で、キーボード入力ソフトウェアに指示する言語を英語にする</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">コマンド入力窓で setImeHintLocales を用いて、キーボード入力ソフトウェア英語入力であると指示します。キーボード入力ソフトにより挙動が異なります。</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">コマンド入力窓で IME_FLAG_FORCE_ASCII を有効にする</string>
@@ -134,6 +137,10 @@
     <string name="preferences_command_widget_command_command">コマンド名</string>
     <string name="preferences_command_widget_command_abbreviation">コマンド名は省略可能</string>
     <string name="preferences_command_widget_command_abbreviable_label">略記可</string>
+
+    <!-- Contact search -->
+    <string name="contacts_action_dial_phone_number">電話: %1$s</string>
+    <string name="contacts_action_email">電子メール: %1$s</string>
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ (\"/\") を含む必要があります</string>

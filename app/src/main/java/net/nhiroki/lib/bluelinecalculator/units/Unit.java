@@ -1,11 +1,11 @@
-package net.nhiroki.bluelineconsole.commands.calculator.units;
+package net.nhiroki.lib.bluelinecalculator.units;
 
 import java.math.BigDecimal;
 
 import androidx.annotation.NonNull;
 
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorExceptions;
-import net.nhiroki.bluelineconsole.commands.calculator.CalculatorNumber;
+import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
+import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 
 public interface Unit extends Comparable<Unit> {
     String getUnitName();
@@ -100,11 +100,13 @@ public interface Unit extends Comparable<Unit> {
             }
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) {
             return input;
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             return input.convertUnit(new CombinedUnit(this));
@@ -163,6 +165,7 @@ public interface Unit extends Comparable<Unit> {
             return Integer.compare(this.getUnitId(), o.getUnitId());
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this))) {
@@ -175,6 +178,7 @@ public interface Unit extends Comparable<Unit> {
             }
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().isCalculatable()) {
@@ -241,6 +245,7 @@ public interface Unit extends Comparable<Unit> {
             return Integer.compare(this.getUnitId(), o.getUnitId());
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this))) {
@@ -251,13 +256,14 @@ public interface Unit extends Comparable<Unit> {
                         add(new CalculatorNumber.BigDecimalNumber("273.15")).applyCombinedUnit(new CombinedUnit(this.kelvin));
 
             } catch (CalculatorExceptions.DivisionByZeroException e) {
-                throw new RuntimeException("Tryed to divide by 1.8, but DivisionByZeroExceptionOccured");
+                throw new RuntimeException("Tried to divide by 1.8, but DivisionByZeroException occurred");
 
             } catch (CalculatorExceptions.IllegalFormulaException e) {
                 throw new CalculatorExceptions.UnitConversionException(input.getCombinedUnit(), new CombinedUnit(this.kelvin));
             }
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().isCalculatable()) {

@@ -28,7 +28,7 @@ public interface CandidateEntry {
 
     /**
      * @param context Android Context for the corresponding Activity
-     * @return EventLauncher correspoinding to event, or null if nothing to do.
+     * @return EventLauncher corresponding to event, or null if nothing to do.
      */
     EventLauncher getEventLauncher(Context context);
 
@@ -43,4 +43,9 @@ public interface CandidateEntry {
      * @return must exactly same as (getEventLauncher(context) != null).
      */
     boolean hasEvent();
+
+    /**
+     * @return whether it is sub-item of above item.
+     */
+    boolean isSubItem();
 }
