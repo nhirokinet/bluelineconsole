@@ -302,11 +302,11 @@ public class MainActivity extends BaseWindowActivity {
             mainInputText.addTextChangedListener(new MainInputTextListener(mainInputText.getText()));
 
         } else {
+            _commandSearchAggregator.refresh(this);
             if (! _camebackFlag) {
                 mainInputText.setText("");
 
                 if (!this._iAmHomeActivity) {
-                    _commandSearchAggregator.refresh(this);
                     _resultCandidateListAdapter.clear();
                     _resultCandidateListAdapter.notifyDataSetChanged();
                 }
