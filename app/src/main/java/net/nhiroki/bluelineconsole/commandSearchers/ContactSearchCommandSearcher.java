@@ -28,14 +28,33 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
     public static final String PREF_CONTACT_SEARCH_ENABLED_KEY = "pref_contact_search_enabled";
 
     private List <ContactsReader.Contact> contactList = null;
+    private boolean preparationCompleted = false;
+    private final List<Thread> waitingThreads = new ArrayList<>();
+
+    private Thread loader;
 
     @Override
-    public void refresh(Context context) {
+    public void refresh(final Context context) {
+        this.cancelAnyRefreshJob();
+
         if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(PREF_CONTACT_SEARCH_ENABLED_KEY, false)) {
             this.contactList = new ArrayList<>();
+            this.setPreparationCompleted();
             return;
         }
 
+        this.preparationCompleted = false;
+
+        loader = new Thread() {
+            @Override
+            public void run() {
+                refreshDatabase(context);
+            }
+        };
+        loader.start();
+    }
+
+    private void refreshDatabase(Context context) {
         try {
             this.contactList = ContactsReader.fetchAllContacts(context);
 
@@ -46,20 +65,73 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
             prefEdit.putBoolean(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY, false);
             prefEdit.apply();
         }
+
+        this.setPreparationCompleted();
+    }
+
+    private synchronized void cancelAnyRefreshJob() {
+        for (Thread th: waitingThreads) {
+            th.interrupt();
+        }
+        this.waitingThreads.clear();
+
+        if (loader != null) {
+            loader.interrupt();
+            loader = null;
+        }
+    }
+
+    private synchronized void setPreparationCompleted() {
+        this.preparationCompleted = true;
+
+        for (Thread th: waitingThreads) {
+            th.interrupt();
+        }
+        this.waitingThreads.clear();
+    }
+
+    private synchronized void registerWaitingThread(Thread thread) {
+        if (this.preparationCompleted) {
+            thread.interrupt();
+            return;
+        }
+
+        waitingThreads.add(thread);
     }
 
     @Override
     public void close() {
+        this.cancelAnyRefreshJob();
         this.contactList = null;
     }
 
     @Override
     public boolean isPrepared() {
-        return true;
+        return preparationCompleted;
     }
 
     @Override
     public void waitUntilPrepared() {
+        Thread th = new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        //noinspection BusyWait
+                        Thread.sleep(Long.MAX_VALUE);
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                }
+            }
+        };
+        th.start();
+        registerWaitingThread(th);
+        try {
+            th.join();
+        } catch (InterruptedException e) {
+            // waitingThreads are completed by interrupt, so this is expected behavior
+        }
     }
 
     @NonNull
