@@ -67,7 +67,7 @@
     <string name="preferences_category_urls">网页和搜索</string>
     <string name="preferences_category_custom_commands">定制命令</string>
     <string name="preferences_category_home_screen">主屏幕</string>
-    <string name="preferences_category_contacts">联系人</string>
+    <string name="preferences_category_contacts">通讯录</string>
     <string name="preferences_category_advanced">高级</string>
 	
     <!-- Preferences items, main screen -->
@@ -92,7 +92,7 @@
     <string name="preferences_item_home_screen_default_items">主屏项目</string>
     <string name="preferences_item_home_screen_default_items_summary">在 Blue Line Console 被设为启动器的情况下，当主屏幕上没有任何输入时，显示结果和小部件。</string>
     <string name="preferences_item_contacts_enable_search">启用联系人搜索</string>
-    <string name="preferences_item_contacts_search_permission_explanation">搜索联系人需要有“联系人”的读取权限。您可能会被要求授予访问权限。</string>
+    <string name="preferences_item_contacts_search_permission_explanation">搜索联系人需要有“通讯录”的读取权限。您可能会被要求授予访问权限。</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">在命令输入窗口上通知英语输入到键盘输入软件</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">命令输入窗口使用 setImeHintLocales 并设为英语语言环境。不同的键盘输入软件有不同的行为。</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">在命令输入窗口上设置 IME_FLAG_FORCE_ASCII  标志</string>
