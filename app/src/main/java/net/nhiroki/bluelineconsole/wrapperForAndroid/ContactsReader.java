@@ -11,7 +11,9 @@ import androidx.core.content.ContextCompat;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ContactsReader {
     public static class Contact {
@@ -35,47 +37,87 @@ public class ContactsReader {
         List<Contact> ret = new ArrayList<>();
         final ContentResolver contentResolver = context.getContentResolver();
 
-        final android.database.Cursor cursor;
+        Map<String, List <String>> phoneNumbers = new HashMap<>();
+        Map<String, List <String>> emailAddresses = new HashMap<>();
 
+        final android.database.Cursor phoneCursor;
         try {
-            cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[0], null, new String[0], null);
+            phoneCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[0], null, new String[0], null);
 
         } catch (Exception e) {
-            // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all...
+            // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all, and also call in non-main thread
             return new ArrayList<>();
         }
 
-        while (cursor.moveToNext()) {
+        while (phoneCursor.moveToNext()) {
+            try {
+                final String contactId = phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
+                if (! phoneNumbers.containsKey(contactId)) {
+                    phoneNumbers.put(contactId, new ArrayList<String>());
+                }
+                phoneNumbers.get(contactId).add(phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA)));
+            } catch (Exception e) {
+                // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all, and also call in non-main thread
+            }
+        }
+        phoneCursor.close();
+
+        final android.database.Cursor emailCursor;
+        try {
+            emailCursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, new String[0], null, new String[0], null);
+
+        } catch (Exception e) {
+            // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all, and also call in non-main thread
+            return new ArrayList<>();
+        }
+
+        while (emailCursor.moveToNext()) {
+            try {
+                final String contactId = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.CONTACT_ID));
+                if (! emailAddresses.containsKey(contactId)) {
+                    emailAddresses.put(contactId, new ArrayList<String>());
+                }
+                emailAddresses.get(contactId).add(emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)));
+            } catch (Exception e) {
+                // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all, and also call in non-main thread
+            }
+        }
+        emailCursor.close();
+
+        final android.database.Cursor contactsCursor;
+        try {
+            contactsCursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[0], null, new String[0], null);
+
+        } catch (Exception e) {
+            // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all, and also call in non-main thread
+            return new ArrayList<>();
+        }
+
+        while (contactsCursor.moveToNext()) {
             Contact contact = new Contact();
 
             try {
                 // TODO: icon
-                String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                contact.display_name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String contactId = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Contacts._ID));
+                contact.display_name = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
-                android.database.Cursor phoneCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", new String[]{contactId}, null);
-                while (phoneCursor.moveToNext()) {
-                    contact.phoneNumbers.add(phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA)));
+                if (phoneNumbers.containsKey(contactId)) {
+                    contact.phoneNumbers = phoneNumbers.get(contactId);
                 }
-                phoneCursor.close();
 
-                android.database.Cursor emailCursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
-                        ContactsContract.CommonDataKinds.Email.CONTACT_ID + "=?", new String[]{contactId}, null);
-                while(emailCursor.moveToNext()) {
-                    contact.emailAddresses.add(emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)));
+                if (emailAddresses.containsKey(contactId)) {
+                    contact.emailAddresses = emailAddresses.get(contactId);
                 }
-                emailCursor.close();
 
                 ret.add(contact);
 
             } catch (Exception e) {
-                cursor.close();
-                // TODO: Improve this by checking doc. This unexpected, but better than being unable to open app at all...
+                contactsCursor.close();
+                // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all, and also call in non-main thread
             }
         }
 
-        cursor.close();
+        contactsCursor.close();
         return ret;
     }
 }
