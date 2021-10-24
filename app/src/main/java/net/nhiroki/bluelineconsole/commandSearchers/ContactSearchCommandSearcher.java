@@ -31,6 +31,11 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
 
     @Override
     public void refresh(Context context) {
+        if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(PREF_CONTACT_SEARCH_ENABLED_KEY, false)) {
+            this.contactList = new ArrayList<>();
+            return;
+        }
+
         try {
             this.contactList = ContactsReader.fetchAllContacts(context);
 
@@ -70,7 +75,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
             int match = judgeQueryForContact(context, s, contact);
 
             if (match >= 0) {
-                resultList.add(new Pair<Integer, ContactsReader.Contact>(match, contact));
+                resultList.add(new Pair<>(match, contact));
             }
         }
 
@@ -84,18 +89,16 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
 
         List<CandidateEntry> ret = new ArrayList<>();
         for (Pair<Integer, ContactsReader.Contact> contactPair: resultList) {
-            // TODO: icon
-
             ContactsReader.Contact contact = contactPair.second;
 
             ret.add(new ContactCandidateEntry(contact));
 
             for (String phoneNumber: contact.phoneNumbers) {
-                ret.add(new PhoneNumberCandidateEntry(contact, phoneNumber, context));
+                ret.add(new PhoneNumberCandidateEntry(phoneNumber, context));
             }
 
             for (String emailAddress: contact.emailAddresses) {
-                ret.add(new EmailCandidateEntry(contact, emailAddress, context));
+                ret.add(new EmailCandidateEntry(emailAddress, context));
             }
         }
         return ret;
@@ -113,8 +116,14 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
                 return match + 1000000;
             }
         }
+
+        final String queryToUseForPhone = query.replace("(", "").replace(")", "").replace("-", "");
+        if (queryToUseForPhone.isEmpty()) {
+            return -1;
+        }
+
         for (String phoneNumber: contact.phoneNumbers) {
-            int match = StringMatchStrategy.match(context, query, phoneNumber, false);
+            int match = StringMatchStrategy.match(context, queryToUseForPhone, phoneNumber.replace("(", "").replace(")", "").replace("-", ""), false);
             if (match >= 0) {
                 return match + 2000000;
             }
@@ -169,12 +178,10 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
     }
 
     private static class PhoneNumberCandidateEntry implements CandidateEntry {
-        private final ContactsReader.Contact contact;
         private final String phoneNumber;
         private final String title;
 
-        private PhoneNumberCandidateEntry(ContactsReader.Contact contact, String phoneNumber, Context context) {
-            this.contact = contact;
+        private PhoneNumberCandidateEntry(String phoneNumber, Context context) {
             this.phoneNumber = phoneNumber;
             this.title = String.format(context.getString(R.string.contacts_action_dial_phone_number), this.phoneNumber);
         }
@@ -223,12 +230,10 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
     }
 
     private static class EmailCandidateEntry implements CandidateEntry {
-        private final ContactsReader.Contact contact;
         private final String emailAddresss;
         private final String title;
 
-        private EmailCandidateEntry(ContactsReader.Contact contact, String emailAddress, Context context) {
-            this.contact = contact;
+        private EmailCandidateEntry(String emailAddress, Context context) {
             this.emailAddresss = emailAddress;
             this.title = String.format(context.getString(R.string.contacts_action_email), this.emailAddresss);
         }
