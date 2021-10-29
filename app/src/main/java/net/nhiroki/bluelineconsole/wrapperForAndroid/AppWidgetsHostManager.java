@@ -160,7 +160,9 @@ public final class AppWidgetsHostManager {
 
     // Handle widget config totally here because they cannot be synced among devices
     public void saveHomeScreenWidgetInfo(HomeScreenWidgetInfo homeScreenWidgetInfo) {
-        homeScreenWidgetInfo.heightPx = Math.max(homeScreenWidgetInfo.heightPx, homeScreenWidgetInfo.appWidgetProviderInfo.minResizeHeight);
+        if (homeScreenWidgetInfo.appWidgetProviderInfo != null) {
+            homeScreenWidgetInfo.heightPx = Math.max(homeScreenWidgetInfo.heightPx, homeScreenWidgetInfo.appWidgetProviderInfo.minResizeHeight);
+        }
         this.widgetsSetting.updateHomeScreenWidgetInfo(homeScreenWidgetInfo);
     }
 
