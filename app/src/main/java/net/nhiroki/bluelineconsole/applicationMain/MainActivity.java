@@ -467,6 +467,11 @@ public class MainActivity extends BaseWindowActivity {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
             final int myResumeId = this.resumeId;
 
+            this.headerViewInfos.clear();
+
+            _resultCandidateListAdapter.clear();
+            _resultCandidateListAdapter.notifyDataSetChanged();
+
             _threadPool.execute(new Runnable() {
                 @Override
                 public void run() {
