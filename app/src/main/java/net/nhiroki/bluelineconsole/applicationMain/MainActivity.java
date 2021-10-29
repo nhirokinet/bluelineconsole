@@ -173,7 +173,7 @@ public class MainActivity extends BaseWindowActivity {
          *   - ListView.mHeaderViewInfos and HeaderViewListAdapter.mHeaderViewInfos may be different objects, and HeaderViewListAdapter.mHeaderViewInfos is actually used.
          */
 
-        HeaderViewListAdapter internalHeaderAdapter = new HeaderViewListAdapter(headerViewInfos, null, _resultCandidateListAdapter) {
+        final HeaderViewListAdapter internalHeaderAdapter = new HeaderViewListAdapter(headerViewInfos, null, _resultCandidateListAdapter) {
             @Override
             public boolean isEnabled(int position) {
                 try {
@@ -198,7 +198,7 @@ public class MainActivity extends BaseWindowActivity {
         candidateListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                _resultCandidateListAdapter.invokeEvent(position, MainActivity.this);
+                _resultCandidateListAdapter.invokeEvent(position - internalHeaderAdapter.getHeadersCount(), MainActivity.this);
             }
         });
 
