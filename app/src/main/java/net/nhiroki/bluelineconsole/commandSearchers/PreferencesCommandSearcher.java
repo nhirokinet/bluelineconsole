@@ -104,5 +104,10 @@ public class PreferencesCommandSearcher implements CommandSearcher {
         public boolean isSubItem() {
             return false;
         }
+
+        @Override
+        public boolean viewIsRecyclable() {
+            return true;
+        }
     }
 }
