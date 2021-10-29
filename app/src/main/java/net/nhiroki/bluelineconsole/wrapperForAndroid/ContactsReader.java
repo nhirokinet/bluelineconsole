@@ -52,7 +52,10 @@ public class ContactsReader {
                     if (!phoneNumbers.containsKey(contactId)) {
                         phoneNumbers.put(contactId, new ArrayList<String>());
                     }
-                    phoneNumbers.get(contactId).add(phoneCursor.getString(dataColumnIndex));
+                    final String phoneNumStr = phoneCursor.getString(dataColumnIndex);
+                    if (phoneNumStr != null) {
+                        phoneNumbers.get(contactId).add(phoneNumStr);
+                    }
                 }
             }
             phoneCursor.close();
@@ -66,14 +69,13 @@ public class ContactsReader {
                 final int dataColumnIndex = emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
 
                 if (contactIdColumnIndex != -1 && dataColumnIndex != -1) {
-                    try {
-                        final String contactId = emailCursor.getString(contactIdColumnIndex);
-                        if (!emailAddresses.containsKey(contactId)) {
-                            emailAddresses.put(contactId, new ArrayList<String>());
-                        }
-                        emailAddresses.get(contactId).add(emailCursor.getString(dataColumnIndex));
-                    } catch (Exception e) {
-                        // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all, and also call in non-main thread
+                    final String contactId = emailCursor.getString(contactIdColumnIndex);
+                    if (!emailAddresses.containsKey(contactId)) {
+                        emailAddresses.put(contactId, new ArrayList<String>());
+                    }
+                    final String emailStr = emailCursor.getString(dataColumnIndex);
+                    if (emailStr != null) {
+                        emailAddresses.get(contactId).add(emailStr);
                     }
                 }
             }
@@ -91,6 +93,10 @@ public class ContactsReader {
 
                     String contactId = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Contacts._ID));
                     contact.display_name = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+                    if (contact.display_name == null) {
+                        contact.display_name = "";
+                    }
 
                     if (phoneNumbers.containsKey(contactId)) {
                         contact.phoneNumbers = phoneNumbers.get(contactId);
