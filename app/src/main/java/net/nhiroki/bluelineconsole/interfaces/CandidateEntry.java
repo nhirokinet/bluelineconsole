@@ -48,4 +48,9 @@ public interface CandidateEntry {
      * @return whether it is sub-item of above item.
      */
     boolean isSubItem();
+
+    /**
+     * @return whether view from getView(Context) is recycle
+     */
+    boolean viewIsRecyclable();
 }

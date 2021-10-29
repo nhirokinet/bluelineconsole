@@ -247,6 +247,11 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         public boolean isSubItem() {
             return false;
         }
+
+        @Override
+        public boolean viewIsRecyclable() {
+            return true;
+        }
     }
 
     private static class PhoneNumberCandidateEntry implements CandidateEntry {
@@ -299,6 +304,11 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         public boolean isSubItem() {
             return true;
         }
+
+        @Override
+        public boolean viewIsRecyclable() {
+            return true;
+        }
     }
 
     private static class EmailCandidateEntry implements CandidateEntry {
@@ -349,6 +359,11 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
 
         @Override
         public boolean isSubItem() {
+            return true;
+        }
+
+        @Override
+        public boolean viewIsRecyclable() {
             return true;
         }
     }

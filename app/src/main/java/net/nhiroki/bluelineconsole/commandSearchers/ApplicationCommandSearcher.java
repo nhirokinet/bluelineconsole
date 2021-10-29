@@ -169,5 +169,10 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         public boolean isSubItem() {
             return false;
         }
+
+        @Override
+        public boolean viewIsRecyclable() {
+            return true;
+        }
     }
 }
