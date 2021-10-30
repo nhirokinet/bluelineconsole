@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RunWith(AndroidJUnit4.class)
-public class WidgetSettingTest extends AndroidTestCase {
+public class WidgetsSettingTest extends AndroidTestCase {
     @Before
     @Override
     public void setUp() throws Exception {
