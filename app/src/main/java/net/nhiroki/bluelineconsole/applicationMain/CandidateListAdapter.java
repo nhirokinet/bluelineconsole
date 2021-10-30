@@ -2,11 +2,13 @@ package net.nhiroki.bluelineconsole.applicationMain;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,7 +21,9 @@ import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private final ListView listView;
@@ -30,6 +34,8 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private static final int CHOICE_NOT_SET_YET       = -1;
     private static final int CHOICE_UNAVAILABLE       = -2;
     private static final int CHOICE_KNOWN_BY_LISTVIEW = -3;
+
+    private Map<Integer, View> unrecycleViews = new HashMap<>();
 
     CandidateListAdapter(BaseWindowActivity activity, List<CandidateEntry> objects, ListView listView) {
         super(activity, 0, objects);
@@ -46,18 +52,31 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         }
 
         final CandidateEntry cand = this.getItem(position);
+        if (! cand.viewIsRecyclable() && this.unrecycleViews.containsKey(position)) {
+            return this.unrecycleViews.get(position);
+        }
+
+        final Drawable icon = cand.getIcon(getContext());
+        final String title = cand.getTitle();
 
         final TextView titleTextView = convertView.findViewById(R.id.candidateTitleTextView);
         final ImageView iconView = convertView.findViewById(R.id.candidateIconView);
         final LinearLayout additionalLinearView = convertView.findViewById(R.id.candidatedetaillinearlistview);
+        final LinearLayout additionalLongLinearView = convertView.findViewById(R.id.candidatelongdetaillinearlistview);
 
-        titleTextView.setText(cand.getTitle());
+        titleTextView.setText(title == null ? "" : title);
+        titleTextView.setVisibility(title == null ? View.GONE : View.VISIBLE);
 
         additionalLinearView.removeAllViews();
+        additionalLongLinearView.removeAllViews();
         View detailView = cand.getView(convertView.getContext());
         if (detailView != null) {
             detailView.setClickable(false);
-            additionalLinearView.addView(detailView);
+            if (cand.hasLongView()) {
+                additionalLongLinearView.addView(detailView);
+            } else {
+                additionalLinearView.addView(detailView);
+            }
         }
 
         titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, (detailView == null && !cand.isSubItem()) ? 24 : 18);
@@ -78,13 +97,17 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         getContext().getTheme().resolveAttribute(R.attr.bluelineconsoleSelectedItemBackgroundColor, selectedItemBackground, true);
         convertView.setBackgroundColor((position == getChosenNowExplicitly())?  selectedItemBackground.data: Color.TRANSPARENT);
 
-        if (cand.getIcon(getContext()) == null) {
+        if (icon == null) {
             iconView.setImageResource(android.R.color.transparent);
             iconView.setVisibility(View.GONE);
 
         } else {
-            iconView.setImageDrawable(cand.getIcon(getContext()));
+            iconView.setImageDrawable(icon);
             iconView.setVisibility(View.VISIBLE);
+        }
+
+        if (! cand.viewIsRecyclable()) {
+            this.unrecycleViews.put(position, convertView);
         }
 
         return convertView;
@@ -92,6 +115,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
     @Override
     public void notifyDataSetChanged() {
+        this.unrecycleViews.clear();
         this.chosenNowExplicitly = CHOICE_NOT_SET_YET;
         super.notifyDataSetChanged();
     }
@@ -99,6 +123,16 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     @Override
     public boolean isEnabled (int position) {
         return position < getCount() && getItem(position).hasEvent();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (! this.getItem(position).viewIsRecyclable()) {
+            // WidgetHost behavior differs against below:
+            // return AdapterView.ITEM_VIEW_TYPE_IGNORE;
+            return AdapterView.ITEM_VIEW_TYPE_HEADER_OR_FOOTER;
+        }
+        return super.getItemViewType(position);
     }
 
     public int getChosenNowExplicitly() {
