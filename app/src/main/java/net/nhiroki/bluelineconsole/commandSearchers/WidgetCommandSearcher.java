@@ -1,5 +1,6 @@
 package net.nhiroki.bluelineconsole.commandSearchers;
 
+import android.appwidget.AppWidgetHostView;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -7,7 +8,6 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
-import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -18,6 +18,57 @@ import java.util.List;
 
 public class WidgetCommandSearcher implements CommandSearcher {
     private AppWidgetsHostManager appWidgetsHostManager;
+
+    private static class WidgetSupportingLinearLayout extends LinearLayout {
+        private int currentWidth = 0;
+
+        WidgetSupportingLinearLayout(Context context) {
+            super(context);
+        }
+
+        // updateAppWidgetSize() call seems to be mandatory for some widgets.
+        // To achieve this, know precise size on onSizeChanged and apply this.
+        @Override
+        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+            super.onSizeChanged(w, h, oldw, oldh);
+
+            if (w == 0 || h == 0) {
+                return;
+            }
+            this.currentWidth = w - this.getPaddingLeft() - this.getPaddingRight();
+
+            if (this.currentWidth <= 0) {
+                return;
+            }
+            double density = this.getContext().getResources().getDisplayMetrics().density;
+
+            for (int i = 0; i < this.getChildCount(); ++i) {
+                try {
+                    View child = this.getChildAt(i);
+                    if (child instanceof AppWidgetHostView) {
+                        int height = child.getLayoutParams().height;
+                        ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
+                        child.invalidate();
+                    }
+                } catch (Exception e) {
+                    // For case that children changes in another thread
+                }
+            }
+        }
+
+        @Override
+        public void addView(View child) {
+            super.addView(child);
+
+            double density = this.getContext().getResources().getDisplayMetrics().density;
+
+            if (currentWidth > 0 && child instanceof AppWidgetHostView) {
+                int height = child.getLayoutParams().height;
+                ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
+                child.invalidate();
+            }
+        }
+    }
 
     @Override
     public void refresh(Context context) {
@@ -53,7 +104,7 @@ public class WidgetCommandSearcher implements CommandSearcher {
         private final View widget;
 
         public WidgetCandidateEntry(View widget) {
-            MainActivity.WidgetSupportingLinearLayout linearLayout = new MainActivity.WidgetSupportingLinearLayout(widget.getContext());
+            WidgetSupportingLinearLayout linearLayout = new WidgetSupportingLinearLayout(widget.getContext());
             linearLayout.setPadding(0, 0, 0, 0);
             linearLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayout.addView(widget);
