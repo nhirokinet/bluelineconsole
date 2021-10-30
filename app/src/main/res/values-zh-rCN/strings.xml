@@ -44,7 +44,10 @@
     <string name="button_close">关闭</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
-	
+    <string name="rgb_color_red">红</string>
+    <string name="rgb_color_green">绿</string>
+    <string name="rgb_color_blue">蓝</string>
+
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">此设置在重启 Blue Line Console 后生效。</string>
 
@@ -112,9 +115,6 @@
     <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">主题默认</string>
     <string name="preferences_accent_color_custom">自定义颜色</string>
-    <string name="preferences_accent_color_red">红</string>
-    <string name="preferences_accent_color_green">绿</string>
-    <string name="preferences_accent_color_blue">蓝</string>
     <string name="preferences_accent_color_theme_without_accent_color">当前主题 (%1$s) 不支持更改强调色。</string>
 
     <!-- Preferences item, home screen default items screens -->

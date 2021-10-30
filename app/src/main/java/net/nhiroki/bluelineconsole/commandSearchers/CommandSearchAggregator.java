@@ -1,10 +1,10 @@
 package net.nhiroki.bluelineconsole.commandSearchers;
 
 import android.content.Context;
-import android.view.View;
 
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ApplicationCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.CalculatorCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ColorDisplayCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ContactSearchCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.DateCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.HelpCommandSearcher;
@@ -43,6 +43,7 @@ public class CommandSearchAggregator {
         // First character is limited
         commandSearcherList.add(new CalculatorCommandSearcher());
         commandSearcherList.add(new SearchEngineCommandSearcher(context));
+        commandSearcherList.add(new ColorDisplayCommandSearcher());
 
         // Command searchers which may return tons candidate should comes to the last of "search result"
         commandSearcherList.add(new ContactSearchCommandSearcher());
