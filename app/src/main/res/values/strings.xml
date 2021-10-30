@@ -44,6 +44,9 @@
     <string name="button_close">Close</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
+    <string name="rgb_color_red">Red</string>
+    <string name="rgb_color_green">Green</string>
+    <string name="rgb_color_blue">Blue</string>
 
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">This setting takes effect after restarting Blue Line Console.</string>
@@ -112,9 +115,6 @@
     <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">Theme default</string>
     <string name="preferences_accent_color_custom">Customize color</string>
-    <string name="preferences_accent_color_red">Red</string>
-    <string name="preferences_accent_color_green">Green</string>
-    <string name="preferences_accent_color_blue">Blue</string>
     <string name="preferences_accent_color_theme_without_accent_color">Current theme (%1$s) does not support changing accent color.</string>
 
     <!-- Preferences item, home screen default items screens -->

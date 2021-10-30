@@ -72,7 +72,7 @@
                     android:id="@+id/pref_accent_color_red_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preferences_accent_color_red"
+                    android:text="@string/rgb_color_red"
                     />
                 <SeekBar
                     android:id="@+id/pref_accent_color_red_seekbar"
@@ -117,7 +117,7 @@
                     android:id="@+id/pref_accent_color_green_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preferences_accent_color_green"
+                    android:text="@string/rgb_color_green"
                     />
                 <SeekBar
                     android:id="@+id/pref_accent_color_green_seekbar"
@@ -162,7 +162,7 @@
                     android:id="@+id/pref_accent_color_blue_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/preferences_accent_color_blue"
+                    android:text="@string/rgb_color_blue"
                     />
                 <SeekBar
                     android:id="@+id/pref_accent_color_blue_seekbar"
