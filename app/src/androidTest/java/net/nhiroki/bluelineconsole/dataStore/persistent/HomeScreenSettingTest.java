@@ -5,7 +5,7 @@ import android.test.AndroidTestCase;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import net.nhiroki.bluelineconsole.dataStore.persistent.oldVersions.HomeScreenSetting_1_2_5;
+import net.nhiroki.bluelineconsole.dataStore.persistent.oldVersions.*;
 
 import org.junit.Before;
 import org.junit.Test;
