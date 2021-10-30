@@ -8,7 +8,8 @@ import androidx.preference.PreferenceManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import net.nhiroki.bluelineconsole.commandSearchers.ContactSearchCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.CommandSearchAggregator;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ContactSearchCommandSearcher;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformationCache;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
