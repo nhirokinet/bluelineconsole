@@ -120,7 +120,7 @@
     <!-- Preferences item, home screen default items screens -->
     <string name="preferences_home_screen_add_command_button">添加命令</string>
     <string name="preferences_home_screen_add_widget_button">添加小部件 （实验性）</string>
-    <string name="preferences_home_screen_add_widget_select_message">选择要添加的小部件（在查询前请先添加）：</string>
+    <string name="preferences_home_screen_add_widget_select_message">选择要添加的小部件：</string>
     <string name="preferences_home_screen_widget_label">小部件</string>
     <string name="preferences_home_screen_command_label">命令</string>
 

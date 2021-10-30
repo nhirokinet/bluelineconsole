@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 
 
@@ -59,7 +60,10 @@ public class PreferencesHomeScreenAddWidgetActivity extends BaseWindowActivity {
 
                 AppWidgetProviderInfo info = AppWidgetManager.getInstance(PreferencesHomeScreenAddWidgetActivity.this.getApplicationContext()).getAppWidgetInfo(appWidgetId);
 
-                PreferencesHomeScreenAddWidgetActivity.this.appWidgetsHostManager.addHomeScreenAppWidget(appWidgetId);
+                int afterDefaultItem = HomeScreenSetting.getInstance(PreferencesHomeScreenAddWidgetActivity.this).getLargestIdInHomeScreenDefaultItems();
+
+                PreferencesHomeScreenAddWidgetActivity.this.appWidgetsHostManager.addHomeScreenAppWidget(appWidgetId, afterDefaultItem);
+
                 if (info.configure != null) {
                     PreferencesHomeScreenAddWidgetActivity.this.appWidgetsHostManager.startAppWidgetConfigureActivityForResult(PreferencesHomeScreenAddWidgetActivity.this, appWidgetId, 0, REQUEST_APPWIDGET_CONFIGURE, null);
 
@@ -86,7 +90,8 @@ public class PreferencesHomeScreenAddWidgetActivity extends BaseWindowActivity {
                     case Activity.RESULT_OK:
                         appWidgetId = data.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, -1);
                         AppWidgetProviderInfo info = AppWidgetManager.getInstance(this.getApplicationContext()).getAppWidgetInfo(appWidgetId);
-                        PreferencesHomeScreenAddWidgetActivity.this.appWidgetsHostManager.addHomeScreenAppWidget(appWidgetId);
+                        int afterDefaultItem = HomeScreenSetting.getInstance(PreferencesHomeScreenAddWidgetActivity.this).getLargestIdInHomeScreenDefaultItems();
+                        PreferencesHomeScreenAddWidgetActivity.this.appWidgetsHostManager.addHomeScreenAppWidget(appWidgetId, afterDefaultItem);
 
                         if (info.configure != null) {
                             PreferencesHomeScreenAddWidgetActivity.this.appWidgetsHostManager.startAppWidgetConfigureActivityForResult(PreferencesHomeScreenAddWidgetActivity.this, appWidgetId, 0, REQUEST_APPWIDGET_CONFIGURE, null);

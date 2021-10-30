@@ -78,7 +78,7 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
     public List<HomeScreenDefaultItem> getAllHomeScreenDefaultItems() {
         List<HomeScreenDefaultItem> ret = new ArrayList<>();
 
-        Cursor curEntry = this.getReadableDatabase().query("home_screen_default_items", new String[]{"id", "type", "data"}, null, null, null, null, null);
+        Cursor curEntry = this.getReadableDatabase().query("home_screen_default_items", new String[]{"id", "type", "data"}, null, null, null, null, "id");
 
         while (curEntry.moveToNext()) {
             HomeScreenDefaultItem e = new HomeScreenDefaultItem();
@@ -111,6 +111,13 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
         return null;
     }
 
+    public int getLargestIdInHomeScreenDefaultItems() {
+        Cursor curEntry = this.getReadableDatabase().query("home_screen_default_items", new String[]{"MAX(id)"}, null, null, null, null, "id");
+        if (curEntry.moveToNext()) {
+            return curEntry.getInt(curEntry.getColumnIndex("MAX(id)"));
+        }
+        return -1;
+    }
 
     public void deleteHomeScreenDefaultItem(int id) {
         String[] args = new String[1];

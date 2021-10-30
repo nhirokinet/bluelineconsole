@@ -170,20 +170,33 @@ public class PreferencesHomeScreenItemsActivity extends BaseWindowActivity {
         }
 
         public void addAllWidgets(List<AppWidgetsHostManager.HomeScreenWidgetInfo> allWidgets, List<HomeScreenSetting.HomeScreenDefaultItem> homeScreenDefaultItemList) {
-            for (AppWidgetsHostManager.HomeScreenWidgetInfo widgetInfo: allWidgets) {
-                ObjectOnList objectOnList = new ObjectOnList();
-                objectOnList.type = TYPE_WIDGET;
-                objectOnList.homeScreenWidgetInfo = widgetInfo;
-
-                this.add(objectOnList);
-            }
+            int widgetId = 0;
 
             for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
+                while(widgetId < allWidgets.size() && allWidgets.get(widgetId).afterDefaultItem < item.id) {
+                    ObjectOnList objectOnList = new ObjectOnList();
+                    objectOnList.type = TYPE_WIDGET;
+                    objectOnList.homeScreenWidgetInfo = allWidgets.get(widgetId);
+
+                    this.add(objectOnList);
+
+                    ++widgetId;
+                }
                 ObjectOnList objectOnList = new ObjectOnList();
                 objectOnList.type = TYPE_COMMAND;
                 objectOnList.homeScreenDefaultItem = item;
 
                 this.add(objectOnList);
+            }
+
+            while(widgetId < allWidgets.size()) {
+                ObjectOnList objectOnList = new ObjectOnList();
+                objectOnList.type = TYPE_WIDGET;
+                objectOnList.homeScreenWidgetInfo = allWidgets.get(widgetId);
+
+                this.add(objectOnList);
+
+                ++widgetId;
             }
         }
     }
