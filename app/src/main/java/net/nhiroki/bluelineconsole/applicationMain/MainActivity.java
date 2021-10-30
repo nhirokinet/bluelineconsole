@@ -21,13 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.HeaderViewListAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.commandSearchers.WidgetCommandSearcher;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
 import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -51,13 +51,7 @@ public class MainActivity extends BaseWindowActivity {
     private boolean showStartUpHelp = false;
     private boolean _migrationLostHappened = false;
 
-    private boolean _widgetExists = false;
     private boolean _homeItemExists = false;
-
-    private WidgetSupportingLinearLayout linearLayoutForWidgets = null;
-    private ListView.FixedViewInfo linearLayoutForWidgetsInfo = null;
-
-    private final ArrayList<ListView.FixedViewInfo> headerViewInfos = new ArrayList<>();
 
     private final AppWidgetsHostManager appWidgetsHostManager = new AppWidgetsHostManager(this);
 
@@ -71,7 +65,7 @@ public class MainActivity extends BaseWindowActivity {
     }
 
 
-    private static class WidgetSupportingLinearLayout extends LinearLayout {
+    public static class WidgetSupportingLinearLayout extends LinearLayout {
         private int currentWidth = 0;
 
         public WidgetSupportingLinearLayout(Context context) {
@@ -140,65 +134,12 @@ public class MainActivity extends BaseWindowActivity {
         this.candidateListView = findViewById(R.id.candidateListView);
         _resultCandidateListAdapter = new CandidateListAdapter(this, new ArrayList<CandidateEntry>(), candidateListView);
 
-        this.linearLayoutForWidgets = new WidgetSupportingLinearLayout(this);
-        this.linearLayoutForWidgets.setPadding(0, 0, 0, 0);
-        this.linearLayoutForWidgets.setOrientation(LinearLayout.VERTICAL);
-        linearLayoutForWidgetsInfo = candidateListView.new FixedViewInfo();
-        linearLayoutForWidgetsInfo.view = this.linearLayoutForWidgets;
-        linearLayoutForWidgetsInfo.data = null;
-        linearLayoutForWidgetsInfo.isSelectable = false;
-
-        /* As of Android-30 SDK, ListView seems to occasionally crash when addHeaderView (or Possibly addFooterView) was called, adapter is set, and then the number of entries decreased.
-         *
-         * This is reported in StackOverflow on 2011/12/08 as a question, and workaround is suggested on 2012/03/19.
-         *  https://stackoverflow.com/questions/8431342/listview-random-indexoutofboundsexception-on-froyo
-         *
-         * In this situation StackTrace is more similar to this one:
-         *  https://stackoverflow.com/questions/13136166/i-am-getting-random-crash-on-my-listview-android-widget-headerviewlistadapter-is
-         *
-         * This workaround is written as vendor specific problem, but in my environment it also reproduces in Android Emulator.
-         *
-         * Reading the code of Android SDK-30, it seems that the following things happen:
-         *  - When ListView.addHeaderView or ListView.addFooterView, ListView's internal ArrayAdapter is converted to HeaderViewListAdapter unless it is already instanceof HeaderViewListAdapter.
-         *  - ListView.dispatchDraw(Canvas) calls mAdapter.isEnabled(int), which will crash when header is added.
-         *  - For original ArrayAdapter, isEnabled(int position) simply returns true, regardless of position. This is just inherited from BaseAdapter.
-         *  - For HeaderViewListAdapter, isEnabled(int position) lookup for position.
-         *    - The occasional crashes occurred here, by looking up footer info list, and which exceeds the size.
-         *
-         * Therefore this is likely to be a bug in SDK, and is likely to be caused that ListView.dispatchDraw lookups adapter's status for out-of-bound index,
-         * but triggered by addHeaderView because original ArrayAdapter simply returns true for isEnabled(int position), even if position is out-of-bound.
-         *
-         * This workaround relies on the implementation that:
-         *   - ListView.addHeaderView does not convert the adapter if it is already HeaderViewListAdapter
-         *   - ListView.mHeaderViewInfos and HeaderViewListAdapter.mHeaderViewInfos may be different objects, and HeaderViewListAdapter.mHeaderViewInfos is actually used.
-         */
-
-        final HeaderViewListAdapter internalHeaderAdapter = new HeaderViewListAdapter(headerViewInfos, null, _resultCandidateListAdapter) {
-            @Override
-            public boolean isEnabled(int position) {
-                try {
-                    return super.isEnabled(position);
-                } catch (IndexOutOfBoundsException e) {
-                    return false;
-                }
-            }
-        };
-
-        candidateListView.setAdapter(internalHeaderAdapter);
-
-        /* In combination with ArrayAdapter and ListView, it seems to happen that ArrayAdapter.getView is called but just for measurement or something like that,
-         * and result View is not used.
-         * For widgets, for each AppWidgetId, only the AppWidgetHostView that is created last seems to work, and older one won't be updated.
-         * So, if the AppWidgetHostView is created when ArrayAdapter.getView is called, but older AppWidgetHostView is actually displayed,
-         * the widget get stuck.
-         * For header, View can directly injected, so using this. For this reason, widgets always appears first.
-         */
-        candidateListView.addHeaderView(linearLayoutForWidgets);
+        candidateListView.setAdapter(_resultCandidateListAdapter);
 
         candidateListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                _resultCandidateListAdapter.invokeEvent(position - internalHeaderAdapter.getHeadersCount(), MainActivity.this);
+                _resultCandidateListAdapter.invokeEvent(position, MainActivity.this);
             }
         });
 
@@ -382,7 +323,7 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void setWholeLayout() {
-        final boolean contentFilled = !mainInputText.getText().toString().isEmpty() || this._widgetExists || this._homeItemExists;
+        final boolean contentFilled = !mainInputText.getText().toString().isEmpty() || this._homeItemExists;
 
         this.setWindowBoundarySize(contentFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN, 0);
 
@@ -403,42 +344,23 @@ public class MainActivity extends BaseWindowActivity {
     private void executeSearch(String s) {
         List<CandidateEntry> cands = s.isEmpty() ? new ArrayList<CandidateEntry>() :_commandSearchAggregator.searchCandidateEntries(s, MainActivity.this);
 
-        this._widgetExists = false;
-        linearLayoutForWidgets.removeAllViews();
         if (this._iAmHomeActivity && s.equals("")) {
+            List<HomeScreenSetting.HomeScreenDefaultItem> homeScreenDefaultItemList = HomeScreenSetting.getInstance(this).getAllHomeScreenDefaultItems();
+            this._homeItemExists = !homeScreenDefaultItemList.isEmpty();
+
             for (View widget: this.appWidgetsHostManager.createHomeScreenWidgets()) {
-                this._widgetExists = true;
-                linearLayoutForWidgets.addView(widget);
+                cands.add(new WidgetCommandSearcher.WidgetCandidateEntry(widget));
+                this._homeItemExists = true;
             }
 
-            List<HomeScreenSetting.HomeScreenDefaultItem> homeScreenDefaultItemList = HomeScreenSetting.getInstance(this).getAllHomeScreenDefaultItems();
-
-            this._homeItemExists = !homeScreenDefaultItemList.isEmpty();
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
 
             for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
                 cands.addAll(_commandSearchAggregator.searchCandidateEntries(item.data, this));
-                for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(item.data)) {
-                    this._widgetExists = true;
-                    linearLayoutForWidgets.addView(widget);
-                }
             }
         }
 
-        for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(s)) {
-            this._widgetExists = true;
-            linearLayoutForWidgets.addView(widget);
-        }
-
-        if (this._widgetExists) {
-            if (this.headerViewInfos.isEmpty()) {
-                this.headerViewInfos.add(linearLayoutForWidgetsInfo);
-            }
-        } else {
-            this.headerViewInfos.clear();
-        }
-
-        if (! s.toString().isEmpty()) {
+        if (! s.isEmpty()) {
             cands.addAll(_commandSearchAggregator.searchCandidateEntriesForLast(s, this));
         }
 
@@ -446,11 +368,7 @@ public class MainActivity extends BaseWindowActivity {
         _resultCandidateListAdapter.addAll(cands);
         _resultCandidateListAdapter.notifyDataSetChanged();
 
-        if (this._widgetExists) {
-            candidateListView.setSelection(0);
-        }
-
-        if (cands.isEmpty() && !this._widgetExists) {
+        if (cands.isEmpty()) {
             findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, 0, 0, 0);
         } else {
             findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, (int)(6 * getResources().getDisplayMetrics().density + 0.5), 0, 0);
@@ -460,14 +378,12 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void onCommandInput(final CharSequence s) {
-        if (_commandSearchAggregator.isPrepared() || (s.toString().isEmpty() && !this._iAmHomeActivity)) { // avoid waste waitUntilPrepared if already prepared
+        if (_commandSearchAggregator.isPrepared() || (s.toString().isEmpty() && !this._iAmHomeActivity)) {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
             executeSearch(s.toString());
         } else {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
             final int myResumeId = this.resumeId;
-
-            this.headerViewInfos.clear();
 
             _resultCandidateListAdapter.clear();
             _resultCandidateListAdapter.notifyDataSetChanged();
