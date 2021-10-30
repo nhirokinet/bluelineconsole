@@ -313,6 +313,10 @@ public class MainActivity extends BaseWindowActivity {
         _resultCandidateListAdapter.addAll(cands);
         _resultCandidateListAdapter.notifyDataSetChanged();
 
+        if (! cands.isEmpty()) {
+            candidateListView.setSelection(0);
+        }
+
         this.setWholeLayout();
     }
 
