@@ -1,20 +1,19 @@
-package net.nhiroki.bluelineconsole.applicationMain;
+package net.nhiroki.bluelineconsole.commandSearchers;
 
 import android.content.Context;
 import android.view.View;
 
-import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.commandSearchers.ApplicationCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.CalculatorCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.ContactSearchCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.DateCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.HelpCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.NetUtilCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.PreferencesCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.SearchEngineCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.SearchEngineDefaultCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.URICommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.WidgetCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ApplicationCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.CalculatorCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ContactSearchCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.DateCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.HelpCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.NetUtilCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.PreferencesCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.SearchEngineCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.SearchEngineDefaultCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.URICommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.WidgetCommandSearcher;
 import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
@@ -28,9 +27,9 @@ public class CommandSearchAggregator {
     private final List <CommandSearcher> commandSearcherListAlwaysLast = new ArrayList<>();
 
     private AppWidgetsHostManager appWidgetsHostManager = null;
-    
 
-    CommandSearchAggregator(Context context) {
+
+    public CommandSearchAggregator(Context context) {
         // Starting with specific string
         commandSearcherList.add(new HelpCommandSearcher());
         commandSearcherList.add(new PreferencesCommandSearcher());

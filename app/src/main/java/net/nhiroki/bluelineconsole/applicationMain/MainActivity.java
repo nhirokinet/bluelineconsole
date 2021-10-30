@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.commandSearchers.CommandSearchAggregator;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
