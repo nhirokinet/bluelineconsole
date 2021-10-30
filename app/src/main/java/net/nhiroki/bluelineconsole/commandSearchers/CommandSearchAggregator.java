@@ -115,12 +115,22 @@ public class CommandSearchAggregator {
 
         List<CandidateEntry> ret = new ArrayList<>();
 
-        for (View widget: this.appWidgetsHostManager.createHomeScreenWidgets()) {
-            ret.add(new WidgetCommandSearcher.WidgetCandidateEntry(widget));
-        }
+        List<AppWidgetsHostManager.HomeScreenWidgetViewItem> widgetInfoList = this.appWidgetsHostManager.createHomeScreenWidgets();
+
+        int widgetInfoListId = 0;
 
         for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
+            while (widgetInfoListId < widgetInfoList.size() && widgetInfoList.get(widgetInfoListId).afterDefaultItem < item.id) {
+                ret.add(new WidgetCommandSearcher.WidgetCandidateEntry(widgetInfoList.get(widgetInfoListId).widgetView));
+                ++widgetInfoListId;
+            }
+
             ret.addAll(this.searchCandidateEntries(item.data, context));
+        }
+
+        while (widgetInfoListId < widgetInfoList.size()) {
+            ret.add(new WidgetCommandSearcher.WidgetCandidateEntry(widgetInfoList.get(widgetInfoListId).widgetView));
+            ++widgetInfoListId;
         }
 
         return ret;

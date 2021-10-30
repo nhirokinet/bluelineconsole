@@ -72,7 +72,7 @@ public class URLPreferences extends SQLiteOpenHelper {
     public List<URLEntry> getAllEntries() {
         List<URLEntry> ret = new ArrayList<>();
 
-        Cursor curEntry = this.getReadableDatabase().query("url_info", columnsInDB, null, null, null, null, null);
+        Cursor curEntry = this.getReadableDatabase().query("url_info", columnsInDB, null, null, null, null, "id");
 
         while(curEntry.moveToNext()) {
             URLEntry e = new URLEntry();

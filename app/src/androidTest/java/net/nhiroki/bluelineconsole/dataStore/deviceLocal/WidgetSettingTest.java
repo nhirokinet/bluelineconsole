@@ -29,7 +29,7 @@ public class WidgetSettingTest extends AndroidTestCase {
     public void widgetSettingBasicFunctionTest() {
         WidgetsSetting.destroyFilesForCleanTest(this.getContext());
 
-        WidgetsSetting oldVersionInstance = WidgetsSetting.getInstance(this.getContext());
+        WidgetsSetting myInstance = WidgetsSetting.getInstance(this.getContext());
 
         List<AppWidgetsHostManager.WidgetCommand> testCommands = new ArrayList<>();
 
@@ -50,18 +50,19 @@ public class WidgetSettingTest extends AndroidTestCase {
         testCommands.get(3).heightPx = 1238;
 
         for (AppWidgetsHostManager.WidgetCommand c: testCommands) {
-            oldVersionInstance.addWidgetCommand(c);
+            myInstance.addWidgetCommand(c);
         }
 
         List<AppWidgetsHostManager.HomeScreenWidgetInfo> testHomeScreenWidgets = new ArrayList<>();
         testHomeScreenWidgets.add(new AppWidgetsHostManager.HomeScreenWidgetInfo(0, null, 123));
         testHomeScreenWidgets.get(0).heightPx = 1234;
+        testHomeScreenWidgets.get(0).afterDefaultItem = 12;
 
         for (AppWidgetsHostManager.HomeScreenWidgetInfo w: testHomeScreenWidgets) {
-            oldVersionInstance.addWidgetToHomeScreen(w);
+            myInstance.addWidgetToHomeScreen(w);
         }
 
-        oldVersionInstance.close();
+        myInstance.close();
 
         entriesLoadTest(testCommands, testHomeScreenWidgets);
     }
@@ -104,6 +105,9 @@ public class WidgetSettingTest extends AndroidTestCase {
 
         oldVersionInstance.close();
 
+        // Introduced in 1.2.8
+        testHomeScreenWidgets.get(0).afterDefaultItem = -1;
+
         entriesLoadTest(testCommands, testHomeScreenWidgets);
     }
 
@@ -126,6 +130,7 @@ public class WidgetSettingTest extends AndroidTestCase {
         for (int i = 0; i < homeScreenWidgetInfoListFromDB.size(); ++i) {
             assertEquals(expectedHomeScreenWidgetInfoList.get(i).appWidgetId, homeScreenWidgetInfoListFromDB.get(i).appWidgetId);
             assertEquals(expectedHomeScreenWidgetInfoList.get(i).heightPx, homeScreenWidgetInfoListFromDB.get(i).heightPx);
+            assertEquals(expectedHomeScreenWidgetInfoList.get(i).afterDefaultItem, homeScreenWidgetInfoListFromDB.get(i).afterDefaultItem);
         }
 
         widgetsSetting.close();

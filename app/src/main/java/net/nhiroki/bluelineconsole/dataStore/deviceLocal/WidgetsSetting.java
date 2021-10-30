@@ -17,7 +17,7 @@ import java.util.List;
 
 public class WidgetsSetting extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "widgets_setting.sqlite";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String PREFERENCE_FLAG_WIDGETS_SETTING_EXISTS = "flag_widgets_setting_exists";
 
@@ -81,7 +81,8 @@ public class WidgetsSetting extends SQLiteOpenHelper {
                 "CREATE TABLE home_screen_widgets (" +
                 "  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 "  app_widget_id INTEGER NOT NULL," +
-                "  height_px INTEGER NOT NULL" +
+                "  height_px INTEGER NOT NULL," +
+                "  after_default_item INTERGER NOT NULL DEFAULT -1" +
                 ")");
         db.execSQL(
                 "CREATE TABLE widget_commands (" +
@@ -95,7 +96,19 @@ public class WidgetsSetting extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Nothing to do now because database structure have not been modified
+        int currentVersion = oldVersion;
+
+        if (currentVersion == 1 && newVersion >= 2) {
+            db.execSQL(
+                    "ALTER TABLE home_screen_widgets ADD after_default_item INTEGER NOT NULL DEFAULT -1"
+            );
+
+            currentVersion = 2;
+        }
+
+        if (currentVersion != newVersion) {
+            throw new RuntimeException("Failed Database Upgrade");
+        }
     }
 
     @Override
@@ -109,6 +122,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("app_widget_id", widgetInfo.appWidgetId);
         cv.put("height_px", widgetInfo.heightPx);
+        cv.put("after_default_item", widgetInfo.afterDefaultItem);
 
         return this.getWritableDatabase().insert("home_screen_widgets", null, cv);
     }
@@ -116,13 +130,15 @@ public class WidgetsSetting extends SQLiteOpenHelper {
     public List<AppWidgetsHostManager.HomeScreenWidgetInfo> getAllHomeScreenWidgets(AppWidgetsHostManager appWidgetsHostManager) {
         List<AppWidgetsHostManager.HomeScreenWidgetInfo> ret = new ArrayList<>();
 
-        Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px"}, null, null, null, null, null);
+        Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px", "after_default_item"},
+                null, null, null, null, "id");
 
         while (curEntry.moveToNext()) {
             int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
             AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
             AppWidgetsHostManager.HomeScreenWidgetInfo e = new AppWidgetsHostManager.HomeScreenWidgetInfo(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
             e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
+            e.afterDefaultItem = curEntry.getInt(curEntry.getColumnIndex("after_default_item"));
 
             ret.add(e);
         }
@@ -133,7 +149,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
     }
 
     public AppWidgetsHostManager.HomeScreenWidgetInfo getHomeScreenById(AppWidgetsHostManager appWidgetsHostManager, int id) {
-        Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px"},
+        Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px", "after_default_item"},
                                                   "id = ?", new String[]{String.valueOf(id)}, null, null, null);
 
         if (curEntry.moveToNext()) {
@@ -141,6 +157,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
             AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
             AppWidgetsHostManager.HomeScreenWidgetInfo e = new AppWidgetsHostManager.HomeScreenWidgetInfo(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
             e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
+            e.afterDefaultItem = curEntry.getInt(curEntry.getColumnIndex("after_default_item"));
 
             curEntry.close();
             return e;
@@ -169,7 +186,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
     public List<AppWidgetsHostManager.WidgetCommand> getAllWidgetCommands(AppWidgetsHostManager appWidgetsHostManager) {
         List<AppWidgetsHostManager.WidgetCommand> ret = new ArrayList<>();
 
-        Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"}, null, null, null, null, null);
+        Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"}, null, null, null, null, "id");
 
         while (curEntry.moveToNext()) {
             int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
