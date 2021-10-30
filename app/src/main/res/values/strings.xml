@@ -198,6 +198,10 @@
         \nName for search engine name can be abbreviated.
         \nFor example, \"d somequery\" is equivalent to \"duckduckgo somequery\".
         \n
+        \nOther commands:
+        \n
+        \n-&#032;Color code (like #4d68ff)
+        \n
         \nHint: Set up Blue Line Console as Default Assistant App from Settings &gt; Apps &amp; notofications &gt; Default Apps &gt; Assistant app or similar menu, to make Blue Line Console open on long-pressing home button.
         \nHint: Blue Line Console can be launched from notification menu by always showing notification. Find the option from config command.
     </string>

@@ -195,6 +195,10 @@
         \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　（仅在有相应命令的系统上可用）
 		\n
+        \nOther commands:
+        \n
+        \n-&#032;Color code (like #4d68ff)
+        \n
         \n搜索引擎名称可以缩写。
         \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。
         \n
