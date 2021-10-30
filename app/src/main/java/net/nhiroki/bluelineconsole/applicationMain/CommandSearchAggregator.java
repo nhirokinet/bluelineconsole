@@ -1,7 +1,9 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
 import android.content.Context;
+import android.view.View;
 
+import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commandSearchers.ApplicationCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.CalculatorCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.ContactSearchCommandSearcher;
@@ -13,8 +15,10 @@ import net.nhiroki.bluelineconsole.commandSearchers.SearchEngineCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.SearchEngineDefaultCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.URICommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.WidgetCommandSearcher;
+import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
+import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,6 +26,9 @@ import java.util.ArrayList;
 public class CommandSearchAggregator {
     private final List <CommandSearcher> commandSearcherList = new ArrayList<>();
     private final List <CommandSearcher> commandSearcherListAlwaysLast = new ArrayList<>();
+
+    private AppWidgetsHostManager appWidgetsHostManager = null;
+    
 
     CommandSearchAggregator(Context context) {
         // Starting with specific string
@@ -60,6 +67,7 @@ public class CommandSearchAggregator {
         for (CommandSearcher cs : commandSearcherList) {
             cs.refresh(context);
         }
+        this.appWidgetsHostManager = new AppWidgetsHostManager(context);
     }
 
     public boolean isPrepared() {
@@ -101,6 +109,22 @@ public class CommandSearchAggregator {
         }
 
         return cands;
+    }
+
+    public List<CandidateEntry> homeScreenDefaultCandidateEntries(Context context) {
+        List<HomeScreenSetting.HomeScreenDefaultItem> homeScreenDefaultItemList = HomeScreenSetting.getInstance(context).getAllHomeScreenDefaultItems();
+
+        List<CandidateEntry> ret = new ArrayList<>();
+
+        for (View widget: this.appWidgetsHostManager.createHomeScreenWidgets()) {
+            ret.add(new WidgetCommandSearcher.WidgetCandidateEntry(widget));
+        }
+
+        for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
+            ret.addAll(this.searchCandidateEntries(item.data, context));
+        }
+
+        return ret;
     }
 }
 

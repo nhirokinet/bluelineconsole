@@ -6,8 +6,6 @@ import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.appwidget.AppWidgetHostView;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,15 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.commandSearchers.WidgetCommandSearcher;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
-import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 
@@ -60,62 +55,10 @@ public class MainActivity extends BaseWindowActivity {
 
     private int resumeId = 0;
 
+
     public MainActivity() {
         super(R.layout.main_activity_body, true);
     }
-
-
-    public static class WidgetSupportingLinearLayout extends LinearLayout {
-        private int currentWidth = 0;
-
-        public WidgetSupportingLinearLayout(Context context) {
-            super(context);
-        }
-
-        // updateAppWidgetSize() call seems to be mandatory for some widgets.
-        // To achieve this, know precise size on onSizeChanged and apply this.
-        @Override
-        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            super.onSizeChanged(w, h, oldw, oldh);
-
-            if (w == 0 || h == 0) {
-                return;
-            }
-            this.currentWidth = w - this.getPaddingLeft() - this.getPaddingRight();
-
-            if (this.currentWidth <= 0) {
-                return;
-            }
-            double density = this.getContext().getResources().getDisplayMetrics().density;
-
-            for (int i = 0; i < this.getChildCount(); ++i) {
-                try {
-                    View child = this.getChildAt(i);
-                    if (child instanceof AppWidgetHostView) {
-                        int height = child.getLayoutParams().height;
-                        ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
-                        child.invalidate();
-                    }
-                } catch (Exception e) {
-                    // For case that children changes in another thread
-                }
-            }
-        }
-
-        @Override
-        public void addView(View child) {
-            super.addView(child);
-
-            double density = this.getContext().getResources().getDisplayMetrics().density;
-
-            if (currentWidth > 0 && child instanceof AppWidgetHostView) {
-                int height = child.getLayoutParams().height;
-                ((AppWidgetHostView) child).updateAppWidgetSize(null, (int)(currentWidth / density), (int)(height / density), (int)(currentWidth / density), (int)(height / density));
-                child.invalidate();
-            }
-        }
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -268,8 +211,9 @@ public class MainActivity extends BaseWindowActivity {
             return;
         }
 
-        if (this._camebackFlag || this._iAmHomeActivity || ! mainInputText.getText().toString().isEmpty()) {
-            this.onCommandInput(mainInputText.getText());
+        final CharSequence currentMainInputTextContents = mainInputText.getText();
+        if (this._camebackFlag || this._iAmHomeActivity || ! currentMainInputTextContents.toString().isEmpty()) {
+            this.onCommandInput(currentMainInputTextContents);
         }
 
         this._camebackFlag = false;
@@ -280,7 +224,7 @@ public class MainActivity extends BaseWindowActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        this._camebackFlag = requestCode == REQUEST_CODE_FOR_COMING_BACK && resultCode == RESULT_OK;
+        this._camebackFlag = (requestCode == REQUEST_CODE_FOR_COMING_BACK) && (resultCode == RESULT_OK);
     }
 
     @Override
@@ -323,6 +267,12 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void setWholeLayout() {
+        if (_resultCandidateListAdapter.isEmpty()) {
+            findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, 0, 0, 0);
+        } else {
+            findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, (int)(6 * getResources().getDisplayMetrics().density + 0.5), 0, 0);
+        }
+
         final boolean contentFilled = !mainInputText.getText().toString().isEmpty() || this._homeItemExists;
 
         this.setWindowBoundarySize(contentFilled ? ROOT_WINDOW_FULL_WIDTH_IN_MOBILE : ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN, 0);
@@ -341,46 +291,35 @@ public class MainActivity extends BaseWindowActivity {
         mainInputText.requestFocusFromTouch();
     }
 
-    private void executeSearch(String s) {
-        List<CandidateEntry> cands = s.isEmpty() ? new ArrayList<CandidateEntry>() :_commandSearchAggregator.searchCandidateEntries(s, MainActivity.this);
+    private void executeSearch(String query) {
+        List<CandidateEntry> cands = new ArrayList<>();
 
-        if (this._iAmHomeActivity && s.equals("")) {
-            List<HomeScreenSetting.HomeScreenDefaultItem> homeScreenDefaultItemList = HomeScreenSetting.getInstance(this).getAllHomeScreenDefaultItems();
-            this._homeItemExists = !homeScreenDefaultItemList.isEmpty();
-
-            for (View widget: this.appWidgetsHostManager.createHomeScreenWidgets()) {
-                cands.add(new WidgetCommandSearcher.WidgetCandidateEntry(widget));
-                this._homeItemExists = true;
-            }
-
-            findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
-
-            for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
-                cands.addAll(_commandSearchAggregator.searchCandidateEntries(item.data, this));
-            }
+        if (! query.isEmpty()) {
+            cands.addAll(_commandSearchAggregator.searchCandidateEntries(query, MainActivity.this));
         }
 
-        if (! s.isEmpty()) {
-            cands.addAll(_commandSearchAggregator.searchCandidateEntriesForLast(s, this));
+        if (this._iAmHomeActivity && query.isEmpty()) {
+            List<CandidateEntry> homeScreenEntries = _commandSearchAggregator.homeScreenDefaultCandidateEntries(this);
+            cands.addAll(homeScreenEntries);
+            this._homeItemExists = ! homeScreenEntries.isEmpty();
+        }
+
+        if (! query.isEmpty()) {
+            cands.addAll(_commandSearchAggregator.searchCandidateEntriesForLast(query, this));
         }
 
         _resultCandidateListAdapter.clear();
         _resultCandidateListAdapter.addAll(cands);
         _resultCandidateListAdapter.notifyDataSetChanged();
 
-        if (cands.isEmpty()) {
-            findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, 0, 0, 0);
-        } else {
-            findViewById(R.id.candidateViewWrapperLinearLayout).setPaddingRelative(0, (int)(6 * getResources().getDisplayMetrics().density + 0.5), 0, 0);
-        }
-
-        setWholeLayout();
+        this.setWholeLayout();
     }
 
-    private void onCommandInput(final CharSequence s) {
-        if (_commandSearchAggregator.isPrepared() || (s.toString().isEmpty() && !this._iAmHomeActivity)) {
+    private void onCommandInput(final CharSequence query) {
+        if (_commandSearchAggregator.isPrepared() || (query.toString().isEmpty() && !this._iAmHomeActivity)) {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
-            executeSearch(s.toString());
+            executeSearch(query.toString());
+
         } else {
             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
             final int myResumeId = this.resumeId;
@@ -399,7 +338,7 @@ public class MainActivity extends BaseWindowActivity {
                                 // Already different session, canceling the operation.
                                 return;
                             }
-                            executeSearch(s.toString());
+                            executeSearch(query.toString());
                             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
                         }
                     });
