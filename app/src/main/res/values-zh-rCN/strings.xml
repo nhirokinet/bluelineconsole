@@ -155,6 +155,7 @@
 
     <!-- Error messages, system errors -->
     <string name="error_failure_could_not_start_command">错误：无法启动命令</string>
+    <string name="error_failure_could_not_open_url">ERROR: could not open URL</string>
     <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" 不是一个可启动的包。</string>
     <string name="error_failure_could_not_connect_to_the_widget">错误：无法连接到小部件</string>
 
