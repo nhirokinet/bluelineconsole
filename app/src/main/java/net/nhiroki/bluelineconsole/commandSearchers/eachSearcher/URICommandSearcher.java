@@ -23,11 +23,11 @@ public class URICommandSearcher implements CommandSearcher {
 
     @Override
     @NonNull
-    public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
+    public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        if (s.startsWith("http://") || s.startsWith("https://")) {
-            cands.add(new URLOpenCandidateEntry(s));
+        if (query.startsWith("http://") || query.startsWith("https://")) {
+            cands.add(new URLOpenCandidateEntry(query));
         }
 
         return cands;

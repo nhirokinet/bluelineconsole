@@ -30,10 +30,10 @@ public class HelpCommandSearcher implements CommandSearcher {
 
     @Override
     @NonNull
-    public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
+    public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        if (s.equalsIgnoreCase("help")) {
+        if (query.equalsIgnoreCase("help")) {
             cands.add(new HelpCandidateEntry());
         }
 

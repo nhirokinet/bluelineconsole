@@ -136,7 +136,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
 
     @NonNull
     @Override
-    public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
+    public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(PREF_CONTACT_SEARCH_ENABLED_KEY, false)) {
             return new ArrayList<>();
         }
@@ -144,7 +144,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         List<Pair<Integer, ContactsReader.Contact>> resultList = new ArrayList<>();
 
         for (ContactsReader.Contact contact: contactList) {
-            int match = judgeQueryForContact(context, s, contact);
+            int match = judgeQueryForContact(context, query, contact);
 
             if (match >= 0) {
                 resultList.add(new Pair<>(match, contact));

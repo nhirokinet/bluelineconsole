@@ -57,7 +57,7 @@ public class ApplicationCommandSearcher implements CommandSearcher {
 
     @Override
     @NonNull
-    public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
+    public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
         List<Pair<Integer, CandidateEntry>> appcands = new ArrayList<>();
@@ -65,13 +65,13 @@ public class ApplicationCommandSearcher implements CommandSearcher {
             final String appLabel = applicationInformation.getLabel();
             final ApplicationInfo androidApplicationInfo = applicationDatabase.getAndroidApplicationInfo(applicationInformation.getPackageName());
 
-            int appLabelMatchResult = StringMatchStrategy.match(context, s, appLabel, false);
+            int appLabelMatchResult = StringMatchStrategy.match(context, query, appLabel, false);
             if (appLabelMatchResult != -1) {
                 appcands.add(new Pair<Integer, CandidateEntry>(appLabelMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
                 continue;
             }
 
-            int packageNameMatchResult = StringMatchStrategy.match(context, s, applicationInformation.getPackageName(), false);
+            int packageNameMatchResult = StringMatchStrategy.match(context, query, applicationInformation.getPackageName(), false);
             if (packageNameMatchResult != -1) {
                 appcands.add(new Pair<Integer, CandidateEntry>(100000 + packageNameMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
                 //noinspection UnnecessaryContinue

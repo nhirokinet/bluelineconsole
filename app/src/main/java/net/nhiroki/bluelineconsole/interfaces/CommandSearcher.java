@@ -31,10 +31,10 @@ public interface CommandSearcher {
 
     /**
      * Search for commands. Call only after isPrepared() is true, or waitUntilPrepared() returned.
-     * @param s Search query string
+     * @param query Search query string
      * @param context Android Context for the corresponding Activity
      * @return List of result
      */
     @NonNull
-    List<CandidateEntry> searchCandidateEntries(String s, Context context);
+    List<CandidateEntry> searchCandidateEntries(String query, Context context);
 }

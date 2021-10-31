@@ -44,9 +44,12 @@
     <string name="button_close">Close</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
+
+    <!-- Colors -->
     <string name="rgb_color_red">Red</string>
     <string name="rgb_color_green">Green</string>
     <string name="rgb_color_blue">Blue</string>
+    <string name="rgb_color_display">RGB (Red:%1$d, Green:%2$d, Blue:%3$d)</string>
 
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">This setting takes effect after restarting Blue Line Console.</string>
@@ -191,12 +194,12 @@
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
         \n
+        \nName for search engine name can be abbreviated.
+        \nFor example, \"d somequery\" is equivalent to \"duckduckgo somequery\".
+        \n
         \nNetwork administrative commands:
         \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　(only on systems with corresponding command)
-        \n
-        \nName for search engine name can be abbreviated.
-        \nFor example, \"d somequery\" is equivalent to \"duckduckgo somequery\".
         \n
         \nOther commands:
         \n
