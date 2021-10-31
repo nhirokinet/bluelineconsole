@@ -60,10 +60,17 @@ public class ApplicationCommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
+        final boolean matchAllApplications = query.equalsIgnoreCase("all_apps");
+
         List<Pair<Integer, CandidateEntry>> appcands = new ArrayList<>();
         for (ApplicationInformation applicationInformation : applicationDatabase.getApplicationInformationList()) {
             final String appLabel = applicationInformation.getLabel();
             final ApplicationInfo androidApplicationInfo = applicationDatabase.getAndroidApplicationInfo(applicationInformation.getPackageName());
+
+            if (matchAllApplications) {
+                appcands.add(new Pair<Integer, CandidateEntry>(0, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
+                continue;
+            }
 
             int appLabelMatchResult = StringMatchStrategy.match(context, query, appLabel, false);
             if (appLabelMatchResult != -1) {
