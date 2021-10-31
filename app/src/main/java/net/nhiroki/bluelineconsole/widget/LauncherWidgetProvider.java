@@ -44,7 +44,6 @@ public class LauncherWidgetProvider extends AppWidgetProvider {
         }
 
         updateWidgetsForTheme(context, appWidgetManager, appWidgetIds, theme);
-
     }
 
     private static void updateWidgetsForTheme(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds, String theme) {

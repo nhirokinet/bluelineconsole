@@ -5,7 +5,7 @@ import android.test.AndroidTestCase;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import net.nhiroki.bluelineconsole.dataStore.persistent.oldVersions.HomeScreenSetting_1_2_5;
+import net.nhiroki.bluelineconsole.dataStore.persistent.oldVersions.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +30,8 @@ public class HomeScreenSettingTest extends AndroidTestCase {
 
         HomeScreenSetting oldVersionInstance = HomeScreenSetting.getInstance(this.getContext());
 
+        assertEquals(0, oldVersionInstance.getLargestIdInHomeScreenDefaultItems());
+
         List<HomeScreenSetting.HomeScreenDefaultItem> homeScreenDefaultItemList = new ArrayList<>();
 
         homeScreenDefaultItemList.add(new HomeScreenSetting.HomeScreenDefaultItem());
@@ -42,6 +44,8 @@ public class HomeScreenSettingTest extends AndroidTestCase {
         for (HomeScreenSetting.HomeScreenDefaultItem item: homeScreenDefaultItemList) {
             oldVersionInstance.addHomeScreenDefaultItem(item);
         }
+
+        assertEquals(2, oldVersionInstance.getLargestIdInHomeScreenDefaultItems());
 
         oldVersionInstance.close();
         entriesLoadTest(homeScreenDefaultItemList);
@@ -81,6 +85,8 @@ public class HomeScreenSettingTest extends AndroidTestCase {
             assertEquals(expectedHomeScreenDefaultItems.get(i).type, homeScreenDefaultItemsFromDB.get(i).type);
             assertEquals(expectedHomeScreenDefaultItems.get(i).data, homeScreenDefaultItemsFromDB.get(i).data);
         }
+
+        assertEquals(expectedHomeScreenDefaultItems.size(), homeScreenSetting.getLargestIdInHomeScreenDefaultItems());
 
         homeScreenSetting.close();
     }

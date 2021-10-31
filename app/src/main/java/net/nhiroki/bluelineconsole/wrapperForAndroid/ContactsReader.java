@@ -11,7 +11,9 @@ import androidx.core.content.ContextCompat;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ContactsReader {
     public static class Contact {
@@ -35,47 +37,81 @@ public class ContactsReader {
         List<Contact> ret = new ArrayList<>();
         final ContentResolver contentResolver = context.getContentResolver();
 
-        final android.database.Cursor cursor;
+        Map<String, List<String>> phoneNumbers = new HashMap<>();
+        Map<String, List<String>> emailAddresses = new HashMap<>();
 
-        try {
-            cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[0], null, new String[0], null);
+        final android.database.Cursor phoneCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[0], null, new String[0], null);
 
-        } catch (Exception e) {
-            // TODO: Improve this by checking doc. This is unexpected, but better than being unable to open app at all...
-            return new ArrayList<>();
-        }
+        if (phoneCursor != null) {
+            while (phoneCursor.moveToNext()) {
+                final int contactIdColumnIndex = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID);
+                final int dataColumnIndex = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA);
 
-        while (cursor.moveToNext()) {
-            Contact contact = new Contact();
-
-            try {
-                // TODO: icon
-                String contactId = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                contact.display_name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-
-                android.database.Cursor phoneCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", new String[]{contactId}, null);
-                while (phoneCursor.moveToNext()) {
-                    contact.phoneNumbers.add(phoneCursor.getString(phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA)));
+                if (contactIdColumnIndex != -1 && dataColumnIndex != -1) {
+                    final String contactId = phoneCursor.getString(contactIdColumnIndex);
+                    if (!phoneNumbers.containsKey(contactId)) {
+                        phoneNumbers.put(contactId, new ArrayList<String>());
+                    }
+                    final String phoneNumStr = phoneCursor.getString(dataColumnIndex);
+                    if (phoneNumStr != null) {
+                        phoneNumbers.get(contactId).add(phoneNumStr);
+                    }
                 }
-                phoneCursor.close();
-
-                android.database.Cursor emailCursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
-                        ContactsContract.CommonDataKinds.Email.CONTACT_ID + "=?", new String[]{contactId}, null);
-                while(emailCursor.moveToNext()) {
-                    contact.emailAddresses.add(emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA)));
-                }
-                emailCursor.close();
-
-                ret.add(contact);
-
-            } catch (Exception e) {
-                cursor.close();
-                // TODO: Improve this by checking doc. This unexpected, but better than being unable to open app at all...
             }
+            phoneCursor.close();
         }
 
-        cursor.close();
+        final android.database.Cursor emailCursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, new String[0], null, new String[0], null);
+
+        if (emailCursor != null) {
+            while (emailCursor.moveToNext()) {
+                final int contactIdColumnIndex = emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.CONTACT_ID);
+                final int dataColumnIndex = emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
+
+                if (contactIdColumnIndex != -1 && dataColumnIndex != -1) {
+                    final String contactId = emailCursor.getString(contactIdColumnIndex);
+                    if (!emailAddresses.containsKey(contactId)) {
+                        emailAddresses.put(contactId, new ArrayList<String>());
+                    }
+                    final String emailStr = emailCursor.getString(dataColumnIndex);
+                    if (emailStr != null) {
+                        emailAddresses.get(contactId).add(emailStr);
+                    }
+                }
+            }
+            emailCursor.close();
+        }
+
+        final android.database.Cursor contactsCursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[0], null, new String[0], null);
+        if (contactsCursor != null) {
+            while (contactsCursor.moveToNext()) {
+                final int idColumnIndex = contactsCursor.getColumnIndex(ContactsContract.Contacts._ID);
+                final int displayNameColumnIndex = contactsCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+
+                if (idColumnIndex != -1 && displayNameColumnIndex != -1) {
+                    Contact contact = new Contact();
+
+                    String contactId = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Contacts._ID));
+                    contact.display_name = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+                    if (contact.display_name == null) {
+                        contact.display_name = "";
+                    }
+
+                    if (phoneNumbers.containsKey(contactId)) {
+                        contact.phoneNumbers = phoneNumbers.get(contactId);
+                    }
+
+                    if (emailAddresses.containsKey(contactId)) {
+                        contact.emailAddresses = emailAddresses.get(contactId);
+                    }
+
+                    ret.add(contact);
+                }
+            }
+
+            contactsCursor.close();
+        }
         return ret;
     }
 }

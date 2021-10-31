@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.commandSearchers;
+package net.nhiroki.bluelineconsole.commandSearchers.eachSearcher;
 
 import android.content.Context;
 

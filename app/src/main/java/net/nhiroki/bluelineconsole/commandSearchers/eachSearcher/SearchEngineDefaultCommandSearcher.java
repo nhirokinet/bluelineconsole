@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.commandSearchers;
+package net.nhiroki.bluelineconsole.commandSearchers.eachSearcher;
 
 import android.content.Context;
 import android.content.Intent;
@@ -108,6 +108,11 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
         @Override
         public boolean isSubItem() {
             return false;
+        }
+
+        @Override
+        public boolean viewIsRecyclable() {
+            return true;
         }
     }
 }

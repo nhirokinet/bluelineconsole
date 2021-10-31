@@ -44,7 +44,10 @@
     <string name="button_close">关闭</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
-	
+    <string name="rgb_color_red">红</string>
+    <string name="rgb_color_green">绿</string>
+    <string name="rgb_color_blue">蓝</string>
+
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">此设置在重启 Blue Line Console 后生效。</string>
 
@@ -112,15 +115,12 @@
     <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">主题默认</string>
     <string name="preferences_accent_color_custom">自定义颜色</string>
-    <string name="preferences_accent_color_red">红</string>
-    <string name="preferences_accent_color_green">绿</string>
-    <string name="preferences_accent_color_blue">蓝</string>
     <string name="preferences_accent_color_theme_without_accent_color">当前主题 (%1$s) 不支持更改强调色。</string>
 
     <!-- Preferences item, home screen default items screens -->
     <string name="preferences_home_screen_add_command_button">添加命令</string>
     <string name="preferences_home_screen_add_widget_button">添加小部件 （实验性）</string>
-    <string name="preferences_home_screen_add_widget_select_message">选择要添加的小部件（在查询前请先添加）：</string>
+    <string name="preferences_home_screen_add_widget_select_message">选择要添加的小部件：</string>
     <string name="preferences_home_screen_widget_label">小部件</string>
     <string name="preferences_home_screen_command_label">命令</string>
 
@@ -195,6 +195,10 @@
         \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　（仅在有相应命令的系统上可用）
 		\n
+        \nOther commands:
+        \n
+        \n-&#032;Color code (like #4d68ff)
+        \n
         \n搜索引擎名称可以缩写。
         \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。
         \n

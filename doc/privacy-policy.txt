@@ -1,0 +1,40 @@
+Blue Line Console Privacy Policy
+
+
+1. Coverage of this Privacy Policy: This Privacy Policy covers the behavior of Blue Line Console application released on the links on List 1 below by nhirokinet, as long as Blue Line Console is run on Android with API that is not modified from the one documented in https://developer.android.com/. Please beware that anything outside of Blue Line Console application is not covered by this Privacy Policy, including any devices, softwares, or services you use to run or download Blue Line Console. If the user send the developer any information by the method out of Blue Line Console, including e-mails or GitHub issues, this Privacy Policy is not applied.
+
+  List 1: Links that the Blue Line Console is released under this Privacy Policy
+    - https://github.com/nhirokinet/bluelineconsole/releases
+    - https://play.google.com/store/apps/details?id=net.nhiroki.bluelineconsole
+    - https://f-droid.org/en/packages/net.nhiroki.bluelineconsole/
+
+
+2. The user's explicit action before sending out the information: Blue Line Console does not, and will not in the future, send out an information out of the device without the user's explicit action to do so. Reading this Privacy Policy is not regarded as an explicit action, so an explicit action within the Blue Line Console application is required before sending out any information. Please note that this applies only to Blue Line Console itself. If you download Blue Line Console from any store, source code repository or any other systems, the services may gather and use the user's information under their policies. The user's OS may send out information saved in Blue Line Console, to automatically backup for example, under OS's policies. If you selected to open applications, links, or any other contents or programs that is opened out of Blue Line Console, the application, the user's browser, or any related application may send out the information with their or their contents' policy.
+
+
+3. Preset web search engine: Please note that preset web sites or search engines are just external links for convenience, and treated just the same as the link you typed full URL, and not covered within this Privacy Policy. Please check the URL by config before opening preset web searches if you are unsure.
+
+
+4. Informations sent out: Blue Line Console itself will send out the information that the user directed Blue Line Console to send out. This includes:
+
+  - ICMP packets to the designated destination when the user use ping or ping6 commands.
+  - Any other commands, configuration or other user's direction, including the ones added in the future. As of version 1.2.6, nothing matches here.
+  - DNS requests, network control packets, network layer information, or any other information required to operate actions listed here.
+
+
+5. Notes about permissions
+
+  - android.permission.READ_CONTACTS: Contacts include very sensitive information. This permission is used only after the user enabled contacts related functions in config. This is the required step regardless of Android version, which means that even if you use Android <6.0 which the application with android.permission.READ_CONTACTS permission technically can use it without further confirmation, the user still have to explicitly enable contacts feature in config. Contact search reads information directly from Contacts, loads it to the virtual memory and does not make a local copy on the persistent storage. Also, Blue Line Console does not send out contacts information and just gives an link to use these information in your other applications. Clicking the link opens the application, either the default setting of user's device, or the application you chose.
+  - android.permission.QUERY_ALL_PACKAGES: This permission allows Blue Line Console to know what applications the user uses. The contact information is not sent out of the device. This information is only used to work as device-local launcher, and Blue Line Console does not access the information the contents saved within each application. Due to the performance reason, different from Contacts information, some of retrieved information are stored in the device local storage as cache file(s) within Blue Line Console.
+  - android.permission.INTERNET: As of version 1.2.6, ping and ping6 commands need it. Cases may increase in the future, but this always requires the user's explicit actions.
+  - android.permission.RECEIVE_BOOT_COMPLETED: Needed for option to always show notification, that can be enabled in config. Cases may increase in the future.
+  - android.permission.BIND_APPWIDGET: Blue Line Console have functionality to host widgets. To support this, Blue Line Console asks the permission to load arbitary Widgets (generally in the first time you add a widget if normal Android is used). This is simply shown via AppWidgetHostView, and Blue Line Console won't retrieve any information that actual widgets show.
+
+
+6. Automated backup functionality: Blue Line Console does not prevent automated backup by OS, rather supports it by annotating which files and data are appropriate for backup. The user's OS may read this annotation and send out the information that Blue Line Console saved in the user's device. Automated backup is basically done outside of Blue Line Console, so the policies of the user's OS or any other providers may applied here, depending the user's device and OS. Please note that this does not mean all Blue Line Console data are subject to backup; for example, widget cannnot be backed up for technical reasons and not annotated as appropriate for backup.
+
+
+7. Warranty: Despite Blue Line Console is released under this Privacy Policy, Blue Line Console is released under AS-IS BASIS, and any warranties are not provided by the developers. If you find any defect that affects this Privacy Policy (or even not privacy related ones), please contact the developer.
+
+
+8. Future updates: This Privacy Policy are subject to change and you can see the latest one here. However, Blue Line Console will not send out an information out of the device without the user's explicit action (that is not satisfied by just reading Privacy Policy) to do so even in the future Privacy Policy.

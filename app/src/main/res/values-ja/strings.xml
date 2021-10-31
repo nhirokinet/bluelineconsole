@@ -44,6 +44,9 @@
     <string name="button_close">閉じる</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
+    <string name="rgb_color_red">赤</string>
+    <string name="rgb_color_green">緑</string>
+    <string name="rgb_color_blue">青</string>
 
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">Blue Line Console の再起動後に反映されます。</string>
@@ -112,15 +115,12 @@
     <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">テーマの初期設定</string>
     <string name="preferences_accent_color_custom">色を設定</string>
-    <string name="preferences_accent_color_red">赤</string>
-    <string name="preferences_accent_color_green">緑</string>
-    <string name="preferences_accent_color_blue">青</string>
     <string name="preferences_accent_color_theme_without_accent_color">ご利用中のテーマ（%1$s）ではアクセントカラーの変更はできません。</string>
 
     <!-- Preferences item, home screen default items screens -->
     <string name="preferences_home_screen_add_command_button">コマンドを追加する</string>
     <string name="preferences_home_screen_add_widget_button">ウィジェットを追加する（実験的機能）</string>
-    <string name="preferences_home_screen_add_widget_select_message">追加するウィジェットを選択してください（必ずコマンドの前に追加されます）</string>
+    <string name="preferences_home_screen_add_widget_select_message">追加するウィジェットを選択してください</string>
     <string name="preferences_home_screen_widget_label">ウィジェット</string>
     <string name="preferences_home_screen_command_label">コマンド</string>
 
@@ -193,6 +193,10 @@
         \nネットワーク管理系コマンド：
         \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt; （サポートされたシステムのみ）
+        \n
+        \nその他のコマンド:
+        \n
+        \n-&#032;カラーコード（例： #4d68ff）
         \n
         \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
         \n

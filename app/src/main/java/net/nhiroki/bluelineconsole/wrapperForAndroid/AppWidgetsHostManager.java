@@ -25,6 +25,7 @@ import androidx.annotation.StringRes;
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
+import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 
 
 public final class AppWidgetsHostManager {
@@ -45,7 +46,7 @@ public final class AppWidgetsHostManager {
         public final int appWidgetId;
         public final AppWidgetProviderInfo appWidgetProviderInfo;
         public int heightPx;
-        // add "public int positionAtHomeScreen = 0;" when it is not restricted to header
+        public int afterDefaultItem;
     }
 
     public static class WidgetCommand {
@@ -78,6 +79,11 @@ public final class AppWidgetsHostManager {
         }
     }
 
+    public static class HomeScreenWidgetViewItem {
+        public int afterDefaultItem;
+        public View widgetView;
+    }
+
 
     public AppWidgetsHostManager(Context context) {
         this.context = context;
@@ -95,13 +101,16 @@ public final class AppWidgetsHostManager {
         new AppWidgetHost(this.context.getApplicationContext(), MY_WIDGET_HOST_ID).startAppWidgetConfigureActivityForResult(baseActivity, appWidgetId, intentFlags, requestCode, options);
     }
 
-    public List<View> createHomeScreenWidgets() {
-        List<View> ret = new ArrayList<>();
+    public List<HomeScreenWidgetViewItem> createHomeScreenWidgets() {
+        List<HomeScreenWidgetViewItem> ret = new ArrayList<>();
 
         List<HomeScreenWidgetInfo> homeScreenWidgetInfoList = this.widgetsSetting.getAllHomeScreenWidgets(this);
 
         for (HomeScreenWidgetInfo info: homeScreenWidgetInfoList) {
-            ret.add(this.createView(info.appWidgetId, info.heightPx));
+            HomeScreenWidgetViewItem item = new HomeScreenWidgetViewItem();
+            item.afterDefaultItem = info.afterDefaultItem;
+            item.widgetView = this.createView(info.appWidgetId, info.heightPx);
+            ret.add(item);
         }
         return ret;
     }
@@ -160,7 +169,9 @@ public final class AppWidgetsHostManager {
 
     // Handle widget config totally here because they cannot be synced among devices
     public void saveHomeScreenWidgetInfo(HomeScreenWidgetInfo homeScreenWidgetInfo) {
-        homeScreenWidgetInfo.heightPx = Math.max(homeScreenWidgetInfo.heightPx, homeScreenWidgetInfo.appWidgetProviderInfo.minResizeHeight);
+        if (homeScreenWidgetInfo.appWidgetProviderInfo != null) {
+            homeScreenWidgetInfo.heightPx = Math.max(homeScreenWidgetInfo.heightPx, homeScreenWidgetInfo.appWidgetProviderInfo.minResizeHeight);
+        }
         this.widgetsSetting.updateHomeScreenWidgetInfo(homeScreenWidgetInfo);
     }
 
@@ -178,7 +189,7 @@ public final class AppWidgetsHostManager {
         this.widgetsSetting.deleteWidgetCommandById(widgetCommand.id);
     }
 
-    public void addHomeScreenAppWidget(int appWidgetId) {
+    public void addHomeScreenAppWidget(int appWidgetId, int afterdefaultItem) {
         AppWidgetProviderInfo info = android.appwidget.AppWidgetManager.getInstance(this.context.getApplicationContext()).getAppWidgetInfo(appWidgetId);
         HomeScreenWidgetInfo homeScreenWidgetInfo = new HomeScreenWidgetInfo(0, info, appWidgetId);
         /* AppWidgetProviderInfo.min(Resize?)(Width|Height) is documented as expressed in dp unit,
@@ -186,6 +197,7 @@ public final class AppWidgetsHostManager {
          * but is it actually in pixels?
          */
         homeScreenWidgetInfo.heightPx = info.minHeight;
+        homeScreenWidgetInfo.afterDefaultItem = afterdefaultItem;
 
         this.widgetsSetting.addWidgetToHomeScreen(homeScreenWidgetInfo);
     }

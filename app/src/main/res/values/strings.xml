@@ -44,6 +44,9 @@
     <string name="button_close">Close</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
+    <string name="rgb_color_red">Red</string>
+    <string name="rgb_color_green">Green</string>
+    <string name="rgb_color_blue">Blue</string>
 
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">This setting takes effect after restarting Blue Line Console.</string>
@@ -112,15 +115,12 @@
     <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">Theme default</string>
     <string name="preferences_accent_color_custom">Customize color</string>
-    <string name="preferences_accent_color_red">Red</string>
-    <string name="preferences_accent_color_green">Green</string>
-    <string name="preferences_accent_color_blue">Blue</string>
     <string name="preferences_accent_color_theme_without_accent_color">Current theme (%1$s) does not support changing accent color.</string>
 
     <!-- Preferences item, home screen default items screens -->
     <string name="preferences_home_screen_add_command_button">Add command</string>
     <string name="preferences_home_screen_add_widget_button">Add widget (experimental)</string>
-    <string name="preferences_home_screen_add_widget_select_message">Select widget to add (always added before query):</string>
+    <string name="preferences_home_screen_add_widget_select_message">Select widget to add:</string>
     <string name="preferences_home_screen_widget_label">Widget</string>
     <string name="preferences_home_screen_command_label">Command</string>
 
@@ -197,6 +197,10 @@
         \n
         \nName for search engine name can be abbreviated.
         \nFor example, \"d somequery\" is equivalent to \"duckduckgo somequery\".
+        \n
+        \nOther commands:
+        \n
+        \n-&#032;Color code (like #4d68ff)
         \n
         \nHint: Set up Blue Line Console as Default Assistant App from Settings &gt; Apps &amp; notofications &gt; Default Apps &gt; Assistant app or similar menu, to make Blue Line Console open on long-pressing home button.
         \nHint: Blue Line Console can be launched from notification menu by always showing notification. Find the option from config command.

@@ -1,4 +1,4 @@
-package net.nhiroki.bluelineconsole.commandSearchers;
+package net.nhiroki.bluelineconsole.commandSearchers.eachSearcher;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -152,6 +152,11 @@ public class CalculatorCommandSearcher implements CommandSearcher {
         @Override
         public boolean isSubItem() {
             return false;
+        }
+
+        @Override
+        public boolean viewIsRecyclable() {
+            return true;
         }
     }
 }

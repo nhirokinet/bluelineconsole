@@ -82,4 +82,9 @@ public class HelpCandidateEntry implements CandidateEntry {
     public boolean isSubItem() {
         return false;
     }
+
+    @Override
+    public boolean viewIsRecyclable() {
+        return true;
+    }
 }
