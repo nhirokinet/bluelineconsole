@@ -154,5 +154,12 @@
             android:defaultValue="false"
             app:iconSpaceReserved="false"
             />
+        <SwitchPreference
+            android:key="pref_url_arbitrary_scheme"
+            android:title="@string/preferences_item_accept_arbitrary_url"
+            android:summary="@string/preferences_item_accept_arbitrary_url_summary"
+            android:defaultValue="false"
+            app:iconSpaceReserved="false"
+            />
     </PreferenceCategory>
 </PreferenceScreen>

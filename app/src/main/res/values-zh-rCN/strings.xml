@@ -103,6 +103,8 @@
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">命令输入窗口使用 setImeHintLocales 并设为英语语言环境。不同的键盘输入软件有不同的行为。</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">在命令输入窗口上设置 IME_FLAG_FORCE_ASCII  标志</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII 表示打算使用 ASCII 字符进行输入。不同的键盘输入软件有不同的行为。</string>
+    <string name="preferences_item_accept_arbitrary_url">Accept arbitrary scheme for URL</string>
+    <string name="preferences_item_accept_arbitrary_url_summary">By default, Blue Line Console accepts only URL starting with http:// and https:// as URL input. By enabling option, other schemes are also accepted as URL input.</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">添加自定义 URL 或搜索引擎</string>
@@ -147,6 +149,7 @@
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠(\"/\").</string>
+    <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">无效的 URL：必须以 &lt;scheme&gt;:// 开头且至少再多一条斜杠(\"/\").</string>
     <string name="error_invalid_command_name">无效的名称：命令不能包含空格且不能为空</string>
     <string name="error_empty_display_name">显示名称为空</string>
 

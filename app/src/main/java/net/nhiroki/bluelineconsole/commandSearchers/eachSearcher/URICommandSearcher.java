@@ -12,6 +12,7 @@ import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
+import net.nhiroki.bluelineconsole.lib.StringValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class URICommandSearcher implements CommandSearcher {
     public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
-        if (query.startsWith("http://") || query.startsWith("https://")) {
+        if (StringValidator.isValidURLAccepted(query, false, context)) {
             cands.add(new URLOpenCandidateEntry(query));
         }
 

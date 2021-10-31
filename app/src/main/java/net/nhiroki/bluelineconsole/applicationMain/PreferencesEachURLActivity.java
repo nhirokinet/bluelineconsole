@@ -53,7 +53,7 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
                 entry.url_base = ((EditText)findViewById(R.id.url_each_base_url)).getText().toString();
                 entry.has_query = ((Switch)findViewById(R.id.url_each_has_query)).isChecked();
 
-                int err = entry.validate();
+                int err = entry.validate(PreferencesEachURLActivity.this);
 
                 if (err != 0) {
                     Toast.makeText(PreferencesEachURLActivity.this, err, Toast.LENGTH_LONG).show();
