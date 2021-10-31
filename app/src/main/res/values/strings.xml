@@ -155,6 +155,7 @@
 
     <!-- Error messages, system errors -->
     <string name="error_failure_could_not_start_command">ERROR: could not start command</string>
+    <string name="error_failure_could_not_open_url">ERROR: could not open URL</string>
     <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" is not a launchable package.</string>
     <string name="error_failure_could_not_connect_to_the_widget">ERROR: could not connect to the widget</string>
 

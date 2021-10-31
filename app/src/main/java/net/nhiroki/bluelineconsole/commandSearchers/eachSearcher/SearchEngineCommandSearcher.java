@@ -1,10 +1,12 @@
 package net.nhiroki.bluelineconsole.commandSearchers.eachSearcher;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -99,12 +101,17 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public EventLauncher getEventLauncher(Context context) {
+        public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
                 public void launch(BaseWindowActivity activity) {
-                    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase)));
-                    activity.finish();
+                    try {
+                        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase)));
+                        activity.finish();
+                    } catch (ActivityNotFoundException e) {
+                        Toast.makeText(context, R.string.error_failure_could_not_open_url, Toast.LENGTH_LONG).show();
+                    }
+
                 }
             };
         }
@@ -130,7 +137,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         }
     }
 
-    private static class SearchEngineCandidateEntry implements CandidateEntry {
+    static class SearchEngineCandidateEntry implements CandidateEntry {
         private final String query;
         private final String urlBase;
         private final String title;
@@ -158,12 +165,16 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public EventLauncher getEventLauncher(Context context) {
+        public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
                 public void launch(BaseWindowActivity activity) {
-                    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase + Uri.encode(query))));
-                    activity.finish();
+                    try {
+                        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase + Uri.encode(query))));
+                        activity.finish();
+                    } catch (ActivityNotFoundException e) {
+                        Toast.makeText(context, R.string.error_failure_could_not_open_url, Toast.LENGTH_LONG).show();
+                    }
                 }
             };
         }
