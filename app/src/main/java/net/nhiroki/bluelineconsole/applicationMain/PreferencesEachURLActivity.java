@@ -1,10 +1,7 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.LocaleList;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,14 +9,12 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.lib.EditTextConfigurations;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
 
-import java.util.Locale;
-
-import static android.view.inputmethod.EditorInfo.IME_FLAG_FORCE_ASCII;
 
 public class PreferencesEachURLActivity extends BaseWindowActivity {
     private String _entry_id = null;
@@ -141,20 +136,8 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
             findViewById(R.id.url_each_varies_with_locale).setVisibility(entry.varies_with_locale ? View.VISIBLE : View.GONE);
         }
 
-        final EditText mainInputText = findViewById(R.id.url_each_name);
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(MainActivity.PREF_KEY_MAIN_EDITTEXT_FLAG_FORCE_ASCII, false)) {
-            mainInputText.setImeOptions(mainInputText.getImeOptions() | IME_FLAG_FORCE_ASCII);
-        } else {
-            mainInputText.setImeOptions(mainInputText.getImeOptions() & ~IME_FLAG_FORCE_ASCII);
-        }
-
-        if (Build.VERSION.SDK_INT >= 24) {
-            if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean(MainActivity.PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH, false)) {
-                mainInputText.setImeHintLocales(new LocaleList(new Locale("en")));
-            } else {
-                mainInputText.setImeHintLocales(null);
-            }
-        }
+        final EditText urlCommandNameEditText = findViewById(R.id.url_each_name);
+        EditTextConfigurations.applyCommandEditTextConfigurations(urlCommandNameEditText, this);
     }
 
     @Override
