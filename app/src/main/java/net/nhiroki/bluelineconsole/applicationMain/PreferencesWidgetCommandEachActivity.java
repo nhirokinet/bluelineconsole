@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.lib.EditTextConfigurations;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
 import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 
@@ -36,6 +37,9 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
 
         this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
+
+        final EditText commandNameEditText = this.findViewById(R.id.widget_edit_command_name);
+        EditTextConfigurations.applyCommandEditTextConfigurations(commandNameEditText, this);
 
         Button addButton = this.findViewById(R.id.widget_command_save_and_select_widget);
         addButton.setOnClickListener(new View.OnClickListener() {

@@ -9,6 +9,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.lib.EditTextConfigurations;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
@@ -98,7 +99,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         );
 
         if (Build.VERSION.SDK_INT < 24) {
-            findPreference(MainActivity.PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH).setVisible(false);
+            findPreference(EditTextConfigurations.PREF_KEY_MAIN_EDITTEXT_HINT_LOCALE_ENGLISH).setVisible(false);
         }
     }
 }
