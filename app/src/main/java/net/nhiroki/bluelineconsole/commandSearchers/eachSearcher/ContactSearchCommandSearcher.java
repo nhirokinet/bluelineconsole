@@ -234,7 +234,6 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
 
         @Override
         public Drawable getIcon(Context context) {
-            // TODO
             return null;
         }
 

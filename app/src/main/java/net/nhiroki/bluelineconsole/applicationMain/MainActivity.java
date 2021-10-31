@@ -42,7 +42,7 @@ public class MainActivity extends BaseWindowActivity {
 
     public static final int REQUEST_CODE_FOR_COMING_BACK = 1;
 
-    private boolean _camebackFlag = false;
+    private boolean _cameBackFlag = false;
 
     private boolean showStartUpHelp = false;
     private boolean _migrationLostHappened = false;
@@ -188,7 +188,7 @@ public class MainActivity extends BaseWindowActivity {
 
         } else {
             _commandSearchAggregator.refresh(this);
-            if (! _camebackFlag) {
+            if (!_cameBackFlag) {
                 mainInputText.setText("");
 
                 if (!this._iAmHomeActivity) {
@@ -200,24 +200,24 @@ public class MainActivity extends BaseWindowActivity {
 
         if (this.showStartUpHelp) {
             this.showStartUpHelp = false;
-            this._camebackFlag = true;
+            this._cameBackFlag = true;
             startActivityForResult(new Intent(MainActivity.this, StartUpHelpActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
             return;
         }
 
         if (this._migrationLostHappened) {
             this._migrationLostHappened = false;
-            this._camebackFlag = true;
+            this._cameBackFlag = true;
             startActivityForResult(new Intent(MainActivity.this, NotificationMigrationLostActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
             return;
         }
 
         final CharSequence currentMainInputTextContents = mainInputText.getText();
-        if (this._camebackFlag || this._iAmHomeActivity || ! currentMainInputTextContents.toString().isEmpty()) {
+        if (this._cameBackFlag || this._iAmHomeActivity || ! currentMainInputTextContents.toString().isEmpty()) {
             this.onCommandInput(currentMainInputTextContents);
         }
 
-        this._camebackFlag = false;
+        this._cameBackFlag = false;
 
         MainActivity.this.enableBaseWindowAnimation();
     }
@@ -225,7 +225,7 @@ public class MainActivity extends BaseWindowActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        this._camebackFlag = (requestCode == REQUEST_CODE_FOR_COMING_BACK) && (resultCode == RESULT_OK);
+        this._cameBackFlag = (requestCode == REQUEST_CODE_FOR_COMING_BACK) && (resultCode == RESULT_OK);
     }
 
     @Override
@@ -293,27 +293,27 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void executeSearch(String query) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
 
         if (! query.isEmpty()) {
-            cands.addAll(_commandSearchAggregator.searchCandidateEntries(query, MainActivity.this));
+            candidates.addAll(_commandSearchAggregator.searchCandidateEntries(query, MainActivity.this));
         }
 
         if (this._iAmHomeActivity && query.isEmpty()) {
             List<CandidateEntry> homeScreenEntries = _commandSearchAggregator.homeScreenDefaultCandidateEntries(this);
-            cands.addAll(homeScreenEntries);
+            candidates.addAll(homeScreenEntries);
             this._homeItemExists = ! homeScreenEntries.isEmpty();
         }
 
         if (! query.isEmpty()) {
-            cands.addAll(_commandSearchAggregator.searchCandidateEntriesForLast(query, this));
+            candidates.addAll(_commandSearchAggregator.searchCandidateEntriesForLast(query, this));
         }
 
         _resultCandidateListAdapter.clear();
-        _resultCandidateListAdapter.addAll(cands);
+        _resultCandidateListAdapter.addAll(candidates);
         _resultCandidateListAdapter.notifyDataSetChanged();
 
-        if (! cands.isEmpty()) {
+        if (! candidates.isEmpty()) {
             candidateListView.setSelection(0);
         }
 

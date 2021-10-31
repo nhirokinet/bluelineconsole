@@ -35,7 +35,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private static final int CHOICE_UNAVAILABLE       = -2;
     private static final int CHOICE_KNOWN_BY_LISTVIEW = -3;
 
-    private Map<Integer, View> unrecycleViews = new HashMap<>();
+    private final Map<Integer, View> unrecyclableViews = new HashMap<>();
 
     CandidateListAdapter(BaseWindowActivity activity, List<CandidateEntry> objects, ListView listView) {
         super(activity, 0, objects);
@@ -51,13 +51,13 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.candidateentryview, parent, false);
         }
 
-        final CandidateEntry cand = this.getItem(position);
-        if (! cand.viewIsRecyclable() && this.unrecycleViews.containsKey(position)) {
-            return this.unrecycleViews.get(position);
+        final CandidateEntry candidate = this.getItem(position);
+        if (! candidate.viewIsRecyclable() && this.unrecyclableViews.containsKey(position)) {
+            return this.unrecyclableViews.get(position);
         }
 
-        final Drawable icon = cand.getIcon(getContext());
-        final String title = cand.getTitle();
+        final Drawable icon = candidate.getIcon(getContext());
+        final String title = candidate.getTitle();
 
         final TextView titleTextView = convertView.findViewById(R.id.candidateTitleTextView);
         final ImageView iconView = convertView.findViewById(R.id.candidateIconView);
@@ -69,19 +69,19 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
         additionalLinearView.removeAllViews();
         additionalLongLinearView.removeAllViews();
-        View detailView = cand.getView(convertView.getContext());
+        View detailView = candidate.getView(convertView.getContext());
         if (detailView != null) {
             detailView.setClickable(false);
-            if (cand.hasLongView()) {
+            if (candidate.hasLongView()) {
                 additionalLongLinearView.addView(detailView);
             } else {
                 additionalLinearView.addView(detailView);
             }
         }
 
-        titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, (detailView == null && !cand.isSubItem()) ? 24 : 18);
+        titleTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, (detailView == null && !candidate.isSubItem()) ? 24 : 18);
         final double pixelsPerSp = this.getContext().getResources().getDisplayMetrics().scaledDensity;
-        if (cand.isSubItem()) {
+        if (candidate.isSubItem()) {
             convertView.setPaddingRelative((int)(31.0 * pixelsPerSp), (int)(7.0 * pixelsPerSp),
                                            (int)(15.0 * pixelsPerSp), (int)(7.0 * pixelsPerSp));
         } else {
@@ -90,7 +90,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         }
 
         LinearLayout.LayoutParams iconLP = (LinearLayout.LayoutParams) iconView.getLayoutParams();
-        iconLP.gravity = cand.hasLongView() ? Gravity.TOP : Gravity.CENTER_VERTICAL;
+        iconLP.gravity = candidate.hasLongView() ? Gravity.TOP : Gravity.CENTER_VERTICAL;
         iconView.setLayoutParams(iconLP);
 
         TypedValue selectedItemBackground = new TypedValue();
@@ -106,8 +106,8 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
             iconView.setVisibility(View.VISIBLE);
         }
 
-        if (! cand.viewIsRecyclable()) {
-            this.unrecycleViews.put(position, convertView);
+        if (! candidate.viewIsRecyclable()) {
+            this.unrecyclableViews.put(position, convertView);
         }
 
         return convertView;
@@ -115,7 +115,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
     @Override
     public void notifyDataSetChanged() {
-        this.unrecycleViews.clear();
+        this.unrecyclableViews.clear();
         this.chosenNowExplicitly = CHOICE_NOT_SET_YET;
         super.notifyDataSetChanged();
     }

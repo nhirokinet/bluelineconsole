@@ -4,13 +4,11 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 
 public interface CandidateEntry {
     /**
      * @return The title to display.
      */
-    @NonNull
     String getTitle();
 
     /**
