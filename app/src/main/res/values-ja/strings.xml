@@ -103,6 +103,8 @@
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">コマンド入力窓で setImeHintLocales を用いて、キーボード入力ソフトウェア英語入力であると指示します。キーボード入力ソフトにより挙動が異なります。</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">コマンド入力窓で IME_FLAG_FORCE_ASCII を有効にする</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII は ASCII 文字（英数、記号）入力を IME に指示するものですがキーボード入力ソフトにより挙動が異なります。</string>
+    <string name="preferences_item_accept_arbitrary_url">URL 入力で任意の scheme を許可</string>
+    <string name="preferences_item_accept_arbitrary_url_summary">デフォルトでは、 Blue Line Console は http:// と https:// の scheme のみを URL として受け付けます。このオプションを有効にすると、他の scheme も入力できるようになります。</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">URL 追加</string>
@@ -147,6 +149,7 @@
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ (\"/\") を含む必要があります</string>
+    <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">URL の形式が不正です： &lt;scheme&gt;:// で始まり、もう一つ以上スラッシュ (\"/\") を含む必要があります</string>
     <string name="error_invalid_command_name">コマンドは半角空白を含むことはできず、一文字以上である必要があります。</string>
     <string name="error_empty_display_name">表示名が空です。</string>
 

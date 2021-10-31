@@ -103,6 +103,8 @@
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">Command input window uses setImeHintLocales and sets to English locale. Behavior differs between keyboard input softwares.</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_title">Set IME_FLAG_FORCE_ASCII flag on command input window</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII is intended to use ASCII characters for input. Behavior differs between keyboard input softwares.</string>
+    <string name="preferences_item_accept_arbitrary_url">Accept arbitrary scheme for URL</string>
+    <string name="preferences_item_accept_arbitrary_url_summary">By default, Blue Line Console accepts only URL starting with http:// and https:// as URL input. By enabling option, other schemes are also accepted as URL input.</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">Add custom URL or search engine</string>
@@ -147,6 +149,7 @@
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">Invalid URL: must start with https:// or http:// and at least one more slash (\"/\").</string>
+    <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">Invalid URL: must start with &lt;scheme&gt;:// and at least one more slash (\"/\").</string>
     <string name="error_invalid_command_name">Invalid name: command cannot include space, and must not be empty</string>
     <string name="error_empty_display_name">Display name is empty</string>
 
@@ -206,7 +209,7 @@
         \n
         \n-&#032;Color code (like #4d68ff)
         \n
-        \nHint: Set up Blue Line Console as Default Assistant App from Settings &gt; Apps &amp; notofications &gt; Default Apps &gt; Assistant app or similar menu, to make Blue Line Console open on long-pressing home button.
+        \nHint: Set up Blue Line Console as Default Assistant App from Settings &gt; Apps &amp; notfications &gt; Default Apps &gt; Assistant app or similar menu, to make Blue Line Console open on long-pressing home button.
         \nHint: Blue Line Console can be launched from notification menu by always showing notification. Find the option from config command.
     </string>
 </resources>
