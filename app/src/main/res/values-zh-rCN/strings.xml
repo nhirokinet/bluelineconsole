@@ -44,9 +44,12 @@
     <string name="button_close">关闭</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
+
+    <!-- Colors -->
     <string name="rgb_color_red">红</string>
     <string name="rgb_color_green">绿</string>
     <string name="rgb_color_blue">蓝</string>
+    <string name="rgb_color_display">RGB (红:%1$d, 绿:%2$d, 蓝:%3$d)</string>
 
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">此设置在重启 Blue Line Console 后生效。</string>
@@ -191,6 +194,9 @@
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
 		\n
+        \n搜索引擎名称可以缩写。
+        \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。
+        \n
         \n网络管理命令：
         \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　（仅在有相应命令的系统上可用）
@@ -198,9 +204,6 @@
         \n其他命令：
         \n
         \n-&#032;颜色代码 (比如，#4d68ff)
-        \n
-        \n搜索引擎名称可以缩写。
-        \n比如， \"d somequery\" 等同于 \"duckduckgo somequery\"。
         \n
         \n提示：将 Blue Line Console 设为默认助手应用后可通过长按主页按钮打开它。具体方法为：系统设置 &gt; 应用程序 &amp; 通知 &gt; 默认应用 &gt; 助手应用或类似菜单。
         \n提示：可以通过始终显示通知从通知菜单启动 Blue Line Console。可输入 config 找到该选项。

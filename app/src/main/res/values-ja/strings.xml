@@ -44,9 +44,12 @@
     <string name="button_close">閉じる</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
+
+    <!-- Colors -->
     <string name="rgb_color_red">赤</string>
     <string name="rgb_color_green">緑</string>
     <string name="rgb_color_blue">青</string>
+    <string name="rgb_color_display">RGB (赤:%1$d, 緑:%2$d, 青:%3$d)</string>
 
     <!-- Preferences general notes -->
     <string name="note_take_effect_after_restart">Blue Line Console の再起動後に反映されます。</string>
@@ -190,6 +193,8 @@
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
         \n
+        \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
+        \n
         \nネットワーク管理系コマンド：
         \n
         \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt; （サポートされたシステムのみ）
@@ -197,8 +202,6 @@
         \nその他のコマンド:
         \n
         \n-&#032;カラーコード（例： #4d68ff）
-        \n
-        \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
         \n
         \nヒント： 設定 &gt; アプリと通知 &gt; デフォルトアプリ &gt; アシスト&amp;音声入力、または似たようなメニューで Blue Line Console をデフォルトのアシストアプリにすることにより、ホームボタン長押しで Blue Line Console を起動できるようになります。
         \nヒント： Blue Line Console のアイコンを常に通知に表示することで、通知バーから開くことができます。config コマンドでメニューを開いて設定できます。

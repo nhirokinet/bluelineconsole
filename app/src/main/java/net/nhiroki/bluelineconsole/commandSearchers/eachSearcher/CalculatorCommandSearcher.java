@@ -30,10 +30,10 @@ public class CalculatorCommandSearcher implements CommandSearcher {
 
     @Override
     @NonNull
-    public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
+    public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         List <CandidateEntry> cands = new ArrayList<>();
-        if (Calculator.seemsExpression(s)) {
-            cands.add(new CalculatorCandidateEntry(s, context));
+        if (Calculator.seemsExpression(query)) {
+            cands.add(new CalculatorCandidateEntry(query, context));
         }
         return cands;
     }

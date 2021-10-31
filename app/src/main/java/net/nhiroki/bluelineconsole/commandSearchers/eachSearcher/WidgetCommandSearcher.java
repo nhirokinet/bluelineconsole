@@ -90,10 +90,10 @@ public class WidgetCommandSearcher implements CommandSearcher {
 
     @NonNull
     @Override
-    public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
+    public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         List<CandidateEntry> ret = new ArrayList<>();
 
-        for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(s)) {
+        for (View widget: this.appWidgetsHostManager.createWidgetsForCommand(query)) {
             ret.add(new WidgetCandidateEntry(widget));
         }
 

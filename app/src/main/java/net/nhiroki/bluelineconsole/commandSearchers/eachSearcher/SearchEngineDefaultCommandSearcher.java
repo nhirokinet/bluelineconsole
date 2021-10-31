@@ -46,13 +46,13 @@ public class SearchEngineDefaultCommandSearcher implements CommandSearcher {
 
     @Override
     @NonNull
-    public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
+    public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
         List<CandidateEntry> cands = new ArrayList<>();
 
         WebSearchEngine searchEngine = this._searchEngineDB.getDefaultEngineByPreference(context);
 
         if (searchEngine != null) {
-            cands.add(new SearchEngineCandidateEntry(context, s, searchEngine.display_name, searchEngine.url_base));
+            cands.add(new SearchEngineCandidateEntry(context, query, searchEngine.display_name, searchEngine.url_base));
         }
         return cands;
     }

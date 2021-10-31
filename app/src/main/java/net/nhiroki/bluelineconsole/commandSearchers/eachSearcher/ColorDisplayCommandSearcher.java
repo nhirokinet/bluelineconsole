@@ -3,9 +3,7 @@ package net.nhiroki.bluelineconsole.commandSearchers.eachSearcher;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,24 +65,24 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
 
     @NonNull
     @Override
-    public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
-        if (s.length() == 7 && s.charAt(0) == '#') {
-            int[] color = getColorFromCode(s);
+    public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
+        if (query.length() == 7 && query.charAt(0) == '#') {
+            int[] color = getColorFromCode(query);
 
             if (color == null) {
                 return new ArrayList<>();
             }
 
             List<CandidateEntry> ret = new ArrayList<>();
-            ret.add(new ColorDisplayCandidateEntry(s, color));
+            ret.add(new ColorDisplayCandidateEntry(query, color));
             return ret;
         }
         return new ArrayList<>();
     }
 
-    private class ColorDisplayCandidateEntry implements CandidateEntry {
-        private String title;
-        private int[] color;
+    private static class ColorDisplayCandidateEntry implements CandidateEntry {
+        private final String title;
+        private final int[] color;
 
         public ColorDisplayCandidateEntry(String title, int[] color) {
             this.title = title;
@@ -124,7 +122,7 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
             detail.setOrientation(LinearLayout.VERTICAL);
 
             TextView textView = new TextView(context);
-            textView.setText(context.getString(R.string.rgb_color_red) + ":" +  color[0] + ", " + context.getString(R.string.rgb_color_green) + ":" + color[1] + ", " + context.getString(R.string.rgb_color_blue) + ":" + color[2]);
+            textView.setText(String.format(context.getString(R.string.rgb_color_display), color[0], color[1], color[2]));
 
             detail.addView(textView);
 
