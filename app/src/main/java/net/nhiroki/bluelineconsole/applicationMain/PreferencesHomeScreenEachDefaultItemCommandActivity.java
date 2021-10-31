@@ -4,9 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.lib.EditTextConfigurations;
 import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 
 public class PreferencesHomeScreenEachDefaultItemCommandActivity extends BaseWindowActivity {
@@ -24,6 +26,9 @@ public class PreferencesHomeScreenEachDefaultItemCommandActivity extends BaseWin
 
         this.setHeaderFooterTexts(getString(R.string.preferences_title_for_header_home_screen_default_items), getString(R.string.preferences_title_for_footer_home_screen_default_items));
         this.setWindowBoundarySize(ROOT_WINDOW_FULL_WIDTH_IN_MOBILE, 3);
+
+        final EditText commandInputEditText = this.findViewById(R.id.home_screen_command_edit_command);
+        EditTextConfigurations.applyCommandEditTextConfigurations(commandInputEditText, this);
 
         this.findViewById(R.id.home_screen_command_each_submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
