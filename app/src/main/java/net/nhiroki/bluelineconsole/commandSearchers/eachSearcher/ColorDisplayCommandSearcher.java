@@ -1,7 +1,10 @@
 package net.nhiroki.bluelineconsole.commandSearchers.eachSearcher;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -74,7 +77,8 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
             }
 
             List<CandidateEntry> ret = new ArrayList<>();
-            ret.add(new ColorDisplayCandidateEntry(query, color));
+            // This query is included in detail View, so no need to write it on title.
+            ret.add(new ColorDisplayCandidateEntry(null, color));
             return ret;
         }
         return new ArrayList<>();
@@ -102,29 +106,53 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
             LinearLayout ret = new LinearLayout(context);
             ret.setOrientation(LinearLayout.HORIZONTAL);
 
-            LinearLayout colorShow = new LinearLayout(context);
+            final int brightness = (color[0] + color[1] + color[2]) / 3;
+
+            LinearLayout colorShowOuter = new LinearLayout(context);
+            final int readableColorOnMonitor = brightness > 80 ? Color.BLACK : Color.WHITE;
+            colorShowOuter.setBackgroundColor(readableColorOnMonitor);
+            final int colorShowOuterPadding = (int)(2.0 * pxPerDp);
+            colorShowOuter.setPadding(colorShowOuterPadding, colorShowOuterPadding, colorShowOuterPadding, colorShowOuterPadding);
+            LinearLayout.LayoutParams layoutParamsForColorShowOuter = (LinearLayout.LayoutParams) colorShowOuter.getLayoutParams();
+            if (layoutParamsForColorShowOuter == null) {
+                layoutParamsForColorShowOuter = new LinearLayout.LayoutParams(0, 0);
+            }
+            layoutParamsForColorShowOuter.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            layoutParamsForColorShowOuter.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            colorShowOuter.setLayoutParams(layoutParamsForColorShowOuter);
+            layoutParamsForColorShowOuter.setMarginEnd((int) (8.0 * pxPerDp));
+
+            View colorShow = new View(context);
             colorShow.setBackgroundColor((255 << 24) + (this.color[0] << 16) + (this.color[1] << 8) + this.color[2]);
             LinearLayout.LayoutParams layoutParamsForColorShow = (LinearLayout.LayoutParams) colorShow.getLayoutParams();
             if (layoutParamsForColorShow == null) {
                 layoutParamsForColorShow = new LinearLayout.LayoutParams(0, 0);
             }
-            int colorShowSize = (int) (96.0 * pxPerDp);
-            int colorShowMarginEnd = (int) (8.0 * pxPerDp);
 
+            final int colorShowSize = (int) (96.0 * pxPerDp);
             layoutParamsForColorShow.height = colorShowSize;
             layoutParamsForColorShow.width = colorShowSize;
-            layoutParamsForColorShow.setMarginEnd(colorShowMarginEnd);
             colorShow.setLayoutParams(layoutParamsForColorShow);
 
-            ret.addView(colorShow);
+            colorShowOuter.addView(colorShow);
+            ret.addView(colorShowOuter);
+
+            final TypedValue baseTextColor = new TypedValue();
+            context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
             LinearLayout detail = new LinearLayout(context);
             detail.setOrientation(LinearLayout.VERTICAL);
 
-            TextView textView = new TextView(context);
-            textView.setText(String.format(context.getString(R.string.rgb_color_display), color[0], color[1], color[2]));
+            TextView colorCodeTextView = new TextView(context);
+            colorCodeTextView.setText(String.format("#%02X%02X%02X", color[0], color[1], color[2]));
+            colorCodeTextView.setTypeface(null, Typeface.BOLD);
+            colorCodeTextView.setTextColor(baseTextColor.data);
+            detail.addView(colorCodeTextView);
 
-            detail.addView(textView);
+            TextView rgbTextView = new TextView(context);
+            rgbTextView.setText(String.format(context.getString(R.string.rgb_color_display), color[0], color[1], color[2]));
+            rgbTextView.setTextColor(baseTextColor.data);
+            detail.addView(rgbTextView);
 
             ret.addView(detail);
             return ret;
