@@ -49,6 +49,8 @@ public class MainActivity extends BaseWindowActivity {
 
     private int resumeId = 0;
 
+    private boolean isDisplayingDefaultHome = false;
+
 
     public MainActivity() {
         super(R.layout.main_activity_body, true);
@@ -287,6 +289,8 @@ public class MainActivity extends BaseWindowActivity {
             candidateListView.setSelection(0);
         }
 
+        this.isDisplayingDefaultHome = this._iAmHomeActivity && query.isEmpty();
+
         this.setWholeLayout();
     }
 
@@ -296,11 +300,14 @@ public class MainActivity extends BaseWindowActivity {
             executeSearch(query.toString());
 
         } else {
-            findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
             final int myResumeId = this.resumeId;
 
-            _resultCandidateListAdapter.clear();
-            _resultCandidateListAdapter.notifyDataSetChanged();
+            if (!this.isDisplayingDefaultHome || !query.toString().isEmpty()) {
+                findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
+                this.isDisplayingDefaultHome = false;
+                _resultCandidateListAdapter.clear();
+                _resultCandidateListAdapter.notifyDataSetChanged();
+            }
 
             _threadPool.execute(new Runnable() {
                 @Override
