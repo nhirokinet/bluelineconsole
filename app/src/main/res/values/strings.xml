@@ -4,55 +4,55 @@
 
     <!-- ActivityMain -->
     <string name="displayedFullVersionString">Version %1$s</string>
-    <string name="loading_main_caption">データベース構築中&#8230;</string>
-    <string name="loading_detail_for_command_search">初回起動時や、言語設定を変更した直後は、\n構築に数秒から数十秒かかることがあります。</string>
+    <string name="loading_main_caption">Refreshing database&#8230;</string>
+    <string name="loading_detail_for_command_search">On first launch, or on first launch after changing language setting,\nrefreshing may take a while (sometimes tens of seconds).</string>
 
     <!-- Calculators -->
-    <string name="calculator_precision_format">演算精度: %1$s</string>
-    <string name="calculator_precision_no_error">誤差なし</string>
-    <string name="calculator_precision_rounding">演算中の丸め処理あり</string>
-    <string name="calculator_error_division_by_zero">0 による除算</string>
-    <string name="calculator_error_unit_conversion_failure">\"%1$s\" を \"%2$s\" に換算できません</string>
+    <string name="calculator_precision_format">Calculation Precision: %1$s</string>
+    <string name="calculator_precision_no_error">No Error</string>
+    <string name="calculator_precision_rounding">Half rounding up while calculation</string>
+    <string name="calculator_error_division_by_zero">Division by 0</string>
+    <string name="calculator_error_unit_conversion_failure">Cannot convert \"%1$s\" to \"%2$s\"</string>
 
     <!-- Command searcher texts for results -->
-    <string name="result_search_query_on_engine_format">%2$s で \"%1$s\" を検索</string>
-    <string name="result_static_webpage_format">%1$s に接続</string>
-    <string name="result_config_summary">Blue Line Console の設定</string>
+    <string name="result_search_query_on_engine_format">Search \"%1$s\" on %2$s</string>
+    <string name="result_static_webpage_format">Access %1$s</string>
+    <string name="result_config_summary">Preferences for Blue Line Console</string>
 
     <!-- Themes -->
-    <string name="theme_name_default">デフォルト（ライトまたはダーク、システム設定に従う）</string>
-    <string name="theme_name_light">ライト</string>
-    <string name="theme_name_dark">ダーク</string>
-    <string name="theme_name_marine">マリン</string>
-    <string name="theme_name_old_computer">オールド・コンピュータ</string>
+    <string name="theme_name_default">Default (Light or Dark, according to system setting)</string>
+    <string name="theme_name_light">Light</string>
+    <string name="theme_name_dark">Dark</string>
+    <string name="theme_name_marine">Marine</string>
+    <string name="theme_name_old_computer">Old Computer</string>
 
     <!-- Widgets -->
-    <string name="widget_launcher_label">Blue Line Console のショートカット</string>
+    <string name="widget_launcher_label">Blue Line Console shortcut</string>
 
     <!-- String match strategies -->
-    <string name="string_match_strategy_substring">通常</string>
-    <string name="string_match_strategy_skipped_substring">一部一致 （例： \"abd\" で \"abcdef\" がヒット）</string>
+    <string name="string_match_strategy_substring">Normal</string>
+    <string name="string_match_strategy_skipped_substring">Skipped substring (e.g. \"abd\" for \"abcdef\")</string>
 
     <!-- Notification for OS -->
-    <string name="notification_launch_this_app">Blue Line Console を起動</string>
-    <string name="notification_channel_always_show">Blue Line Console をどの画面からでも開くために、常に通知バーに表示</string>
+    <string name="notification_launch_this_app">Launch Blue Line Console</string>
+    <string name="notification_channel_always_show">Notification icon always shown to launch Blue Line Console everywhere</string>
 
     <!-- Preferences general buttons -->
-    <string name="button_add">追加</string>
-    <string name="button_update">更新</string>
-    <string name="button_delete">削除</string>
-    <string name="button_close">閉じる</string>
+    <string name="button_add">Add</string>
+    <string name="button_update">Update</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_close">Close</string>
     <string name="button_increment_minimal">+</string>
     <string name="button_decrement_minimal">-</string>
 
     <!-- Colors -->
-    <string name="rgb_color_red">赤</string>
-    <string name="rgb_color_green">緑</string>
-    <string name="rgb_color_blue">青</string>
-    <string name="rgb_color_display">RGB (赤:%1$d, 緑:%2$d, 青:%3$d)</string>
+    <string name="rgb_color_red">Red</string>
+    <string name="rgb_color_green">Green</string>
+    <string name="rgb_color_blue">Blue</string>
+    <string name="rgb_color_display">RGB (Red:%1$d, Green:%2$d, Blue:%3$d)</string>
 
     <!-- Preferences general notes -->
-    <string name="note_take_effect_after_restart">Blue Line Console の再起動後に反映されます。</string>
+    <string name="note_take_effect_after_restart">This setting takes effect after restarting Blue Line Console.</string>
 
     <!-- Preferences, titles for headers and footers -->
     <string name="preferences_title_for_header_and_footer">Configuration</string>
@@ -67,122 +67,127 @@
     <string name="preferences_title_for_header_and_footer_widget">Widget</string>
 
     <!-- Preferences categories, main screen -->
-    <string name="preferences_category_main">一般</string>
-    <string name="preferences_category_apps">アプリ起動</string>
-    <string name="preferences_category_appearance">外観</string>
-    <string name="preferences_category_urls">Web ページと Web 検索</string>
-    <string name="preferences_category_custom_commands">カスタムコマンド</string>
-    <string name="preferences_category_home_screen">ホームスクリーン</string>
-    <string name="preferences_category_contacts">連絡先</string>
-    <string name="preferences_category_advanced">上級者向けオプション</string>
+    <string name="preferences_category_main">General</string>
+    <string name="preferences_category_appearance">Appearance</string>
+    <string name="preferences_category_apps">Launching Apps</string>
+    <string name="preferences_category_urls">Web Pages and Searches</string>
+    <string name="preferences_category_custom_commands">Custom commands</string>
+    <string name="preferences_category_home_screen">Home Screen</string>
+    <string name="preferences_category_contacts">Contacts</string>
+    <string name="preferences_category_advanced">Advanced</string>
 
-    <!-- Preferences, titles for headers and footers -->
-    <string name="preferences_item_main_show_startup_help_title">起動時にヘルプを表示</string>
-    <string name="preferences_item_main_show_startup_help_summary">"help" コマンドを案内します。"help" コマンドを覚えたら無効にすることをおすすめします。</string>
-    <string name="preferences_item_default_assist_app_title">デフォルトのアシストアプリに設定する</string>
-    <string name="preferences_item_default_assist_app_summary">設定でアシストアプリに設定することで、どこからでもホームボタン長押しで Blue Line Console を起動できるようにできます。</string>
-    <string name="preferences_item_main_always_show_notification_title">通知を常に表示</string>
-    <string name="preferences_item_main_always_show_notification_summary">どこからでも Blue Line Console を起動できるよう、通知を常に表示します。</string>
-    <string name="preferences_item_text_match_strategy_title">検索時の文字列マッチ</string>
-    <string name="preferences_item_appearance_theme_title">テーマ</string>
-    <string name="preferences_item_appearance_theme_summary">テーマを変更すると、 Blue Line Console が再起動します。</string>
-    <string name="preferences_item_appearance_accent_color">アクセント カラー</string>
-    <string name="preferences_item_appearance_animation_title">アニメーション</string>
-    <string name="preferences_item_apps_show_package_name_title">パッケージ名を表示</string>
-    <string name="preferences_item_apps_show_package_name_summary">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
-    <string name="preferences_item_display_custom_urls_title">URL と検索エンジンの呼び出し設定</string>
-    <string name="preferences_item_default_search_title">デフォルト検索エンジン</string>
-    <string name="preferences_item_default_search_summary">常に設定した検索エンジンでの検索を一覧に表示します</string>
-    <string name="preferences_item_default_search_option_none">（なし）</string>
-    <string name="preferences_item_custom_commands_widgets">ウィジェットコマンド（実験的機能）</string>
-    <string name="preferences_item_home_screen_default_items">ホームスクリーンの項目</string>
-    <string name="preferences_item_home_screen_default_items_summary">ホームスクリーンとして起動され、コマンドが何も入力されていない場合に表示する項目を設定します</string>
-    <string name="preferences_item_contacts_enable_search">連絡先からの検索を有効にする</string>
-    <string name="preferences_item_contacts_search_permission_explanation">有効にする場合は連絡先からの読み込み権限が必要になります。別途明示的な許可操作を求められる場合があります。</string>
-    <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">コマンド入力窓で、キーボード入力ソフトウェアに指示する言語を英語にする</string>
-    <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">コマンド入力窓で setImeHintLocales を用いて、キーボード入力ソフトウェア英語入力であると指示します。キーボード入力ソフトにより挙動が異なります。</string>
-    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">コマンド入力窓で IME_FLAG_FORCE_ASCII を有効にする</string>
-    <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII は ASCII 文字（英数、記号）入力を IME に指示するものですがキーボード入力ソフトにより挙動が異なります。</string>
+    <!-- Preferences items, main screen -->
+    <string name="preferences_item_main_show_startup_help_title">Show help on startup</string>
+    <string name="preferences_item_main_show_startup_help_summary">This option just shows you the guidance for help command. It is better to disable this option once you remembered "help" command.</string>
+    <string name="preferences_item_default_assist_app_title">Set as default assistant app</string>
+    <string name="preferences_item_default_assist_app_summary">To open Blue Line Console by long-pressing home button everywhere, set it as default assistant app from setting menu.</string>
+    <string name="preferences_item_main_always_show_notification_title">Always show icon as notification</string>
+    <string name="preferences_item_main_always_show_notification_summary">Always show the notification icon to start Blue Line Console everywhere.</string>
+    <string name="preferences_item_text_match_strategy_title">Text search matching style</string>
+    <string name="preferences_item_appearance_theme_title">Theme</string>
+    <string name="preferences_item_appearance_theme_summary">When this option is changed, Blue Line Console restarts immediately.</string>
+    <string name="preferences_item_appearance_accent_color">Accent color</string>
+    <string name="preferences_item_appearance_animation_title">Animation</string>
+    <string name="preferences_item_apps_show_package_name_title">Show package name</string>
+    <string name="preferences_item_apps_show_package_name_summary">Note: You can find apps by a part of package name even this check is off.</string>
+    <string name="preferences_item_display_custom_urls_title">Web pages and searches</string>
+    <string name="preferences_item_default_search_title">Default Search Engine</string>
+    <string name="preferences_item_default_search_summary">Always show specific search engine on the bottom of list</string>
+    <string name="preferences_item_default_search_option_none">(None)</string>
+    <string name="preferences_item_custom_commands_widgets">Widget commands (experimental)</string>
+    <string name="preferences_item_home_screen_default_items">Home screen items</string>
+    <string name="preferences_item_home_screen_default_items_summary">Display results and widgets when nothing is input at home screen, when Blue Line Console is set to home app.</string>
+    <string name="preferences_item_contacts_enable_search">Enable contacts search</string>
+    <string name="preferences_item_contacts_search_permission_explanation">Enabling contacts search requires permission to read Contacts. You may be asked to grant the access to Contacts.</string>
+    <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">Notify English input to keyboard input software on command input window</string>
+    <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">Command input window uses setImeHintLocales and sets to English locale. Behavior differs between keyboard input softwares.</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">Set IME_FLAG_FORCE_ASCII flag on command input window</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII is intended to use ASCII characters for input. Behavior differs between keyboard input softwares.</string>
+    <string name="preferences_item_accept_arbitrary_url">Accept arbitrary scheme for URL</string>
+    <string name="preferences_item_accept_arbitrary_url_summary">By default, Blue Line Console accepts only URL starting with http:// and https:// as URL input. By enabling option, other schemes are also accepted as URL input.</string>
 
     <!-- Preferences items, URL screens -->
-    <string name="preferences_url_add_button">URL 追加</string>
-    <string name="preferences_url_column_command_name">コマンド名</string>
-    <string name="preferences_url_column_display_name">表示名</string>
+    <string name="preferences_url_add_button">Add custom URL or search engine</string>
+    <string name="preferences_url_column_command_name">Command name</string>
+    <string name="preferences_url_column_display_name">Display name</string>
     <string name="preferences_url_column_url">URL</string>
-    <string name="preferences_url_column_has_query">検索エンジン（有効にするとクエリが URL 末尾に追加されます）</string>
-    <string name="preferences_url_property_enabled">有効</string>
-    <string name="preferences_url_property_disabled">無効</string>
-    <string name="preferences_url_property_preset">プリセット</string>
-    <string name="preferences_url_varies_with_locale">言語設定を変更するとこの内容も変わります</string>
+    <string name="preferences_url_column_has_query">Search engine (query is added at the end when enabled)</string>
+    <string name="preferences_url_property_enabled">Enabled</string>
+    <string name="preferences_url_property_disabled">Disabled</string>
+    <string name="preferences_url_property_preset">Preset</string>
+    <string name="preferences_url_varies_with_locale">Varies with device language setting</string>
 
     <!-- Preferences items, accent color screens -->
-    <string name="preferences_accent_color_theme_default">テーマの初期設定</string>
-    <string name="preferences_accent_color_custom">色を設定</string>
-    <string name="preferences_accent_color_theme_without_accent_color">ご利用中のテーマ（%1$s）ではアクセントカラーの変更はできません。</string>
+    <string name="preferences_accent_color_theme_default">Theme default</string>
+    <string name="preferences_accent_color_custom">Customize color</string>
+    <string name="preferences_accent_color_theme_without_accent_color">Current theme (%1$s) does not support changing accent color.</string>
 
     <!-- Preferences item, home screen default items screens -->
-    <string name="preferences_home_screen_add_command_button">コマンドを追加する</string>
-    <string name="preferences_home_screen_add_widget_button">ウィジェットを追加する（実験的機能）</string>
-    <string name="preferences_home_screen_add_widget_select_message">追加するウィジェットを選択してください</string>
-    <string name="preferences_home_screen_widget_label">ウィジェット</string>
-    <string name="preferences_home_screen_command_label">コマンド</string>
+    <string name="preferences_home_screen_add_command_button">Add command</string>
+    <string name="preferences_home_screen_add_widget_button">Add widget (experimental)</string>
+    <string name="preferences_home_screen_add_widget_select_message">Select widget to add:</string>
+    <string name="preferences_home_screen_widget_label">Widget</string>
+    <string name="preferences_home_screen_command_label">Command</string>
 
     <!-- Preferences item, widgets related messages -->
-    <string name="preferences_widget_height_px">高さ（ピクセル）</string>
-    <string name="preferences_widget_minimum_height_show">高さの最小値: %1$d ピクセル</string>
-    <string name="preferences_widget_default_height_show">高さの初期設定: %1$d ピクセル</string>
-    <string name="preferences_widget_configure_the_widget">ウィジェットの設定</string>
+    <string name="preferences_widget_height_px">Height (px)</string>
+    <string name="preferences_widget_minimum_height_show">Minimum Height: %1$d px</string>
+    <string name="preferences_widget_default_height_show">Default Height: %1$d px</string>
+    <string name="preferences_widget_configure_the_widget">Configure the widget</string>
 
     <!-- Preferences item, widget commands related messages -->
-    <string name="preferences_command_widget_command_add">ウィジェットコマンドを追加</string>
-    <string name="preferences_command_widget_command_new_label">新規ウィジェットコマンド</string>
-    <string name="preferences_command_widget_command_save_and_select_widget">保存してウィジェットを選択</string>
-    <string name="preferences_command_widget_command_command">コマンド名</string>
-    <string name="preferences_command_widget_command_abbreviation">コマンド名は省略可能</string>
-    <string name="preferences_command_widget_command_abbreviable_label">略記可</string>
+    <string name="preferences_command_widget_command_add">Add widget command</string>
+    <string name="preferences_command_widget_command_new_label">New widget command</string>
+    <string name="preferences_command_widget_command_save_and_select_widget">Save and select widget</string>
+    <string name="preferences_command_widget_command_command">Command name</string>
+    <string name="preferences_command_widget_command_abbreviation">Command name can be abbreviated</string>
+    <string name="preferences_command_widget_command_abbreviable_label">Abbreviable</string>
 
     <!-- Contact search -->
-    <string name="contacts_action_dial_phone_number">電話: %1$s</string>
-    <string name="contacts_action_email">電子メール: %1$s</string>
+    <string name="contacts_action_dial_phone_number">Dial: %1$s</string>
+    <string name="contacts_action_email">E-mail: %1$s</string>
 
     <!-- Error messages, user errors -->
-    <string name="error_invalid_url_least_validation_for_web">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ (\"/\") を含む必要があります</string>
-    <string name="error_invalid_command_name">コマンドは半角空白を含むことはできず、一文字以上である必要があります。</string>
-    <string name="error_empty_display_name">表示名が空です。</string>
+    <string name="error_invalid_url_least_validation_for_web">Invalid URL: must start with https:// or http:// and at least one more slash (\"/\").</string>
+    <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">Invalid URL: must start with &lt;scheme&gt;:// and at least one more slash (\"/\").</string>
+    <string name="error_invalid_command_name">Invalid name: command cannot include space, and must not be empty</string>
+    <string name="error_empty_display_name">Display name is empty</string>
 
     <!-- Error messages, system errors -->
-    <string name="error_failure_could_not_start_command">エラー：コマンドを開始できませんでした</string>
-    <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" は開くことができません。</string>
-    <string name="error_failure_could_not_connect_to_the_widget">エラー：ウィジェットに接続できませんでした</string>
+    <string name="error_failure_could_not_start_command">ERROR: could not start command</string>
+    <string name="error_failure_could_not_open_url">ERROR: could not open URL</string>
+    <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" is not a launchable package.</string>
+    <string name="error_failure_could_not_connect_to_the_widget">ERROR: could not connect to the widget</string>
 
     <!-- Error messages, app internal errors -->
-    <string name="error_calculator_internal_error">計算機エラー</string>
+    <string name="error_calculator_internal_error">Unknown calculator internal error</string>
 
     <!-- Startup Help Activity -->
     <string name="startup_help_title_for_header_and_footer">Notification</string>
-    <string name="startup_help_title">help の使い方</string>
-    <string name="startup_help_body_part1">コマンド入力欄に</string>
-    <string name="startup_help_body_part3">と入力すると、使い方を表示できます。</string>
-    <string name="startup_help_check_never_later">次回以降このヒントを表示しない</string>
+    <string name="startup_help_title">About help command</string>
+    <string name="startup_help_body_part1">To show usage, enter</string>
+    <string name="startup_help_body_part2" translatable="false">help</string>
+    <string name="startup_help_body_part3">to see what to do.</string>
+    <string name="startup_help_check_never_later">Don\'t show this message again</string>
 
     <!-- Migration message -->
     <string name="migration_lost_happened_message">
-        Blue Line Console の外側でデータの復元が行われたようです。
+        Data seems to be restored outside of Blue Line Console.
         \n
-        \nウィジェットは移行できませんので、設定が失われています。必要なら config から再度ウィジェット設定を行ってください。
+        \nWidgets cannot be migrated and are lost. Reconfigure widget settings from config if necessary.
     </string>
 
     <!-- Help -->
     <string name="app_help_text">
-        次の一覧のいずれかで検索できます。
+        You can input one of below list to search apps or commands.
         \n
-        \n-&#032;アプリケーション名（例： Blue Line Console）の一部
-        \n-&#032;パッケージ名（例： net.nhiroki.bluelineconsole）の一部
-        \n-&#032;URL （例： https://example.com/）
-        \n-&#032;計算式（例： 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
-        \n-&#032;下記のコマンド一覧のいずれか（例： help）
+        \n-&#032;Part of application name (e.g. Blue Line Console)
+        \n-&#032;Part of package name (e.g. net.nhiroki.bluelineconsole)
+        \n-&#032;URL (e.g. https://example.com/)
+        \n-&#032;Calculation formula (e.g. 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm)
+        \n-&#032;One of commands below (e.g. help)
         \n
-        \n利用可能なコマンド:
+        \nAvailable commands:
         \n
         \n-&#032;help
         \n-&#032;config
@@ -194,17 +199,18 @@
         \n-&#032;wikipedia &lt;query&gt;
         \n-&#032;yahoo &lt;query&gt;
         \n
-        \n検索エンジンの名前は後半を省略できます。例えば、 \"duckduckgo query\" ではなく \"d query\" でも検索できます。
+        \nName for search engine name can be abbreviated.
+        \nFor example, \"d somequery\" is equivalent to \"duckduckgo somequery\".
         \n
-        \nネットワーク管理系コマンド：
+        \nNetwork administrative commands:
         \n
-        \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt; （サポートされたシステムのみ）
+        \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　(only on systems with corresponding command)
         \n
-        \nその他のコマンド:
+        \nOther commands:
         \n
-        \n-&#032;カラーコード（例： #4d68ff）
+        \n-&#032;Color code (like #4d68ff)
         \n
-        \nヒント： 設定 &gt; アプリと通知 &gt; デフォルトアプリ &gt; アシスト&amp;音声入力、または似たようなメニューで Blue Line Console をデフォルトのアシストアプリにすることにより、ホームボタン長押しで Blue Line Console を起動できるようになります。
-        \nヒント： Blue Line Console のアイコンを常に通知に表示することで、通知バーから開くことができます。config コマンドでメニューを開いて設定できます。
+        \nHint: Set up Blue Line Console as Default Assistant App from Settings &gt; Apps &amp; notfications &gt; Default Apps &gt; Assistant app or similar menu, to make Blue Line Console open on long-pressing home button.
+        \nHint: Blue Line Console can be launched from notification menu by always showing notification. Find the option from config command.
     </string>
 </resources>
