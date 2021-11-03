@@ -90,6 +90,21 @@ public final class AppWidgetsHostManager {
         this.widgetsSetting = WidgetsSetting.getInstance(context);
     }
 
+    /**
+     * TODO: this is unused because this crashes.
+     *
+     * Current memo to reproduce:
+     *   - Android emulator Nexus 10 API 30
+     *   - Set some widget command
+     *   - Terminate app
+     *   - Just open MainActivity and input the widget command to show widget
+     *   - Make MainActivity invisible, by exiting or by going to Digital Assistance setting from config.
+     *     - call stopListening() in MainActivity.onStop()
+     *   - Detect crash via adb
+     *     - Basic behavior is that Blue Line Console gets invisible, so normally it is not visible
+     *
+     * Besides, currently I found nothing bad for not calling stopListening.
+     */
     public void stopListening() {
         if (this.widgetHost != null) {
             this.widgetHost.stopListening();

@@ -42,8 +42,6 @@ public class MainActivity extends BaseWindowActivity {
 
     private boolean _homeItemExists = false;
 
-    private final AppWidgetsHostManager appWidgetsHostManager = new AppWidgetsHostManager(this);
-
     private EditText mainInputText;
     private ListView candidateListView;
 
@@ -217,7 +215,6 @@ public class MainActivity extends BaseWindowActivity {
 
     @Override
     protected void onStop() {
-        this.appWidgetsHostManager.stopListening();
         super.onStop();
     }
 
