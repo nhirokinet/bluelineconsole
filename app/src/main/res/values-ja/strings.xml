@@ -75,6 +75,7 @@
     <string name="preferences_category_home_screen">ホームスクリーン</string>
     <string name="preferences_category_contacts">連絡先</string>
     <string name="preferences_category_advanced">上級者向けオプション</string>
+    <string name="preferences_category_about_this_app">Blue Line Console について</string>
 
     <!-- Preferences, titles for headers and footers -->
     <string name="preferences_item_main_show_startup_help_title">起動時にヘルプを表示</string>
@@ -105,6 +106,8 @@
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII は ASCII 文字（英数、記号）入力を IME に指示するものですがキーボード入力ソフトにより挙動が異なります。</string>
     <string name="preferences_item_accept_arbitrary_url">URL 入力で任意の scheme を許可</string>
     <string name="preferences_item_accept_arbitrary_url_summary">デフォルトでは、 Blue Line Console は http:// と https:// の scheme のみを URL として受け付けます。このオプションを有効にすると、他の scheme も入力できるようになります。</string>
+    <string name="preferences_item_about_this_app_github_repo">Blue Line Console on GitHub</string>
+    <string name="preferences_item_about_this_app_github_repo_summary">https://github.com/nhirokinet/bluelineconsole に接続</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">URL 追加</string>
