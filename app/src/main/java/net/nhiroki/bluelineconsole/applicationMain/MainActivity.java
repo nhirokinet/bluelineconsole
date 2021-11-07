@@ -47,7 +47,7 @@ public class MainActivity extends BaseWindowActivity {
 
     private int resumeId = 0;
 
-    private boolean isDisplayingDefaultHome = false;
+    private boolean temporaryContentShown = false;
 
 
     public MainActivity() {
@@ -157,15 +157,24 @@ public class MainActivity extends BaseWindowActivity {
             mainInputText.addTextChangedListener(new MainInputTextListener(mainInputText.getText()));
 
         } else {
-            _commandSearchAggregator.refresh(this);
             if (!_cameBackFlag) {
-                mainInputText.setText("");
+                if (this._iAmHomeActivity) {
+                    if (! mainInputText.getText().toString().isEmpty()) {
+                        mainInputText.setText("");
+                        this.onCommandInput(mainInputText.getText());
+                    }
 
-                if (!this._iAmHomeActivity) {
-                    _resultCandidateListAdapter.clear();
-                    _resultCandidateListAdapter.notifyDataSetChanged();
+                } else {
+                    mainInputText.setText("");
+
+                    if (!this._iAmHomeActivity) {
+                        _resultCandidateListAdapter.clear();
+                        _resultCandidateListAdapter.notifyDataSetChanged();
+                    }
                 }
             }
+            // Refresh after searching temporary lsit
+            _commandSearchAggregator.refresh(this);
         }
 
         if (this.showStartUpHelp) {
@@ -286,9 +295,9 @@ public class MainActivity extends BaseWindowActivity {
             candidateListView.setSelection(0);
         }
 
-        this.isDisplayingDefaultHome = this._iAmHomeActivity && query.isEmpty();
-
         this.setWholeLayout();
+
+        this.temporaryContentShown = true;
     }
 
     private void onCommandInput(final CharSequence query) {
@@ -299,9 +308,8 @@ public class MainActivity extends BaseWindowActivity {
         } else {
             final int myResumeId = this.resumeId;
 
-            if (!this.isDisplayingDefaultHome || !query.toString().isEmpty()) {
+            if (!this._iAmHomeActivity || !this.temporaryContentShown) {
                 findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.VISIBLE);
-                this.isDisplayingDefaultHome = false;
                 _resultCandidateListAdapter.clear();
                 _resultCandidateListAdapter.notifyDataSetChanged();
             }
@@ -335,6 +343,7 @@ public class MainActivity extends BaseWindowActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
+            MainActivity.this.temporaryContentShown = false;
             onCommandInput(s);
         }
 
