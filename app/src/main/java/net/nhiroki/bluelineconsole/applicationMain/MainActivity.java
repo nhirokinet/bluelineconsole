@@ -325,7 +325,7 @@ public class MainActivity extends BaseWindowActivity {
                                 // Already different session, canceling the operation.
                                 return;
                             }
-                            executeSearch(query.toString());
+                            executeSearch(mainInputText.getText().toString());
                             findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
                         }
                     });
