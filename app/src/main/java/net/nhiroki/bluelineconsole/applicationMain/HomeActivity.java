@@ -7,10 +7,4 @@ public class HomeActivity extends MainActivity {
         super();
         this._iAmHomeActivity = true;
     }
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    protected void onStop() {
-        super.originalOnStop();
-    }
 }

@@ -132,10 +132,4 @@ public class PreferencesHomeScreenAddWidgetActivity extends BaseWindowActivity {
         super.onWindowFocusChanged(hasFocus);
         this.changeBaseWindowElementSizeForAnimation(true);
     }
-
-    @SuppressLint("MissingSuperCall")
-    @Override
-    protected void onStop() {
-        super.originalOnStop();
-    }
 }
