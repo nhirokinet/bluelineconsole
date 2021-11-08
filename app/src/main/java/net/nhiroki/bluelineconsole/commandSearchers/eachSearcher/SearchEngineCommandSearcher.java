@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -104,7 +104,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(BaseWindowActivity activity) {
+                public void launch(MainActivity activity) {
                     try {
                         activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase)));
                         activity.finish();
@@ -168,7 +168,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(BaseWindowActivity activity) {
+                public void launch(MainActivity activity) {
                     try {
                         activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase + Uri.encode(query))));
                         activity.finish();

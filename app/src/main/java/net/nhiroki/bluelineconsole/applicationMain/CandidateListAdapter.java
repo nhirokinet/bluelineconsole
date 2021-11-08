@@ -29,7 +29,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private final ListView listView;
     private int chosenNowExplicitly = CHOICE_NOT_SET_YET;
 
-    private final BaseWindowActivity activity;
+    private final MainActivity activity;
 
     private static final int CHOICE_NOT_SET_YET       = -1;
     private static final int CHOICE_UNAVAILABLE       = -2;
@@ -37,7 +37,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
     private final Map<Integer, View> unrecyclableViews = new HashMap<>();
 
-    CandidateListAdapter(BaseWindowActivity activity, List<CandidateEntry> objects, ListView listView) {
+    CandidateListAdapter(MainActivity activity, List<CandidateEntry> objects, ListView listView) {
         super(activity, 0, objects);
 
         this.activity = activity;
