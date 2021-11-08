@@ -12,7 +12,7 @@ import androidx.core.util.Pair;
 import androidx.preference.PreferenceManager;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
@@ -282,7 +282,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(BaseWindowActivity activity) {
+                public void launch(MainActivity activity) {
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(PhoneNumberCandidateEntry.this.phoneNumber)));
                     activity.startActivity(intent);
                 }
@@ -339,7 +339,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(BaseWindowActivity activity) {
+                public void launch(MainActivity activity) {
                     Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + Uri.encode(EmailCandidateEntry.this.emailAddresss)));
                     activity.startActivity(intent);
                 }
