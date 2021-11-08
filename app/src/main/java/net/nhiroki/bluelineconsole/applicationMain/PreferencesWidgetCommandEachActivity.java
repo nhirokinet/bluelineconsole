@@ -121,12 +121,6 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSizeForAnimation(true);
     }
 
-    @SuppressLint("MissingSuperCall")
-    @Override
-    protected void onStop() {
-        super.originalOnStop();
-    }
-
     @Override
     protected void onResume() {
         super.onResume();

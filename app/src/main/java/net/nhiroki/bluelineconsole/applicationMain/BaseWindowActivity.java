@@ -33,7 +33,6 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     private final @LayoutRes int _mainLayoutResID;
     private final boolean _smallWindow;
-    private boolean _comingBack = false;
     private String _currentTheme;
     private boolean _isDefaultLayOut = true;
     private boolean _hasFooter = true;
@@ -234,8 +233,6 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        this._comingBack = false;
-
         final boolean animationEnabledBySetting = this.getAnimationEnabledPreferenceValue();
 
         if (animationEnabledBySetting) {
@@ -266,15 +263,6 @@ public class BaseWindowActivity extends AppCompatActivity {
         this.onAccentColorChanged();
     }
 
-    @Override
-    protected void onStop() {
-        // This app should be as stateless as possible. When app disappears most activities should finish.
-        super.onStop();
-        if (! this._comingBack) {
-            this.finish();
-        }
-    }
-
     protected String readThemeFromConfig() {
         return readThemeFromConfigStatic(this);
     }
@@ -294,10 +282,6 @@ public class BaseWindowActivity extends AppCompatActivity {
             }
         }
         return this.getString(R.string.theme_name_default);
-    }
-
-    protected void setComingBackFlag() {
-        this._comingBack = true;
     }
 
     protected boolean themeSupportsAccentColorChange() {
@@ -349,10 +333,6 @@ public class BaseWindowActivity extends AppCompatActivity {
             this.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter).setBackgroundColor(color);
             this.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setBackgroundColor(color);
         }
-    }
-
-    protected void originalOnStop() {
-        super.onStop();
     }
 
     protected void onHeightChange() {}
