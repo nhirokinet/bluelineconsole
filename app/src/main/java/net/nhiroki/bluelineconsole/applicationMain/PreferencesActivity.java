@@ -60,6 +60,7 @@ public class PreferencesActivity extends BaseWindowActivity {
 
     protected void setComingBackFlag() {
         this._comingBack = true;
+        MainActivity.setIsComingBack(true);
     }
 
     public static class PreferencesFragmentWithOnChangeListener extends PreferencesFragment {
@@ -108,6 +109,8 @@ public class PreferencesActivity extends BaseWindowActivity {
     @Override
     public void onResume() {
         super.onResume();
+        this._comingBack = false;
+        MainActivity.setIsComingBack(false);
     }
 
     @Override

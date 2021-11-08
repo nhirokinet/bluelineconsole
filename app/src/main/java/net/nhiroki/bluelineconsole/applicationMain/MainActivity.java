@@ -36,6 +36,7 @@ public class MainActivity extends BaseWindowActivity {
     public static final int REQUEST_CODE_FOR_COMING_BACK = 1;
 
     private boolean _cameBackFlag = false;
+    private boolean _comingBackFlag = false;
 
     private boolean showStartUpHelp = false;
     private boolean _migrationLostHappened = false;
@@ -49,14 +50,26 @@ public class MainActivity extends BaseWindowActivity {
 
     private boolean temporaryContentShown = false;
 
+    private static MainActivity myActiveInstance = null;
+
 
     public MainActivity() {
         super(R.layout.main_activity_body, true);
     }
 
+    public static void setIsComingBack(boolean flag) {
+        if (myActiveInstance != null) {
+            myActiveInstance._comingBackFlag = flag;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!this._iAmHomeActivity) {
+            MainActivity.myActiveInstance = this;
+        }
 
         this.mainInputText = findViewById(R.id.mainInputText);
 
@@ -132,6 +145,10 @@ public class MainActivity extends BaseWindowActivity {
         if (this._commandSearchAggregator != null) {
             this._commandSearchAggregator.close();
         }
+        if (!this._iAmHomeActivity) {
+            MainActivity.myActiveInstance = null;
+        }
+
         super.onDestroy();
     }
 
@@ -140,6 +157,7 @@ public class MainActivity extends BaseWindowActivity {
         super.onResume();
 
         ++this.resumeId;
+        this._comingBackFlag = false;
 
         EditTextConfigurations.applyCommandEditTextConfigurations(mainInputText, this);
 
@@ -226,7 +244,7 @@ public class MainActivity extends BaseWindowActivity {
     protected void onStop() {
         // This app should be as stateless as possible. When app disappears most activities should finish.
         super.onStop();
-        if (!this._iAmHomeActivity) {
+        if (!this._iAmHomeActivity && !this._comingBackFlag) {
             this.finish();
         }
     }
