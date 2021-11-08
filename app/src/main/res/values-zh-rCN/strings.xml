@@ -75,7 +75,7 @@
     <string name="preferences_category_home_screen">主屏幕</string>
     <string name="preferences_category_contacts">通讯录</string>
     <string name="preferences_category_advanced">高级</string>
-    <string name="preferences_category_about_this_app">About</string>
+    <string name="preferences_category_about_this_app">关于</string>
 
     <!-- Preferences items, main screen -->
     <string name="preferences_item_main_show_startup_help_title">应用启动时显示帮助</string>
@@ -106,7 +106,7 @@
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII 表示打算使用 ASCII 字符进行输入。不同的键盘输入软件有不同的行为。</string>
     <string name="preferences_item_accept_arbitrary_url">接受任意 URL 格式</string>
     <string name="preferences_item_accept_arbitrary_url_summary">默认情况下，Blue Line Console 只接受以 http:// 和 https:// 开头的 URL 作为 URL 输入。启用选项后，将接受其他格式的 URL 作为输入。</string>
-    <string name="preferences_item_about_this_app_github_repo">Blue Line Console on GitHub</string>
+    <string name="preferences_item_about_this_app_github_repo">GitHub 上的 Blue Line Console</string>
     <string name="preferences_item_about_this_app_github_repo_summary">访问 https://github.com/nhirokinet/bluelineconsole</string>
 
     <!-- Preferences items, URL screens -->
