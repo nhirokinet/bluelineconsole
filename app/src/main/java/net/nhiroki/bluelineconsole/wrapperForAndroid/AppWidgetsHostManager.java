@@ -64,7 +64,7 @@ public final class AppWidgetsHostManager {
 
         public @StringRes
         int validate() {
-            if (this.command.equals("")) {
+            if (this.command.isEmpty()) {
                 return R.string.error_invalid_command_name;
             }
 
@@ -105,12 +105,14 @@ public final class AppWidgetsHostManager {
      *
      * Besides, currently I found nothing bad for not calling stopListening.
      */
+    /*
     public void stopListening() {
         if (this.widgetHost != null) {
             this.widgetHost.stopListening();
             this.widgetHost = null;
         }
     }
+     */
 
     public void startAppWidgetConfigureActivityForResult(Activity baseActivity, int appWidgetId, int intentFlags, int requestCode, android.os.Bundle options) {
         new AppWidgetHost(this.context.getApplicationContext(), MY_WIDGET_HOST_ID).startAppWidgetConfigureActivityForResult(baseActivity, appWidgetId, intentFlags, requestCode, options);
