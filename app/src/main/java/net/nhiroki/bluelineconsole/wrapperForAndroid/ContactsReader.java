@@ -6,18 +6,18 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.provider.ContactsContract;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.core.content.ContextCompat;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class ContactsReader {
     public static class Contact {
-        public String display_name = "";
+        public String displayName = "";
+        public String phoneticName = "";
         public List<String> phoneNumbers = new ArrayList<>();
         public List<String> emailAddresses = new ArrayList<>();
     }
@@ -87,15 +87,24 @@ public class ContactsReader {
             while (contactsCursor.moveToNext()) {
                 final int idColumnIndex = contactsCursor.getColumnIndex(ContactsContract.Contacts._ID);
                 final int displayNameColumnIndex = contactsCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+                final int phoneticNameColumnIndex = contactsCursor.getColumnIndex(ContactsContract.Contacts.PHONETIC_NAME);
 
                 if (idColumnIndex != -1 && displayNameColumnIndex != -1) {
                     Contact contact = new Contact();
 
-                    String contactId = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Contacts._ID));
-                    contact.display_name = contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                    final String contactId = contactsCursor.getString(idColumnIndex);
+                    contact.displayName = contactsCursor.getString(displayNameColumnIndex);
 
-                    if (contact.display_name == null) {
-                        contact.display_name = "";
+                    if (contact.displayName == null) {
+                        contact.displayName = "";
+                    }
+
+                    if (phoneticNameColumnIndex != -1) {
+                        contact.phoneticName = contactsCursor.getString(phoneticNameColumnIndex);
+
+                        if (contact.phoneticName == null) {
+                            contact.phoneticName = "";
+                        }
                     }
 
                     if (phoneNumbers.containsKey(contactId)) {
