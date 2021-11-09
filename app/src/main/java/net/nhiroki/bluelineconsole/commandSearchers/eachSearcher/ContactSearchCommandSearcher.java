@@ -177,9 +177,14 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
     }
 
     private static int judgeQueryForContact(Context context, String query, ContactsReader.Contact contact) {
-        int displayNameMatch = StringMatchStrategy.match(context, query, contact.display_name, false);
+        int displayNameMatch = StringMatchStrategy.match(context, query, contact.displayName, false);
         if (displayNameMatch >= 0) {
             return displayNameMatch;
+        }
+
+        int phoneticNameMatch = StringMatchStrategy.match(context, query, contact.phoneticName, false);
+        if (phoneticNameMatch >= 0) {
+            return phoneticNameMatch;
         }
 
         for (String emailAddress: contact.emailAddresses) {
@@ -214,7 +219,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         @NonNull
         @Override
         public String getTitle() {
-            return this.contact.display_name;
+            return this.contact.displayName;
         }
 
         @Override
