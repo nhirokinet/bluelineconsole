@@ -8,6 +8,7 @@
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
+    android:clickable="false"
     android:theme="@style/AppThemeOldComputerHome"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".applicationMain.BaseWindowActivity"
@@ -23,6 +24,7 @@
         android:orientation="vertical"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:clickable="false"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,6 +100,7 @@
                 android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 />
         </LinearLayout>
         <LinearLayout

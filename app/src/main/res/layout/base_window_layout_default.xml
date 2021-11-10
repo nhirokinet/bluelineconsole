@@ -8,6 +8,7 @@
     android:animateLayoutChanges="true"
     android:focusable="false"
     android:focusableInTouchMode="false"
+    android:clickable="false"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".applicationMain.BaseWindowActivity"
     >
@@ -22,6 +23,7 @@
         android:orientation="vertical"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:clickable="false"
         >
         <LinearLayout
             android:id="@+id/baseWindowHeaderWrapper"
@@ -44,6 +46,7 @@
                 android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 />
             <LinearLayout
                 android:id="@+id/baseWindowDefaultThemeHeaderImagePart"
@@ -54,6 +57,7 @@
                 android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 >
                 <!-- Sizes here must be consistent with corresponding drawables -->
                 <ImageView
@@ -64,6 +68,7 @@
                     tools:ignore="ContentDescription"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:clickable="false"
                     />
                 <TextView
                     android:clickable="false"
@@ -109,6 +114,7 @@
                 android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 >
             </LinearLayout>
         </LinearLayout>
@@ -141,6 +147,7 @@
                 android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 >
                 <ViewStub
                     android:layout_width="match_parent"
@@ -149,6 +156,7 @@
                     android:animateLayoutChanges="true"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:clickable="false"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -179,6 +187,7 @@
                 android:animateLayoutChanges="true"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 >
                 <!-- Sizes here must be consistent with corresponding drawables -->
                 <TextView
@@ -203,6 +212,7 @@
                     android:layout_weight="1"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:clickable="false"
                     />
                 <ImageView
                     android:id="@+id/baseWindowDefaultThemeFooterAccent"
@@ -212,6 +222,7 @@
                     tools:ignore="ContentDescription"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:clickable="false"
                     />
             </LinearLayout>
             <LinearLayout
@@ -222,6 +233,7 @@
                 android:orientation="vertical"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 android:animateLayoutChanges="true"
                 />
         </LinearLayout>
