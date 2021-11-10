@@ -73,6 +73,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rgb_color_red"
+                    android:labelFor="@id/pref_accent_color_red_seekbar"
                     />
                 <SeekBar
                     android:id="@+id/pref_accent_color_red_seekbar"
@@ -80,7 +81,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:max="255"
-                    android:labelFor="@id/pref_accent_color_red_label"
                     />
                 <Button
                     android:id="@+id/pref_accent_color_red_decrement_button"
@@ -118,6 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rgb_color_green"
+                    android:labelFor="@id/pref_accent_color_green_seekbar"
                     />
                 <SeekBar
                     android:id="@+id/pref_accent_color_green_seekbar"
@@ -125,7 +126,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:max="255"
-                    android:labelFor="@id/pref_accent_color_green_label"
                     />
                 <Button
                     android:id="@+id/pref_accent_color_green_decrement_button"
@@ -163,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/rgb_color_blue"
+                    android:labelFor="@id/pref_accent_color_blue_seekbar"
                     />
                 <SeekBar
                     android:id="@+id/pref_accent_color_blue_seekbar"
@@ -170,7 +171,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:max="255"
-                    android:labelFor="@id/pref_accent_color_blue_label"
                     />
                 <Button
                     android:id="@+id/pref_accent_color_blue_decrement_button"
