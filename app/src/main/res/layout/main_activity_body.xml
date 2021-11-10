@@ -23,6 +23,7 @@
         android:animateLayoutChanges="true"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:clickable="false"
         >
         <EditText
             android:id="@+id/mainInputText"
@@ -50,6 +51,7 @@
         android:orientation="vertical"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:clickable="false"
         >
         <ScrollView
             android:id="@+id/commandSearchWaitingNotification"
@@ -58,6 +60,7 @@
             android:visibility="gone"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:clickable="false"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,6 +70,7 @@
                 android:gravity="top"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
+                android:clickable="false"
                 >
                 <ProgressBar
                     android:layout_width="72dp"
@@ -76,6 +80,7 @@
                     style="?android:attr/progressBarStyle"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:clickable="false"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,6 +89,7 @@
                     android:padding="10dp"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:clickable="false"
                     >
                     <TextView
                         android:layout_width="wrap_content"
@@ -95,6 +101,7 @@
                         android:textColor="?bluelineconsoleBaseTextColor"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:clickable="false"
                         />
                     <TextView
                         android:layout_width="wrap_content"
@@ -104,6 +111,7 @@
                         android:textColor="?bluelineconsoleBaseTextColor"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
+                        android:clickable="false"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -118,6 +126,7 @@
             android:padding="0px"
             android:focusable="false"
             android:focusableInTouchMode="false"
+            android:clickable="false"
             android:headerDividersEnabled="true"
             />
     </LinearLayout>
