@@ -113,10 +113,12 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
 
     public int getLargestIdInHomeScreenDefaultItems() {
         Cursor curEntry = this.getReadableDatabase().query("home_screen_default_items", new String[]{"MAX(id)"}, null, null, null, null, "id");
+        int ret = -1;
         if (curEntry.moveToNext()) {
-            return curEntry.getInt(curEntry.getColumnIndex("MAX(id)"));
+            ret = curEntry.getInt(curEntry.getColumnIndex("MAX(id)"));
         }
-        return -1;
+        curEntry.close();
+        return ret;
     }
 
     public void deleteHomeScreenDefaultItem(int id) {
