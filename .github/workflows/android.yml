@@ -25,6 +25,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build bundleRelease
+    - name: License check
+      run: ./ci/license-checker.py
 
     - name: Save artifacts
       uses: actions/upload-artifact@v2
