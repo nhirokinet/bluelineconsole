@@ -182,5 +182,14 @@
                 android:data="https://github.com/nhirokinet/bluelineconsole"
                 />
         </Preference>
+        <Preference
+            android:title="@string/preferences_item_about_this_app_licensing_information"
+            app:iconSpaceReserved="false"
+            >
+            <intent
+                android:targetClass="net.nhiroki.bluelineconsole.applicationMain.LicensingInformationActivity"
+                android:targetPackage="net.nhiroki.bluelineconsole"
+                />
+        </Preference>
     </PreferenceCategory>
 </PreferenceScreen>
