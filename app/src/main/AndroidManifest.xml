@@ -127,6 +127,11 @@
             android:exported="false"
             />
         <activity
+            android:name=".applicationMain.LicensingInformationActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme"
+            />
+        <activity
             android:name=".commands.netutils.PingActivity"
             android:theme="@style/AppTheme"
             android:exported="false"

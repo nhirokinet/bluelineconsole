@@ -65,6 +65,7 @@
     <string name="preferences_title_for_footer_home_screen_default_items">Default Items</string>
     <string name="preferences_title_for_header_and_footer_home_screen_add_widget">Add Widget</string>
     <string name="preferences_title_for_header_and_footer_widget">Widget</string>
+    <string name="preferences_title_for_header_and_footer_license">License</string>
 
     <!-- Preferences categories, main screen -->
     <string name="preferences_category_main">General</string>
@@ -108,6 +109,7 @@
     <string name="preferences_item_accept_arbitrary_url_summary">By default, Blue Line Console accepts only URL starting with http:// and https:// as URL input. By enabling option, other schemes are also accepted as URL input.</string>
     <string name="preferences_item_about_this_app_github_repo">Blue Line Console on GitHub</string>
     <string name="preferences_item_about_this_app_github_repo_summary">Access https://github.com/nhirokinet/bluelineconsole</string>
+    <string name="preferences_item_about_this_app_licensing_information">Licensing information</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">Add custom URL or search engine</string>
@@ -216,4 +218,17 @@
         \nHint: Set up Blue Line Console as Default Assistant App from Settings &gt; Apps &amp; notfications &gt; Default Apps &gt; Assistant app or similar menu, to make Blue Line Console open on long-pressing home button.
         \nHint: Blue Line Console can be launched from notification menu by always showing notification. Find the option from config command.
     </string>
+
+    <!-- Licensing information, untranslatable not to make slightest difference -->
+    <string name="licensing_notice_header" translatable="false">Licensing information</string>
+    <string name="licensing_notice_body" translatable="false">
+        Blue Line Console is licensed under the Apache License, Version 2.0.
+        \n
+        \nBlue Line Console contains following software, which is licensed under the Apache License, Version 2.0.
+        \n
+        \n- Android Jetpack
+    </string>
+
+    <!-- Legal English texts -->
+    <string name="license_apache_license_v2.0_name" translatable="false">Apache License, Version 2.0</string>
 </resources>
