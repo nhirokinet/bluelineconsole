@@ -40,8 +40,8 @@
             android:textColor="?bluelineconsoleBaseTextColor"
             android:fontFamily="monospace"
             android:layout_marginHorizontal="10sp"
-            android:layout_marginVertical="5sp"
-            android:padding="3sp"
+            android:layout_marginVertical="3sp"
+            android:textSize="9sp"
             />
     </LinearLayout>
 </ScrollView>
