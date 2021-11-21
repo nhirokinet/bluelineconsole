@@ -65,7 +65,7 @@
     <string name="preferences_title_for_footer_home_screen_default_items">默认项目</string>
     <string name="preferences_title_for_header_and_footer_home_screen_add_widget">添加小部件</string>
     <string name="preferences_title_for_header_and_footer_widget">小部件</string>
-    <string name="preferences_title_for_header_and_footer_license"许可证></string>
+    <string name="preferences_title_for_header_and_footer_license">许可证</string>
 
     <!-- Preferences categories, main screen -->
     <string name="preferences_category_main">一般</string>
