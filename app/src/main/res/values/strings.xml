@@ -224,7 +224,7 @@
     <string name="licensing_notice_body" translatable="false">
         Blue Line Console is licensed under the Apache License, Version 2.0.
         \n
-        \nBlue Line Console contains following software, which is licensed under the Apache License, Version 2.0.
+        \nBlue Line Console contains code from the following library, which Apache License, Version 2.0, is applied to.
         \n
         \n- Android Jetpack
     </string>
