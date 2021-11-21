@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.commandSearchers.eachSearcher;
 
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -76,7 +75,7 @@ public class URICommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(BaseWindowActivity activity) {
+                public void launch(MainActivity activity) {
                     try {
                         activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                         activity.finish();

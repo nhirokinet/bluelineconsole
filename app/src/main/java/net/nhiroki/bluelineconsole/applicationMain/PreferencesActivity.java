@@ -17,6 +17,7 @@ import net.nhiroki.bluelineconsole.wrapperForAndroid.ContactsReader;
 public class PreferencesActivity extends BaseWindowActivity {
     private static final int READ_CONTACT_PERMISSION_GRANT_REQUEST_ID = 1;
 
+    private boolean _comingBack = false;
     private PreferencesFragmentWithOnChangeListener preferenceFragment = null;
     public PreferencesActivity() {
         super(R.layout.preferences_activity_body, false);
@@ -55,6 +56,11 @@ public class PreferencesActivity extends BaseWindowActivity {
                 }
             }
         }
+    }
+
+    protected void setComingBackFlag() {
+        this._comingBack = true;
+        MainActivity.setIsComingBack(true);
     }
 
     public static class PreferencesFragmentWithOnChangeListener extends PreferencesFragment {
@@ -103,6 +109,8 @@ public class PreferencesActivity extends BaseWindowActivity {
     @Override
     public void onResume() {
         super.onResume();
+        this._comingBack = false;
+        MainActivity.setIsComingBack(false);
     }
 
     @Override
@@ -110,5 +118,14 @@ public class PreferencesActivity extends BaseWindowActivity {
         super.onWindowFocusChanged(hasFocus);
 
         this.changeBaseWindowElementSizeForAnimation(true);
+    }
+
+    @Override
+    protected void onStop() {
+        // This app should be as stateless as possible. When app disappears most activities should finish.
+        super.onStop();
+        if (! this._comingBack) {
+            this.finish();
+        }
     }
 }

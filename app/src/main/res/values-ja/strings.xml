@@ -65,6 +65,7 @@
     <string name="preferences_title_for_footer_home_screen_default_items">Default Items</string>
     <string name="preferences_title_for_header_and_footer_home_screen_add_widget">Add Widget</string>
     <string name="preferences_title_for_header_and_footer_widget">Widget</string>
+    <string name="preferences_title_for_header_and_footer_license">License</string>
 
     <!-- Preferences categories, main screen -->
     <string name="preferences_category_main">一般</string>
@@ -108,6 +109,7 @@
     <string name="preferences_item_accept_arbitrary_url_summary">デフォルトでは、 Blue Line Console は http:// と https:// の scheme のみを URL として受け付けます。このオプションを有効にすると、他の scheme も入力できるようになります。</string>
     <string name="preferences_item_about_this_app_github_repo">Blue Line Console on GitHub</string>
     <string name="preferences_item_about_this_app_github_repo_summary">https://github.com/nhirokinet/bluelineconsole に接続</string>
+    <string name="preferences_item_about_this_app_licensing_information">ライセンス情報</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">URL 追加</string>

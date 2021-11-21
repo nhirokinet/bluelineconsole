@@ -29,16 +29,15 @@ import net.nhiroki.bluelineconsole.R;
 
 
 public class BaseWindowActivity extends AppCompatActivity {
-    protected boolean _iAmHomeActivity = false;
+    protected boolean iAmHomeActivity = false;
 
-    private final @LayoutRes int _mainLayoutResID;
-    private final boolean _smallWindow;
-    private boolean _comingBack = false;
-    private String _currentTheme;
-    private boolean _isDefaultLayOut = true;
-    private boolean _hasFooter = true;
+    private final @LayoutRes int mainLayoutResID;
+    private final boolean smallWindow;
+    private String currentTheme;
+    private boolean isDefaultLayOut = true;
+    private boolean hasFooter = true;
 
-    private boolean _animationHasBeenEnabled = false;
+    private boolean animationHasBeenEnabled = false;
 
     public static final String PREF_NAME_THEME = "pref_appearance_theme";
     public static final String PREF_VALUE_THEME_DEFAULT = "default";
@@ -65,12 +64,12 @@ public class BaseWindowActivity extends AppCompatActivity {
      */
     protected BaseWindowActivity(@LayoutRes int mainLayoutResID, boolean smallWindow) {
         super();
-        this._mainLayoutResID = mainLayoutResID;
-        this._smallWindow = smallWindow;
+        this.mainLayoutResID = mainLayoutResID;
+        this.smallWindow = smallWindow;
     }
 
     public void finishIfNotHome() {
-        if (! this._iAmHomeActivity) {
+        if (! this.iAmHomeActivity) {
             this.finish();
         }
     }
@@ -92,12 +91,12 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this._currentTheme = this.readThemeFromConfig();
+        this.currentTheme = this.readThemeFromConfig();
 
         // AppCompatDelegate.setLocalNightMode, behaves strangely; sometimes activity does not come up.
         // AppCompatDelegate.setDefaultNightMode(), on the other hand, seems to crash other activities already launched;
         // Currently only the solution I could find was finishing all activities before calling setDefaultNightMode.
-        switch (this._currentTheme) {
+        switch (this.currentTheme) {
             case PREF_VALUE_THEME_DARK:
             case PREF_VALUE_THEME_OLD_COMPUTER:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -112,7 +111,7 @@ public class BaseWindowActivity extends AppCompatActivity {
                 break;
         }
 
-        final String actualTheme = determineActualTheme(this, this._currentTheme);
+        final String actualTheme = determineActualTheme(this, this.currentTheme);
 
         super.onCreate(savedInstanceState);
 
@@ -121,42 +120,42 @@ public class BaseWindowActivity extends AppCompatActivity {
 
         switch (actualTheme) {
             case PREF_VALUE_THEME_DARK:
-                this.setTheme(this._iAmHomeActivity ? R.style.AppThemeDarkHome : R.style.AppThemeDark);
+                this.setTheme(this.iAmHomeActivity ? R.style.AppThemeDarkHome : R.style.AppThemeDark);
                 this.setContentView(R.layout.base_window_layout_default);
                 break;
             case PREF_VALUE_THEME_MARINE:
-                this.setTheme(this._iAmHomeActivity ? R.style.AppThemeMarineHome : R.style.AppThemeMarine);
+                this.setTheme(this.iAmHomeActivity ? R.style.AppThemeMarineHome : R.style.AppThemeMarine);
                 this.setContentView(R.layout.base_window_layout_marine);
-                this._isDefaultLayOut = false;
+                this.isDefaultLayOut = false;
 
                 LinearLayout centerLL = findViewById(R.id.baseWindowIntermediateWrapper);
                 LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-                centerLP.height = this._smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
+                centerLP.height = this.smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
                 centerLL.setLayoutParams(centerLP);
                 break;
             case PREF_VALUE_THEME_OLD_COMPUTER:
-                this.setTheme(this._iAmHomeActivity ? R.style.AppThemeOldComputerHome : R.style.AppThemeOldComputer);
+                this.setTheme(this.iAmHomeActivity ? R.style.AppThemeOldComputerHome : R.style.AppThemeOldComputer);
                 this.setContentView(R.layout.base_window_layout_old_computer);
-                this._isDefaultLayOut = false;
-                this._hasFooter = false;
+                this.isDefaultLayOut = false;
+                this.hasFooter = false;
                 break;
             case PREF_VALUE_THEME_LIGHT:
             default:
-                this.setTheme(this._iAmHomeActivity ? R.style.AppThemeHome : R.style.AppTheme);
+                this.setTheme(this.iAmHomeActivity ? R.style.AppThemeHome : R.style.AppTheme);
                 this.setContentView(R.layout.base_window_layout_default);
                 break;
         }
 
         ViewStub mainViewStub = this.findViewById(R.id.baseWindowMainViewStub);
-        mainViewStub.setLayoutResource(this._mainLayoutResID);
+        mainViewStub.setLayoutResource(this.mainLayoutResID);
         mainViewStub.inflate();
 
-        if (! this._iAmHomeActivity) {
+        if (! this.iAmHomeActivity) {
             this.findViewById(R.id.baseWindowMainLayoutRoot).setOnClickListener(new ExitOnClickListener());
         }
         ((LinearLayout)findViewById(R.id.baseWindowMainLinearLayout)).getChildAt(0).setOnClickListener(null);
 
-        if (this._hasFooter) {
+        if (this.hasFooter) {
             // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in base_window_layout.xml .
             View mainFooterWrapper = findViewById(R.id.baseWindowFooterWrapper);
             ViewGroup.MarginLayoutParams mainFooterWrapperLayoutParam = (ViewGroup.MarginLayoutParams) mainFooterWrapper.getLayoutParams();
@@ -171,7 +170,7 @@ public class BaseWindowActivity extends AppCompatActivity {
 
         // TitleBarDragOnTouchListener has some state, it is safer to create different instance
         this.findViewById(R.id.baseWindowHeaderWrapper).setOnTouchListener(new TitleBarDragOnTouchListener());
-        if (this._isDefaultLayOut) {
+        if (this.isDefaultLayOut) {
             this.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setOnTouchListener(new TitleBarDragOnTouchListener());
 
             // Make setTint() in onResume() to work
@@ -218,7 +217,7 @@ public class BaseWindowActivity extends AppCompatActivity {
                             (int) (paddingRightOffset - event.getRawX()), (int) (paddingBottomOffset - event.getRawY()));
 
                     if (BaseWindowActivity.this.getAnimationEnabledPreferenceValue()) {
-                        if (BaseWindowActivity.this._animationHasBeenEnabled) {
+                        if (BaseWindowActivity.this.animationHasBeenEnabled) {
                             BaseWindowActivity.this.enableWindowAnimationForElements();
                         }
                     }
@@ -234,12 +233,10 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        this._comingBack = false;
-
         final boolean animationEnabledBySetting = this.getAnimationEnabledPreferenceValue();
 
         if (animationEnabledBySetting) {
-            if (this._animationHasBeenEnabled) {
+            if (this.animationHasBeenEnabled) {
                 this.enableWindowAnimationForElements();
             }
         } else {
@@ -266,15 +263,6 @@ public class BaseWindowActivity extends AppCompatActivity {
         this.onAccentColorChanged();
     }
 
-    @Override
-    protected void onStop() {
-        // This app should be as stateless as possible. When app disappears most activities should finish.
-        super.onStop();
-        if (! this._comingBack) {
-            this.finish();
-        }
-    }
-
     protected String readThemeFromConfig() {
         return readThemeFromConfigStatic(this);
     }
@@ -284,20 +272,16 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected String getCurrentTheme() {
-        return this._currentTheme;
+        return this.currentTheme;
     }
 
     protected CharSequence getCurrentThemeName() {
         for (int i = 0; i < PREF_THEME_ENTRY_VALUES.length; ++i) {
-            if (PREF_THEME_ENTRY_VALUES[i].equals(this._currentTheme)) {
+            if (PREF_THEME_ENTRY_VALUES[i].equals(this.currentTheme)) {
                 return BaseWindowActivity.getPrefThemeEntries(this)[i];
             }
         }
         return this.getString(R.string.theme_name_default);
-    }
-
-    protected void setComingBackFlag() {
-        this._comingBack = true;
     }
 
     protected boolean themeSupportsAccentColorChange() {
@@ -341,7 +325,7 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     @CallSuper
     protected void applyAccentColor(int color) {
-        if (this._isDefaultLayOut) {
+        if (this.isDefaultLayOut) {
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground(), color);
             DrawableCompat.setTint(this.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);
             this.findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent).setBackgroundColor(color);
@@ -349,10 +333,6 @@ public class BaseWindowActivity extends AppCompatActivity {
             this.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter).setBackgroundColor(color);
             this.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setBackgroundColor(color);
         }
-    }
-
-    protected void originalOnStop() {
-        super.onStop();
     }
 
     protected void onHeightChange() {}
@@ -391,7 +371,7 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     protected void setHeaderFooterTexts(CharSequence headerText, CharSequence footerText) {
-        if (this._hasFooter) {
+        if (this.hasFooter) {
             ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(headerText);
             ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(footerText == null ? headerText : footerText);
         } else {
@@ -404,7 +384,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected void enableBaseWindowAnimation() {
-        this._animationHasBeenEnabled = true;
+        this.animationHasBeenEnabled = true;
         if (this.getAnimationEnabledPreferenceValue()) {
             this.enableWindowAnimationForElements();
         }
@@ -433,7 +413,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper));
         enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout));
         enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowFooterWrapper));
-        if (this._isDefaultLayOut) {
+        if (this.isDefaultLayOut) {
             enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter));
             enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent));
             enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent));
@@ -449,7 +429,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper));
         disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout));
         disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowFooterWrapper));
-        if (this._isDefaultLayOut) {
+        if (this.isDefaultLayOut) {
             disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter));
             disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent));
             disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowDefaultThemeFooterEndAccent));
@@ -459,7 +439,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected double getWindowBodyAvailableHeight() {
-        return findViewById(R.id.baseWindowMainLayoutRoot).getHeight() - findViewById(R.id.baseWindowHeaderWrapper).getHeight() * (this._hasFooter ? 2.0 : 1.0);
+        return findViewById(R.id.baseWindowMainLayoutRoot).getHeight() - findViewById(R.id.baseWindowHeaderWrapper).getHeight() * (this.hasFooter ? 2.0 : 1.0);
     }
 
     private class ExitOnClickListener implements View.OnClickListener {
@@ -478,16 +458,16 @@ public class BaseWindowActivity extends AppCompatActivity {
         // This is for animation, so if animation is disabled no reason to make invisible
         if (visible || !this.getAnimationEnabledPreferenceValue()) {
             mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
-            mainLP.height = this._smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
+            mainLP.height = this.smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
             mainLL.setLayoutParams(mainLP);
 
             LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = this._smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
+            centerLP.height = this.smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
             centerLL.setLayoutParams(centerLP);
 
             if (! this.getCurrentTheme().equals(PREF_VALUE_THEME_OLD_COMPUTER) && ! this.getCurrentTheme().equals(PREF_VALUE_THEME_MARINE)) {
                 LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
-                centerLPOuter.height = this._smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
+                centerLPOuter.height = this.smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
                 centerLLOuter.setLayoutParams(centerLPOuter);
             }
 

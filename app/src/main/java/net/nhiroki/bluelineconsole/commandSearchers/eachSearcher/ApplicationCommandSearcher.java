@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.applications.ApplicationDatabase;
@@ -143,7 +142,7 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         public EventLauncher getEventLauncher(final Context context) {
             return new EventLauncher() {
                 @Override
-                public void launch(BaseWindowActivity activity) {
+                public void launch(MainActivity activity) {
                     String packageName = AppOpenCandidateEntry.this.applicationInformation.getPackageName();
                     Intent intent = activity.getPackageManager().getLaunchIntentForPackage(AppOpenCandidateEntry.this.applicationInformation.getPackageName());
                     if (packageName.equals(context.getPackageName())) {

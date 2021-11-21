@@ -8,6 +8,7 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.lib.EditTextConfigurations;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
@@ -56,6 +57,9 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
 
         ((ListPreference) findPreference(WebSearchEnginesDatabase.PREF_KEY_DEFAULT_SEARCH)).setEntries(search_engine_entries);
         ((ListPreference) findPreference(WebSearchEnginesDatabase.PREF_KEY_DEFAULT_SEARCH)).setEntryValues(search_engine_entry_values);
+
+        findPreference("dummy_pref_app_info").setSummary(String.format(this.getString(R.string.displayedFullVersionString), BuildConfig.VERSION_NAME));
+        findPreference("dummy_pref_app_info").setSelectable(false);
 
         int stringMatchStrategySize = StringMatchStrategy.STRATEGY_LIST.length;
 

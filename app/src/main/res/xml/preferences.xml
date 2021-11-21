@@ -167,6 +167,12 @@
         app:iconSpaceReserved="false"
         >
         <Preference
+            android:key="dummy_pref_app_info"
+            android:title="@string/app_name"
+            android:icon="@mipmap/ic_launcher"
+            app:iconSpaceReserved="false"
+            />
+        <Preference
             android:title="@string/preferences_item_about_this_app_github_repo"
             android:summary="@string/preferences_item_about_this_app_github_repo_summary"
             app:iconSpaceReserved="false"
@@ -174,6 +180,15 @@
             <intent
                 android:action="android.intent.action.VIEW"
                 android:data="https://github.com/nhirokinet/bluelineconsole"
+                />
+        </Preference>
+        <Preference
+            android:title="@string/preferences_item_about_this_app_licensing_information"
+            app:iconSpaceReserved="false"
+            >
+            <intent
+                android:targetClass="net.nhiroki.bluelineconsole.applicationMain.LicensingInformationActivity"
+                android:targetPackage="net.nhiroki.bluelineconsole"
                 />
         </Preference>
     </PreferenceCategory>

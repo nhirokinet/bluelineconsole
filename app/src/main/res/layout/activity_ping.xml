@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?android:colorBackground"
     android:orientation="vertical"
-    tools:ignore="Overdraw"
     >
     <TextView
         android:id="@+id/command_title_text_view"
@@ -16,11 +14,13 @@
         android:background="?bluelineconsoleFrameColor"
         android:padding="3sp"
         />
-    <!-- TODO: make it scrollable -->
-    <LinearLayout
+    <!-- To make ScrollView keep bottom by default, both ScrollView and contents are rotated  -->
+    <ScrollView
+        android:id="@+id/command_output_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
+        android:rotation="180"
         >
         <TextView
             android:id="@+id/command_output_text_view"
@@ -29,8 +29,7 @@
             android:textColor="?bluelineconsoleBaseTextColor"
             android:fontFamily="monospace"
             android:padding="3sp"
-            android:layout_gravity="bottom"
-            android:gravity="bottom"
+            android:rotation="180"
             />
-    </LinearLayout>
+    </ScrollView>
 </LinearLayout>

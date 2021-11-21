@@ -3,6 +3,7 @@ package net.nhiroki.bluelineconsole.commands.netutils;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.R;
@@ -39,6 +40,10 @@ public class Ping6Activity extends BaseWindowActivity {
 
         this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
+
+        // Invert scroolview position because ScrollView itself is invertd
+        boolean isRtl = this.getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        this.findViewById(R.id.command_output_scroll_view).setVerticalScrollbarPosition(isRtl ? View.SCROLLBAR_POSITION_RIGHT: View.SCROLLBAR_POSITION_LEFT);
     }
 
     @SuppressLint("SetTextI18n")

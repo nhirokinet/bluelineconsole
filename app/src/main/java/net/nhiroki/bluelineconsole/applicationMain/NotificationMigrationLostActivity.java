@@ -49,4 +49,11 @@ public class NotificationMigrationLostActivity extends BaseWindowActivity {
         super.onPause();
         finish();
     }
+
+    @Override
+    protected void onStop() {
+        // This app should be as stateless as possible. When app disappears most activities should finish.
+        super.onStop();
+        this.finish();
+    }
 }
