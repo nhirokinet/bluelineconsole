@@ -34,6 +34,7 @@
             android:launchMode="singleInstance"
             android:stateNotNeeded="true"
             android:theme="@style/AppTheme"
+            android:exported="true"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,6 +57,7 @@
             android:launchMode="singleInstance"
             android:stateNotNeeded="true"
             android:theme="@style/AppThemeHome"
+            android:exported="true"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -148,13 +150,16 @@
 
         <receiver android:name=".widget.LauncherWidgetProvider"
             android:label="@string/widget_launcher_label"
+            android:exported="false"
             >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/launcher_widget_info" />
         </receiver>
-        <receiver android:name=".applicationMain.BootReceiver">
+        <receiver android:name=".applicationMain.BootReceiver"
+            android:exported="false"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 
