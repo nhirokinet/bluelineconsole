@@ -112,6 +112,12 @@ public class MainActivity extends BaseWindowActivity {
         mainInputText.requestFocus();
         mainInputText.requestFocusFromTouch();
 
+        Intent from_intent = this.getIntent();
+        String search = from_intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (search != null) {
+            mainInputText.setText(search);
+        }
+
         mainInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
