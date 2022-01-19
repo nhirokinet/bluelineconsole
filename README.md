@@ -1,4 +1,4 @@
-# Blue Line Console
+# <img src="./fastlane/metadata/android/en-US/images/icon.png" width="48" height="48"> Blue Line Console
 
 Keyboard based launcher for Android
 
