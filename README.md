@@ -1,5 +1,6 @@
-# bluelineconsole
-Blue Line Console, keyboard based launcher for Android
+# Blue Line Console
+
+Keyboard based launcher for Android
 
 # Releases
 Available at:
