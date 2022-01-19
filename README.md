@@ -1,12 +1,12 @@
-# <img src="./fastlane/metadata/android/en-US/images/icon.png" width="48" height="48"> Blue Line Console
+## <img src="./fastlane/metadata/android/en-US/images/icon.png" width="32" height="32"> Blue Line Console
 
 Keyboard based launcher for Android
 
-# Releases
+### Releases
 Available at:
 
 - https://play.google.com/store/apps/details?id=net.nhiroki.bluelineconsole
 - https://f-droid.org/en/packages/net.nhiroki.bluelineconsole/
 
-# Screenshots
+### Screenshots
 <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="240"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="240"> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="240">
