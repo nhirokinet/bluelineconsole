@@ -1,5 +1,6 @@
 package net.nhiroki.bluelineconsole.dataStore.deviceLocal;
 
+import android.annotation.SuppressLint;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.ContentValues;
 import android.content.Context;
@@ -127,6 +128,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         return this.getWritableDatabase().insert("home_screen_widgets", null, cv);
     }
 
+    @SuppressLint("Range")
     public List<AppWidgetsHostManager.HomeScreenWidgetInfo> getAllHomeScreenWidgets(AppWidgetsHostManager appWidgetsHostManager) {
         List<AppWidgetsHostManager.HomeScreenWidgetInfo> ret = new ArrayList<>();
 
@@ -148,6 +150,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         return ret;
     }
 
+    @SuppressLint("Range")
     public AppWidgetsHostManager.HomeScreenWidgetInfo getHomeScreenById(AppWidgetsHostManager appWidgetsHostManager, int id) {
         Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px", "after_default_item"},
                                                   "id = ?", new String[]{String.valueOf(id)}, null, null, null);
@@ -183,6 +186,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         this.getWritableDatabase().update("home_screen_widgets", cv, "id = ?", args);
     }
 
+    @SuppressLint("Range")
     public List<AppWidgetsHostManager.WidgetCommand> getAllWidgetCommands(AppWidgetsHostManager appWidgetsHostManager) {
         List<AppWidgetsHostManager.WidgetCommand> ret = new ArrayList<>();
 
@@ -207,6 +211,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         return ret;
     }
 
+    @SuppressLint("Range")
     public AppWidgetsHostManager.WidgetCommand getWidgetCommandById(AppWidgetsHostManager appWidgetsHostManager, int id) {
         Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"},
                                                   "id = ?", new String[]{String.valueOf(id)},  null, null, null);

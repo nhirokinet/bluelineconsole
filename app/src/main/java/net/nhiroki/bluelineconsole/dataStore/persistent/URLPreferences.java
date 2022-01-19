@@ -1,5 +1,6 @@
 package net.nhiroki.bluelineconsole.dataStore.persistent;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -69,6 +70,7 @@ public class URLPreferences extends SQLiteOpenHelper {
         return this.getWritableDatabase().insert("url_info", null, cv);
     }
 
+    @SuppressLint("Range")
     public List<URLEntry> getAllEntries() {
         List<URLEntry> ret = new ArrayList<>();
 
