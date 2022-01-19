@@ -1,5 +1,6 @@
 package net.nhiroki.bluelineconsole.dataStore.persistent;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -75,6 +76,7 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
         return this.getWritableDatabase().insert("home_screen_default_items", null, cv);
     }
 
+    @SuppressLint("Range")
     public List<HomeScreenDefaultItem> getAllHomeScreenDefaultItems() {
         List<HomeScreenDefaultItem> ret = new ArrayList<>();
 
@@ -94,6 +96,7 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
         return ret;
     }
 
+    @SuppressLint("Range")
     public HomeScreenDefaultItem getHomeScreenDefaultItemById(int id) {
         Cursor curEntry = this.getReadableDatabase().query("home_screen_default_items", new String[]{"id", "type", "data"},
                 "id = ?", new String[]{String.valueOf(id)}, null, null, null);
@@ -111,6 +114,7 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
         return null;
     }
 
+    @SuppressLint("Range")
     public int getLargestIdInHomeScreenDefaultItems() {
         Cursor curEntry = this.getReadableDatabase().query("home_screen_default_items", new String[]{"MAX(id)"}, null, null, null, null, "id");
         int ret = -1;

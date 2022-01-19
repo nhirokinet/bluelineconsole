@@ -1,5 +1,6 @@
 package net.nhiroki.bluelineconsole.dataStore.cache;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class ApplicationInformationCache extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "application_information_cache.sqlite";
@@ -40,6 +42,7 @@ public class ApplicationInformationCache extends SQLiteOpenHelper {
         // Nothing to do now because database structure have not been modified
     }
 
+    @SuppressLint("Range")
     public List<ApplicationInformation> getAllApplicationCaches() {
         List<ApplicationInformation> ret = new ArrayList<>();
 
