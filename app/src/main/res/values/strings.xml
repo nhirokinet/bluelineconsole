@@ -227,6 +227,7 @@
         \nBlue Line Console contains code from the following library, which Apache License, Version 2.0, is applied to.
         \n
         \n- Android Jetpack
+        \n- MVEL
     </string>
 
     <!-- Legal English texts -->

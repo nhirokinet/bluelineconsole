@@ -30,8 +30,9 @@ def main():
             package_version = package_info[2]
 
             if not package_fullname.startswith('androidx.'):
-                print('Unknown package')
-                sys.exit(1)
+                if not package_fullname.startswith('org.mvel'):
+                    print('Unknown package')
+                    sys.exit(1)
 
             pom_filename = None
 
