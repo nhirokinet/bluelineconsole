@@ -23,6 +23,8 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+    - name: Check for gitlab CI
+      run: ./ci/gitlab-ci-version-check.sh
     - name: Build with Gradle
       run: ./gradlew build bundleRelease
     - name: License check
