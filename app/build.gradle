@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     // Before updating buildToolsVersion or compileSdkVersion, check for MainActivity.onCreate,
     // as it uses workaround that depends SDK implementation.
-    compileSdkVersion 31
+    compileSdk 31
     buildToolsVersion '31.0.0'
 
     useLibrary 'android.test.base'
