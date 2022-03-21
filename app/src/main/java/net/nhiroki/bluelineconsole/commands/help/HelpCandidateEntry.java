@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
 
@@ -28,22 +29,22 @@ public class HelpCandidateEntry implements CandidateEntry {
 
     @SuppressLint({"RtlHardcoded", "SetTextI18n"})
     @Override
-    public View getView(Context context) {
-        LinearLayout ret = new LinearLayout(context);
+    public View getView(MainActivity mainActivity) {
+        LinearLayout ret = new LinearLayout(mainActivity);
         ret.setOrientation(LinearLayout.VERTICAL);
 
         TypedValue baseTextColor = new TypedValue();
-        context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+        mainActivity.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
-        TextView versionView = new TextView(context);
-        versionView.setText(context.getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
+        TextView versionView = new TextView(mainActivity);
+        versionView.setText(mainActivity.getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME);
         versionView.setTypeface(Typeface.DEFAULT_BOLD);
         versionView.setTextSize(15);
         versionView.setTextColor(baseTextColor.data);
         ret.addView(versionView);
 
-        String detailString = context.getString(R.string.app_help_text);
-        TextView detailView = new TextView(context);
+        String detailString = mainActivity.getString(R.string.app_help_text);
+        TextView detailView = new TextView(mainActivity);
         detailView.setText(detailString);
         detailView.setTextSize(15);
         detailView.setTextColor(baseTextColor.data);

@@ -14,6 +14,7 @@
         <item name="bluelineconsoleFrameColor">@color/colorFrame</item>
         <item name="bluelineconsoleFrameTextColor">@color/textOnFrame</item>
         <item name="bluelineconsoleBaseTextColor">@color/baseText</item>
+        <item name="bluelineconsoleDisabledTextColor">@color/disabledText</item>
         <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackground</item>
         <item name="bluelineconsoleBackgroundColorOfCommand">@color/colorBackgroundOfCommand</item>
     </style>
@@ -30,10 +31,10 @@
         <item name="bluelineconsoleFrameColor">@color/colorFrameDark</item>
         <item name="bluelineconsoleFrameTextColor">@color/textOnFrameDark</item>
         <item name="bluelineconsoleBaseTextColor">@color/baseTextDark</item>
+        <item name="bluelineconsoleDisabledTextColor">@color/disabledTextDark</item>
         <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackgroundDark</item>
         <item name="bluelineconsoleBackgroundColorOfCommand">@color/colorBackgroundOfCommandDark</item>
     </style>
-
 
     <!-- Each theme -->
 
@@ -46,6 +47,7 @@
         <item name="bluelineconsoleFrameColor">@color/MarineTopColor</item>
         <item name="bluelineconsoleFrameTextColor">@color/textOnFrameMarine</item>
         <item name="bluelineconsoleBaseTextColor">@color/baseTextMarine</item>
+        <item name="bluelineconsoleDisabledTextColor">@color/disabledText</item>
         <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackgroundMarine</item>
     </style>
 
@@ -53,6 +55,7 @@
         <item name="bluelineconsoleAccentColor">@color/oldComputerForegroundColor</item>
         <item name="bluelineconsoleFrameTextColor">@color/oldComputerForegroundColor</item>
         <item name="bluelineconsoleBaseTextColor">@color/oldComputerForegroundColor</item>
+        <item name="bluelineconsoleDisabledTextColor">@color/oldComputerDisabledColor</item>
         <item name="android:textColor">@color/oldComputerForegroundColor</item>
         <item name="android:textColorPrimary">@color/oldComputerForegroundColor</item>
         <item name="android:textColorSecondary">@color/oldComputerForegroundColor</item>

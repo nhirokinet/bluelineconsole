@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -118,7 +119,7 @@ public class WidgetCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
+        public View getView(MainActivity mainActivity) {
             return widget;
         }
 

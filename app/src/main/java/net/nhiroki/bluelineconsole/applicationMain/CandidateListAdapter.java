@@ -69,7 +69,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
         additionalLinearView.removeAllViews();
         additionalLongLinearView.removeAllViews();
-        View detailView = candidate.getView(convertView.getContext());
+        View detailView = candidate.getView(this.activity);
         if (detailView != null) {
             detailView.setClickable(false);
             if (candidate.hasLongView()) {

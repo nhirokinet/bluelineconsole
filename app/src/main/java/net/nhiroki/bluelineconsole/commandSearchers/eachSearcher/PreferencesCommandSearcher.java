@@ -62,9 +62,9 @@ public class PreferencesCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
-            TextView packageNameView = new TextView(context);
-            packageNameView.setText(context.getString(R.string.result_config_summary));
+        public View getView(MainActivity mainActivity) {
+            TextView packageNameView = new TextView(mainActivity);
+            packageNameView.setText(mainActivity.getString(R.string.result_config_summary));
             packageNameView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             return packageNameView;
         }
