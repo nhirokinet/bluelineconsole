@@ -183,8 +183,7 @@ public class MainActivity extends BaseWindowActivity {
             if (!cameBackFlag) {
                 if (this.iAmHomeActivity) {
                     if (! mainInputText.getText().toString().isEmpty()) {
-                        mainInputText.setText("");
-                        this.onCommandInput(mainInputText.getText());
+                        this.changeInputText("");
                     }
 
                 } else {
@@ -270,6 +269,11 @@ public class MainActivity extends BaseWindowActivity {
         this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainRootLinearLayout));
         this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout));
         this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout));
+    }
+
+    public void changeInputText(String text) {
+        mainInputText.setText(text);
+        this.onCommandInput(mainInputText.getText());
     }
 
     private void setWholeLayout() {

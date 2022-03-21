@@ -13,6 +13,7 @@ import android.widget.TextClock;
 import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -57,16 +58,16 @@ public class DateCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
-            LinearLayout clockView = new LinearLayout(context);
+        public View getView(MainActivity mainActivity) {
+            LinearLayout clockView = new LinearLayout(mainActivity);
             clockView.setOrientation(LinearLayout.VERTICAL);
 
             TypedValue baseTextColor = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+            mainActivity.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
-            Locale locale = context.getResources().getConfiguration().locale;
+            Locale locale = mainActivity.getResources().getConfiguration().locale;
 
-            TextClock textDate = new TextClock(context){
+            TextClock textDate = new TextClock(mainActivity){
                 @Override
                 protected void onDetachedFromWindow() {
                     super.onDetachedFromWindow();
@@ -90,7 +91,7 @@ public class DateCommandSearcher implements CommandSearcher {
             textDate.setTextColor(baseTextColor.data);
             clockView.addView(textDate);
 
-            TextClock textTime = new TextClock(context){
+            TextClock textTime = new TextClock(mainActivity){
                 @Override
                 protected void onDetachedFromWindow() {
                     super.onDetachedFromWindow();
@@ -107,7 +108,7 @@ public class DateCommandSearcher implements CommandSearcher {
             textTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
             textTime.setTextColor(baseTextColor.data);
             textTime.setPaddingRelative(
-                    (int)(30 * context.getResources().getDisplayMetrics().scaledDensity + 0.5),
+                    (int)(30 * mainActivity.getResources().getDisplayMetrics().scaledDensity + 0.5),
                     0, 0, 0
             );
             clockView.addView(textTime);

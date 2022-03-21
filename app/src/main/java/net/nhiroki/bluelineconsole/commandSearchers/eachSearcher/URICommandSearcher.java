@@ -67,7 +67,7 @@ public class URICommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
+        public View getView(MainActivity mainActivity) {
             return null;
         }
 

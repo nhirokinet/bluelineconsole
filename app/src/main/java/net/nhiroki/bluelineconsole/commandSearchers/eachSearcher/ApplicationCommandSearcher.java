@@ -120,13 +120,13 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
+        public View getView(MainActivity mainActivity) {
             if(!displayPackageName) {
                 return null;
             }
 
             String packageName = AppOpenCandidateEntry.this.applicationInformation.getPackageName();
-            TextView packageNameView = new TextView(context);
+            TextView packageNameView = new TextView(mainActivity);
             packageNameView.setText(packageName);
             packageNameView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 

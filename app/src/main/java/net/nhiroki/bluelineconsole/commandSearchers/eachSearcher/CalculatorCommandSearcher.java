@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.lib.bluelinecalculator.Calculator;
 import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
 import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
@@ -93,16 +94,16 @@ public class CalculatorCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
-            LinearLayout ret = new LinearLayout(context);
+        public View getView(MainActivity mainActivity) {
+            LinearLayout ret = new LinearLayout(mainActivity);
             ret.setOrientation(LinearLayout.VERTICAL);
             ret.setTextDirection(View.TEXT_DIRECTION_LTR);
 
             final TypedValue baseTextColor = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+            mainActivity.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
             for (Pair<String, String> r: this.results) {
-                TextView resultView = new TextView(context);
+                TextView resultView = new TextView(mainActivity);
 
                 resultView.setText(r.first);
                 resultView.setTextSize(TypedValue.COMPLEX_UNIT_SP, r.first.length() < 16 ? 60 : 36);
@@ -112,7 +113,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
                 ret.addView(resultView);
 
                 if (r.second != null) {
-                    TextView precisionView = new TextView(context);
+                    TextView precisionView = new TextView(mainActivity);
                     precisionView.setText(r.second);
                     precisionView.setTypeface(null, Typeface.BOLD);
                     ret.addView(precisionView);

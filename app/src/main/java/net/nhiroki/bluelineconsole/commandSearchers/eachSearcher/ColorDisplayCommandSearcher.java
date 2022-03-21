@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
@@ -100,15 +101,15 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
-            final double pxPerDp = context.getResources().getDisplayMetrics().density;
+        public View getView(MainActivity mainActivity) {
+            final double pxPerDp = mainActivity.getResources().getDisplayMetrics().density;
 
-            LinearLayout ret = new LinearLayout(context);
+            LinearLayout ret = new LinearLayout(mainActivity);
             ret.setOrientation(LinearLayout.HORIZONTAL);
 
             final int brightness = (color[0] + color[1] + color[2]) / 3;
 
-            LinearLayout colorShowOuter = new LinearLayout(context);
+            LinearLayout colorShowOuter = new LinearLayout(mainActivity);
             final int readableColorOnMonitor = brightness > 80 ? Color.BLACK : Color.WHITE;
             colorShowOuter.setBackgroundColor(readableColorOnMonitor);
             final int colorShowOuterPadding = (int)(2.0 * pxPerDp);
@@ -122,7 +123,7 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
             colorShowOuter.setLayoutParams(layoutParamsForColorShowOuter);
             layoutParamsForColorShowOuter.setMarginEnd((int) (8.0 * pxPerDp));
 
-            View colorShow = new View(context);
+            View colorShow = new View(mainActivity);
             colorShow.setBackgroundColor((255 << 24) + (this.color[0] << 16) + (this.color[1] << 8) + this.color[2]);
             LinearLayout.LayoutParams layoutParamsForColorShow = (LinearLayout.LayoutParams) colorShow.getLayoutParams();
             if (layoutParamsForColorShow == null) {
@@ -138,19 +139,19 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
             ret.addView(colorShowOuter);
 
             final TypedValue baseTextColor = new TypedValue();
-            context.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+            mainActivity.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
 
-            LinearLayout detail = new LinearLayout(context);
+            LinearLayout detail = new LinearLayout(mainActivity);
             detail.setOrientation(LinearLayout.VERTICAL);
 
-            TextView colorCodeTextView = new TextView(context);
+            TextView colorCodeTextView = new TextView(mainActivity);
             colorCodeTextView.setText(String.format("#%02X%02X%02X", color[0], color[1], color[2]));
             colorCodeTextView.setTypeface(null, Typeface.BOLD);
             colorCodeTextView.setTextColor(baseTextColor.data);
             detail.addView(colorCodeTextView);
 
-            TextView rgbTextView = new TextView(context);
-            rgbTextView.setText(String.format(context.getString(R.string.rgb_color_display), color[0], color[1], color[2]));
+            TextView rgbTextView = new TextView(mainActivity);
+            rgbTextView.setText(String.format(mainActivity.getString(R.string.rgb_color_display), color[0], color[1], color[2]));
             rgbTextView.setTextColor(baseTextColor.data);
             detail.addView(rgbTextView);
 

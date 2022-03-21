@@ -223,7 +223,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
+        public View getView(MainActivity mainActivity) {
             return null;
         }
 
@@ -274,7 +274,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
+        public View getView(MainActivity mainActivity) {
             return null;
         }
 
@@ -331,7 +331,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
         }
 
         @Override
-        public View getView(Context context) {
+        public View getView(MainActivity mainActivity) {
             return null;
         }
 

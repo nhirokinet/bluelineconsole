@@ -4,6 +4,7 @@
     <attr name="bluelineconsoleFrameColor" format="color" />
     <attr name="bluelineconsoleFrameTextColor" format="color" />
     <attr name="bluelineconsoleBaseTextColor" format="color" />
+    <attr name="bluelineconsoleDisabledTextColor" format="color" />
     <attr name="bluelineconsoleSelectedItemBackgroundColor" format="color" />
     <attr name="bluelineconsoleBackgroundColorOfCommand" format="color" />
 </resources>

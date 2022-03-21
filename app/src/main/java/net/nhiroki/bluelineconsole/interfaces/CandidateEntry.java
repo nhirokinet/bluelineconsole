@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
+
 
 public interface CandidateEntry {
     /**
@@ -13,10 +15,10 @@ public interface CandidateEntry {
 
     /**
      *
-     * @param context Android Context for the corresponding Activity
+     * @param mainActivity Android Context for the corresponding Activity
      * @return Detail view, or null if nothing to show.
      */
-    View getView(Context context);
+    View getView(MainActivity mainActivity);
 
     /**
      * Whether getView() may return vertically long view or not.
