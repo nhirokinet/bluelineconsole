@@ -50,15 +50,21 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
 
     private static int[] getColorFromCode(String colorCode) {
         int[] ret = new int[3];
+        final int colorCodeLen = colorCode.length();
 
+        // #XYZ is equivalent to #XXYYZZ
+        // https://www.w3.org/TR/css-color-3/#rgb-color
         for (int i = 0; i < 3; ++i) {
-            int firstHex = hexCharToInt(colorCode.charAt(i * 2 + 1));
+            final int firstHex = hexCharToInt(colorCode.charAt(i * (colorCodeLen - 1) / 3 + 1));
             if (firstHex < 0) {
                 return null;
             }
-            int secondHex = hexCharToInt(colorCode.charAt(i * 2 + 2));
-            if (secondHex < 0) {
-                return null;
+            int secondHex = firstHex;
+            if (colorCodeLen == 7) {
+                secondHex = hexCharToInt(colorCode.charAt(i * 2 + 2));
+                if (secondHex < 0) {
+                    return null;
+                }
             }
 
             ret[i] = firstHex * 16 + secondHex;
@@ -70,7 +76,7 @@ public class ColorDisplayCommandSearcher implements CommandSearcher {
     @NonNull
     @Override
     public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
-        if (query.length() == 7 && query.charAt(0) == '#') {
+        if ((query.length() == 7 || query.length() == 4) && query.charAt(0) == '#') {
             int[] color = getColorFromCode(query);
 
             if (color == null) {
