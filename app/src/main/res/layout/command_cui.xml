@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:rotation="180"
         >
         <TextView
             android:id="@+id/command_output_text_view"
@@ -29,7 +28,6 @@
             android:textColor="?bluelineconsoleBaseTextColor"
             android:fontFamily="monospace"
             android:padding="3sp"
-            android:rotation="180"
             />
     </ScrollView>
 </LinearLayout>
