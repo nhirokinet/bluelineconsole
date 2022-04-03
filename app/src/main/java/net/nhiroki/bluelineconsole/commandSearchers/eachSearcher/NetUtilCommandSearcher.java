@@ -92,13 +92,10 @@ public class NetUtilCommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(final Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    Intent intent = new Intent(context, PingActivity.class);
-                    intent.putExtra("host", PingCandidateEntry.this._host);
-                    activity.startActivityForResult(intent, MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                }
+            return activity -> {
+                Intent intent = new Intent(context, PingActivity.class);
+                intent.putExtra("host", PingCandidateEntry.this._host);
+                activity.startActivityForResult(intent, MainActivity.REQUEST_CODE_FOR_COMING_BACK);
             };
         }
 
@@ -148,13 +145,10 @@ public class NetUtilCommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(final Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    Intent intent = new Intent(context, Ping6Activity.class);
-                    intent.putExtra("host", Ping6CandidateEntry.this._host);
-                    activity.startActivityForResult(intent, MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                }
+            return activity -> {
+                Intent intent = new Intent(context, Ping6Activity.class);
+                intent.putExtra("host", Ping6CandidateEntry.this._host);
+                activity.startActivityForResult(intent, MainActivity.REQUEST_CODE_FOR_COMING_BACK);
             };
         }
 

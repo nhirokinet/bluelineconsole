@@ -51,7 +51,7 @@ public class CommandSearchAggregator {
         commandSearcherList.add(new ContactSearchCommandSearcher());
         commandSearcherList.add(new ApplicationCommandSearcher());
 
-        // This is splitly called and order does not matter, and results are placed at last.
+        // This should be separately called and order does not matter, and results are placed at last.
         commandSearcherListAlwaysLast.add(new SearchEngineDefaultCommandSearcher(context));
 
         refresh(context);
@@ -88,29 +88,29 @@ public class CommandSearchAggregator {
     }
 
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
         if (s.isEmpty()) {
-            return cands;
+            return candidates;
         }
 
         for (CommandSearcher cs : commandSearcherList) {
-            cands.addAll(cs.searchCandidateEntries(s, context));
+            candidates.addAll(cs.searchCandidateEntries(s, context));
         }
 
-        return cands;
+        return candidates;
     }
 
     public List<CandidateEntry> searchCandidateEntriesForLast(String s, Context context) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
         if (s.isEmpty()) {
-            return cands;
+            return candidates;
         }
 
         for (CommandSearcher cs : commandSearcherListAlwaysLast) {
-            cands.addAll(cs.searchCandidateEntries(s, context));
+            candidates.addAll(cs.searchCandidateEntries(s, context));
         }
 
-        return cands;
+        return candidates;
     }
 
     public List<CandidateEntry> homeScreenDefaultCandidateEntries(Context context) {

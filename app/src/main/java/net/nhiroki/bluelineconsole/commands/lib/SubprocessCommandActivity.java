@@ -64,11 +64,11 @@ public class SubprocessCommandActivity extends CuiActivity {
 
     @Override
     protected String getTitleForCUI() {
-        String title = CALLER_COMMAND;
+        StringBuilder title = new StringBuilder(CALLER_COMMAND);
         for (String arg: this._args) {
-            title += " " + arg;
+            title.append(" ").append(arg);
         }
-        return title;
+        return title.toString();
     }
 
     @Override

@@ -13,7 +13,6 @@ import android.widget.RemoteViews;
 import androidx.annotation.LayoutRes;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppThemeDirectory;

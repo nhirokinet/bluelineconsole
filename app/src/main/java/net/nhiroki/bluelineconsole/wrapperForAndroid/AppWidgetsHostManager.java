@@ -25,7 +25,6 @@ import androidx.annotation.StringRes;
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
-import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 
 
 public final class AppWidgetsHostManager {
@@ -206,7 +205,7 @@ public final class AppWidgetsHostManager {
         this.widgetsSetting.deleteWidgetCommandById(widgetCommand.id);
     }
 
-    public void addHomeScreenAppWidget(int appWidgetId, int afterdefaultItem) {
+    public void addHomeScreenAppWidget(int appWidgetId, int afterDefaultItem) {
         AppWidgetProviderInfo info = android.appwidget.AppWidgetManager.getInstance(this.context.getApplicationContext()).getAppWidgetInfo(appWidgetId);
         HomeScreenWidgetInfo homeScreenWidgetInfo = new HomeScreenWidgetInfo(0, info, appWidgetId);
         /* AppWidgetProviderInfo.min(Resize?)(Width|Height) is documented as expressed in dp unit,
@@ -214,7 +213,7 @@ public final class AppWidgetsHostManager {
          * but is it actually in pixels?
          */
         homeScreenWidgetInfo.heightPx = info.minHeight;
-        homeScreenWidgetInfo.afterDefaultItem = afterdefaultItem;
+        homeScreenWidgetInfo.afterDefaultItem = afterDefaultItem;
 
         this.widgetsSetting.addWidgetToHomeScreen(homeScreenWidgetInfo);
     }

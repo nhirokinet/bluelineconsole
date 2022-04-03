@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -30,30 +29,24 @@ public class PreferencesHomeScreenEachDefaultItemCommandActivity extends BaseWin
         final EditText commandInputEditText = this.findViewById(R.id.home_screen_command_edit_command);
         EditTextConfigurations.applyCommandEditTextConfigurations(commandInputEditText, this);
 
-        this.findViewById(R.id.home_screen_command_each_submit_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.type = HomeScreenSetting.HOME_SCREEN_TYPE_COMMAND;
-                PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.data = ((TextView)PreferencesHomeScreenEachDefaultItemCommandActivity.this.findViewById(R.id.home_screen_command_edit_command)).getText().toString();
+        this.findViewById(R.id.home_screen_command_each_submit_button).setOnClickListener(v -> {
+            PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.type = HomeScreenSetting.HOME_SCREEN_TYPE_COMMAND;
+            PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.data = ((TextView)PreferencesHomeScreenEachDefaultItemCommandActivity.this.findViewById(R.id.home_screen_command_edit_command)).getText().toString();
 
-                if (PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.id == -1) {
-                    HomeScreenSetting.getInstance(PreferencesHomeScreenEachDefaultItemCommandActivity.this).addHomeScreenDefaultItem(PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem);
+            if (PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.id == -1) {
+                HomeScreenSetting.getInstance(PreferencesHomeScreenEachDefaultItemCommandActivity.this).addHomeScreenDefaultItem(PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem);
 
-                } else {
-                    HomeScreenSetting.getInstance(PreferencesHomeScreenEachDefaultItemCommandActivity.this).updateHomeScreenDefaultItem(PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem);
-                }
-
-                PreferencesHomeScreenEachDefaultItemCommandActivity.this.finish();
+            } else {
+                HomeScreenSetting.getInstance(PreferencesHomeScreenEachDefaultItemCommandActivity.this).updateHomeScreenDefaultItem(PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem);
             }
+
+            PreferencesHomeScreenEachDefaultItemCommandActivity.this.finish();
         });
 
-        this.findViewById(R.id.home_screen_command_each_delete_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.id != -1) {
-                    HomeScreenSetting.getInstance(PreferencesHomeScreenEachDefaultItemCommandActivity.this).deleteHomeScreenDefaultItem(PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.id);
-                    PreferencesHomeScreenEachDefaultItemCommandActivity.this.finish();
-                }
+        this.findViewById(R.id.home_screen_command_each_delete_button).setOnClickListener(v -> {
+            if (PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.id != -1) {
+                HomeScreenSetting.getInstance(PreferencesHomeScreenEachDefaultItemCommandActivity.this).deleteHomeScreenDefaultItem(PreferencesHomeScreenEachDefaultItemCommandActivity.this.myItem.id);
+                PreferencesHomeScreenEachDefaultItemCommandActivity.this.finish();
             }
         });
 

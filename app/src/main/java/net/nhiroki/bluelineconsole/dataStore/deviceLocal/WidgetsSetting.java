@@ -24,20 +24,20 @@ public class WidgetsSetting extends SQLiteOpenHelper {
 
     private static WidgetsSetting _singleton = null;
 
-    private static boolean migrationLostchecked = false;
+    private static boolean migrationLostChecked = false;
     private static boolean migrationLost = false;
 
     private final Context context;
 
 
     public static boolean migrationLostHappened(Context context) {
-        if (migrationLostchecked) {
+        if (migrationLostChecked) {
             return migrationLost;
         }
 
         migrationLost = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(PREFERENCE_FLAG_WIDGETS_SETTING_EXISTS, false) &&
                 !context.getDatabasePath(DATABASE_NAME).exists();
-        migrationLostchecked = true;
+        migrationLostChecked = true;
 
         return migrationLost;
     }
@@ -47,7 +47,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
         prefEdit.putBoolean(PREFERENCE_FLAG_WIDGETS_SETTING_EXISTS, false);
         prefEdit.apply();
         migrationLost = false;
-        migrationLostchecked = false;
+        migrationLostChecked = false;
     }
 
     private static void setDataExistsFlag(Context context) {

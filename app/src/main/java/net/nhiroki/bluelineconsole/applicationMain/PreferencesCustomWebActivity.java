@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -40,25 +39,17 @@ public class PreferencesCustomWebActivity extends BaseWindowActivity {
         this.enableBaseWindowAnimation();
 
         Button addButton = findViewById(R.id.customURLListAddButton);
-        addButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                PreferencesCustomWebActivity.this.startActivity(new Intent(PreferencesCustomWebActivity.this, PreferencesEachURLActivity.class));
-            }
-        }
+        addButton.setOnClickListener(v -> PreferencesCustomWebActivity.this.startActivity(new Intent(PreferencesCustomWebActivity.this, PreferencesEachURLActivity.class))
         );
 
-        this._urlListAdapter = new URLListAdapter(this, 0, new ArrayList<WebSearchEngine>());
+        this._urlListAdapter = new URLListAdapter(this, 0, new ArrayList<>());
 
         ListView customListView = findViewById(R.id.customURLList);
         customListView.setAdapter(this._urlListAdapter);
-        customListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(PreferencesCustomWebActivity.this, PreferencesEachURLActivity.class);
-                intent.putExtra("id_for_preference_value", PreferencesCustomWebActivity.this._urlListAdapter.getItem(position).id_for_preference_value);
-                PreferencesCustomWebActivity.this.startActivity(intent);
-            }
+        customListView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(PreferencesCustomWebActivity.this, PreferencesEachURLActivity.class);
+            intent.putExtra("id_for_preference_value", PreferencesCustomWebActivity.this._urlListAdapter.getItem(position).id_for_preference_value);
+            PreferencesCustomWebActivity.this.startActivity(intent);
         });
     }
 

@@ -21,7 +21,6 @@ import net.nhiroki.bluelineconsole.wrapperForAndroid.ContactsReader;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ContactSearchCommandSearcher implements CommandSearcher {
@@ -151,12 +150,7 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
             }
         }
 
-        Collections.sort(resultList, new Comparator<Pair<Integer, ContactsReader.Contact>>() {
-            @Override
-            public int compare(Pair<Integer, ContactsReader.Contact> o1, Pair<Integer, ContactsReader.Contact> o2) {
-                return o1.first.compareTo(o2.first);
-            }
-        });
+        Collections.sort(resultList, (o1, o2) -> o1.first.compareTo(o2.first));
 
 
         List<CandidateEntry> ret = new ArrayList<>();
@@ -285,12 +279,9 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(PhoneNumberCandidateEntry.this.phoneNumber)));
-                    activity.startActivity(intent);
-                }
+            return activity -> {
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(PhoneNumberCandidateEntry.this.phoneNumber)));
+                activity.startActivity(intent);
             };
         }
 
@@ -316,12 +307,12 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
     }
 
     private static class EmailCandidateEntry implements CandidateEntry {
-        private final String emailAddresss;
+        private final String emailAddresses;
         private final String title;
 
         private EmailCandidateEntry(String emailAddress, Context context) {
-            this.emailAddresss = emailAddress;
-            this.title = String.format(context.getString(R.string.contacts_action_email), this.emailAddresss);
+            this.emailAddresses = emailAddress;
+            this.title = String.format(context.getString(R.string.contacts_action_email), this.emailAddresses);
         }
 
         @NonNull
@@ -342,12 +333,9 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + Uri.encode(EmailCandidateEntry.this.emailAddresss)));
-                    activity.startActivity(intent);
-                }
+            return activity -> {
+                Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + Uri.encode(EmailCandidateEntry.this.emailAddresses)));
+                activity.startActivity(intent);
             };
         }
 

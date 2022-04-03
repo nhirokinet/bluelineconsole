@@ -1,13 +1,11 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -44,38 +42,25 @@ public class PreferencesHomeScreenItemsActivity extends BaseWindowActivity {
         this.enableBaseWindowAnimation();
 
         Button addQueryButton = findViewById(R.id.homeScreenAddQueryButton);
-        addQueryButton.setOnClickListener(new View.OnClickListener(){
-                                         @Override
-                                         public void onClick(View v) {
-                                             PreferencesHomeScreenItemsActivity.this.startActivity((new Intent(PreferencesHomeScreenItemsActivity.this, PreferencesHomeScreenEachDefaultItemCommandActivity.class)));
-                                         }
-                                     }
+        addQueryButton.setOnClickListener(v -> PreferencesHomeScreenItemsActivity.this.startActivity((new Intent(PreferencesHomeScreenItemsActivity.this, PreferencesHomeScreenEachDefaultItemCommandActivity.class)))
         );
 
         Button addWidgetButton = findViewById(R.id.homeScreenAddWidgetButton);
-        addWidgetButton.setOnClickListener(new View.OnClickListener(){
-                                         @Override
-                                         public void onClick(View v) {
-                                             PreferencesHomeScreenItemsActivity.this.startActivity(new Intent(PreferencesHomeScreenItemsActivity.this, PreferencesHomeScreenAddWidgetActivity.class));
-                                         }
-                                     }
+        addWidgetButton.setOnClickListener(v -> PreferencesHomeScreenItemsActivity.this.startActivity(new Intent(PreferencesHomeScreenItemsActivity.this, PreferencesHomeScreenAddWidgetActivity.class))
         );
 
         ListView customListView = findViewById(R.id.homeScreenDefaultItemList);
         this.myAdapter = new MyAdapter(this);
         customListView.setAdapter(myAdapter);
-        customListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (PreferencesHomeScreenItemsActivity.this.myAdapter.getItem(position).type == TYPE_WIDGET) {
-                    Intent intent = new Intent(PreferencesHomeScreenItemsActivity.this, PreferencesHomeScreenEachWidgetActivity.class);
-                    intent.putExtra(PreferencesHomeScreenEachWidgetActivity.INTENT_EXTRA_WIDGET_ID, PreferencesHomeScreenItemsActivity.this.myAdapter.getItem(position).homeScreenWidgetInfo.id);
-                    PreferencesHomeScreenItemsActivity.this.startActivity(intent);
-                } else if (PreferencesHomeScreenItemsActivity.this.myAdapter.getItem(position).type == TYPE_COMMAND) {
-                    Intent intent = new Intent(PreferencesHomeScreenItemsActivity.this, PreferencesHomeScreenEachDefaultItemCommandActivity.class);
-                    intent.putExtra(PreferencesHomeScreenEachDefaultItemCommandActivity.INTENT_EXTRA_ITEM_ID, PreferencesHomeScreenItemsActivity.this.myAdapter.getItem(position).homeScreenDefaultItem.id);
-                    PreferencesHomeScreenItemsActivity.this.startActivity(intent);
-                }
+        customListView.setOnItemClickListener((parent, view, position, id) -> {
+            if (PreferencesHomeScreenItemsActivity.this.myAdapter.getItem(position).type == TYPE_WIDGET) {
+                Intent intent = new Intent(PreferencesHomeScreenItemsActivity.this, PreferencesHomeScreenEachWidgetActivity.class);
+                intent.putExtra(PreferencesHomeScreenEachWidgetActivity.INTENT_EXTRA_WIDGET_ID, PreferencesHomeScreenItemsActivity.this.myAdapter.getItem(position).homeScreenWidgetInfo.id);
+                PreferencesHomeScreenItemsActivity.this.startActivity(intent);
+            } else if (PreferencesHomeScreenItemsActivity.this.myAdapter.getItem(position).type == TYPE_COMMAND) {
+                Intent intent = new Intent(PreferencesHomeScreenItemsActivity.this, PreferencesHomeScreenEachDefaultItemCommandActivity.class);
+                intent.putExtra(PreferencesHomeScreenEachDefaultItemCommandActivity.INTENT_EXTRA_ITEM_ID, PreferencesHomeScreenItemsActivity.this.myAdapter.getItem(position).homeScreenDefaultItem.id);
+                PreferencesHomeScreenItemsActivity.this.startActivity(intent);
             }
         });
     }
@@ -109,7 +94,7 @@ public class PreferencesHomeScreenItemsActivity extends BaseWindowActivity {
         private final Context context;
 
         public MyAdapter(Context context) {
-            super(context, 0, new ArrayList<ObjectOnList>());
+            super(context, 0, new ArrayList<>());
             this.context = context;
         }
 

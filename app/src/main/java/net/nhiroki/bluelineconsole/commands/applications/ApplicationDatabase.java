@@ -12,7 +12,6 @@ import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformationCache;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -170,13 +169,10 @@ public class ApplicationDatabase {
             androidApplicationInfoMap.put(applicationInformation.getPackageName(), applicationInfo);
         }
 
-        Collections.sort(applicationInformationList, new Comparator<ApplicationInformation>() {
-            @Override
-            public int compare(ApplicationInformation o1, ApplicationInformation o2) {
-                // The method itself is not important.
-                // It is important that the result is deterministic and consistent.
-                return o1.getPackageName().compareTo(o2.getPackageName());
-            }
+        Collections.sort(applicationInformationList, (o1, o2) -> {
+            // The method itself is not important.
+            // It is important that the result is deterministic and consistent.
+            return o1.getPackageName().compareTo(o2.getPackageName());
         });
 
         for (String removeFromCache : appCacheToRemove) {

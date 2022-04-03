@@ -13,11 +13,8 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
@@ -81,31 +78,23 @@ public class MainActivity extends BaseWindowActivity {
         AppNotification.update(this);
 
         this.candidateListView = findViewById(R.id.candidateListView);
-        resultCandidateListAdapter = new CandidateListAdapter(this, new ArrayList<CandidateEntry>(), candidateListView);
+        resultCandidateListAdapter = new CandidateListAdapter(this, new ArrayList<>(), candidateListView);
 
         candidateListView.setAdapter(resultCandidateListAdapter);
 
-        candidateListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                resultCandidateListAdapter.invokeEvent(position, MainActivity.this);
+        candidateListView.setOnItemClickListener((parent, view, position, id) -> resultCandidateListAdapter.invokeEvent(position, MainActivity.this));
+
+        candidateListView.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && v.onKeyDown(keyCode, event)) {
+                return true;
             }
-        });
 
-        candidateListView.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN && v.onKeyDown(keyCode, event)) {
-                    return true;
-                }
-
-                //noinspection RedundantIfStatement
-                if (event.getAction() == KeyEvent.ACTION_UP && v.onKeyUp(keyCode, event)) {
-                    return true;
-                }
-
-                return false;
+            //noinspection RedundantIfStatement
+            if (event.getAction() == KeyEvent.ACTION_UP && v.onKeyUp(keyCode, event)) {
+                return true;
             }
+
+            return false;
         });
 
         EditTextConfigurations.applyCommandEditTextConfigurations(mainInputText, this);
@@ -118,30 +107,24 @@ public class MainActivity extends BaseWindowActivity {
             mainInputText.setText(search);
         }
 
-        mainInputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (resultCandidateListAdapter.isEmpty()) {
-                    return false;
-                }
-                if (event == null || event.getAction() != KeyEvent.ACTION_UP) {
-                    resultCandidateListAdapter.invokeFirstChoiceEvent(MainActivity.this);
-                    return true;
-                }
+        mainInputText.setOnEditorActionListener((v, actionId, event) -> {
+            if (resultCandidateListAdapter.isEmpty()) {
                 return false;
             }
+            if (event == null || event.getAction() != KeyEvent.ACTION_UP) {
+                resultCandidateListAdapter.invokeFirstChoiceEvent(MainActivity.this);
+                return true;
+            }
+            return false;
         });
 
-        mainInputText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
-                    candidateListView.requestFocus();
-                    candidateListView.requestFocusFromTouch();
-                    return MainActivity.this.resultCandidateListAdapter.selectChosenNowAsListView() && candidateListView.onKeyDown(keyCode, event);
-                }
-                return false;
+        mainInputText.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
+                candidateListView.requestFocus();
+                candidateListView.requestFocusFromTouch();
+                return MainActivity.this.resultCandidateListAdapter.selectChosenNowAsListView() && candidateListView.onKeyDown(keyCode, event);
             }
+            return false;
         });
     }
 
@@ -195,7 +178,7 @@ public class MainActivity extends BaseWindowActivity {
                     }
                 }
             }
-            // Refresh after searching temporary lsit
+            // Refresh after searching temporary list
             commandSearchAggregator.refresh(this);
         }
 
@@ -257,18 +240,18 @@ public class MainActivity extends BaseWindowActivity {
     protected void enableWindowAnimationForElements() {
         super.enableWindowAnimationForElements();
 
-        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainRootLinearLayout));
-        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout));
-        this.enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout));
+        this.enableWindowAnimationForEachViewGroup(findViewById(R.id.mainRootLinearLayout));
+        this.enableWindowAnimationForEachViewGroup(findViewById(R.id.mainInputTextWrapperLinearLayout));
+        this.enableWindowAnimationForEachViewGroup(findViewById(R.id.candidateViewWrapperLinearLayout));
     }
 
     @Override
     protected void disableWindowAnimationForElements() {
         super.disableWindowAnimationForElements();
 
-        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainRootLinearLayout));
-        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.mainInputTextWrapperLinearLayout));
-        this.disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.candidateViewWrapperLinearLayout));
+        this.disableWindowAnimationForEachViewGroup(findViewById(R.id.mainRootLinearLayout));
+        this.disableWindowAnimationForEachViewGroup(findViewById(R.id.mainInputTextWrapperLinearLayout));
+        this.disableWindowAnimationForEachViewGroup(findViewById(R.id.candidateViewWrapperLinearLayout));
     }
 
     public void changeInputText(String text) {
@@ -345,22 +328,16 @@ public class MainActivity extends BaseWindowActivity {
                 resultCandidateListAdapter.notifyDataSetChanged();
             }
 
-            threadPool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    commandSearchAggregator.waitUntilPrepared();
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (MainActivity.this.resumeId != myResumeId) {
-                                // Already different session, canceling the operation.
-                                return;
-                            }
-                            executeSearch(mainInputText.getText().toString());
-                            findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
-                        }
-                    });
-                }
+            threadPool.execute(() -> {
+                commandSearchAggregator.waitUntilPrepared();
+                MainActivity.this.runOnUiThread(() -> {
+                    if (MainActivity.this.resumeId != myResumeId) {
+                        // Already different session, canceling the operation.
+                        return;
+                    }
+                    executeSearch(mainInputText.getText().toString());
+                    findViewById(R.id.commandSearchWaitingNotification).setVisibility(View.GONE);
+                });
             });
         }
     }

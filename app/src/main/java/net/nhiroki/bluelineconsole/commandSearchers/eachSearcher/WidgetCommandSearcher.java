@@ -30,8 +30,8 @@ public class WidgetCommandSearcher implements CommandSearcher {
         // updateAppWidgetSize() call seems to be mandatory for some widgets.
         // To achieve this, know precise size on onSizeChanged and apply this.
         @Override
-        protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-            super.onSizeChanged(w, h, oldw, oldh);
+        protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+            super.onSizeChanged(w, h, oldW, oldH);
 
             if (w == 0 || h == 0) {
                 return;
@@ -112,7 +112,6 @@ public class WidgetCommandSearcher implements CommandSearcher {
             this.widget = linearLayout;
         }
 
-        @NonNull
         @Override
         public String getTitle() {
             return null;

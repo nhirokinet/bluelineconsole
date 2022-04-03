@@ -49,7 +49,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
     @Override
     @NonNull
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
 
         if (s.contains(" ")){
             int split = s.indexOf(' ');
@@ -60,7 +60,7 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
                 List<WebSearchEngine> searchEngines = this._searchEngineDB.searchEngineListByNameQuery(context, engine);
 
                 for (WebSearchEngine e: searchEngines) {
-                    cands.add(new SearchEngineCandidateEntry(context, query, e.display_name, e.url_base));
+                    candidates.add(new SearchEngineCandidateEntry(context, query, e.display_name, e.url_base));
                 }
             }
 
@@ -68,11 +68,11 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
             if (!s.equals("")) {
                 List<WebSearchEngine> urls = this._searchEngineDB.searchStaticPageListByNameQuery(context, s);
                 for (WebSearchEngine e: urls) {
-                    cands.add(new StaticPageCandidateEntry(context, e.display_name, e.url_base));
+                    candidates.add(new StaticPageCandidateEntry(context, e.display_name, e.url_base));
                 }
             }
         }
-        return cands;
+        return candidates;
     }
 
     private static class StaticPageCandidateEntry implements CandidateEntry {
@@ -102,17 +102,14 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(final Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    try {
-                        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase)));
-                        activity.finish();
-                    } catch (ActivityNotFoundException e) {
-                        Toast.makeText(context, R.string.error_failure_could_not_open_url, Toast.LENGTH_LONG).show();
-                    }
-
+            return activity -> {
+                try {
+                    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase)));
+                    activity.finish();
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(context, R.string.error_failure_could_not_open_url, Toast.LENGTH_LONG).show();
                 }
+
             };
         }
 
@@ -166,15 +163,12 @@ public class SearchEngineCommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(final Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    try {
-                        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase + Uri.encode(query))));
-                        activity.finish();
-                    } catch (ActivityNotFoundException e) {
-                        Toast.makeText(context, R.string.error_failure_could_not_open_url, Toast.LENGTH_LONG).show();
-                    }
+            return activity -> {
+                try {
+                    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(urlBase + Uri.encode(query))));
+                    activity.finish();
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(context, R.string.error_failure_could_not_open_url, Toast.LENGTH_LONG).show();
                 }
             };
         }
