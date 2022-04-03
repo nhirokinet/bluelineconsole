@@ -7,7 +7,7 @@
     android:animateLayoutChanges="false"
     android:focusable="false"
     android:focusableInTouchMode="false"
-    android:theme="@style/AppThemeHome"
+    android:theme="@style/AppThemeBlueLineConsoleHome"
     xmlns:tools="http://schemas.android.com/tools"
     >
     <LinearLayout

@@ -1,0 +1,34 @@
+<resources>
+    <color name="baseBackgroundMarine">#aaddff</color>
+    <color name="selectedItemBackgroundMarine">#88bbdd</color>
+    <color name="baseTextMarine">#001833</color>
+    <color name="textOnFrameMarine">#001833</color>
+    <color name="MarineTextColorSecond">#003366</color>
+    <color name="MarineTopColor">#3078ff</color>
+    <color name="MarineBottomColor">#4464aa</color>
+
+    <style name="AppThemeMarine" parent="BaseAppThemeMarine">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AppThemeMarineHome" parent="BaseAppThemeMarine">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style>
+
+    <style name="BaseAppThemeMarine" parent="BaseAppThemeLight">
+        <item name="android:colorAccent">@color/MarineBottomColor</item>
+        <item name="android:colorBackground">@color/baseBackgroundMarine</item>
+        <item name="android:textColor">@color/MarineTextColorSecond</item>
+        <item name="android:textColorPrimary">@color/baseTextMarine</item>
+        <item name="android:textColorSecondary">@color/MarineTextColorSecond</item>
+        <item name="bluelineconsoleFrameColor">@color/MarineTopColor</item>
+        <item name="bluelineconsoleFrameTextColor">@color/textOnFrameMarine</item>
+        <item name="bluelineconsoleBaseTextColor">@color/baseTextMarine</item>
+        <item name="bluelineconsoleDisabledTextColor">@color/disabledText</item>
+        <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackgroundMarine</item>
+    </style>
+</resources>

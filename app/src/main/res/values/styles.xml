@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Basic definition for light and dark -->
 
     <style name="BaseAppThemeLight" parent="Theme.AppCompat.Light.NoActionBar">
@@ -11,8 +10,6 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="bluelineconsoleAccentColor">@color/colorAccent</item>
-        <item name="bluelineconsoleFrameColor">@color/colorFrame</item>
-        <item name="bluelineconsoleFrameTextColor">@color/textOnFrame</item>
         <item name="bluelineconsoleBaseTextColor">@color/baseText</item>
         <item name="bluelineconsoleDisabledTextColor">@color/disabledText</item>
         <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackground</item>
@@ -28,89 +25,9 @@
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="bluelineconsoleAccentColor">@color/colorAccentDark</item>
-        <item name="bluelineconsoleFrameColor">@color/colorFrameDark</item>
-        <item name="bluelineconsoleFrameTextColor">@color/textOnFrameDark</item>
         <item name="bluelineconsoleBaseTextColor">@color/baseTextDark</item>
         <item name="bluelineconsoleDisabledTextColor">@color/disabledTextDark</item>
         <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackgroundDark</item>
         <item name="bluelineconsoleBackgroundColorOfCommand">@color/colorBackgroundOfCommandDark</item>
-    </style>
-
-    <!-- Each theme -->
-
-    <style name="BaseAppThemeMarine" parent="BaseAppThemeLight">
-        <item name="android:colorAccent">@color/MarineBottomColor</item>
-        <item name="android:colorBackground">@color/baseBackgroundMarine</item>
-        <item name="android:textColor">@color/MarineTextColorSecond</item>
-        <item name="android:textColorPrimary">@color/baseTextMarine</item>
-        <item name="android:textColorSecondary">@color/MarineTextColorSecond</item>
-        <item name="bluelineconsoleFrameColor">@color/MarineTopColor</item>
-        <item name="bluelineconsoleFrameTextColor">@color/textOnFrameMarine</item>
-        <item name="bluelineconsoleBaseTextColor">@color/baseTextMarine</item>
-        <item name="bluelineconsoleDisabledTextColor">@color/disabledText</item>
-        <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackgroundMarine</item>
-    </style>
-
-    <style name="BaseAppThemeOldComputer" parent="BaseAppThemeDark">
-        <item name="bluelineconsoleAccentColor">@color/oldComputerForegroundColor</item>
-        <item name="bluelineconsoleFrameTextColor">@color/oldComputerForegroundColor</item>
-        <item name="bluelineconsoleBaseTextColor">@color/oldComputerForegroundColor</item>
-        <item name="bluelineconsoleDisabledTextColor">@color/oldComputerDisabledColor</item>
-        <item name="android:textColor">@color/oldComputerForegroundColor</item>
-        <item name="android:textColorPrimary">@color/oldComputerForegroundColor</item>
-        <item name="android:textColorSecondary">@color/oldComputerForegroundColor</item>
-        <item name="android:colorAccent">@color/oldComputerForegroundColor</item>
-        <item name="android:fontFamily">monospace</item>
-    </style>
-
-
-    <!-- Styles for actual usage -->
-
-    <style name="AppTheme" parent="BaseAppThemeLight">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
-
-    <style name="AppThemeHome" parent="BaseAppThemeLight">
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowShowWallpaper">true</item>
-    </style>
-
-    <style name="AppThemeDark" parent="BaseAppThemeDark">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
-
-    <style name="AppThemeDarkHome" parent="BaseAppThemeDark">
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowShowWallpaper">true</item>
-    </style>
-
-    <style name="AppThemeMarine" parent="BaseAppThemeMarine">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
-
-    <style name="AppThemeMarineHome" parent="BaseAppThemeMarine">
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowShowWallpaper">true</item>
-    </style>
-
-    <style name="AppThemeOldComputer" parent="BaseAppThemeOldComputer">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:backgroundDimEnabled">true</item>
-    </style>
-
-    <style name="AppThemeOldComputerHome" parent="BaseAppThemeOldComputer">
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowShowWallpaper">true</item>
     </style>
 </resources>

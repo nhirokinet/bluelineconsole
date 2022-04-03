@@ -1,0 +1,34 @@
+<resources>
+    <color name="bluelineconsoleTextOnFrame">#000000</color>
+    <color name="bluelineconsoleTextOnFrameDark">#ffffff</color>
+    <color name="bluelineconsoleColorFrame">#dddddd</color>
+    <color name="bluelineconsoleColorFrameDark">#444444</color>
+
+    <style name="AppThemeBlueLineConsole" parent="BaseAppThemeLight">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="bluelineconsoleFrameColor">@color/bluelineconsoleColorFrame</item>
+        <item name="bluelineconsoleFrameTextColor">@color/bluelineconsoleTextOnFrame</item>
+    </style>
+
+    <style name="AppThemeBlueLineConsoleHome" parent="AppThemeBlueLineConsole">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style>
+
+    <style name="AppThemeBlueLineConsoleDark" parent="BaseAppThemeDark">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="bluelineconsoleFrameColor">@color/bluelineconsoleColorFrameDark</item>
+        <item name="bluelineconsoleFrameTextColor">@color/bluelineconsoleTextOnFrameDark</item>
+    </style>
+
+    <style name="AppThemeBlueLineConsoleDarkHome" parent="AppThemeBlueLineConsoleDark">
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style>
+</resources>

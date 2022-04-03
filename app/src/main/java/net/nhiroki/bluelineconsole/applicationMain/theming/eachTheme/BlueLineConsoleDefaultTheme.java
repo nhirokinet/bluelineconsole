@@ -31,9 +31,9 @@ public class BlueLineConsoleDefaultTheme implements AppTheme {
     @Override
     public void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow) {
         if (this.isDarkMode(activity)) {
-            activity.setTheme(iAmHomeActivity ? R.style.AppThemeDarkHome : R.style.AppThemeDark);
+            activity.setTheme(iAmHomeActivity ? R.style.AppThemeBlueLineConsoleDarkHome : R.style.AppThemeBlueLineConsoleDark);
         } else {
-            activity.setTheme(iAmHomeActivity ? R.style.AppThemeHome : R.style.AppTheme);
+            activity.setTheme(iAmHomeActivity ? R.style.AppThemeBlueLineConsoleHome : R.style.AppThemeBlueLineConsole);
         }
         activity.setContentView(R.layout.base_window_layout_default);
     }
