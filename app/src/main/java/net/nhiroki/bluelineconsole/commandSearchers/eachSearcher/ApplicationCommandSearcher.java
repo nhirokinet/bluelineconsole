@@ -25,7 +25,6 @@ import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ApplicationCommandSearcher implements CommandSearcher {
@@ -57,46 +56,41 @@ public class ApplicationCommandSearcher implements CommandSearcher {
     @Override
     @NonNull
     public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
 
         final boolean matchAllApplications = query.equalsIgnoreCase("all_apps");
 
-        List<Pair<Integer, CandidateEntry>> appcands = new ArrayList<>();
+        List<Pair<Integer, CandidateEntry>> appCandidates = new ArrayList<>();
         for (ApplicationInformation applicationInformation : applicationDatabase.getApplicationInformationList()) {
             final String appLabel = applicationInformation.getLabel();
             final ApplicationInfo androidApplicationInfo = applicationDatabase.getAndroidApplicationInfo(applicationInformation.getPackageName());
 
             if (matchAllApplications) {
-                appcands.add(new Pair<Integer, CandidateEntry>(0, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
+                appCandidates.add(new Pair<>(0, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
                 continue;
             }
 
             int appLabelMatchResult = StringMatchStrategy.match(context, query, appLabel, false);
             if (appLabelMatchResult != -1) {
-                appcands.add(new Pair<Integer, CandidateEntry>(appLabelMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
+                appCandidates.add(new Pair<>(appLabelMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
                 continue;
             }
 
             int packageNameMatchResult = StringMatchStrategy.match(context, query, applicationInformation.getPackageName(), false);
             if (packageNameMatchResult != -1) {
-                appcands.add(new Pair<Integer, CandidateEntry>(100000 + packageNameMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
+                appCandidates.add(new Pair<>(100000 + packageNameMatchResult, new AppOpenCandidateEntry(context, applicationInformation, androidApplicationInfo, appLabel)));
                 //noinspection UnnecessaryContinue
                 continue;
             }
         }
 
-        Collections.sort(appcands, new Comparator<Pair<Integer, CandidateEntry>>() {
-            @Override
-            public int compare(Pair<Integer, CandidateEntry> o1, Pair<Integer, CandidateEntry> o2) {
-                return o1.first.compareTo(o2.first);
-            }
-        });
+        Collections.sort(appCandidates, (o1, o2) -> o1.first.compareTo(o2.first));
 
-        for (Pair<Integer, CandidateEntry> entry : appcands) {
-            cands.add(entry.second);
+        for (Pair<Integer, CandidateEntry> entry : appCandidates) {
+            candidates.add(entry.second);
         }
 
-        return cands;
+        return candidates;
     }
 
     private static class AppOpenCandidateEntry implements CandidateEntry {
@@ -140,24 +134,21 @@ public class ApplicationCommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(final Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    String packageName = AppOpenCandidateEntry.this.applicationInformation.getPackageName();
-                    Intent intent = activity.getPackageManager().getLaunchIntentForPackage(AppOpenCandidateEntry.this.applicationInformation.getPackageName());
-                    if (packageName.equals(context.getPackageName())) {
-                        // special case that happens to some curious behavior in home app
-                        activity.finishIfNotHome();
-                        activity.startActivity(new Intent(activity, MainActivity.class));
-                        return;
-                    }
-                    if (intent == null) {
-                        Toast.makeText(activity, String.format(activity.getString(R.string.error_failure_not_found_opening_application_with_class), packageName), Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    activity.startActivity(intent);
+            return activity -> {
+                String packageName = AppOpenCandidateEntry.this.applicationInformation.getPackageName();
+                Intent intent = activity.getPackageManager().getLaunchIntentForPackage(AppOpenCandidateEntry.this.applicationInformation.getPackageName());
+                if (packageName.equals(context.getPackageName())) {
+                    // special case that happens to some curious behavior in home app
                     activity.finishIfNotHome();
+                    activity.startActivity(new Intent(activity, MainActivity.class));
+                    return;
                 }
+                if (intent == null) {
+                    Toast.makeText(activity, String.format(activity.getString(R.string.error_failure_not_found_opening_application_with_class), packageName), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                activity.startActivity(intent);
+                activity.finishIfNotHome();
             };
         }
 

@@ -28,13 +28,13 @@ public class URICommandSearcher implements CommandSearcher {
     @Override
     @NonNull
     public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
 
         if (StringValidator.isValidURLAccepted(query, false, context)) {
-            cands.add(new URLOpenCandidateEntry(query));
+            candidates.add(new URLOpenCandidateEntry(query));
         }
 
-        return cands;
+        return candidates;
     }
 
     @Override
@@ -73,15 +73,12 @@ public class URICommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(final Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    try {
-                        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                        activity.finish();
-                    } catch (ActivityNotFoundException e) {
-                        Toast.makeText(context, R.string.error_failure_could_not_open_url, Toast.LENGTH_LONG).show();
-                    }
+            return activity -> {
+                try {
+                    activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    activity.finish();
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(context, R.string.error_failure_could_not_open_url, Toast.LENGTH_LONG).show();
                 }
             };
         }

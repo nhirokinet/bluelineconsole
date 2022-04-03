@@ -45,13 +45,13 @@ public class PreferencesCommandSearcher implements CommandSearcher {
     @Override
     @NonNull
     public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
 
         if (query.equalsIgnoreCase(COMMAND_STRING)) {
-            cands.add(new PreferencesCandidateEntry());
+            candidates.add(new PreferencesCandidateEntry());
         }
 
-        return cands;
+        return candidates;
     }
 
     private static class PreferencesCandidateEntry implements CandidateEntry {

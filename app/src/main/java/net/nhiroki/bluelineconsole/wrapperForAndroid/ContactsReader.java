@@ -50,7 +50,7 @@ public class ContactsReader {
                 if (contactIdColumnIndex != -1 && dataColumnIndex != -1) {
                     final String contactId = phoneCursor.getString(contactIdColumnIndex);
                     if (!phoneNumbers.containsKey(contactId)) {
-                        phoneNumbers.put(contactId, new ArrayList<String>());
+                        phoneNumbers.put(contactId, new ArrayList<>());
                     }
                     final String phoneNumStr = phoneCursor.getString(dataColumnIndex);
                     if (phoneNumStr != null) {
@@ -71,7 +71,7 @@ public class ContactsReader {
                 if (contactIdColumnIndex != -1 && dataColumnIndex != -1) {
                     final String contactId = emailCursor.getString(contactIdColumnIndex);
                     if (!emailAddresses.containsKey(contactId)) {
-                        emailAddresses.put(contactId, new ArrayList<String>());
+                        emailAddresses.put(contactId, new ArrayList<>());
                     }
                     final String emailStr = emailCursor.getString(dataColumnIndex);
                     if (emailStr != null) {

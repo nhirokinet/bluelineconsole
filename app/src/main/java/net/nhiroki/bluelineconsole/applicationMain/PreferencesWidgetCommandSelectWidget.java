@@ -1,13 +1,10 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import net.nhiroki.bluelineconsole.R;
@@ -45,32 +42,29 @@ public class PreferencesWidgetCommandSelectWidget extends BaseWindowActivity {
         this.enableBaseWindowAnimation();
 
         final ListView customListView = findViewById(R.id.homeScreenSelectWidgetToAdd);
-        final WidgetCandidatesListAdapter adapter = new WidgetCandidatesListAdapter(this, 0, new ArrayList<AppWidgetProviderInfo>());
+        final WidgetCandidatesListAdapter adapter = new WidgetCandidatesListAdapter(this, 0, new ArrayList<>());
         customListView.setAdapter(adapter);
 
         List<AppWidgetProviderInfo> wl = this.appWidgetsHostManager.getInstalledProviders();
 
-        customListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                boolean res = PreferencesWidgetCommandSelectWidget.this.appWidgetsHostManager.bindAppWidgetIdIfAllowed(appWidgetId, adapter.getItem(position));
+        customListView.setOnItemClickListener((parent, view, position, id) -> {
+            boolean res = PreferencesWidgetCommandSelectWidget.this.appWidgetsHostManager.bindAppWidgetIdIfAllowed(appWidgetId, adapter.getItem(position));
 
-                if (!res) {
-                    Intent intent = PreferencesWidgetCommandSelectWidget.this.appWidgetsHostManager.createAppBindWidgetRequestIntent(appWidgetId, adapter.getItem(position));
-                    PreferencesWidgetCommandSelectWidget.this.startActivityForResult(intent, REQUEST_APPWIDGET_BIND);
-                    return;
-                }
+            if (!res) {
+                Intent intent = PreferencesWidgetCommandSelectWidget.this.appWidgetsHostManager.createAppBindWidgetRequestIntent(appWidgetId, adapter.getItem(position));
+                PreferencesWidgetCommandSelectWidget.this.startActivityForResult(intent, REQUEST_APPWIDGET_BIND);
+                return;
+            }
 
-                AppWidgetProviderInfo info = AppWidgetManager.getInstance(PreferencesWidgetCommandSelectWidget.this.getApplicationContext()).getAppWidgetInfo(appWidgetId);
+            AppWidgetProviderInfo info = AppWidgetManager.getInstance(PreferencesWidgetCommandSelectWidget.this.getApplicationContext()).getAppWidgetInfo(appWidgetId);
 
-                WidgetsSetting.getInstance(PreferencesWidgetCommandSelectWidget.this).updateWidgetCommandHeightPxByAppWidgetId(appWidgetId, info.minHeight);
+            WidgetsSetting.getInstance(PreferencesWidgetCommandSelectWidget.this).updateWidgetCommandHeightPxByAppWidgetId(appWidgetId, info.minHeight);
 
-                if (info.configure != null) {
-                    PreferencesWidgetCommandSelectWidget.this.appWidgetsHostManager.startAppWidgetConfigureActivityForResult(PreferencesWidgetCommandSelectWidget.this, appWidgetId, 0, REQUEST_APPWIDGET_CONFIGURE, null);
+            if (info.configure != null) {
+                PreferencesWidgetCommandSelectWidget.this.appWidgetsHostManager.startAppWidgetConfigureActivityForResult(PreferencesWidgetCommandSelectWidget.this, appWidgetId, 0, REQUEST_APPWIDGET_CONFIGURE, null);
 
-                } else {
-                    PreferencesWidgetCommandSelectWidget.this.finish();
-                }
+            } else {
+                PreferencesWidgetCommandSelectWidget.this.finish();
             }
         });
 

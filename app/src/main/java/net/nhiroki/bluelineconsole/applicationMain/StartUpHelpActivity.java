@@ -30,16 +30,13 @@ public class StartUpHelpActivity extends BaseWindowActivity {
         // Window nest count is 1, but make margin larger because background window is smaller and hides
         this.setWindowBoundarySize(ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN, 2);
 
-        findViewById(R.id.startUpOKButton).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if (((CheckBox) findViewById(R.id.startUpCheckBoxNotToContinue)).isChecked()) {
-                    SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(StartUpHelpActivity.this).edit();
-                    prefEdit.putBoolean(PREF_KEY_SHOW_STARTUP_HELP, false);
-                    prefEdit.apply();
-                }
-                StartUpHelpActivity.this.finish();
+        findViewById(R.id.startUpOKButton).setOnClickListener(v -> {
+            if (((CheckBox) findViewById(R.id.startUpCheckBoxNotToContinue)).isChecked()) {
+                SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(StartUpHelpActivity.this).edit();
+                prefEdit.putBoolean(PREF_KEY_SHOW_STARTUP_HELP, false);
+                prefEdit.apply();
             }
+            StartUpHelpActivity.this.finish();
         });
 
         this.changeBaseWindowElementSizeForAnimation(false);

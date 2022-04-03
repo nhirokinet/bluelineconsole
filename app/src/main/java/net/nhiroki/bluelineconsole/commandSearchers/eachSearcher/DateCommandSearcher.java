@@ -30,13 +30,13 @@ public class DateCommandSearcher implements CommandSearcher {
     @Override
     @NonNull
     public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
 
         if (query.equalsIgnoreCase("date")) {
-            cands.add(new ClockCandidateEntry());
+            candidates.add(new ClockCandidateEntry());
         }
 
-        return cands;
+        return candidates;
     }
 
     @Override

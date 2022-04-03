@@ -31,12 +31,12 @@ public class HelpCommandSearcher implements CommandSearcher {
     @Override
     @NonNull
     public List<CandidateEntry> searchCandidateEntries(String query, Context context) {
-        List<CandidateEntry> cands = new ArrayList<>();
+        List<CandidateEntry> candidates = new ArrayList<>();
 
         if (query.equalsIgnoreCase("help")) {
-            cands.add(new HelpCandidateEntry());
+            candidates.add(new HelpCandidateEntry());
         }
 
-        return cands;
+        return candidates;
     }
 }

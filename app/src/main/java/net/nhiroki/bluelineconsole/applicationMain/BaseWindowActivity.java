@@ -306,21 +306,21 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     @CallSuper
     protected void enableWindowAnimationForElements() {
-        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot));
-        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout));
-        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper));
-        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout));
-        enableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowFooterWrapper));
+        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowMainLayoutRoot));
+        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowRootLinearLayout));
+        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowHeaderWrapper));
+        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowMainLinearLayout));
+        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowFooterWrapper));
         this.currentTheme.enableWindowAnimationForElement(this);
     }
 
     @CallSuper
     protected void disableWindowAnimationForElements() {
-        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLayoutRoot));
-        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowRootLinearLayout));
-        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowHeaderWrapper));
-        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowMainLinearLayout));
-        disableWindowAnimationForEachViewGroup((ViewGroup) findViewById(R.id.baseWindowFooterWrapper));
+        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowMainLayoutRoot));
+        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowRootLinearLayout));
+        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowHeaderWrapper));
+        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowMainLinearLayout));
+        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowFooterWrapper));
         this.currentTheme.disableWindowAnimationForElement(this);
     }
 

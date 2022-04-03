@@ -22,7 +22,7 @@ public class WebSearchEnginesDatabase {
     public static final String PREF_KEY_DEFAULT_SEARCH = "pref_default_search";
     public static final String PREF_KEY_DISABLED_URLS = "pref_url_disabled_ids";
 
-    private static final Set<String> WIKIPEDIA_SUPPORTING_LANGS = new HashSet<>(
+    private static final Set<String> WIKIPEDIA_SUPPORTING_LANGUAGES = new HashSet<>(
             Arrays.asList(
                     // List as of 2018/03/10, from https://www.wikipedia.org/
                     // TODO: processing domains with hyphen
@@ -123,7 +123,7 @@ public class WebSearchEnginesDatabase {
         }
 
         String wikipediaLangCode = locale.getLanguage();
-        if (!WIKIPEDIA_SUPPORTING_LANGS.contains(wikipediaLangCode)) {
+        if (!WIKIPEDIA_SUPPORTING_LANGUAGES.contains(wikipediaLangCode)) {
             wikipediaLangCode = "en";
         }
         ret.add(new WebSearchEngine("default-web-wikipedia", "wikipedia", "Wikipedia (" + wikipediaLangCode + ")", "Wikipedia", "https://" + wikipediaLangCode + ".wikipedia.org/wiki/", true, true, true, this._disabledURLIDs));
@@ -193,7 +193,7 @@ public class WebSearchEnginesDatabase {
     }
 
     public Set<String> getDisabledEntries(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getStringSet(PREF_KEY_DISABLED_URLS, new HashSet<String>());
+        return PreferenceManager.getDefaultSharedPreferences(context).getStringSet(PREF_KEY_DISABLED_URLS, new HashSet<>());
     }
 
 

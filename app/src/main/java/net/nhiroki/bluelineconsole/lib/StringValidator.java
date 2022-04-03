@@ -16,7 +16,7 @@ public class StringValidator {
                 return false;
             }
 
-            // Schema neme check
+            // Schema name check
             // https://datatracker.ietf.org/doc/html/rfc3986#section-3.1
             if (! (('A' <= url.charAt(0) && url.charAt(0) <= 'Z' || 'a' <= url.charAt(0) && url.charAt(0) <= 'z'))) {
                 return false;

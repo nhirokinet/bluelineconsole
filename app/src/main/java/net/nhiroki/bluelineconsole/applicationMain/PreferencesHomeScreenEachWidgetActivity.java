@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -63,12 +62,7 @@ public class PreferencesHomeScreenEachWidgetActivity extends BaseWindowActivity 
 
             if (this.homeScreenWidgetInfo.appWidgetProviderInfo.configure != null) {
                 this.findViewById(R.id.widget_each_configure).setVisibility(View.VISIBLE);
-                this.findViewById(R.id.widget_each_configure).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        PreferencesHomeScreenEachWidgetActivity.this.appWidgetsHostManager.startAppWidgetConfigureActivityForResult(PreferencesHomeScreenEachWidgetActivity.this, PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo.appWidgetId, 0, 0, null);
-                    }
-                });
+                this.findViewById(R.id.widget_each_configure).setOnClickListener(v -> PreferencesHomeScreenEachWidgetActivity.this.appWidgetsHostManager.startAppWidgetConfigureActivityForResult(PreferencesHomeScreenEachWidgetActivity.this, PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo.appWidgetId, 0, 0, null));
 
             } else {
                 this.findViewById(R.id.widget_each_configure).setVisibility(View.GONE);
@@ -82,25 +76,19 @@ public class PreferencesHomeScreenEachWidgetActivity extends BaseWindowActivity 
             ((TextView) this.findViewById(R.id.widget_default_height)).setText("");
         }
 
-        this.findViewById(R.id.widget_each_submit_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo.heightPx = Integer.valueOf(PreferencesHomeScreenEachWidgetActivity.this.heightEdit.getText().toString());
-                } catch (NumberFormatException e) {
-                    // just not to update
-                }
-                PreferencesHomeScreenEachWidgetActivity.this.appWidgetsHostManager.saveHomeScreenWidgetInfo(PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo);
-                PreferencesHomeScreenEachWidgetActivity.this.finish();
+        this.findViewById(R.id.widget_each_submit_button).setOnClickListener(v -> {
+            try {
+                PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo.heightPx = Integer.valueOf(PreferencesHomeScreenEachWidgetActivity.this.heightEdit.getText().toString());
+            } catch (NumberFormatException e) {
+                // just not to update
             }
+            PreferencesHomeScreenEachWidgetActivity.this.appWidgetsHostManager.saveHomeScreenWidgetInfo(PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo);
+            PreferencesHomeScreenEachWidgetActivity.this.finish();
         });
 
-        this.findViewById(R.id.widget_each_delete_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PreferencesHomeScreenEachWidgetActivity.this.appWidgetsHostManager.deleteHomeScreenWidgetInfo(PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo);
-                PreferencesHomeScreenEachWidgetActivity.this.finish();
-            }
+        this.findViewById(R.id.widget_each_delete_button).setOnClickListener(v -> {
+            PreferencesHomeScreenEachWidgetActivity.this.appWidgetsHostManager.deleteHomeScreenWidgetInfo(PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo);
+            PreferencesHomeScreenEachWidgetActivity.this.finish();
         });
     }
 }

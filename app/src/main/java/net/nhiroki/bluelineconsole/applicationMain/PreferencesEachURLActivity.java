@@ -33,56 +33,50 @@ public class PreferencesEachURLActivity extends BaseWindowActivity {
         this.changeBaseWindowElementSizeForAnimation(false);
         this.enableBaseWindowAnimation();
 
-        findViewById(R.id.url_each_submit_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final boolean enabled_choice = ((Switch)findViewById(R.id.url_each_enabled)).isChecked();
+        findViewById(R.id.url_each_submit_button).setOnClickListener(v -> {
+            final boolean enabled_choice = ((Switch)findViewById(R.id.url_each_enabled)).isChecked();
 
-                if (PreferencesEachURLActivity.this._entry_id != null && enabled_choice != PreferencesEachURLActivity.this._entry_enabled_when_started) {
-                    new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).setEntryEnabledById(PreferencesEachURLActivity.this, PreferencesEachURLActivity.this._entry_id, enabled_choice);
-                }
-
-                if (PreferencesEachURLActivity.this._entry_id != null && ! PreferencesEachURLActivity.this._entry_id.startsWith("custom-web-")) {
-                    PreferencesEachURLActivity.this.finish();
-                    return;
-                }
-                URLEntry entry = new URLEntry();
-                entry.id = PreferencesEachURLActivity.this._entry_id ==null ? 0 : Integer.parseInt(PreferencesEachURLActivity.this._entry_id.split("-")[2]);
-                entry.name = ((EditText)findViewById(R.id.url_each_name)).getText().toString();
-                entry.display_name = ((EditText)findViewById(R.id.url_each_display_name)).getText().toString();
-                entry.url_base = ((EditText)findViewById(R.id.url_each_base_url)).getText().toString();
-                entry.has_query = ((Switch)findViewById(R.id.url_each_has_query)).isChecked();
-
-                int err = entry.validate(PreferencesEachURLActivity.this);
-
-                if (err != 0) {
-                    Toast.makeText(PreferencesEachURLActivity.this, err, Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (PreferencesEachURLActivity.this._entry_id == null) {
-                    long id = URLPreferences.getInstance(PreferencesEachURLActivity.this).add(entry);
-                    if (!enabled_choice) {
-                        new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).setEntryEnabledById(PreferencesEachURLActivity.this, "custom-web-" + id, enabled_choice);
-                    }
-                } else {
-                    URLPreferences.getInstance(PreferencesEachURLActivity.this).update(entry);
-                }
-                PreferencesEachURLActivity.this.finish();
+            if (PreferencesEachURLActivity.this._entry_id != null && enabled_choice != PreferencesEachURLActivity.this._entry_enabled_when_started) {
+                new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).setEntryEnabledById(PreferencesEachURLActivity.this, PreferencesEachURLActivity.this._entry_id, enabled_choice);
             }
+
+            if (PreferencesEachURLActivity.this._entry_id != null && ! PreferencesEachURLActivity.this._entry_id.startsWith("custom-web-")) {
+                PreferencesEachURLActivity.this.finish();
+                return;
+            }
+            URLEntry entry = new URLEntry();
+            entry.id = PreferencesEachURLActivity.this._entry_id ==null ? 0 : Integer.parseInt(PreferencesEachURLActivity.this._entry_id.split("-")[2]);
+            entry.name = ((EditText)findViewById(R.id.url_each_name)).getText().toString();
+            entry.display_name = ((EditText)findViewById(R.id.url_each_display_name)).getText().toString();
+            entry.url_base = ((EditText)findViewById(R.id.url_each_base_url)).getText().toString();
+            entry.has_query = ((Switch)findViewById(R.id.url_each_has_query)).isChecked();
+
+            int err = entry.validate(PreferencesEachURLActivity.this);
+
+            if (err != 0) {
+                Toast.makeText(PreferencesEachURLActivity.this, err, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (PreferencesEachURLActivity.this._entry_id == null) {
+                long id = URLPreferences.getInstance(PreferencesEachURLActivity.this).add(entry);
+                if (!enabled_choice) {
+                    new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).setEntryEnabledById(PreferencesEachURLActivity.this, "custom-web-" + id, enabled_choice);
+                }
+            } else {
+                URLPreferences.getInstance(PreferencesEachURLActivity.this).update(entry);
+            }
+            PreferencesEachURLActivity.this.finish();
         });
 
-        findViewById(R.id.url_each_delete_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (PreferencesEachURLActivity.this._entry_id == null || ! PreferencesEachURLActivity.this._entry_id.startsWith("custom-web-")) {
-                    return;
-                }
-                int id = Integer.parseInt(PreferencesEachURLActivity.this._entry_id.split("-")[2]);
-                URLPreferences.getInstance(PreferencesEachURLActivity.this).deleteById(id);
-                new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).unsetEntryEnabledById(PreferencesEachURLActivity.this, PreferencesEachURLActivity.this._entry_id);
-                PreferencesEachURLActivity.this.finish();
+        findViewById(R.id.url_each_delete_button).setOnClickListener(v -> {
+            if (PreferencesEachURLActivity.this._entry_id == null || ! PreferencesEachURLActivity.this._entry_id.startsWith("custom-web-")) {
+                return;
             }
+            int id = Integer.parseInt(PreferencesEachURLActivity.this._entry_id.split("-")[2]);
+            URLPreferences.getInstance(PreferencesEachURLActivity.this).deleteById(id);
+            new WebSearchEnginesDatabase(PreferencesEachURLActivity.this).unsetEntryEnabledById(PreferencesEachURLActivity.this, PreferencesEachURLActivity.this._entry_id);
+            PreferencesEachURLActivity.this.finish();
         });
     }
 

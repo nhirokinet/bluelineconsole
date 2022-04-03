@@ -102,8 +102,8 @@ public class UnitDirectory {
     }
 
     private static String dimensionIdsToUniqueStr(CombinedUnit unit, boolean includeDummy) {
-        String posStr = "";
-        String negStr = "";
+        StringBuilder posStr = new StringBuilder();
+        StringBuilder negStr = new StringBuilder();
 
         int posCur = 0;
         int negCur = 0;
@@ -116,13 +116,13 @@ public class UnitDirectory {
                     continue;
                 } else if (unit.getPositiveUnits()[posCur].getDimensionId() > unit.getNegativeUnits()[negCur].getDimensionId()){
                     if (includeDummy || unit.getNegativeUnits()[negCur].getDimensionId() != DIMENSION_DUMMY) {
-                        negStr += "," + unit.getNegativeUnits()[negCur].getDimensionId();
+                        negStr.append(",").append(unit.getNegativeUnits()[negCur].getDimensionId());
                     }
                     ++negCur;
                     continue;
                 } else {
                     if (includeDummy || unit.getPositiveUnits()[posCur].getDimensionId() != DIMENSION_DUMMY) {
-                        posStr += "," + unit.getPositiveUnits()[posCur].getDimensionId();
+                        posStr.append(",").append(unit.getPositiveUnits()[posCur].getDimensionId());
                     }
                     ++posCur;
                     continue;
@@ -131,13 +131,13 @@ public class UnitDirectory {
 
             if (posCur < unit.getPositiveUnits().length) {
                 if (includeDummy || unit.getPositiveUnits()[posCur].getDimensionId() != DIMENSION_DUMMY) {
-                    posStr += "," + unit.getPositiveUnits()[posCur].getDimensionId();
+                    posStr.append(",").append(unit.getPositiveUnits()[posCur].getDimensionId());
                 }
                 ++posCur;
             }
             if (negCur < unit.getNegativeUnits().length) {
                 if (includeDummy || unit.getNegativeUnits()[negCur].getDimensionId() != DIMENSION_DUMMY) {
-                    negStr += "," + unit.getNegativeUnits()[negCur].getDimensionId();
+                    negStr.append(",").append(unit.getNegativeUnits()[negCur].getDimensionId());
                 }
                 ++negCur;
             }
@@ -167,7 +167,7 @@ public class UnitDirectory {
         }
 
         class ObjForSort implements Comparable<ObjForSort> {
-            CombinedUnit combinedUnit;
+            final CombinedUnit combinedUnit;
             ObjForSort(CombinedUnit combinedUnit) {
                 this.combinedUnit = combinedUnit;
             }
@@ -269,17 +269,14 @@ public class UnitDirectory {
             this.registerUnit(
                     new Unit.NormalUnit(id++, DIMENSION_ELECTRIC_CURRENT, "A", null, CalculatorNumber.BigDecimalNumber.ONE),
                     new String[]{"A", "ampere"});
-            Unit.NormalUnit ampere = (Unit.NormalUnit) this.nameToUnitMap.get("ampere");
 
             this.registerUnit(
                     new Unit.NormalUnit(id++, DIMENSION_AMOUNT_OF_SUBSTANCE, "mol", null, CalculatorNumber.BigDecimalNumber.ONE),
                     new String[]{"mol", "mole"});
-            Unit.NormalUnit mol = (Unit.NormalUnit) this.nameToUnitMap.get("mol");
 
             this.registerUnit(
                     new Unit.NormalUnit(id++, DIMENSION_LUMINOUS_INTENSITY, "cd", null, CalculatorNumber.BigDecimalNumber.ONE),
                     new String[]{"cd", "candela"});
-            Unit.NormalUnit cd = (Unit.NormalUnit) this.nameToUnitMap.get("cd");
 
             // Assume 1 byte = 1 octet
             this.registerUnit(

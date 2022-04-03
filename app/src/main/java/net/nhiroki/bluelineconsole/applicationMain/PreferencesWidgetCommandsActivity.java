@@ -1,13 +1,11 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -44,26 +42,18 @@ public class PreferencesWidgetCommandsActivity extends BaseWindowActivity {
         this.enableBaseWindowAnimation();
 
         Button addButton = this.findViewById(R.id.widget_command_add_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PreferencesWidgetCommandsActivity.this.startActivity(new Intent(PreferencesWidgetCommandsActivity.this, PreferencesWidgetCommandEachActivity.class));
-            }
-        });
+        addButton.setOnClickListener(v -> PreferencesWidgetCommandsActivity.this.startActivity(new Intent(PreferencesWidgetCommandsActivity.this, PreferencesWidgetCommandEachActivity.class)));
 
         ListView listView = this.findViewById(R.id.widget_command_list);
         this.listViewAdapter = new WidgetCommandAdapter(this);
         listView.setAdapter(listViewAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AppWidgetsHostManager.WidgetCommand widgetCommand = PreferencesWidgetCommandsActivity.this.listViewAdapter.getItem(position);
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            AppWidgetsHostManager.WidgetCommand widgetCommand = PreferencesWidgetCommandsActivity.this.listViewAdapter.getItem(position);
 
-                Intent intent = new Intent(PreferencesWidgetCommandsActivity.this, PreferencesWidgetCommandEachActivity.class);
-                intent.putExtra(PreferencesWidgetCommandEachActivity.INTENT_EXTRA_WIDGET_COMMAND_ID, widgetCommand.id);
-                PreferencesWidgetCommandsActivity.this.startActivity(intent);
-            }
+            Intent intent = new Intent(PreferencesWidgetCommandsActivity.this, PreferencesWidgetCommandEachActivity.class);
+            intent.putExtra(PreferencesWidgetCommandEachActivity.INTENT_EXTRA_WIDGET_COMMAND_ID, widgetCommand.id);
+            PreferencesWidgetCommandsActivity.this.startActivity(intent);
         });
     }
 
@@ -87,7 +77,7 @@ public class PreferencesWidgetCommandsActivity extends BaseWindowActivity {
         private final Context context;
 
         public WidgetCommandAdapter(@NonNull Context context) {
-            super(context,0, new ArrayList<AppWidgetsHostManager.WidgetCommand>());
+            super(context,0, new ArrayList<>());
             this.context = context;
         }
 
