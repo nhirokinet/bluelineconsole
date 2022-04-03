@@ -166,7 +166,7 @@ public class MainActivity extends BaseWindowActivity {
 
         EditTextConfigurations.applyCommandEditTextConfigurations(mainInputText, this);
 
-        if (!this.getCurrentTheme().equals(this.readThemeFromConfig())) {
+        if (!this.themeStateMatchesConfig()) {
             this.finish();
             this.startActivity(new Intent(this, this.getClass()));
             return;
