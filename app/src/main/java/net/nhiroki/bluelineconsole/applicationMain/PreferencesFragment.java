@@ -11,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.lib.EditTextConfigurations;
+import net.nhiroki.bluelineconsole.applicationMain.theming.AppThemeDirectory;
 import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEngine;
 import net.nhiroki.bluelineconsole.commands.urls.WebSearchEnginesDatabase;
@@ -88,10 +89,10 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
                 }
         );
 
-        ((ListPreference) findPreference(BaseWindowActivity.PREF_NAME_THEME)).setEntries(BaseWindowActivity.getPrefThemeEntries(this.getContext()));
-        ((ListPreference) findPreference(BaseWindowActivity.PREF_NAME_THEME)).setEntryValues(BaseWindowActivity.PREF_THEME_ENTRY_VALUES);
+        ((ListPreference) findPreference(AppThemeDirectory.PREF_NAME_THEME)).setEntries(AppThemeDirectory.getThemePreferenceTitles(this.getContext()));
+        ((ListPreference) findPreference(AppThemeDirectory.PREF_NAME_THEME)).setEntryValues(AppThemeDirectory.getThemePreferenceKeys());
 
-        findPreference(BaseWindowActivity.PREF_NAME_THEME).setOnPreferenceChangeListener(
+        findPreference(AppThemeDirectory.PREF_NAME_THEME).setOnPreferenceChangeListener(
                 new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {

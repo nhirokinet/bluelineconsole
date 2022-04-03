@@ -10,9 +10,13 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 
+import androidx.annotation.LayoutRes;
+
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
+import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
+import net.nhiroki.bluelineconsole.applicationMain.theming.AppThemeDirectory;
 
 
 public class LauncherWidgetProvider extends AppWidgetProvider {
@@ -20,16 +24,14 @@ public class LauncherWidgetProvider extends AppWidgetProvider {
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager, int appWidgetId, Bundle newOptions) {
         super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
 
-        final String theme = BaseWindowActivity.determineActualTheme(context, BaseWindowActivity.readThemeFromConfigStatic(context));
-        updateWidgetsForTheme(context, appWidgetManager, new int[]{appWidgetId}, theme);
+        updateWidgetsForTheme(context, appWidgetManager, new int[]{appWidgetId}, null);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        final String theme = BaseWindowActivity.determineActualTheme(context, BaseWindowActivity.readThemeFromConfigStatic(context));
-        updateWidgetsForTheme(context, appWidgetManager, appWidgetIds, theme);
+        updateWidgetsForTheme(context, appWidgetManager, appWidgetIds, null);
     }
 
     public static void updateTheme(Context context, String theme) {
@@ -46,28 +48,9 @@ public class LauncherWidgetProvider extends AppWidgetProvider {
         updateWidgetsForTheme(context, appWidgetManager, appWidgetIds, theme);
     }
 
-    private static void updateWidgetsForTheme(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds, String theme) {
-        theme = BaseWindowActivity.determineActualTheme(context, theme);
-        final int layoutId;
-
-        switch (theme) {
-            case BaseWindowActivity.PREF_VALUE_THEME_DARK:
-                layoutId = R.layout.widget_launcher_dark_theme;
-                break;
-
-            case BaseWindowActivity.PREF_VALUE_THEME_MARINE:
-                layoutId = R.layout.widget_launcher_marine;
-                break;
-
-            case BaseWindowActivity.PREF_VALUE_THEME_OLD_COMPUTER:
-                layoutId = R.layout.widget_launcher_old_computer;
-                break;
-
-            case BaseWindowActivity.PREF_VALUE_THEME_LIGHT:
-            default:
-                layoutId = R.layout.widget_launcher_default_theme;
-                break;
-        }
+    private static void updateWidgetsForTheme(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds, String themeID) {
+        final AppTheme appTheme = themeID != null ? AppThemeDirectory.loadAppTheme(themeID) : AppThemeDirectory.loadAppTheme(context);
+        final @LayoutRes int layoutId = appTheme.getLauncherWidgetLayoutID(context);
 
         for (int appWidgetId: appWidgetIds) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(), layoutId);
