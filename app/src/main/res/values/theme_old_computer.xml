@@ -1,0 +1,28 @@
+<resources>
+    <color name="oldComputerForegroundColor">#00ff00</color>
+    <color name="oldComputerDisabledColor">#008000</color>
+
+    <style name="BaseAppThemeOldComputer" parent="BaseAppThemeDark">
+        <item name="bluelineconsoleAccentColor">@color/oldComputerForegroundColor</item>
+        <item name="bluelineconsoleFrameTextColor">@color/oldComputerForegroundColor</item>
+        <item name="bluelineconsoleBaseTextColor">@color/oldComputerForegroundColor</item>
+        <item name="bluelineconsoleDisabledTextColor">@color/oldComputerDisabledColor</item>
+        <item name="android:textColor">@color/oldComputerForegroundColor</item>
+        <item name="android:textColorPrimary">@color/oldComputerForegroundColor</item>
+        <item name="android:textColorSecondary">@color/oldComputerForegroundColor</item>
+        <item name="android:colorAccent">@color/oldComputerForegroundColor</item>
+        <item name="android:fontFamily">monospace</item>
+    </style>
+
+    <style name="AppThemeOldComputer" parent="BaseAppThemeOldComputer">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AppThemeOldComputerHome" parent="BaseAppThemeOldComputer">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowShowWallpaper">true</item>
+    </style>
+</resources>

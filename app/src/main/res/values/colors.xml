@@ -5,8 +5,6 @@
 
     <color name="colorAccent">#4d68ff</color>
     <color name="baseText">#000000</color>
-    <color name="textOnFrame">#000000</color>
-    <color name="colorFrame">#dddddd</color>
     <color name="colorBackgroundOfCommand">#dddddd</color>
     <color name="baseBackground">#ffffff</color>
     <color name="selectedItemBackground">#cccccc</color>
@@ -14,21 +12,8 @@
 
     <color name="colorAccentDark">#4d68ff</color>
     <color name="baseTextDark">#ffffff</color>
-    <color name="textOnFrameDark">#ffffff</color>
-    <color name="colorFrameDark">#444444</color>
     <color name="colorBackgroundOfCommandDark">#444444</color>
     <color name="baseBackgroundDark">#000000</color>
     <color name="selectedItemBackgroundDark">#666666</color>
     <color name="disabledTextDark">#808080</color>
-
-    <color name="baseBackgroundMarine">#aaddff</color>
-    <color name="selectedItemBackgroundMarine">#88bbdd</color>
-    <color name="baseTextMarine">#001833</color>
-    <color name="textOnFrameMarine">#001833</color>
-    <color name="MarineTextColorSecond">#003366</color>
-    <color name="MarineTopColor">#3078ff</color>
-    <color name="MarineBottomColor">#4464aa</color>
-
-    <color name="oldComputerForegroundColor">#00ff00</color>
-    <color name="oldComputerDisabledColor">#008000</color>
 </resources>

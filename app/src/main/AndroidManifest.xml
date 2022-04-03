@@ -33,7 +33,7 @@
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:stateNotNeeded="true"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
@@ -61,7 +61,7 @@
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:stateNotNeeded="true"
-            android:theme="@style/AppThemeHome"
+            android:theme="@style/AppThemeBlueLineConsoleHome"
             android:exported="true"
             android:windowSoftInputMode="stateAlwaysVisible|adjustResize">
             <intent-filter>
@@ -73,84 +73,84 @@
         </activity>
         <activity
             android:name=".applicationMain.NotificationMigrationLostActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.PreferencesActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             />
         <activity
             android:name=".applicationMain.PreferencesCustomWebActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             />
         <activity
             android:name=".applicationMain.PreferencesEachURLActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:windowSoftInputMode="stateVisible|adjustResize"
             />
         <activity
             android:name=".applicationMain.PreferencesAccentColorActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.PreferencesWidgetCommandsActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.PreferencesWidgetCommandEachActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.PreferencesWidgetCommandSelectWidget"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.PreferencesHomeScreenItemsActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.PreferencesHomeScreenAddWidgetActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.PreferencesHomeScreenEachDefaultItemCommandActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.PreferencesHomeScreenEachWidgetActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.StartUpHelpActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".applicationMain.LicensingInformationActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             />
         <activity
             android:name=".commands.netutils.PingActivity"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             android:exported="false"
             />
         <activity
             android:name=".commands.netutils.Ping6Activity"
             android:exported="false"
-            android:theme="@style/AppTheme"
+            android:theme="@style/AppThemeBlueLineConsole"
             />
 
         <receiver android:name=".widget.LauncherWidgetProvider"
