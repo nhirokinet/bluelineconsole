@@ -20,15 +20,20 @@ public class CombinedUnit {
 
     private List<Unit> explicitUnits = new ArrayList<>();
 
-    public CombinedUnit() {
+    private UnitDirectory parentUnitDictionary;
+
+
+    public CombinedUnit(UnitDirectory parentUnitDictionary) {
+        this.parentUnitDictionary = parentUnitDictionary;
     }
 
-    public CombinedUnit(Unit unit) {
+    public CombinedUnit(Unit unit, UnitDirectory parentUnitDictionary) {
         this.positiveUnits.add(unit);
         this.explicitUnits.add(unit);
+        this.parentUnitDictionary = parentUnitDictionary;
     }
 
-    public CombinedUnit(Unit[] positiveUnits, Unit[] negativeUnits) throws CalculatorExceptions.IllegalFormulaException {
+    public CombinedUnit(Unit[] positiveUnits, Unit[] negativeUnits, UnitDirectory parentUnitDictionary) throws CalculatorExceptions.IllegalFormulaException {
         for (Unit u: positiveUnits) {
             if (! u.isCalculatable()) {
                 throw new CalculatorExceptions.IllegalFormulaException();
@@ -41,10 +46,11 @@ public class CombinedUnit {
             }
             this.negativeUnits.add(u);
         }
+        this.parentUnitDictionary = parentUnitDictionary;
     }
 
-    public static CombinedUnit createFractionCombinedUnit(Unit numerator, Unit denominator) throws CalculatorExceptions.IllegalFormulaException {
-        CombinedUnit ret = new CombinedUnit();
+    public static CombinedUnit createFractionCombinedUnit(Unit numerator, Unit denominator, UnitDirectory parentUnitDictionary) throws CalculatorExceptions.IllegalFormulaException {
+        CombinedUnit ret = new CombinedUnit(parentUnitDictionary);
         if (! numerator.isCalculatable()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
@@ -58,7 +64,7 @@ public class CombinedUnit {
     }
 
     public CombinedUnit explicitCombinedUnit() {
-        CombinedUnit ret = new CombinedUnit();
+        CombinedUnit ret = new CombinedUnit(this.parentUnitDictionary);
 
         ret.positiveUnits = new ArrayList<>(this.positiveUnits);
         ret.negativeUnits = new ArrayList<>(this.negativeUnits);
@@ -79,14 +85,14 @@ public class CombinedUnit {
 
     public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
         if (this.positiveUnits.size() != 1 || this.negativeUnits.size() != 0) {
-            throw new CalculatorExceptions.UnitConversionException(this, this);
+            throw new CalculatorExceptions.UnitConversionException(this, this, this.parentUnitDictionary);
         }
         return this.positiveUnits.get(0).makeCalculatableFromThisUnit(input);
     }
 
     public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
         if (this.positiveUnits.size() != 1 || this.negativeUnits.size() != 0) {
-            throw new CalculatorExceptions.UnitConversionException(this, this);
+            throw new CalculatorExceptions.UnitConversionException(this, this, this.parentUnitDictionary);
         }
         return this.positiveUnits.get(0).makeThisUnitFromCalculatable(input);
     }
@@ -229,7 +235,7 @@ public class CombinedUnit {
         this.normalize();
 
         if (o == null) {
-            o = new CombinedUnit();
+            o = new CombinedUnit(this.parentUnitDictionary);
         }
 
         if (this.positiveUnits.size() + o.negativeUnits.size() != this.negativeUnits.size() + o.positiveUnits.size()) {
@@ -266,10 +272,10 @@ public class CombinedUnit {
     public CalculatorNumber.BigDecimalNumber calculateRatioAgainst(CombinedUnit o) throws CalculatorExceptions.UnitConversionException, CalculatorExceptions.IllegalFormulaException {
         CombinedUnit diff = this.divide(o);
         if (! diff.dimensionEquals(null)) {
-            throw new CalculatorExceptions.UnitConversionException(this, o);
+            throw new CalculatorExceptions.UnitConversionException(this, o, this.parentUnitDictionary);
         }
 
-        CalculatorNumber.BigDecimalNumber ret = CalculatorNumber.BigDecimalNumber.ONE;
+        CalculatorNumber.BigDecimalNumber ret = CalculatorNumber.BigDecimalNumber.one(this.parentUnitDictionary);
 
         for (Unit u: diff.positiveUnits) {
             if (u instanceof Unit.NormalUnit) {
@@ -291,13 +297,13 @@ public class CombinedUnit {
     }
 
     public CalculatorNumber.BigDecimalNumber calculateRatioToUnifyUnitInEachDimension() throws CalculatorExceptions.IllegalFormulaException {
-        if (UnitDirectory.getInstance().isNamedCombinedUnit(this)) {
-            return CalculatorNumber.BigDecimalNumber.ONE;
+        if (this.parentUnitDictionary.isNamedCombinedUnit(this)) {
+            return CalculatorNumber.BigDecimalNumber.one(this.parentUnitDictionary);
         }
 
         Map<Integer, Unit> unitForDimension = new HashMap<>();
 
-        CombinedUnit diff = new CombinedUnit();
+        CombinedUnit diff = new CombinedUnit(this.parentUnitDictionary);
 
         for (Unit u: this.explicitUnits) {
             if (! unitForDimension.containsKey(u.getDimensionId())) {
@@ -307,7 +313,7 @@ public class CombinedUnit {
 
         for (Unit u: this.positiveUnits) {
             if (unitForDimension.containsKey(u.getDimensionId())) {
-                diff = diff.multiply(new CombinedUnit(u)).divide(new CombinedUnit(unitForDimension.get(u.getDimensionId())));
+                diff = diff.multiply(new CombinedUnit(u, this.parentUnitDictionary)).divide(new CombinedUnit(unitForDimension.get(u.getDimensionId()), this.parentUnitDictionary));
             } else {
                 unitForDimension.put(u.getDimensionId(), u);
             }
@@ -315,7 +321,7 @@ public class CombinedUnit {
 
         for (Unit u: this.negativeUnits) {
             if (unitForDimension.containsKey(u.getDimensionId())) {
-                diff = diff.divide(new CombinedUnit(u)).multiply(new CombinedUnit(unitForDimension.get(u.getDimensionId())));
+                diff = diff.divide(new CombinedUnit(u, this.parentUnitDictionary)).multiply(new CombinedUnit(unitForDimension.get(u.getDimensionId()), this.parentUnitDictionary));
             } else {
                 unitForDimension.put(u.getDimensionId(), u);
             }
@@ -406,8 +412,8 @@ public class CombinedUnit {
     public String calculateDisplayName() {
         this.normalize();
 
-        if (UnitDirectory.getInstance().isNamedCombinedUnit(this)) {
-            return UnitDirectory.getInstance().getSpecialCombinedUnitName(this);
+        if (this.parentUnitDictionary.isNamedCombinedUnit(this)) {
+            return this.parentUnitDictionary.getSpecialCombinedUnitName(this);
         }
 
         return this.toString();
@@ -426,7 +432,7 @@ public class CombinedUnit {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
 
-        CombinedUnit ret = new CombinedUnit();
+        CombinedUnit ret = new CombinedUnit(this.parentUnitDictionary);
         ret.positiveUnits = new ArrayList<>(this.positiveUnits);
         ret.negativeUnits = new ArrayList<>(this.negativeUnits);
         ret.explicitUnits = new ArrayList<>(this.explicitUnits);
@@ -451,7 +457,7 @@ public class CombinedUnit {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
 
-        CombinedUnit ret = new CombinedUnit();
+        CombinedUnit ret = new CombinedUnit(this.parentUnitDictionary);
         if (! this.isCalculatable()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }

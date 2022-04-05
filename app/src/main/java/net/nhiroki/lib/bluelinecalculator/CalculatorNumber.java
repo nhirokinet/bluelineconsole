@@ -39,41 +39,48 @@ public class CalculatorNumber implements FormulaPart {
     public static class
 
     BigDecimalNumber extends CalculatorNumber {
-        public static final BigDecimalNumber ONE = new CalculatorNumber.BigDecimalNumber(BigDecimal.ONE, CalculatorNumber.Precision.PRECISION_NO_ERROR, null);
+        public static BigDecimalNumber one(UnitDirectory unitDirectory) {
+            return new CalculatorNumber.BigDecimalNumber(BigDecimal.ONE, CalculatorNumber.Precision.PRECISION_NO_ERROR, null, unitDirectory);
+        }
 
         private final BigDecimal val;
         private final BigDecimal denominator;
         private final int precision;
         private CombinedUnit combinedUnit; // this changes output, be careful to modify
         private boolean specialOutputForSpecialTime = false;  // this changes output, be careful to modify
+        private UnitDirectory unitDirectory;
 
-        public BigDecimalNumber(final BigDecimalNumber copiedFrom) {
+        public BigDecimalNumber(final BigDecimalNumber copiedFrom, UnitDirectory unitDirectory) {
             this.val = copiedFrom.val;
             this.denominator = copiedFrom.denominator;
             this.precision = copiedFrom.precision;
             this.combinedUnit = copiedFrom.combinedUnit;
             this.specialOutputForSpecialTime = copiedFrom.specialOutputForSpecialTime;
+            this.unitDirectory = unitDirectory;
         }
 
-        public BigDecimalNumber(final String val) {
+        public BigDecimalNumber(final String val, UnitDirectory unitDirectory) {
             this.val = new BigDecimal(val);
             this.denominator = BigDecimal.ONE;
             this.precision = Precision.PRECISION_NO_ERROR;
             this.combinedUnit = null;
+            this.unitDirectory = unitDirectory;
         }
 
-        public BigDecimalNumber(final BigDecimal val, final int precision, final CombinedUnit combinedUnit) {
+        public BigDecimalNumber(final BigDecimal val, final int precision, final CombinedUnit combinedUnit, UnitDirectory unitDirectory) {
             this.val = val;
             this.denominator = BigDecimal.ONE;
             this.precision = precision;
             this.combinedUnit = combinedUnit;
+            this.unitDirectory = unitDirectory;
         }
 
-        private BigDecimalNumber(final BigDecimal val, final BigDecimal denominator, final int precision, final CombinedUnit combinedUnit) {
+        private BigDecimalNumber(final BigDecimal val, final BigDecimal denominator, final int precision, final CombinedUnit combinedUnit, UnitDirectory unitDirectory) {
             this.val = val;
             this.denominator = denominator;
             this.precision = precision;
             this.combinedUnit = combinedUnit;
+            this.unitDirectory = unitDirectory;
         }
 
         @Override
@@ -87,7 +94,7 @@ public class CalculatorNumber implements FormulaPart {
 
         @NonNull
         public BigDecimalNumber removeCombinedUnit() {
-            return new BigDecimalNumber(this.val, this.denominator, this.precision, null);
+            return new BigDecimalNumber(this.val, this.denominator, this.precision, null, this.unitDirectory);
         }
 
         @NonNull
@@ -95,12 +102,12 @@ public class CalculatorNumber implements FormulaPart {
             if (this.combinedUnit != null && !this.combinedUnit.equals(null)) {
                 throw new CalculatorExceptions.IllegalFormulaException();
             }
-            return new BigDecimalNumber(this.val, this.denominator, this.precision, combinedUnit);
+            return new BigDecimalNumber(this.val, this.denominator, this.precision, combinedUnit, this.unitDirectory);
         }
 
         @NonNull
         public BigDecimalNumber applyMinusJustToNumber() {
-            return new BigDecimalNumber(this.val.multiply(new BigDecimal("-1")), this.denominator, this.precision, this.combinedUnit);
+            return new BigDecimalNumber(this.val.multiply(new BigDecimal("-1")), this.denominator, this.precision, this.combinedUnit, this.unitDirectory);
         }
 
         @NonNull
@@ -123,7 +130,7 @@ public class CalculatorNumber implements FormulaPart {
             if (this.combinedUnit != null && this.combinedUnit.isCalculatable()) {
                 try {
                     displayedResult = displayedResult.multiply(displayedResult.combinedUnit.calculateRatioToUnifyUnitInEachDimension());
-                    CombinedUnit shouldConvertTo = UnitDirectory.getInstance().getShouldConvertFrom(displayedResult.combinedUnit);
+                    CombinedUnit shouldConvertTo = this.unitDirectory.getShouldConvertFrom(displayedResult.combinedUnit);
                     if (shouldConvertTo != null) {
                         displayedResult = displayedResult.convertUnit(shouldConvertTo);
                     }
@@ -147,12 +154,12 @@ public class CalculatorNumber implements FormulaPart {
             }
             try {
                 //noinspection BigDecimalMethodWithoutRoundingCalled
-                return new CalculatorNumber.BigDecimalNumber(displayedResult.val.divide(displayedResult.denominator), displayedResult.precision, displayedResult.combinedUnit);
+                return new CalculatorNumber.BigDecimalNumber(displayedResult.val.divide(displayedResult.denominator), displayedResult.precision, displayedResult.combinedUnit, this.unitDirectory);
             } catch (ArithmeticException e) {
                 // continue to precision error
             }
 
-            return new CalculatorNumber.BigDecimalNumber(displayedResult.val.divide(displayedResult.denominator, 20, BigDecimal.ROUND_HALF_UP), Precision.calculateLowerPrecision(displayedResult.precision, Precision.PRECISION_SCALE_20), displayedResult.combinedUnit);
+            return new CalculatorNumber.BigDecimalNumber(displayedResult.val.divide(displayedResult.denominator, 20, BigDecimal.ROUND_HALF_UP), Precision.calculateLowerPrecision(displayedResult.precision, Precision.PRECISION_SCALE_20), displayedResult.combinedUnit, this.unitDirectory);
         }
 
         @Nullable
@@ -162,7 +169,7 @@ public class CalculatorNumber implements FormulaPart {
             }
 
             try {
-                BigDecimalNumber ret = this.convertUnit(new CombinedUnit(UnitDirectory.getInstance().getSecond())).generateFinalDecimalValue();
+                BigDecimalNumber ret = this.convertUnit(new CombinedUnit(this.unitDirectory.getSecond(), this.unitDirectory)).generateFinalDecimalValue();
 
                 if (ret.val.abs().compareTo(BigDecimal.ONE) < 0) {
                     return null;
@@ -174,7 +181,7 @@ public class CalculatorNumber implements FormulaPart {
                 // Continue, just this was not time
             }
 
-            List<CombinedUnit> candidates = UnitDirectory.getInstance().getPreferredCombinedUnits(this.combinedUnit);
+            List<CombinedUnit> candidates = this.unitDirectory.getPreferredCombinedUnits(this.combinedUnit);
             if (! candidates.isEmpty()) {
                 for (CombinedUnit c: candidates) {
                     if (c.equals(this.finalUnit())) {
@@ -186,7 +193,7 @@ public class CalculatorNumber implements FormulaPart {
                 for (CombinedUnit c: candidates) {
                     try {
                         BigDecimalNumber output = this.convertUnit(c);
-                        if (output.removeCombinedUnit().compareTo(BigDecimalNumber.ONE) == -1) {
+                        if (output.removeCombinedUnit().compareTo(BigDecimalNumber.one(this.unitDirectory)) == -1) {
                             return previousOutput != null ? previousOutput.generateFinalDecimalValue() : output.generateFinalDecimalValue();
                         }
                         previousOutput = output;
@@ -221,7 +228,7 @@ public class CalculatorNumber implements FormulaPart {
             }
 
             if (this.specialOutputForSpecialTime) {
-                if (! this.combinedUnit.equals(new CombinedUnit(UnitDirectory.getInstance().getSecond()))) {
+                if (! this.combinedUnit.equals(new CombinedUnit(this.unitDirectory.getSecond(), this.unitDirectory))) {
                     throw new RuntimeException("specialOutputForTime enabled, but this is not second");
                 }
 
@@ -259,7 +266,7 @@ public class CalculatorNumber implements FormulaPart {
         }
 
         @NonNull BigDecimalNumber makeUnitsExplicit() {
-            BigDecimalNumber ret = new BigDecimalNumber(this);
+            BigDecimalNumber ret = new BigDecimalNumber(this, this.unitDirectory);
             ret.combinedUnit = ret.combinedUnit.explicitCombinedUnit();
             return ret;
         }
@@ -273,22 +280,22 @@ public class CalculatorNumber implements FormulaPart {
                     } catch (CalculatorExceptions.DivisionByZeroException e) {
                         throw new RuntimeException("Zero division in convertUnit");
                     } catch (CalculatorExceptions.IllegalFormulaException e) {
-                        throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit);
+                        throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit, unitDirectory);
                     }
                 }
-                throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit);
+                throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit, unitDirectory);
             }
             if (! this.combinedUnit.isCalculatable()) {
                 return this.combinedUnit.makeCalculatableFromThisUnit(this).convertUnit(combinedUnit).makeUnitsExplicit();
             }
             if (combinedUnit.isCalculatable()) {
                 if (! this.combinedUnit.dimensionEquals(combinedUnit)) {
-                    throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit);
+                    throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit, unitDirectory);
                 }
                 try {
                     return this.multiply(this.combinedUnit.calculateRatioAgainst(combinedUnit)).makeUnitsExplicit();
                 } catch (CalculatorExceptions.IllegalFormulaException e) {
-                    throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit);
+                    throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit, unitDirectory);
                 }
             }
 
@@ -298,14 +305,14 @@ public class CalculatorNumber implements FormulaPart {
         @NonNull
         public BigDecimalNumber add(BigDecimalNumber o) throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.UnitConversionException {
             if (this.combinedUnit == null && o.combinedUnit == null) {
-                return new BigDecimalNumber(this.val.multiply(o.denominator).add(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), precision, null);
+                return new BigDecimalNumber(this.val.multiply(o.denominator).add(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), precision, null, this.unitDirectory);
             }
             if (this.combinedUnit == null || o.combinedUnit == null) {
                 if (this.combinedUnit == null && ! o.combinedUnit.dimensionEquals(null)) {
-                    throw new CalculatorExceptions.UnitConversionException(null, o.combinedUnit);
+                    throw new CalculatorExceptions.UnitConversionException(null, o.combinedUnit, unitDirectory);
                 }
                 if (! this.combinedUnit.dimensionEquals(null)) {
-                    throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, o.combinedUnit);
+                    throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, o.combinedUnit, unitDirectory);
                 }
             }
             if (! this.combinedUnit.isCalculatable()) {
@@ -315,20 +322,20 @@ public class CalculatorNumber implements FormulaPart {
                 o = o.combinedUnit.makeCalculatableFromThisUnit(o);
             }
             o = o.convertUnit(this.combinedUnit);
-            return new BigDecimalNumber(this.val.multiply(o.denominator).add(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), Precision.calculateLowerPrecision(this.precision, o.precision), this.combinedUnit);
+            return new BigDecimalNumber(this.val.multiply(o.denominator).add(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), Precision.calculateLowerPrecision(this.precision, o.precision), this.combinedUnit, this.unitDirectory);
         }
 
         @NonNull
         public BigDecimalNumber subtract(BigDecimalNumber o) throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.UnitConversionException {
             if (this.combinedUnit == null && o.combinedUnit == null) {
-                return new BigDecimalNumber(this.val.multiply(o.denominator).subtract(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), precision, null);
+                return new BigDecimalNumber(this.val.multiply(o.denominator).subtract(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), precision, null, this.unitDirectory);
             }
             if (this.combinedUnit == null || o.combinedUnit == null) {
                 if (this.combinedUnit == null && ! o.combinedUnit.dimensionEquals(null)) {
-                    throw new CalculatorExceptions.UnitConversionException(null, o.combinedUnit);
+                    throw new CalculatorExceptions.UnitConversionException(null, o.combinedUnit, unitDirectory);
                 }
                 if (! this.combinedUnit.dimensionEquals(null)) {
-                    throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, o.combinedUnit);
+                    throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, o.combinedUnit, unitDirectory);
                 }
             }
             if (! this.combinedUnit.isCalculatable()) {
@@ -339,7 +346,7 @@ public class CalculatorNumber implements FormulaPart {
             }
             o = o.convertUnit(this.combinedUnit);
 
-            return new BigDecimalNumber(this.val.multiply(o.denominator).subtract(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), Precision.calculateLowerPrecision(this.precision, o.precision), this.combinedUnit);
+            return new BigDecimalNumber(this.val.multiply(o.denominator).subtract(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), Precision.calculateLowerPrecision(this.precision, o.precision), this.combinedUnit, this.unitDirectory);
         }
 
         @NonNull
@@ -354,14 +361,14 @@ public class CalculatorNumber implements FormulaPart {
                     o = o.combinedUnit.makeCalculatableFromThisUnit(o);
                 }
                 if (this.combinedUnit == null) {
-                    resultUnit = new CombinedUnit();
+                    resultUnit = new CombinedUnit(this.unitDirectory);
                 } else {
                     resultUnit = this.combinedUnit;
                 }
                 resultUnit = resultUnit.multiply(o.combinedUnit);
             }
 
-            return new CalculatorNumber.BigDecimalNumber(this.val.multiply(o.val), this.denominator.multiply(o.denominator), Precision.calculateLowerPrecision(this.precision, o.precision), resultUnit);
+            return new CalculatorNumber.BigDecimalNumber(this.val.multiply(o.val), this.denominator.multiply(o.denominator), Precision.calculateLowerPrecision(this.precision, o.precision), resultUnit, this.unitDirectory);
         }
 
         @NonNull
@@ -377,7 +384,7 @@ public class CalculatorNumber implements FormulaPart {
                 }
 
                 if (this.combinedUnit == null) {
-                    resultUnit = new CombinedUnit();
+                    resultUnit = new CombinedUnit(this.unitDirectory);
                 } else {
                     resultUnit = this.combinedUnit;
                 }
@@ -388,7 +395,7 @@ public class CalculatorNumber implements FormulaPart {
                 throw new CalculatorExceptions.DivisionByZeroException();
             }
 
-            return new CalculatorNumber.BigDecimalNumber(this.val.multiply(o.denominator), this.denominator.multiply(o.val), Precision.calculateLowerPrecision(this.precision, o.precision), resultUnit);
+            return new CalculatorNumber.BigDecimalNumber(this.val.multiply(o.denominator), this.denominator.multiply(o.val), Precision.calculateLowerPrecision(this.precision, o.precision), resultUnit, this.unitDirectory);
         }
     }
 
