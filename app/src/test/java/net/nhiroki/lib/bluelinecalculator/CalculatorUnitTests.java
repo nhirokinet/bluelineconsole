@@ -9,11 +9,14 @@ import java.lang.reflect.Method;
 
 import java.util.List;
 
+import net.nhiroki.lib.bluelinecalculator.units.UnitDirectory;
+import net.nhiroki.lib.bluelinecalculator.units.data.UnitDirectoryBasicData;
+
 
 public class CalculatorUnitTests {
     private static void assertBigDecimal(String expression, String result, int precision)
             throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        CalculatorNumber actual = Calculator.calculate(expression).get(0);
+        CalculatorNumber actual = Calculator.calculate(expression, UnitDirectoryBasicData.getInstance()).get(0);
 
         assertEquals(result, actual.generateFinalString());
         assertEquals(precision, actual.getPrecision());
@@ -21,7 +24,7 @@ public class CalculatorUnitTests {
 
     private static void assertSecondaryBigDecimal(String expression, String result, int precision)
             throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        List<CalculatorNumber> actual = Calculator.calculate(expression);
+        List<CalculatorNumber> actual = Calculator.calculate(expression, UnitDirectoryBasicData.getInstance());
         if (result == null && actual.size() == 1) {
             return;
         }
@@ -250,7 +253,7 @@ public class CalculatorUnitTests {
         assertSecondaryBigDecimal("1h / 120", "0:00:30", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertSecondaryBigDecimal("1h / 1200", "0:00:03", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertSecondaryBigDecimal("12h / 12000", "0:00:03.6", CalculatorNumber.Precision.PRECISION_NO_ERROR);
-        assertEquals(Calculator.calculate("1h / 12000").size(), 1);
+        assertEquals(Calculator.calculate("1h / 12000", UnitDirectoryBasicData.getInstance()).size(), 1);
         assertSecondaryBigDecimal("30km / (270km/h)", "0:06:40", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertSecondaryBigDecimal("25h", "1d 01:00:00", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertSecondaryBigDecimal("35h", "1d 11:00:00", CalculatorNumber.Precision.PRECISION_NO_ERROR);
@@ -259,63 +262,63 @@ public class CalculatorUnitTests {
 
     @Test
     public void readFormulaPartTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method method = Calculator.class.getDeclaredMethod("readFormulaPart", String.class, int.class);
+        Method method = Calculator.class.getDeclaredMethod("readFormulaPart", String.class, int.class, UnitDirectory.class);
         method.setAccessible(true);
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3+4", 0);
+            ParseResult res = (ParseResult) method.invoke(null, "3+4", 0, UnitDirectoryBasicData.getInstance());
             assertEquals(1, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
             assertEquals("3/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
         }
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3+4", 2);
+            ParseResult res = (ParseResult) method.invoke(null, "3+4", 2, UnitDirectoryBasicData.getInstance());
             assertEquals(1, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
             assertEquals("4/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
         }
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3+3.142", 1);
+            ParseResult res = (ParseResult) method.invoke(null, "3+3.142", 1, UnitDirectoryBasicData.getInstance());
             assertEquals(1, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof Operator.AddOperator);
         }
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3-3.142", 1);
+            ParseResult res = (ParseResult) method.invoke(null, "3-3.142", 1, UnitDirectoryBasicData.getInstance());
             assertEquals(1, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof Operator.SubtractOperator);
         }
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3*3.142", 1);
+            ParseResult res = (ParseResult) method.invoke(null, "3*3.142", 1, UnitDirectoryBasicData.getInstance());
             assertEquals(1, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof Operator.MultiplyOperator);
         }
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3/3.142", 1);
+            ParseResult res = (ParseResult) method.invoke(null, "3/3.142", 1, UnitDirectoryBasicData.getInstance());
             assertEquals(1, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof Operator.DivideOperator);
         }
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3+3.142", 2);
+            ParseResult res = (ParseResult) method.invoke(null, "3+3.142", 2, UnitDirectoryBasicData.getInstance());
             assertEquals(5, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
             assertEquals("3.142/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
         }
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3+3.142*342", 2);
+            ParseResult res = (ParseResult) method.invoke(null, "3+3.142*342", 2, UnitDirectoryBasicData.getInstance());
             assertEquals(5, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
             assertEquals("3.142/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
         }
 
         {
-            ParseResult res = (ParseResult) method.invoke(null, "3+3.142 inch*342", 2);
+            ParseResult res = (ParseResult) method.invoke(null, "3+3.142 inch*342", 2, UnitDirectoryBasicData.getInstance());
             assertEquals(10, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
             assertEquals("3.142/1 inch with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
@@ -324,121 +327,121 @@ public class CalculatorUnitTests {
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormatLeadingZero() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("01");
+        Calculator.calculate("01", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormat1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("(3))");
+        Calculator.calculate("(3))", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormat2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("(3");
+        Calculator.calculate("(3", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormat3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("(3+(5-3)");
+        Calculator.calculate("(3+(5-3)", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormat4() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("2*-(3+5)");
+        Calculator.calculate("2*-(3+5)", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormat5() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("2*-3");
+        Calculator.calculate("2*-3", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormatLeadingZero1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("01");
+        Calculator.calculate("01", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormatLeadingZero2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("01.3");
+        Calculator.calculate("01.3", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZero1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1/0");
+        Calculator.calculate("1/0", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZero2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("3+(1/(3-4+1))");
+        Calculator.calculate("3+(1/(3-4+1))", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZero3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1/(-273.15 celsius)");
+        Calculator.calculate("1/(-273.15 celsius)", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZeroScale20_1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("(1/3)+(1/(3-4+1))");
+        Calculator.calculate("(1/3)+(1/(3-4+1))", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZeroScale20_2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("(1/(3-4+1))+1/3");
+        Calculator.calculate("(1/(3-4+1))+1/3", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1inch + 2s");
+        Calculator.calculate("1inch + 2s", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1inch in s");
+        Calculator.calculate("1inch in s", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1m / 1s + 1s / 1m");
+        Calculator.calculate("1m / 1s + 1s / 1m", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError4() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1 celsius + 1m");
+        Calculator.calculate("1 celsius + 1m", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError5() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1 m + 1 celsius");
+        Calculator.calculate("1 m + 1 celsius", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitConversionError6() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1 celsius/s");
+        Calculator.calculate("1 celsius/s", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitConversionError7() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1 s/celsius");
+        Calculator.calculate("1 s/celsius", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitOnly1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("m");
+        Calculator.calculate("m", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitOnly2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1 s m");
+        Calculator.calculate("1 s m", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitOnly3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1 s * m");
+        Calculator.calculate("1 s * m", UnitDirectoryBasicData.getInstance());
     }
 
     @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitOnly4() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
-        Calculator.calculate("1 s/m m");
+        Calculator.calculate("1 s/m m", UnitDirectoryBasicData.getInstance());
     }
 }

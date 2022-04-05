@@ -19,6 +19,7 @@ import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
+import net.nhiroki.lib.bluelinecalculator.units.data.UnitDirectoryBasicData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class CalculatorCommandSearcher implements CommandSearcher {
             this.title = ltr + s;
 
             try {
-                List<CalculatorNumber> res = Calculator.calculate(s);
+                List<CalculatorNumber> res = Calculator.calculate(s, UnitDirectoryBasicData.getInstance());
                 for (CalculatorNumber r: res) {
                     this.results.add(new Pair<>(ltr + (r.getPrecision() == CalculatorNumber.Precision.PRECISION_NO_ERROR ? "= " : "≒ ") + r.generateFinalString(),
                                                               String.format(context.getString(R.string.calculator_precision_format), getPrecisionText(context, r.getPrecision()))));
