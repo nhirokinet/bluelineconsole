@@ -7,7 +7,6 @@ import net.nhiroki.lib.bluelinecalculator.units.CombinedUnit;
 import net.nhiroki.lib.bluelinecalculator.units.UnitDirectory;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 
 public class CalculatorNumber implements FormulaPart {
@@ -43,11 +42,11 @@ public class CalculatorNumber implements FormulaPart {
             return new CalculatorNumber.BigDecimalNumber(BigDecimal.ONE, CalculatorNumber.Precision.PRECISION_NO_ERROR, null, unitDirectory);
         }
 
-        private final BigDecimal val;
-        private final BigDecimal denominator;
+        public final BigDecimal val;
+        public final BigDecimal denominator;
         private final int precision;
         private CombinedUnit combinedUnit; // this changes output, be careful to modify
-        private boolean specialOutputForSpecialTime = false;  // this changes output, be careful to modify
+        public boolean specialOutput = false;  // this changes output, be careful to modify
         private UnitDirectory unitDirectory;
 
         public BigDecimalNumber(final BigDecimalNumber copiedFrom, UnitDirectory unitDirectory) {
@@ -55,7 +54,7 @@ public class CalculatorNumber implements FormulaPart {
             this.denominator = copiedFrom.denominator;
             this.precision = copiedFrom.precision;
             this.combinedUnit = copiedFrom.combinedUnit;
-            this.specialOutputForSpecialTime = copiedFrom.specialOutputForSpecialTime;
+            this.specialOutput = copiedFrom.specialOutput;
             this.unitDirectory = unitDirectory;
         }
 
@@ -111,7 +110,7 @@ public class CalculatorNumber implements FormulaPart {
         }
 
         @NonNull
-        private static BigDecimal normalizeBigDecimal(final BigDecimal in, final int precision) {
+        public static BigDecimal normalizeBigDecimal(final BigDecimal in, final int precision) {
             if (in.compareTo(BigDecimal.ZERO) == 0) {
                 return BigDecimal.ZERO;
             }
@@ -168,17 +167,9 @@ public class CalculatorNumber implements FormulaPart {
                 return null;
             }
 
-            try {
-                BigDecimalNumber ret = this.convertUnit(new CombinedUnit(this.unitDirectory.getSecond(), this.unitDirectory)).generateFinalDecimalValue();
-
-                if (ret.val.abs().compareTo(BigDecimal.ONE) < 0) {
-                    return null;
-                }
-                ret.specialOutputForSpecialTime = true;
-                return ret;
-
-            } catch (CalculatorExceptions.UnitConversionException e) {
-                // Continue, just this was not time
+            BigDecimalNumber candidate = unitDirectory.findSpecialPreferredForm(this);
+            if (candidate != null) {
+                return candidate;
             }
 
             List<CombinedUnit> candidates = this.unitDirectory.getPreferredCombinedUnits(this.combinedUnit);
@@ -227,33 +218,10 @@ public class CalculatorNumber implements FormulaPart {
                 suffix = "/" + this.denominator.toString();
             }
 
-            if (this.specialOutputForSpecialTime) {
-                if (! this.combinedUnit.equals(new CombinedUnit(this.unitDirectory.getSecond(), this.unitDirectory))) {
-                    throw new RuntimeException("specialOutputForTime enabled, but this is not second");
-                }
-
-                BigDecimal sixty = new BigDecimal(60);
-
-                BigDecimal positiveVal = this.val;
-                String prefix = "";
-
-                if (positiveVal.compareTo(BigDecimal.ZERO) < 0) {
-                    positiveVal = this.val.multiply(new BigDecimal("-1"));
-                    prefix = "-";
-                }
-
-                BigDecimal second = BigDecimalNumber.normalizeBigDecimal(positiveVal.remainder(BigDecimal.TEN), this.precision);
-                int tenSecond = this.val.remainder(sixty).divide(BigDecimal.TEN, 0, BigDecimal.ROUND_FLOOR).intValueExact();
-                BigDecimal minuteTotal = positiveVal.divide(sixty, 0, BigDecimal.ROUND_FLOOR);
-                BigDecimal hour = minuteTotal.divide(sixty, 0, BigDecimal.ROUND_FLOOR);
-                int minute = minuteTotal.remainder(sixty).intValueExact();
-
-                if (hour.compareTo(new BigDecimal(24)) < 0) {
-                    return prefix + hour.toPlainString() + ":" + (minute < 10 ? "0" : "") + minute + ":" + tenSecond + second.toPlainString() + suffix;
-                } else {
-                    int hourRemainder = hour.remainder(new BigDecimal(24)).intValueExact();
-                    BigDecimal days = hour.divide(new BigDecimal(24), 0, RoundingMode.FLOOR);
-                    return prefix + days + "d " + (hourRemainder < 10 ? "0" : "") + hourRemainder + ":" + (minute < 10 ? "0" : "") + minute + ":" + tenSecond + second.toPlainString() + suffix;
+            if (this.specialOutput) {
+                String ret = this.unitDirectory.calculateSpecialPreferredForm(this);
+                if (ret != null) {
+                    return ret;
                 }
             }
 
