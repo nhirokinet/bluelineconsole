@@ -172,9 +172,12 @@ public class UnitDirectory {
         this.dimensionIdsToPreferredCombinedUnit.put(dimensionStr, copy);
     }
 
-    // TODO: special code just for special treatment for time display
-    public Unit.NormalUnit getSecond() {
-        throw new RuntimeException("Second is not implemented in this instance");
+    public String calculateSpecialPreferredForm(CalculatorNumber.BigDecimalNumber number) {
+        throw new RuntimeException("calculateSpecialPreferredForm is not implemented in this instance");
+    }
+
+    public CalculatorNumber.BigDecimalNumber findSpecialPreferredForm(CalculatorNumber.BigDecimalNumber number) {
+        return null;
     }
 
     public UnitDirectory() {

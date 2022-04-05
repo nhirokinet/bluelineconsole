@@ -1,7 +1,5 @@
 package net.nhiroki.lib.bluelinecalculator.units.data;
 
-import androidx.annotation.NonNull;
-
 import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
 import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 import net.nhiroki.lib.bluelinecalculator.units.CombinedUnit;
@@ -9,6 +7,8 @@ import net.nhiroki.lib.bluelinecalculator.units.Unit;
 import net.nhiroki.lib.bluelinecalculator.units.UnitDirectory;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 
 public class UnitDirectoryBasicData extends UnitDirectory {
     // 1-7: SI base units
@@ -892,8 +892,60 @@ public class UnitDirectoryBasicData extends UnitDirectory {
     }
 
     @Override
-    public Unit.NormalUnit getSecond() {
-        return this.second;
+    public CalculatorNumber.BigDecimalNumber findSpecialPreferredForm(CalculatorNumber.BigDecimalNumber number) {
+        try {
+            CalculatorNumber.BigDecimalNumber ret = number.convertUnit(new CombinedUnit(this.second, this)).generateFinalDecimalValue();
+
+            if (ret.val.abs().compareTo(BigDecimal.ONE) < 0) {
+                return null;
+            }
+            ret.specialOutput = true;
+            return ret;
+
+        } catch (CalculatorExceptions.UnitConversionException e) {
+            // Continue, just this was not time
+        }
+        return null;
+    }
+
+    @Override
+    public String calculateSpecialPreferredForm(CalculatorNumber.BigDecimalNumber number) {
+        try {
+            final CalculatorNumber.BigDecimalNumber secondTotal = number.convertUnit(new CombinedUnit(this.second, this)).generateFinalDecimalValue();
+
+            if (secondTotal.denominator.compareTo(BigDecimal.ONE) != 0) {
+                return "Internal error";
+            }
+
+            final BigDecimal sixty = new BigDecimal(60);
+
+            BigDecimal positiveVal = secondTotal.val;
+            String prefix = "";
+
+            if (positiveVal.compareTo(BigDecimal.ZERO) < 0) {
+                positiveVal = secondTotal.val.multiply(new BigDecimal("-1"));
+                prefix = "-";
+            }
+
+            BigDecimal second = CalculatorNumber.BigDecimalNumber.normalizeBigDecimal(positiveVal.remainder(BigDecimal.TEN), secondTotal.getPrecision());
+            int tenSecond = secondTotal.val.remainder(sixty).divide(BigDecimal.TEN, 0, BigDecimal.ROUND_FLOOR).intValueExact();
+            BigDecimal minuteTotal = positiveVal.divide(sixty, 0, BigDecimal.ROUND_FLOOR);
+            BigDecimal hour = minuteTotal.divide(sixty, 0, BigDecimal.ROUND_FLOOR);
+            int minute = minuteTotal.remainder(sixty).intValueExact();
+
+            if (hour.compareTo(new BigDecimal(24)) < 0) {
+                return prefix + hour.toPlainString() + ":" + (minute < 10 ? "0" : "") + minute + ":" + tenSecond + second.toPlainString();
+            } else {
+                int hourRemainder = hour.remainder(new BigDecimal(24)).intValueExact();
+                BigDecimal days = hour.divide(new BigDecimal(24), 0, RoundingMode.FLOOR);
+                return prefix + days + "d " + (hourRemainder < 10 ? "0" : "") + hourRemainder + ":" + (minute < 10 ? "0" : "") + minute + ":" + tenSecond + second.toPlainString();
+            }
+
+        } catch (CalculatorExceptions.UnitConversionException e) {
+            // Continue, just this was not time
+        }
+
+        return "Internal error";
     }
 
     protected class Celsius implements Unit {
@@ -950,7 +1002,6 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             return Integer.compare(this.getUnitId(), o.getUnitId());
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this, this.parentUnitDictionary))) {
@@ -963,7 +1014,6 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             }
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().isCalculatable()) {
@@ -1033,7 +1083,6 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             return Integer.compare(this.getUnitId(), o.getUnitId());
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this, this.parentUnitDictionary))) {
@@ -1051,7 +1100,6 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             }
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().isCalculatable()) {
