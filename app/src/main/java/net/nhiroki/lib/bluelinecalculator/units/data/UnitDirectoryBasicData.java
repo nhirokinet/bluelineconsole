@@ -1,5 +1,7 @@
 package net.nhiroki.lib.bluelinecalculator.units.data;
 
+import androidx.annotation.NonNull;
+
 import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
 import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 import net.nhiroki.lib.bluelinecalculator.units.CombinedUnit;
@@ -42,22 +44,20 @@ public class UnitDirectoryBasicData extends UnitDirectory {
     protected UnitDirectoryBasicData() {
         super();
 
-        int id = 1;
-
         try {
-            this.second = new Unit.NormalUnit(id++, DIMENSION_TIME, "s", null, CalculatorNumber.BigDecimalNumber.one(this), this);
+            this.second = new Unit.NormalUnit(this.issueLocalID(), DIMENSION_TIME, "s", null, CalculatorNumber.BigDecimalNumber.one(this), this);
             this.registerUnit(
                     this.second,
                     new String[]{"s", "sec", "secs", "second", "seconds"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_TIME, "minute", second,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_TIME, "minute", second,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("60"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"minute", "minutes"});
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_TIME, "h", second,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_TIME, "h", second,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("3600"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
@@ -65,189 +65,189 @@ public class UnitDirectoryBasicData extends UnitDirectory {
 
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LENGTH, "m", null, CalculatorNumber.BigDecimalNumber.one(this), this),
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "m", null, CalculatorNumber.BigDecimalNumber.one(this), this),
                     new String[]{"m", "meter", "meters", "metre", "metres"});
             Unit.NormalUnit meter = (Unit.NormalUnit) this.nameToUnitMap.get("m");
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LENGTH, "cm", meter,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "cm", meter,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("0.01"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"cm", "centimeter", "centimeters", "centimetre", "centimetres"});
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LENGTH, "mm", meter,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "mm", meter,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("0.001"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"mm", "millimeter", "millimeters", "millimetre", "millimetres"});
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LENGTH, "km", meter,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "km", meter,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"km", "kilometer", "kilometers", "kilometre", "kilometres"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_MASS, "kg", null, CalculatorNumber.BigDecimalNumber.one(this), this),
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_MASS, "kg", null, CalculatorNumber.BigDecimalNumber.one(this), this),
                     new String[]{"kg", "kilogram"});
             Unit.NormalUnit kilogram = (Unit.NormalUnit) this.nameToUnitMap.get("kg");
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_MASS, "g", kilogram,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_MASS, "g", kilogram,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("0.001"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"g", "gram", "grams"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_TEMPERATURE, "K", null, CalculatorNumber.BigDecimalNumber.one(this), this),
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_TEMPERATURE, "K", null, CalculatorNumber.BigDecimalNumber.one(this), this),
                     new String[]{"K", "kelvin"});
             Unit.NormalUnit kelvin = (Unit.NormalUnit) this.nameToUnitMap.get("kelvin");
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_ELECTRIC_CURRENT, "A", null, CalculatorNumber.BigDecimalNumber.one(this), this),
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_ELECTRIC_CURRENT, "A", null, CalculatorNumber.BigDecimalNumber.one(this), this),
                     new String[]{"A", "ampere"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_AMOUNT_OF_SUBSTANCE, "mol", null, CalculatorNumber.BigDecimalNumber.one(this), this),
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_AMOUNT_OF_SUBSTANCE, "mol", null, CalculatorNumber.BigDecimalNumber.one(this), this),
                     new String[]{"mol", "mole"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LUMINOUS_INTENSITY, "cd", null, CalculatorNumber.BigDecimalNumber.one(this), this),
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LUMINOUS_INTENSITY, "cd", null, CalculatorNumber.BigDecimalNumber.one(this), this),
                     new String[]{"cd", "candela"});
 
             // Assume 1 byte = 1 octet
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "bit", null, CalculatorNumber.BigDecimalNumber.one(this), this),
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "bit", null, CalculatorNumber.BigDecimalNumber.one(this), this),
                     new String[]{"bit", "bits"});
             Unit.NormalUnit bit = (Unit.NormalUnit) this.nameToUnitMap.get("bit");
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "byte", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "byte", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"byte", "bytes"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "kbit", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "kbit", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"kbit", "kilobit", "kilobits"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "kB", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "kB", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"kB", "kilobyte", "kilobytes"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "Kibit", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "Kibit", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1024"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"Kibit", "kibibit", "kibibits"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "KiB", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "KiB", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8192"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"KiB", "kibibyte", "kibibytes"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "Mbit", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "Mbit", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1000000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"Mbit", "megabit", "megabits"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "MB", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "MB", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8000000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"MB", "megabyte", "megabytes"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "Mibit", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "Mibit", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1048576"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"Mibit", "mebibit", "mebibits"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "MiB", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "MiB", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8388608"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"MiB", "mebibyte", "mebibytes"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "Gbit", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "Gbit", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1000000000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"Gbit", "gigabit", "gigabits"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "GB", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "GB", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8000000000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"GB", "gigabyte", "gigabytes"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "Gibit", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "Gibit", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1073741824"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"Gibit", "gibibit", "gibibits"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "GiB", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "GiB", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8589934592"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"GiB", "gibibyte", "gibibytes"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "Tbit", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "Tbit", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1000000000000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"Tbit", "terabit", "terabits"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "TB", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "TB", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8000000000000"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"TB", "terabyte", "terabytes"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "Tibit", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "Tibit", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1099511627776"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"Tibit", "tebibit", "tebibits"});
 
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_INFORMATION, "TiB", bit,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_INFORMATION, "TiB", bit,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("8796093022208"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"TiB", "tebibyte", "tebibytes"});
 
             // Here starts combined units
-            Unit.NormalUnit dummyUnitCanonical = new Unit.NormalUnit(id++, DIMENSION_DUMMY, "1", null, CalculatorNumber.BigDecimalNumber.one(this), this);
-            Unit.NormalUnit dummyUnitHecto = new Unit.NormalUnit(id++, DIMENSION_DUMMY, "hecto", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("100", this), this);
-            Unit.NormalUnit dummyUnitKilo = new Unit.NormalUnit(id++, DIMENSION_DUMMY, "kilo", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("1000", this), this);
-            Unit.NormalUnit dummyUnitMega = new Unit.NormalUnit(id++, DIMENSION_DUMMY, "mega", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("1000000", this), this);
-            Unit.NormalUnit dummyUnitMilli = new Unit.NormalUnit(id++, DIMENSION_DUMMY, "milli", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("0.001", this), this);
-            Unit.NormalUnit dummyUnitMicro = new Unit.NormalUnit(id++, DIMENSION_DUMMY, "micro", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("0.000001", this), this);
-            Unit.NormalUnit dummyUnit9_80665 = new Unit.NormalUnit(id++, DIMENSION_DUMMY, "9.80665", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("9.80665", this), this);
+            Unit.NormalUnit dummyUnitCanonical = new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "1", null, CalculatorNumber.BigDecimalNumber.one(this), this);
+            Unit.NormalUnit dummyUnitHecto = new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "hecto", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("100", this), this);
+            Unit.NormalUnit dummyUnitKilo = new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "kilo", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("1000", this), this);
+            Unit.NormalUnit dummyUnitMega = new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "mega", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("1000000", this), this);
+            Unit.NormalUnit dummyUnitMilli = new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "milli", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("0.001", this), this);
+            Unit.NormalUnit dummyUnitMicro = new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "micro", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("0.000001", this), this);
+            Unit.NormalUnit dummyUnit9_80665 = new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "9.80665", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("9.80665", this), this);
 
             // Force  Dimension: kg * m * s^(-2)
             /*
@@ -618,7 +618,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             this.registerCombinedUnit(
                     new CombinedUnit(
                             new Unit[]{
-                                    new Unit.NormalUnit(id++, DIMENSION_DUMMY, "4.184", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("4.184", this), this),
+                                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "4.184", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("4.184", this), this),
                                     this.nameToUnitMap.get("kg"),
                                     this.nameToUnitMap.get("m"),
                                     this.nameToUnitMap.get("m"),
@@ -636,7 +636,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             this.registerCombinedUnit(
                     new CombinedUnit(
                             new Unit[]{
-                                    new Unit.NormalUnit(id++, DIMENSION_DUMMY, "4184", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("4184", this), this),
+                                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "4184", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("4184", this), this),
                                     this.nameToUnitMap.get("kg"),
                                     this.nameToUnitMap.get("m"),
                                     this.nameToUnitMap.get("m"),
@@ -654,10 +654,10 @@ public class UnitDirectoryBasicData extends UnitDirectory {
 
             // Special Temperature units
             this.registerUnit(
-                    new Celsius(id++, DIMENSION_CELSIUS, "celsius", kelvin, this),
+                    new Celsius(this.issueLocalID(), DIMENSION_CELSIUS, "celsius", kelvin, this),
                     new String[]{"celsius"});
             this.registerUnit(
-                    new Fahrenheit(id++, DIMENSION_FAHRENHEIT, "fahrenheit", kelvin, this),
+                    new Fahrenheit(this.issueLocalID(), DIMENSION_FAHRENHEIT, "fahrenheit", kelvin, this),
                     new String[]{"fahrenheit"});
 
             /*
@@ -696,35 +696,35 @@ public class UnitDirectoryBasicData extends UnitDirectory {
              * マイル
              * > ヤードの千七百六十倍
              */
-            this.registerUnit(new Unit.NormalUnit(id++, DIMENSION_LENGTH, "inch", meter,
+            this.registerUnit(new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "inch", meter,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("0.0254"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this), this),
                     new String[]{"inch", "inches"});
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LENGTH, "ft", meter,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "ft", meter,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("0.3048"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"ft", "foot", "feet"});
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LENGTH, "yard", meter,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "yard", meter,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("0.9144"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"yd", "yard", "yards"});
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LENGTH, "mile", meter,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "mile", meter,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1609.344"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"mile", "miles"});
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_MASS, "oz", kilogram,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_MASS, "oz", kilogram,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("0.028349523125"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
                     new String[]{"oz", "ounce", "grams"});
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_MASS, "lb", kilogram,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_MASS, "lb", kilogram,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("0.45359237"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
@@ -746,7 +746,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
              * > 一時間に千八百五十二メートルの速さ
              */
             this.registerUnit(
-                    new Unit.NormalUnit(id++, DIMENSION_LENGTH, "nmi", meter,
+                    new Unit.NormalUnit(this.issueLocalID(), DIMENSION_LENGTH, "nmi", meter,
                             new CalculatorNumber.BigDecimalNumber(new BigDecimal("1852"), CalculatorNumber.Precision.PRECISION_NO_ERROR, null, this),
                             this
                     ),
@@ -795,7 +795,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
                             this.nameToUnitMap.get("lb"),
                     },
                     new Unit[]{
-                            new Unit.NormalUnit(id++, DIMENSION_DUMMY, "0.0254", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("0.0254", this), this),
+                            new Unit.NormalUnit(this.issueLocalID(), DIMENSION_DUMMY, "0.0254", dummyUnitCanonical, new CalculatorNumber.BigDecimalNumber("0.0254", this), this),
                             this.nameToUnitMap.get("inch"),
                             this.nameToUnitMap.get("s"),
                             this.nameToUnitMap.get("s"),
@@ -917,29 +917,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
                 return "Internal error";
             }
 
-            final BigDecimal sixty = new BigDecimal(60);
-
-            BigDecimal positiveVal = secondTotal.val;
-            String prefix = "";
-
-            if (positiveVal.compareTo(BigDecimal.ZERO) < 0) {
-                positiveVal = secondTotal.val.multiply(new BigDecimal("-1"));
-                prefix = "-";
-            }
-
-            BigDecimal second = CalculatorNumber.BigDecimalNumber.normalizeBigDecimal(positiveVal.remainder(BigDecimal.TEN), secondTotal.getPrecision());
-            int tenSecond = secondTotal.val.remainder(sixty).divide(BigDecimal.TEN, 0, BigDecimal.ROUND_FLOOR).intValueExact();
-            BigDecimal minuteTotal = positiveVal.divide(sixty, 0, BigDecimal.ROUND_FLOOR);
-            BigDecimal hour = minuteTotal.divide(sixty, 0, BigDecimal.ROUND_FLOOR);
-            int minute = minuteTotal.remainder(sixty).intValueExact();
-
-            if (hour.compareTo(new BigDecimal(24)) < 0) {
-                return prefix + hour.toPlainString() + ":" + (minute < 10 ? "0" : "") + minute + ":" + tenSecond + second.toPlainString();
-            } else {
-                int hourRemainder = hour.remainder(new BigDecimal(24)).intValueExact();
-                BigDecimal days = hour.divide(new BigDecimal(24), 0, RoundingMode.FLOOR);
-                return prefix + days + "d " + (hourRemainder < 10 ? "0" : "") + hourRemainder + ":" + (minute < 10 ? "0" : "") + minute + ":" + tenSecond + second.toPlainString();
-            }
+            return secondsToDisplayString(secondTotal.val);
 
         } catch (CalculatorExceptions.UnitConversionException e) {
             // Continue, just this was not time
@@ -948,7 +926,39 @@ public class UnitDirectoryBasicData extends UnitDirectory {
         return "Internal error";
     }
 
-    protected class Celsius implements Unit {
+    private static String secondsToDisplayString(BigDecimal secondsTotal) {
+        final BigDecimal num24 = new BigDecimal(24);
+        final BigDecimal num60 = new BigDecimal(60);
+
+        BigDecimal positiveVal = secondsTotal;
+        String prefix = "";
+
+        if (positiveVal.compareTo(BigDecimal.ZERO) < 0) {
+            positiveVal = secondsTotal.multiply(new BigDecimal("-1"));
+            prefix = "-";
+        }
+
+        final BigDecimal second = positiveVal.remainder(BigDecimal.TEN).stripTrailingZeros();
+        if (second.scale() < 0) {
+            second.setScale(0);
+        }
+        final int tenSecond = secondsTotal.remainder(num60).divide(BigDecimal.TEN, 0, BigDecimal.ROUND_FLOOR).intValueExact();
+        final BigDecimal minuteTotal = positiveVal.divide(num60, 0, BigDecimal.ROUND_FLOOR);
+        final BigDecimal hour = minuteTotal.divide(num60, 0, BigDecimal.ROUND_FLOOR);
+        final int minute = minuteTotal.remainder(num60).intValueExact();
+
+        String hourStr;
+        if (hour.compareTo(num24) < 0) {
+            hourStr = hour.toPlainString();
+        } else {
+            int hourRemainder = hour.remainder(num24).intValueExact();
+            BigDecimal days = hour.divide(num24, 0, RoundingMode.FLOOR);
+            hourStr = days.toPlainString() + "d " + (hourRemainder < 10 ? "0" : "") + hourRemainder;
+        }
+        return prefix + hourStr + ":" + (minute < 10 ? "0" : "") + minute + ":" + tenSecond + second.toPlainString();
+    }
+
+    protected static class Celsius implements Unit {
         private final int unitId;
         private final int dimensionId;
         private final String unitName;
@@ -1002,6 +1012,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             return Integer.compare(this.getUnitId(), o.getUnitId());
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this, this.parentUnitDictionary))) {
@@ -1014,6 +1025,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             }
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().isCalculatable()) {
@@ -1028,7 +1040,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
         }
     }
 
-    protected class Fahrenheit implements Unit {
+    protected static class Fahrenheit implements Unit {
         private final int unitId;
         private final int dimensionId;
         private final String unitName;
@@ -1083,6 +1095,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             return Integer.compare(this.getUnitId(), o.getUnitId());
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this, this.parentUnitDictionary))) {
@@ -1100,6 +1113,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             }
         }
 
+        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().isCalculatable()) {
