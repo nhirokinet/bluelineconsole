@@ -12,19 +12,22 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class UnitDirectory {
     // Dummy dimension, which is actually same as 1, which must be eliminated before displaying
-    protected static final int DIMENSION_DUMMY = 0x70000001;
+    protected static final int DIMENSION_DUMMY = -1;
 
     protected final Map<String, Unit> nameToUnitMap;
     protected final Map<String, CombinedUnit> nameToCombinedUnitMap;
 
-    protected final Map<String, String> unitIdsToSpecialCombinedUnitName;
-    protected final Map<String, CombinedUnit> unitIdsToShouldConvertCombinedUnit;
+    private final Map<String, String> unitIdsToSpecialCombinedUnitName;
+    private final Map<String, CombinedUnit> unitIdsToShouldConvertCombinedUnit;
 
-    protected final Map<String, List<CombinedUnit>> dimensionIdsToPreferredCombinedUnit;
+    private final Map<String, List<CombinedUnit>> dimensionIdsToPreferredCombinedUnit;
+
+    private int nextLocalID = 1;
 
 
     public CombinedUnit getCombinedUnitFromName(String name) throws CalculatorExceptions.IllegalFormulaException {
@@ -123,7 +126,7 @@ public class UnitDirectory {
     public List<CombinedUnit> getPreferredCombinedUnits(CombinedUnit unit) {
         String dimensionStr = dimensionIdsToUniqueStr(unit, false);
         if (this.dimensionIdsToPreferredCombinedUnit.containsKey(dimensionStr)) {
-            return this.dimensionIdsToPreferredCombinedUnit.get(dimensionStr);
+            return Objects.requireNonNull(this.dimensionIdsToPreferredCombinedUnit.get(dimensionStr));
         }
         return new ArrayList<>();
     }
@@ -149,23 +152,23 @@ public class UnitDirectory {
                 try {
                     return new CalculatorNumber.BigDecimalNumber(BigDecimal.ONE, CalculatorNumber.Precision.PRECISION_NO_ERROR, this.combinedUnit, UnitDirectory.this).compareTo(new CalculatorNumber.BigDecimalNumber(BigDecimal.ONE, CalculatorNumber.Precision.PRECISION_NO_ERROR, o.combinedUnit, UnitDirectory.this));
                 } catch (CalculatorExceptions.UnitConversionException e) {
-                    throw new RuntimeException("Different dimension in stPerferredCombinedUnits");
+                    throw new RuntimeException("Different dimension in setPreferredCombinedUnits");
                 } catch (CalculatorExceptions.IllegalFormulaException e) {
-                    throw new RuntimeException("Different dimension in stPerferredCombinedUnits");
+                    throw new RuntimeException("Different dimension in setPreferredCombinedUnits");
                 }
             }
         }
 
-        List <ObjForSort> objs = new ArrayList<>();
+        List <ObjForSort> objects = new ArrayList<>();
         for (CombinedUnit u: combinedUnits) {
-            objs.add(new ObjForSort(u));
+            objects.add(new ObjForSort(u));
         }
 
-        Collections.sort(objs);
+        Collections.sort(objects);
 
         List<CombinedUnit> copy = new ArrayList<>();
 
-        for (ObjForSort o: objs) {
+        for (ObjForSort o: objects) {
             copy.add(o.combinedUnit);
         }
 
@@ -178,6 +181,10 @@ public class UnitDirectory {
 
     public CalculatorNumber.BigDecimalNumber findSpecialPreferredForm(CalculatorNumber.BigDecimalNumber number) {
         return null;
+    }
+
+    protected int issueLocalID() {
+        return nextLocalID++;
     }
 
     public UnitDirectory() {

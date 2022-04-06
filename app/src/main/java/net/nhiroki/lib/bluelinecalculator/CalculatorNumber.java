@@ -47,7 +47,7 @@ public class CalculatorNumber implements FormulaPart {
         private final int precision;
         private CombinedUnit combinedUnit; // this changes output, be careful to modify
         public boolean specialOutput = false;  // this changes output, be careful to modify
-        private UnitDirectory unitDirectory;
+        private final UnitDirectory unitDirectory;
 
         public BigDecimalNumber(final BigDecimalNumber copiedFrom, UnitDirectory unitDirectory) {
             this.val = copiedFrom.val;

@@ -20,7 +20,7 @@ public class CombinedUnit {
 
     private List<Unit> explicitUnits = new ArrayList<>();
 
-    private UnitDirectory parentUnitDictionary;
+    private final UnitDirectory parentUnitDictionary;
 
 
     public CombinedUnit(UnitDirectory parentUnitDictionary) {
