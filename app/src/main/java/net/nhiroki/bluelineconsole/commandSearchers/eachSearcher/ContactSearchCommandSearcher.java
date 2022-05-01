@@ -17,6 +17,7 @@ import net.nhiroki.bluelineconsole.commandSearchers.lib.StringMatchStrategy;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
+import net.nhiroki.bluelineconsole.query.QueryType;
 import net.nhiroki.bluelineconsole.wrapperForAndroid.ContactsReader;
 
 import java.util.ArrayList;
@@ -168,6 +169,11 @@ public class ContactSearchCommandSearcher implements CommandSearcher {
             }
         }
         return ret;
+    }
+
+    @Override
+    public QueryType getSpecialisation() {
+        return QueryType.CONTACT_ONLY;
     }
 
     private static int judgeQueryForContact(Context context, String query, ContactsReader.Contact contact) {

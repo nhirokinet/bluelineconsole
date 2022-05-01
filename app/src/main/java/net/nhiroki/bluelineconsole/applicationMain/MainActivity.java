@@ -1,10 +1,5 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,6 +17,12 @@ import net.nhiroki.bluelineconsole.applicationMain.lib.EditTextConfigurations;
 import net.nhiroki.bluelineconsole.commandSearchers.CommandSearchAggregator;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
+import net.nhiroki.bluelineconsole.query.Query;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class MainActivity extends BaseWindowActivity {
@@ -285,27 +286,32 @@ public class MainActivity extends BaseWindowActivity {
     }
 
     private void executeSearch(String query) {
+        Query processedQuery = Query.from(query);
         List<CandidateEntry> candidates = new ArrayList<>();
 
-        if (! query.isEmpty()) {
-            candidates.addAll(commandSearchAggregator.searchCandidateEntries(query, MainActivity.this));
-        }
+        if(processedQuery.isSpecialised()){
+            candidates.addAll(commandSearchAggregator.searchSpecialised(processedQuery, MainActivity.this));
+        }else {
+            if (!query.isEmpty()) {
+                candidates.addAll(commandSearchAggregator.searchCandidateEntries(query, MainActivity.this));
+            }
 
-        if (this.iAmHomeActivity && query.isEmpty()) {
-            List<CandidateEntry> homeScreenEntries = commandSearchAggregator.homeScreenDefaultCandidateEntries(this);
-            candidates.addAll(homeScreenEntries);
-            this.homeItemExists = ! homeScreenEntries.isEmpty();
-        }
+            if (this.iAmHomeActivity && query.isEmpty()) {
+                List<CandidateEntry> homeScreenEntries = commandSearchAggregator.homeScreenDefaultCandidateEntries(this);
+                candidates.addAll(homeScreenEntries);
+                this.homeItemExists = ! homeScreenEntries.isEmpty();
+            }
 
-        if (! query.isEmpty()) {
-            candidates.addAll(commandSearchAggregator.searchCandidateEntriesForLast(query, this));
+            if (!query.isEmpty()) {
+                candidates.addAll(commandSearchAggregator.searchCandidateEntriesForLast(query, this));
+            }
         }
 
         resultCandidateListAdapter.clear();
         resultCandidateListAdapter.addAll(candidates);
         resultCandidateListAdapter.notifyDataSetChanged();
 
-        if (! candidates.isEmpty()) {
+        if (!candidates.isEmpty()) {
             candidateListView.setSelection(0);
         }
 

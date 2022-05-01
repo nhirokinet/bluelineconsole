@@ -22,6 +22,7 @@ import net.nhiroki.bluelineconsole.dataStore.cache.ApplicationInformation;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
 import net.nhiroki.bluelineconsole.interfaces.EventLauncher;
+import net.nhiroki.bluelineconsole.query.QueryType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -171,5 +172,10 @@ public class ApplicationCommandSearcher implements CommandSearcher {
         public boolean viewIsRecyclable() {
             return true;
         }
+    }
+
+    @Override
+    public QueryType getSpecialisation() {
+        return QueryType.APP_ONLY;
     }
 }

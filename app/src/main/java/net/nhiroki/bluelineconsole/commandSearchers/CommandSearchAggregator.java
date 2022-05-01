@@ -3,8 +3,8 @@ package net.nhiroki.bluelineconsole.commandSearchers;
 import android.content.Context;
 
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ApplicationCommandSearcher;
-import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.CalendarCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.CalculatorCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.CalendarCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ColorDisplayCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ContactSearchCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.DateCommandSearcher;
@@ -18,14 +18,21 @@ import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.WidgetCommandSe
 import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 import net.nhiroki.bluelineconsole.interfaces.CommandSearcher;
+import net.nhiroki.bluelineconsole.query.Query;
+import net.nhiroki.bluelineconsole.query.QueryType;
 import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class CommandSearchAggregator {
-    private final List <CommandSearcher> commandSearcherList = new ArrayList<>();
-    private final List <CommandSearcher> commandSearcherListAlwaysLast = new ArrayList<>();
+    private final List <CommandSearcher> commandSearcherList = new LinkedList<>();
+    private final Map<QueryType, CommandSearcher> specialisedCommandSearchers = new EnumMap<>(QueryType.class);
+    private final List <CommandSearcher> commandSearcherListAlwaysLast = new LinkedList<>();
 
     private AppWidgetsHostManager appWidgetsHostManager = null;
 
@@ -53,8 +60,17 @@ public class CommandSearchAggregator {
 
         // This should be separately called and order does not matter, and results are placed at last.
         commandSearcherListAlwaysLast.add(new SearchEngineDefaultCommandSearcher(context));
-
+        initSpecialised();
         refresh(context);
+    }
+
+
+    private void initSpecialised(){
+        for (CommandSearcher searcher: commandSearcherList) {
+            if(searcher.getSpecialisation() != QueryType.NONE){
+                specialisedCommandSearchers.put(searcher.getSpecialisation(), searcher);
+            }
+        }
     }
 
     public void close() {
@@ -85,6 +101,14 @@ public class CommandSearchAggregator {
         for (CommandSearcher cs : commandSearcherList) {
             cs.waitUntilPrepared();
         }
+    }
+
+    public List<CandidateEntry> searchSpecialised(Query s, Context context){
+        CommandSearcher commandSearcher = specialisedCommandSearchers.get(s.getType());
+        if (commandSearcher != null){
+            return commandSearcher.searchCandidateEntries(s.getText(), context);
+        }
+        return Collections.emptyList();
     }
 
     public List<CandidateEntry> searchCandidateEntries(String s, Context context) {

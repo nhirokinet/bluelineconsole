@@ -4,6 +4,9 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import net.nhiroki.bluelineconsole.query.QueryType;
+
+import java.util.Collections;
 import java.util.List;
 
 public interface CommandSearcher {
@@ -37,4 +40,9 @@ public interface CommandSearcher {
      */
     @NonNull
     List<CandidateEntry> searchCandidateEntries(String query, Context context);
+
+
+    default QueryType getSpecialisation(){
+        return QueryType.NONE;
+    };
 }
