@@ -2,9 +2,7 @@ package net.nhiroki.bluelineconsole.applicationMain;
 
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -13,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
@@ -65,34 +61,14 @@ public class BaseWindowActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
         this.currentTheme.apply(this, this.iAmHomeActivity, this.smallWindow);
 
-        ViewStub mainViewStub = this.findViewById(R.id.baseWindowMainViewStub);
+        ViewStub mainViewStub = this.currentTheme.findMainViewStub(this);
         mainViewStub.setLayoutResource(this.mainLayoutResID);
         mainViewStub.inflate();
 
-        if (! this.iAmHomeActivity) {
-            this.findViewById(R.id.baseWindowMainLayoutRoot).setOnClickListener(new ExitOnClickListener());
-        }
-        ((LinearLayout)findViewById(R.id.baseWindowMainLinearLayout)).getChildAt(0).setOnClickListener(null);
-
-        if (this.currentTheme.hasFooter()) {
-            // Decrease topMargin (which is already negative) by 1 physical pixel to fill the gap. See the comment in base_window_layout.xml .
-            View mainFooterWrapper = findViewById(R.id.baseWindowFooterWrapper);
-            ViewGroup.MarginLayoutParams mainFooterWrapperLayoutParam = (ViewGroup.MarginLayoutParams) mainFooterWrapper.getLayoutParams();
-            mainFooterWrapperLayoutParam.setMargins(
-                    mainFooterWrapperLayoutParam.leftMargin,
-                    mainFooterWrapperLayoutParam.topMargin - 1,
-                    mainFooterWrapperLayoutParam.rightMargin,
-                    mainFooterWrapperLayoutParam.bottomMargin
-            );
-            mainFooterWrapper.setLayoutParams(mainFooterWrapperLayoutParam);
-        }
-
         // TitleBarDragOnTouchListener has some state, it is safer to create different instance
-        this.findViewById(R.id.baseWindowHeaderWrapper).setOnTouchListener(new TitleBarDragOnTouchListener());
+        this.currentTheme.setOnTouchListenerForTitleBar(new TitleBarDragOnTouchListener(), this);
 
         this.currentTheme.onCreateFinal(this);
     }
@@ -109,7 +85,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         public boolean onTouch(View v, MotionEvent event) {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
-                    View window = BaseWindowActivity.this.findViewById(R.id.baseWindowRootLinearLayout);
+                    View window = BaseWindowActivity.this.currentTheme.findVisibleRootView(BaseWindowActivity.this);
                     paddingLeftOffset = window.getPaddingLeft() - event.getRawX();
                     paddingTopOffset = window.getPaddingTop() - event.getRawY();
                     paddingRightOffset = window.getPaddingRight() + event.getRawX();
@@ -117,19 +93,17 @@ public class BaseWindowActivity extends AppCompatActivity {
 
                     BaseWindowActivity.this.disableWindowAnimationForElements();
                     return true;
-
                 }
                 case MotionEvent.ACTION_MOVE: {
-                    View window = BaseWindowActivity.this.findViewById(R.id.baseWindowRootLinearLayout);
+                    View window = BaseWindowActivity.this.currentTheme.findVisibleRootView(BaseWindowActivity.this);
 
                     window.setPadding((int) (paddingLeftOffset + event.getRawX()), (int) (paddingTopOffset + event.getRawY()),
                             (int) (paddingRightOffset - event.getRawX()), (int) (paddingBottomOffset - event.getRawY()));
 
                     return true;
-
                 }
                 case MotionEvent.ACTION_UP: {
-                    View window = BaseWindowActivity.this.findViewById(R.id.baseWindowRootLinearLayout);
+                    View window = BaseWindowActivity.this.currentTheme.findVisibleRootView(BaseWindowActivity.this);
 
                     window.setPadding((int) (paddingLeftOffset + event.getRawX()), (int) (paddingTopOffset + event.getRawY()),
                             (int) (paddingRightOffset - event.getRawX()), (int) (paddingBottomOffset - event.getRawY()));
@@ -161,12 +135,12 @@ public class BaseWindowActivity extends AppCompatActivity {
             this.disableWindowAnimationForElements();
         }
 
-        findViewById(R.id.baseWindowMainLayoutRoot).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        this.currentTheme.findWholeDisplayView(this).getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             private int previousHeight = -1;
 
             @Override
             public void onGlobalLayout() {
-                int rootHeight = findViewById(R.id.baseWindowMainLayoutRoot).getHeight();
+                int rootHeight = BaseWindowActivity.this.currentTheme.findWholeDisplayView(BaseWindowActivity.this).getHeight();
 
                 if (previousHeight == rootHeight) {
                     return;
@@ -235,50 +209,20 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     protected void onHeightChange() {}
 
-    protected static final int ROOT_WINDOW_FULL_WIDTH_IN_MOBILE = 1;
-    protected static final int ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN = 2;
-    protected static final int ROOT_WINDOW_FULL_WIDTH_ALWAYS = 3;
+    public static final int ROOT_WINDOW_FULL_WIDTH_IN_MOBILE = 1;
+    public static final int ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN = 2;
+    public static final int ROOT_WINDOW_FULL_WIDTH_ALWAYS = 3;
 
     protected void setWindowBoundarySize(int widthMode, int windowNestStep) {
-        final int baseHorizontalMarginInPixels = (int)(8 * windowNestStep * getResources().getDisplayMetrics().density);
-        final int baseVerticalMarginInPixels = (int)(24 * windowNestStep * getResources().getDisplayMetrics().density);
-
-        if (widthMode == ROOT_WINDOW_FULL_WIDTH_ALWAYS) {
-            findViewById(R.id.baseWindowRootLinearLayout).setPadding(baseHorizontalMarginInPixels, baseVerticalMarginInPixels, baseHorizontalMarginInPixels, baseVerticalMarginInPixels);
-
-        } else {
-            final Point displaySize = new Point();
-            this.getWindowManager().getDefaultDisplay().getSize(displaySize);
-
-            final int maxPanelWidth;
-
-            maxPanelWidth = (int) (600 * getResources().getDisplayMetrics().density);
-
-            final int panelWidth;
-
-            if (widthMode == ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN) {
-                panelWidth = Math.min((int) (displaySize.x * ((displaySize.x < displaySize.y) ? 0.87 : 0.7) - baseHorizontalMarginInPixels), maxPanelWidth - baseHorizontalMarginInPixels);
-            } else {
-                panelWidth = Math.min(maxPanelWidth - baseHorizontalMarginInPixels, displaySize.x - baseHorizontalMarginInPixels);
-            }
-
-            final int horizontal = Math.max((displaySize.x - panelWidth) / 2, baseHorizontalMarginInPixels);
-            findViewById(R.id.baseWindowRootLinearLayout).setPadding(horizontal, baseVerticalMarginInPixels, horizontal, baseVerticalMarginInPixels);
-        }
+        this.currentTheme.setWindowBoundarySize(widthMode, windowNestStep, this);
     }
 
-    @SuppressLint("SetTextI18n")
     protected void setHeaderFooterTexts(CharSequence headerText, CharSequence footerText) {
-        if (this.currentTheme.hasFooter()) {
-            ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(headerText);
-            ((TextView) findViewById(R.id.baseWindowMainFooterTextView)).setText(footerText == null ? headerText : footerText);
-        } else {
-            ((TextView) findViewById(R.id.baseWindowMainHeaderTextView)).setText(footerText == null ? headerText : (headerText + " " + footerText));
-        }
+        this.currentTheme.setHeaderFooterTexts(this, headerText, footerText);
     }
 
     protected void setWindowLocationGravity(int gravity) {
-        ((LinearLayout)findViewById(R.id.baseWindowRootLinearLayout)).setGravity(gravity);
+        this.currentTheme.setWindowLocationGravity(gravity, this);
     }
 
     protected void enableBaseWindowAnimation() {
@@ -288,7 +232,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         }
     }
 
-    protected boolean getAnimationEnabledPreferenceValue() {
+    public boolean getAnimationEnabledPreferenceValue() {
         return PreferenceManager.getDefaultSharedPreferences(this).getBoolean(PREF_NAME_ANIMATION, true);
     }
 
@@ -306,60 +250,19 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     @CallSuper
     protected void enableWindowAnimationForElements() {
-        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowMainLayoutRoot));
-        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowRootLinearLayout));
-        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowHeaderWrapper));
-        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowMainLinearLayout));
-        enableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowFooterWrapper));
         this.currentTheme.enableWindowAnimationForElement(this);
     }
 
     @CallSuper
     protected void disableWindowAnimationForElements() {
-        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowMainLayoutRoot));
-        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowRootLinearLayout));
-        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowHeaderWrapper));
-        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowMainLinearLayout));
-        disableWindowAnimationForEachViewGroup(findViewById(R.id.baseWindowFooterWrapper));
         this.currentTheme.disableWindowAnimationForElement(this);
     }
 
     protected double getWindowBodyAvailableHeight() {
-        return findViewById(R.id.baseWindowMainLayoutRoot).getHeight() - findViewById(R.id.baseWindowHeaderWrapper).getHeight() * (this.currentTheme.hasFooter() ? 2.0 : 1.0);
-    }
-
-    private class ExitOnClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
+        return this.currentTheme.getWindowBodyAvailableHeight(this);
     }
 
     protected void changeBaseWindowElementSizeForAnimation(boolean visible) {
-        LinearLayout centerLL = findViewById(R.id.baseWindowMainLinearLayout);
-        View mainLL = centerLL.getChildAt(0);
-        LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
-
-        // This is for animation, so if animation is disabled no reason to make invisible
-        if (visible || !this.getAnimationEnabledPreferenceValue()) {
-            mainLP.width = LinearLayout.LayoutParams.MATCH_PARENT;
-            mainLP.height = this.smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
-            mainLL.setLayoutParams(mainLP);
-
-            LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = this.smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
-            centerLL.setLayoutParams(centerLP);
-
-        } else {
-            mainLP.width = (int) (200 * getResources().getDisplayMetrics().density + 0.5);
-            mainLP.height = 0;
-            mainLL.setLayoutParams(mainLP);
-
-            LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-            centerLP.height = 0;
-            centerLL.setLayoutParams(centerLP);
-        }
-
         this.currentTheme.changeBaseWindowElementSizeForAnimation(this, visible || !this.getAnimationEnabledPreferenceValue(), this.smallWindow);
     }
 }
