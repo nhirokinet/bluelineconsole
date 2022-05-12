@@ -52,7 +52,7 @@ public class MarineTheme extends BaseTheme {
     }
 
     @Override
-    public boolean hasFooter() {
+    protected boolean hasFooter() {
         return true;
     }
 

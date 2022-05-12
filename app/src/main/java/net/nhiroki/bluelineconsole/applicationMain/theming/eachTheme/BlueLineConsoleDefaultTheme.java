@@ -64,7 +64,7 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
     }
 
     @Override
-    public boolean hasFooter() {
+    protected boolean hasFooter() {
         return true;
     }
 

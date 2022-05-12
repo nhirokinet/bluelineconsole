@@ -44,7 +44,7 @@ public class OldComputerTheme extends BaseTheme {
     }
 
     @Override
-    public boolean hasFooter() {
+    protected boolean hasFooter() {
         return false;
     }
 
