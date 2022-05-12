@@ -56,7 +56,7 @@ public class LauncherWidgetProvider extends AppWidgetProvider {
 
             Intent intent = new Intent(context, MainActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivities(context, 0, new Intent[]{intent}, PendingIntent.FLAG_MUTABLE);
-            remoteViews.setOnClickPendingIntent(R.id.widgetLauncherRootLinearLayout, pendingIntent);
+            remoteViews.setOnClickPendingIntent(appTheme.getLauncherWidgetRootLayoutID(), pendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
         }

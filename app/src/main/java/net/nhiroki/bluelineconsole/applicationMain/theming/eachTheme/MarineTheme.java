@@ -9,10 +9,9 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
-import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
 
 
-public class MarineTheme implements AppTheme {
+public class MarineTheme extends BaseTheme {
     private static final String THEME_ID = "marine";
     private static final @StringRes int THEME_TITLE_STRING_RES = R.string.theme_name_marine;
 
@@ -23,6 +22,8 @@ public class MarineTheme implements AppTheme {
 
     @Override
     public void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow) {
+        super.apply(activity, iAmHomeActivity, smallWindow);
+
         activity.setTheme(iAmHomeActivity ? R.style.AppThemeMarineHome : R.style.AppThemeMarine);
         activity.setContentView(R.layout.base_window_layout_marine);
 
@@ -30,6 +31,10 @@ public class MarineTheme implements AppTheme {
         LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
         centerLP.height = smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
         centerLL.setLayoutParams(centerLP);
+
+        this.setFooterMargin(activity);
+
+        this.registerExitListener(activity, iAmHomeActivity);
     }
 
     @Override
@@ -52,24 +57,8 @@ public class MarineTheme implements AppTheme {
     }
 
     @Override
-    public void onCreateFinal(BaseWindowActivity activity) {
-    }
-
-    @Override
-    public void enableWindowAnimationForElement(BaseWindowActivity activity) {
-    }
-
-    @Override
-    public void disableWindowAnimationForElement(BaseWindowActivity activity) {
-    }
-
-    @Override
     public boolean supportsAccentColor() {
         return false;
-    }
-
-    @Override
-    public void changeBaseWindowElementSizeForAnimation(Activity activity, boolean visible, boolean smallWindow) {
     }
 
     @Override

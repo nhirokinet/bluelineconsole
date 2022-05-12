@@ -13,9 +13,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
-import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
 
-public class BlueLineConsoleDefaultTheme implements AppTheme {
+public class BlueLineConsoleDefaultTheme extends BaseTheme {
     private static final String THEME_ID = "default";
     private static final @StringRes int THEME_TITLE_STRING_RES = R.string.theme_name_default;
 
@@ -30,12 +29,18 @@ public class BlueLineConsoleDefaultTheme implements AppTheme {
 
     @Override
     public void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow) {
+        super.apply(activity, iAmHomeActivity, smallWindow);
+
         if (this.isDarkMode(activity)) {
             activity.setTheme(iAmHomeActivity ? R.style.AppThemeBlueLineConsoleDarkHome : R.style.AppThemeBlueLineConsoleDark);
         } else {
             activity.setTheme(iAmHomeActivity ? R.style.AppThemeBlueLineConsoleHome : R.style.AppThemeBlueLineConsole);
         }
         activity.setContentView(R.layout.base_window_layout_default);
+
+        this.setFooterMargin(activity);
+
+        this.registerExitListener(activity, iAmHomeActivity);
     }
 
     @Override
@@ -65,6 +70,8 @@ public class BlueLineConsoleDefaultTheme implements AppTheme {
 
     @Override
     public void onCreateFinal(BaseWindowActivity activity) {
+        super.onCreateFinal(activity);
+
         activity.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setOnTouchListener(activity.new TitleBarDragOnTouchListener());
 
         // Make setTint() in onResume() to work
@@ -74,6 +81,7 @@ public class BlueLineConsoleDefaultTheme implements AppTheme {
 
     @Override
     public void enableWindowAnimationForElement(BaseWindowActivity activity) {
+        super.enableWindowAnimationForElement(activity);
         activity.enableWindowAnimationForEachViewGroup(activity.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter));
         activity.enableWindowAnimationForEachViewGroup(activity.findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent));
         activity.enableWindowAnimationForEachViewGroup(activity.findViewById(R.id.baseWindowDefaultThemeFooterEndAccent));
@@ -83,12 +91,12 @@ public class BlueLineConsoleDefaultTheme implements AppTheme {
 
     @Override
     public void disableWindowAnimationForElement(BaseWindowActivity activity) {
+        super.disableWindowAnimationForElement(activity);
         activity.disableWindowAnimationForEachViewGroup(activity.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter));
         activity.disableWindowAnimationForEachViewGroup(activity.findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent));
         activity.disableWindowAnimationForEachViewGroup(activity.findViewById(R.id.baseWindowDefaultThemeFooterEndAccent));
         activity.disableWindowAnimationForEachViewGroup(activity.findViewById(R.id.baseWindowDefaultThemeHeaderImagePart));
         activity.disableWindowAnimationForEachViewGroup(activity.findViewById(R.id.baseWindowDefaultThemeFooterImagePart));
-
     }
 
     @Override
@@ -97,7 +105,9 @@ public class BlueLineConsoleDefaultTheme implements AppTheme {
     }
 
     @Override
-    public void changeBaseWindowElementSizeForAnimation(Activity activity, boolean visible, boolean smallWindow) {
+    public void changeBaseWindowElementSizeForAnimation(BaseWindowActivity activity, boolean visible, boolean smallWindow) {
+        super.changeBaseWindowElementSizeForAnimation(activity, visible, smallWindow);
+
         final View centerLLOuter = activity.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter);
         final LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
         if (visible) {
