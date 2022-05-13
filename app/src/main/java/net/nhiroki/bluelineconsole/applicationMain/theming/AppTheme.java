@@ -40,7 +40,7 @@ public interface AppTheme {
 
     void setHeaderFooterTexts(Activity activity, CharSequence headerText, CharSequence footerText);
 
-    ViewStub findMainViewStub(Activity activity);
+    void setPayloadLayout(@LayoutRes int layout, Activity activity);
 
     View findVisibleRootView(Activity activity);
 
