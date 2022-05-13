@@ -120,9 +120,12 @@ public abstract class BaseTheme implements AppTheme {
         }
     }
 
+    @CallSuper
     @Override
-    public ViewStub findMainViewStub(Activity activity) {
-        return activity.findViewById(R.id.baseWindowMainViewStub);
+    public void setPayloadLayout(int layout, Activity activity) {
+        ViewStub mainViewStub = activity.findViewById(R.id.baseWindowMainViewStub);
+        mainViewStub.setLayoutResource(layout);
+        mainViewStub.inflate();
     }
 
     @CallSuper

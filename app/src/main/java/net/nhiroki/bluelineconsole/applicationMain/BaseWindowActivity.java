@@ -63,9 +63,7 @@ public class BaseWindowActivity extends AppCompatActivity {
 
         this.currentTheme.apply(this, this.iAmHomeActivity, this.smallWindow);
 
-        ViewStub mainViewStub = this.currentTheme.findMainViewStub(this);
-        mainViewStub.setLayoutResource(this.mainLayoutResID);
-        mainViewStub.inflate();
+        this.currentTheme.setPayloadLayout(this.mainLayoutResID, this);
 
         // TitleBarDragOnTouchListener has some state, it is safer to create different instance
         this.currentTheme.setOnTouchListenerForTitleBar(new TitleBarDragOnTouchListener(), this);
