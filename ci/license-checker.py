@@ -12,7 +12,9 @@ def main():
     ok_count = 0
 
     is_release = False
-    for line in subprocess.check_output(['./gradlew', 'androidDependencies']).decode('utf-8').split('\n'):
+    output = subprocess.check_output(['./gradlew', 'androidDependencies']).decode('utf-8')
+    print(output)
+    for line in output.split('\n'):
         if line == '':
             is_release = False
 
@@ -29,7 +31,12 @@ def main():
             package_name = package_info[1]
             package_version = package_info[2]
 
-            if not package_fullname.startswith('androidx.'):
+            if not package_fullname.startswith('androidx.')\
+                    and package_name != 'kotlinx-coroutines-android'\
+                    and package_name != 'kotlinx-coroutines-core-jvm'\
+                    and not package_name.startswith('kotlin-stdlib')\
+                    and not (package_name == 'annotations' and package_fullname == 'org.jetbrains')\
+                    and package_fullname != 'com.google.guava':
                 print('Unknown package')
                 sys.exit(1)
 
@@ -51,10 +58,12 @@ def main():
                 for license_elem in licenses_elem.findall('{http://maven.apache.org/POM/4.0.0}license'):
                     license_name = license_elem.find('{http://maven.apache.org/POM/4.0.0}name').text
                     print('  License: ' + license_name)
-                    assert(license_name == 'The Apache Software License, Version 2.0')
+                    assert(license_name == 'The Apache Software License, Version 2.0' or
+                           license_name == 'The Apache License, Version 2.0')
                     license_url = license_elem.find('{http://maven.apache.org/POM/4.0.0}url').text
                     print('  License URL: ' + license_url)
-                    assert(license_url == 'http://www.apache.org/licenses/LICENSE-2.0.txt')
+                    assert(license_url == 'https://www.apache.org/licenses/LICENSE-2.0.txt' or
+                           license_url == 'http://www.apache.org/licenses/LICENSE-2.0.txt')
                     ok = True
 
             if not ok:
