@@ -57,4 +57,9 @@ public class OldComputerTheme extends BaseTheme {
     public int getLauncherWidgetLayoutID(Context context) {
         return R.layout.widget_launcher_old_computer;
     }
+
+    @Override
+    public int getDefaultAccentColor(Context context) {
+        return 0;
+    }
 }

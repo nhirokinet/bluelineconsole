@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -121,6 +122,14 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
     @Override
     public int getLauncherWidgetLayoutID(Context context) {
         return this.isDarkMode(context) ? R.layout.widget_launcher_dark_theme : R.layout.widget_launcher_default_theme;
+    }
+
+    @Override
+    public int getDefaultAccentColor(Context context) {
+        TypedValue accentColorFromTheme = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.bluelineconsoleAccentColor, accentColorFromTheme, true);
+
+         return accentColorFromTheme.data;
     }
 
     protected static boolean isSystemCurrentlyNightMode(Context context) {
