@@ -231,25 +231,41 @@ public class CalendarCommandSearcher implements CommandSearcher {
 
                     } else {
                         int dayOfMonth = dayOfWeek + weekOfMonth * 7 - dayOfWeekOffset;
+                        int textColor = baseTextColor.data;
+
+                        Calendar calOfThisDay = Calendar.getInstance();
+                        calOfThisDay.set(this.calendar.get(Calendar.YEAR), this.calendar.get(Calendar.MONTH), this.calendar.get(Calendar.DAY_OF_MONTH));
 
                         if (dayOfMonth >= 1 && dayOfMonth <= monthSize) {
                             dayTextView.setText(String.format(locale, "%d", dayOfMonth));
-                            dayTextView.setTextColor(baseTextColor.data);
-                            if (today.get(Calendar.YEAR) == this.calendar.get(Calendar.YEAR) &&
-                                today.get(Calendar.MONTH) == this.calendar.get(Calendar.MONTH) &&
-                                today.get(Calendar.DAY_OF_MONTH) == dayOfMonth) {
+                            calOfThisDay.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                                final TypedValue backgroundColor = new TypedValue();
-                                mainActivity.getTheme().resolveAttribute(android.R.attr.windowBackground, backgroundColor, true);
-                                dayTextView.setTextColor(backgroundColor.data);
-                                dayTextView.setBackgroundColor(baseTextColor.data);
-                            }
                         } else if (dayOfMonth < 1) {
                             dayTextView.setText(String.format(locale, "%d", dayOfMonth + prevMonthSize));
-                            dayTextView.setTextColor(disabledTextColor.data);
+                            textColor = disabledTextColor.data;
+
+                            int ym = calOfThisDay.get(Calendar.YEAR) * 12 + calOfThisDay.get(Calendar.MONTH) - 1;
+                            calOfThisDay.set(ym / 12, ym % 12, dayOfMonth + prevMonthSize);
+
                         } else {
                             dayTextView.setText(String.format(locale, "%d", dayOfMonth - monthSize));
-                            dayTextView.setTextColor(disabledTextColor.data);
+                            textColor = disabledTextColor.data;
+
+                            int ym = calOfThisDay.get(Calendar.YEAR) * 12 + calOfThisDay.get(Calendar.MONTH) + 1;
+                            calOfThisDay.set(ym / 12, ym % 12, dayOfMonth - monthSize);
+                        }
+
+                        if (today.get(Calendar.YEAR) == calOfThisDay.get(Calendar.YEAR) &&
+                                today.get(Calendar.MONTH) == calOfThisDay.get(Calendar.MONTH) &&
+                                today.get(Calendar.DAY_OF_MONTH) == calOfThisDay.get(Calendar.DAY_OF_MONTH)) {
+
+                            final TypedValue backgroundColor = new TypedValue();
+                            mainActivity.getTheme().resolveAttribute(android.R.attr.windowBackground, backgroundColor, true);
+                            dayTextView.setTextColor(backgroundColor.data);
+                            dayTextView.setBackgroundColor(textColor);
+
+                        } else {
+                            dayTextView.setTextColor(textColor);
                         }
                     }
 
