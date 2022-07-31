@@ -36,6 +36,8 @@ public interface AppTheme {
 
     @IdRes int getLauncherWidgetRootLayoutID();
 
+    int getDefaultAccentColor(Context context);
+
     double getWindowBodyAvailableHeight(Activity activity);
 
     void setHeaderFooterTexts(Activity activity, CharSequence headerText, CharSequence footerText);

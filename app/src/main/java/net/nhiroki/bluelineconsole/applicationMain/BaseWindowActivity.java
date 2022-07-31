@@ -171,10 +171,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         final int color;
 
         if (accentColorPreference.equals(PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT)) {
-            TypedValue accentColorFromTheme = new TypedValue();
-            this.getTheme().resolveAttribute(R.attr.bluelineconsoleAccentColor, accentColorFromTheme, true);
-
-            color = accentColorFromTheme.data;
+            return this.currentTheme.getDefaultAccentColor(this);
 
         } else if(accentColorPreference.startsWith(PREF_VALUE_ACCENT_COLOR_PREFIX_COLOR + "-")) {
             String[] colorStringSplit = accentColorPreference.split("-");
@@ -183,16 +180,11 @@ public class BaseWindowActivity extends AppCompatActivity {
             int green = Integer.parseInt(colorStringSplit[2]);
             int blue = Integer.parseInt(colorStringSplit[3]);
 
-            color = (255 << 24) | (red << 16) | (green << 8) | blue;
+            return (255 << 24) | (red << 16) | (green << 8) | blue;
 
         } else {
-            TypedValue accentColorFromTheme = new TypedValue();
-            this.getTheme().resolveAttribute(R.attr.bluelineconsoleAccentColor, accentColorFromTheme, true);
-
-            color = accentColorFromTheme.data;
+            return this.currentTheme.getDefaultAccentColor(this);
         }
-
-        return color;
     }
 
     @CallSuper
