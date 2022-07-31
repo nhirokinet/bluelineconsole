@@ -211,6 +211,9 @@ public class CalendarCommandSearcher implements CommandSearcher {
 
             final String[] dayOfWeekNames = new DateFormatSymbols().getShortWeekdays();
 
+            // TODO: refresh when changed
+            Calendar today = Calendar.getInstance();
+
             for (int weekOfMonth = -1; weekOfMonth * 7 - dayOfWeekOffset <= monthSize; ++weekOfMonth) {
                 if (weekOfMonth != -1 && weekOfMonth * 7 - dayOfWeekOffset <= -6) {
                     continue;
@@ -232,6 +235,15 @@ public class CalendarCommandSearcher implements CommandSearcher {
                         if (dayOfMonth >= 1 && dayOfMonth <= monthSize) {
                             dayTextView.setText(String.format(locale, "%d", dayOfMonth));
                             dayTextView.setTextColor(baseTextColor.data);
+                            if (today.get(Calendar.YEAR) == this.calendar.get(Calendar.YEAR) &&
+                                today.get(Calendar.MONTH) == this.calendar.get(Calendar.MONTH) &&
+                                today.get(Calendar.DAY_OF_MONTH) == dayOfMonth) {
+
+                                final TypedValue backgroundColor = new TypedValue();
+                                mainActivity.getTheme().resolveAttribute(android.R.attr.windowBackground, backgroundColor, true);
+                                dayTextView.setTextColor(backgroundColor.data);
+                                dayTextView.setBackgroundColor(baseTextColor.data);
+                            }
                         } else if (dayOfMonth < 1) {
                             dayTextView.setText(String.format(locale, "%d", dayOfMonth + prevMonthSize));
                             dayTextView.setTextColor(disabledTextColor.data);
@@ -242,7 +254,7 @@ public class CalendarCommandSearcher implements CommandSearcher {
                     }
 
                     dayTextView.setGravity(Gravity.CENTER_HORIZONTAL);
-                    dayTextView.setPaddingRelative(8, 0, (int)(8.0 * pixelsPerSp), 0);
+                    dayTextView.setPaddingRelative((int)(8.0 * pixelsPerSp), 0, (int)(8.0 * pixelsPerSp), 0);
                     weekLL.addView(dayTextView);
                 }
                 calendarTable.addView(weekLL);
