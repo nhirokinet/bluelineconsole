@@ -76,6 +76,7 @@ public class CalendarCommandSearcher implements CommandSearcher {
 
                     if (isSupported(year)) {
                         calendar = Calendar.getInstance();
+                        calendar.set(Calendar.DAY_OF_MONTH, 1);  // for case of current day of month is 29 or more
                         calendar.set(Calendar.YEAR, year);
                         calendar.set(Calendar.MONTH, month - 1);
                     }
