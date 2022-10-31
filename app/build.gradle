@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     // Before updating buildToolsVersion or compileSdkVersion, check for MainActivity.onCreate,
     // as it uses workaround that depends SDK implementation.
-    compileSdk 31
-    buildToolsVersion '31.0.0'
+    compileSdk 33
+    buildToolsVersion '33.0.0'
 
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
@@ -12,11 +12,12 @@ android {
     defaultConfig {
         applicationId "net.nhiroki.bluelineconsole"
         minSdkVersion 22
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 33
         versionName "1.2.16"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled true
@@ -24,6 +25,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     lintOptions {
         ignoreWarnings false
     }
