@@ -4,9 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 
+import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
@@ -16,6 +18,7 @@ import net.nhiroki.bluelineconsole.wrapperForAndroid.ContactsReader;
 
 public class PreferencesActivity extends BaseWindowActivity {
     private static final int READ_CONTACT_PERMISSION_GRANT_REQUEST_ID = 1;
+    private static final int POST_NOTIFICATIONS_PERMISSION_GRANT_REQUEST_ID = 2;
 
     private boolean _comingBack = false;
     private PreferencesFragmentWithOnChangeListener preferenceFragment = null;
@@ -47,12 +50,24 @@ public class PreferencesActivity extends BaseWindowActivity {
 
         for (int i = 0; i < permissions.length; ++i) {
             if (permissions[i].equals(Manifest.permission.READ_CONTACTS)) {
-                if (grantResults[i] !=PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(this).edit();
                     prefEdit.putBoolean(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY, false);
                     prefEdit.apply();
 
                     ((SwitchPreference)this.preferenceFragment.findPreference(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY)).setChecked(false);
+                }
+            }
+            if (permissions[i].equals(Manifest.permission.POST_NOTIFICATIONS)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    AppNotification.update(PreferencesActivity.this);
+
+                } else {
+                    SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(this).edit();
+                    prefEdit.putBoolean(AppNotification.PREF_KEY_ALWAYS_SHOW_NOTIFICATION, false);
+                    prefEdit.apply();
+
+                    ((SwitchPreference)this.preferenceFragment.findPreference(AppNotification.PREF_KEY_ALWAYS_SHOW_NOTIFICATION)).setChecked(false);
                 }
             }
         }
@@ -73,8 +88,13 @@ public class PreferencesActivity extends BaseWindowActivity {
             preferenceChangedListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                    if (key.equals("pref_main_always_show_notification")) {
-                        AppNotification.update(PreferencesFragmentWithOnChangeListener.this.getActivity());
+                    if (key.equals(AppNotification.PREF_KEY_ALWAYS_SHOW_NOTIFICATION)) {
+                        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(PreferencesFragmentWithOnChangeListener.this.getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                            PreferencesFragmentWithOnChangeListener.this.requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                                    POST_NOTIFICATIONS_PERMISSION_GRANT_REQUEST_ID);
+                        } else {
+                            AppNotification.update(PreferencesFragmentWithOnChangeListener.this.getActivity());
+                        }
                     }
                     if (key.equals(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY) &&
                             sharedPreferences.getBoolean(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY, false)) {

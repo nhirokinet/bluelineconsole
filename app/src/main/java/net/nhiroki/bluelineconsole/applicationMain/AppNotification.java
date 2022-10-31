@@ -16,6 +16,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 import static androidx.core.app.NotificationCompat.PRIORITY_MAX;
 
 public class AppNotification {
+    public static final String PREF_KEY_ALWAYS_SHOW_NOTIFICATION = "pref_main_always_show_notification";
     private static final int NOTIFICATION_ID_ALWAYS = 1;
     private static final String NOTIFICATION_CHANNEL_ALWAYS = "always_channel";
 
@@ -31,29 +32,30 @@ public class AppNotification {
             notificationManager.createNotificationChannel(notificationChannel);
         }
 
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(PREF_KEY_ALWAYS_SHOW_NOTIFICATION, false)) {
+            if (Build.VERSION.SDK_INT < 24 || notificationManager.areNotificationsEnabled()) {
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
 
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("pref_main_always_show_notification", false)) {
-            Intent intent = new Intent(context, MainActivity.class);
-            intent.setAction(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
 
-            PendingIntent pendingIntent = PendingIntent.getActivity(context.getApplicationContext(), 0, intent, PendingIntent.FLAG_MUTABLE);
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(context.getApplicationContext(), NOTIFICATION_CHANNEL_ALWAYS)
+                        .setPriority(PRIORITY_MAX)
+                        .setSmallIcon(R.mipmap.ic_launcher_monochrome)
+                        .setContentTitle(context.getString(R.string.notification_launch_this_app))
+                        .setOngoing(true)
+                        .setSound(null)
+                        .setVibrate(null)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                        .setShowWhen(false)
+                        .setWhen(0)
+                        .setContentIntent(pendingIntent);
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(context.getApplicationContext(), NOTIFICATION_CHANNEL_ALWAYS)
-                    .setPriority(PRIORITY_MAX)
-                    .setSmallIcon(R.mipmap.ic_launcher_monochrome)
-                    .setContentTitle(context.getString(R.string.notification_launch_this_app))
-                    .setOngoing(true)
-                    .setSound(null)
-                    .setVibrate(null)
-                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                    .setShowWhen(false)
-                    .setWhen(0)
-                    .setContentIntent(pendingIntent);
+                Notification notification = builder.build();
 
-            Notification notification = builder.build();
-
-            notificationManager.notify(NOTIFICATION_ID_ALWAYS, notification);
+                notificationManager.notify(NOTIFICATION_ID_ALWAYS, notification);
+            }
 
         } else {
             notificationManager.cancel(NOTIFICATION_ID_ALWAYS);

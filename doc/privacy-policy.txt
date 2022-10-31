@@ -18,7 +18,7 @@ Blue Line Console Privacy Policy
 4. Informations sent out: Blue Line Console itself will send out the information that the user directed Blue Line Console to send out. This includes:
 
   - ICMP packets to the designated destination when the user use ping or ping6 commands.
-  - Any other commands, configuration or other user's direction, including the ones added in the future. As of version 1.2.6, nothing matches here.
+  - Any other commands, configuration or other user's direction, including the ones added in the future. As of version 1.2.16, nothing matches here.
   - DNS requests, network control packets, network layer information, or any other information required to operate actions listed here.
 
 
@@ -26,8 +26,9 @@ Blue Line Console Privacy Policy
 
   - android.permission.READ_CONTACTS: Contacts include very sensitive information. This permission is used only after the user enabled contacts related functions in config. This is the required step regardless of Android version, which means that even if you use Android <6.0 which the application with android.permission.READ_CONTACTS permission technically can use it without further confirmation, the user still have to explicitly enable contacts feature in config. Contact search reads information directly from Contacts, loads it to the virtual memory and does not make a local copy on the persistent storage. Also, Blue Line Console does not send out contacts information and just gives an link to use these information in your other applications. Clicking the link opens the application, either the default setting of user's device, or the application you chose.
   - android.permission.QUERY_ALL_PACKAGES: This permission allows Blue Line Console to know what applications the user uses. The contact information is not sent out of the device. This information is only used to work as device-local launcher, and Blue Line Console does not access the information the contents saved within each application. Due to the performance reason, different from Contacts information, some of retrieved information are stored in the device local storage as cache file(s) within Blue Line Console.
-  - android.permission.INTERNET: As of version 1.2.6, ping and ping6 commands need it. Cases may increase in the future, but this always requires the user's explicit actions.
+  - android.permission.INTERNET: As of version 1.2.16, ping and ping6 commands need it. Cases may increase in the future, but this always requires the user's explicit actions.
   - android.permission.RECEIVE_BOOT_COMPLETED: Needed for option to always show notification, that can be enabled in config. Cases may increase in the future.
+  - android.permission.POST_NOTIFICATIONS: Needed for option to always show notification, that can be enabled in config. Cases may increase in the future.
   - android.permission.BIND_APPWIDGET: Blue Line Console have functionality to host widgets. To support this, Blue Line Console asks the permission to load arbitary Widgets (generally in the first time you add a widget if normal Android is used). This is simply shown via AppWidgetHostView, and Blue Line Console won't retrieve any information that actual widgets show.
 
 
