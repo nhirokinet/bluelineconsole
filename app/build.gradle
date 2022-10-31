@@ -37,8 +37,9 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'  // temporal workaround to avoid conflict, removing later
 
     testImplementation 'junit:junit:4.13.2'
 
