@@ -96,7 +96,7 @@
     <string name="preferences_item_default_search_title">デフォルト検索エンジン</string>
     <string name="preferences_item_default_search_summary">常に設定した検索エンジンでの検索を一覧に表示します</string>
     <string name="preferences_item_default_search_option_none">（なし）</string>
-    <string name="preferences_item_custom_commands_widgets">ウィジェットコマンド（実験的機能）</string>
+    <string name="preferences_item_custom_commands_widgets">ウィジェットコマンド</string>
     <string name="preferences_item_home_screen_default_items">ホームスクリーンの項目</string>
     <string name="preferences_item_home_screen_default_items_summary">ホームスクリーンとして起動され、コマンドが何も入力されていない場合に表示する項目を設定します</string>
     <string name="preferences_item_contacts_enable_search">連絡先からの検索を有効にする</string>
@@ -129,7 +129,7 @@
 
     <!-- Preferences item, home screen default items screens -->
     <string name="preferences_home_screen_add_command_button">コマンドを追加する</string>
-    <string name="preferences_home_screen_add_widget_button">ウィジェットを追加する（実験的機能）</string>
+    <string name="preferences_home_screen_add_widget_button">ウィジェットを追加する</string>
     <string name="preferences_home_screen_add_widget_select_message">追加するウィジェットを選択してください</string>
     <string name="preferences_home_screen_widget_label">ウィジェット</string>
     <string name="preferences_home_screen_command_label">コマンド</string>

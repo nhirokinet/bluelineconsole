@@ -96,7 +96,7 @@
     <string name="preferences_item_default_search_title">Default Search Engine</string>
     <string name="preferences_item_default_search_summary">Always show specific search engine on the bottom of list</string>
     <string name="preferences_item_default_search_option_none">(None)</string>
-    <string name="preferences_item_custom_commands_widgets">Widget commands (experimental)</string>
+    <string name="preferences_item_custom_commands_widgets">Widget commands</string>
     <string name="preferences_item_home_screen_default_items">Home screen items</string>
     <string name="preferences_item_home_screen_default_items_summary">Display results and widgets when nothing is input at home screen, when Blue Line Console is set to home app.</string>
     <string name="preferences_item_contacts_enable_search">Enable contacts search</string>
@@ -129,7 +129,7 @@
 
     <!-- Preferences item, home screen default items screens -->
     <string name="preferences_home_screen_add_command_button">Add command</string>
-    <string name="preferences_home_screen_add_widget_button">Add widget (experimental)</string>
+    <string name="preferences_home_screen_add_widget_button">Add widget</string>
     <string name="preferences_home_screen_add_widget_select_message">Select widget to add:</string>
     <string name="preferences_home_screen_widget_label">Widget</string>
     <string name="preferences_home_screen_command_label">Command</string>
