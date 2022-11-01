@@ -13,8 +13,8 @@ android {
         applicationId "net.nhiroki.bluelineconsole"
         minSdkVersion 22
         targetSdkVersion 33
-        versionCode 33
-        versionName "1.2.16"
+        versionCode 34
+        versionName "1.2.17"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
