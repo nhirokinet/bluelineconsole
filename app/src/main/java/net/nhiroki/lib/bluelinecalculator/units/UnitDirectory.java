@@ -154,7 +154,7 @@ public class UnitDirectory {
                 } catch (CalculatorExceptions.UnitConversionException e) {
                     throw new RuntimeException("Different dimension in setPreferredCombinedUnits");
                 } catch (CalculatorExceptions.IllegalFormulaException e) {
-                    throw new RuntimeException("Different dimension in setPreferredCombinedUnits");
+                    throw new RuntimeException("IllegalFormulaException in setPreferredCombinedUnits");
                 }
             }
         }

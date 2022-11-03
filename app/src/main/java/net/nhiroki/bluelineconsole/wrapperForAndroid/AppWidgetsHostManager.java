@@ -54,7 +54,7 @@ public final class AppWidgetsHostManager {
             this.appWidgetId = appWidgetId;
             this.appWidgetProviderInfo = appWidgetProviderInfo;
         }
-        public int id;
+        public final int id;
         public String command;
         public boolean abbreviation;
         public final int appWidgetId;

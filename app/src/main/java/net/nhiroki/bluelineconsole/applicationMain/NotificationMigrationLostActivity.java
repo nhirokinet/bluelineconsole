@@ -3,7 +3,6 @@ package net.nhiroki.bluelineconsole.applicationMain;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
@@ -26,12 +25,9 @@ public class NotificationMigrationLostActivity extends BaseWindowActivity {
         // Window nest count is 1, but make margin larger because background window is smaller and hides
         this.setWindowBoundarySize(ROOT_WINDOW_ALWAYS_HORIZONTAL_MARGIN, 2);
 
-        findViewById(R.id.startUpOKButton).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                WidgetsSetting.resetMigrationLostFlag(NotificationMigrationLostActivity.this);
-                NotificationMigrationLostActivity.this.finish();
-            }
+        findViewById(R.id.startUpOKButton).setOnClickListener(v -> {
+            WidgetsSetting.resetMigrationLostFlag(NotificationMigrationLostActivity.this);
+            NotificationMigrationLostActivity.this.finish();
         });
 
         this.changeBaseWindowElementSizeForAnimation(false);

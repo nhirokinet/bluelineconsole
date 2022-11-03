@@ -154,7 +154,7 @@
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:gravity="bottom"
-                    />
+                    tools:ignore="ContentDescription" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="3dp"

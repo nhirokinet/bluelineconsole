@@ -40,6 +40,7 @@ public class ApplicationInformationCache_1_2_5 extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    @SuppressWarnings("unused")
     public List<ApplicationInformation> getAllApplicationCaches() {
         List<ApplicationInformation> ret = new ArrayList<>();
 
@@ -70,6 +71,7 @@ public class ApplicationInformationCache_1_2_5 extends SQLiteOpenHelper {
         this.getWritableDatabase().replace("appinfo", null, cv);
     }
 
+    @SuppressWarnings("unused")
     public void deleteCache (String packageName) {
         String[] sel = {packageName};
         this.getWritableDatabase().delete("appinfo", "packagename = ?", sel);

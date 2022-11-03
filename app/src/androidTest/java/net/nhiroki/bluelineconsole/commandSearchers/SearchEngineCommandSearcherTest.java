@@ -39,7 +39,7 @@ public class SearchEngineCommandSearcherTest extends AndroidTestCase {
         {
             List<CandidateEntry> candidateEntryList = searchEngineCommandSearcher.searchCandidateEntries("test_site_for_test", this.getContext());
             assertEquals(1, candidateEntryList.size());
-            assertTrue(candidateEntryList.get(0).getTitle().indexOf("Test Site 1") != -1);
+            assertTrue(candidateEntryList.get(0).getTitle().contains("Test Site 1"));
         }
 
         {
@@ -49,10 +49,10 @@ public class SearchEngineCommandSearcherTest extends AndroidTestCase {
             int testSite2Count = 0;
 
             for (CandidateEntry entry : candidateEntryList) {
-                if (entry.getTitle().indexOf("Test Site 1") != -1) {
+                if (entry.getTitle().contains("Test Site 1")) {
                     testSite1Count += 1;
                 }
-                if (entry.getTitle().indexOf("Test Site 2") != -1) {
+                if (entry.getTitle().contains("Test Site 2")) {
                     testSite2Count += 1;
                 }
             }
@@ -63,8 +63,8 @@ public class SearchEngineCommandSearcherTest extends AndroidTestCase {
         {
             List<CandidateEntry> candidateEntryList = searchEngineCommandSearcher.searchCandidateEntries("test_site queryabc", this.getContext());
             assertEquals(1, candidateEntryList.size());
-            assertTrue(candidateEntryList.get(0).getTitle().indexOf("Test Site 3") != -1);
-            assertTrue(candidateEntryList.get(0).getTitle().indexOf("queryabc") != -1);
+            assertTrue(candidateEntryList.get(0).getTitle().contains("Test Site 3"));
+            assertTrue(candidateEntryList.get(0).getTitle().contains("queryabc"));
         }
     }
 

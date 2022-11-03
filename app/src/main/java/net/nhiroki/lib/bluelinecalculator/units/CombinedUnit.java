@@ -499,10 +499,8 @@ public class CombinedUnit {
             int compareRes = this.positiveUnits.get(posCur).compareTo(this.negativeUnits.get(negCur));
             if (compareRes > 0) {
                 newNegativeUnits.add(this.negativeUnits.get(negCur++));
-                continue;
             } else if (compareRes < 0) {
                 newPositiveUnits.add(this.positiveUnits.get(posCur++));
-                continue;
             } else {
                 ++posCur;
                 ++negCur;

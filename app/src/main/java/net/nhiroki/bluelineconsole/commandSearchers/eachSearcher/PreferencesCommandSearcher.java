@@ -76,12 +76,7 @@ public class PreferencesCommandSearcher implements CommandSearcher {
 
         @Override
         public EventLauncher getEventLauncher(Context context) {
-            return new EventLauncher() {
-                @Override
-                public void launch(MainActivity activity) {
-                    activity.startActivityForResult(new Intent(activity, PreferencesActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
-                }
-            };
+            return activity -> activity.startActivityForResult(new Intent(activity, PreferencesActivity.class), MainActivity.REQUEST_CODE_FOR_COMING_BACK);
         }
 
         @Override

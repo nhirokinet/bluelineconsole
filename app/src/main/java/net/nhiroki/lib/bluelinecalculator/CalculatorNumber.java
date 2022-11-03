@@ -7,6 +7,7 @@ import net.nhiroki.lib.bluelinecalculator.units.CombinedUnit;
 import net.nhiroki.lib.bluelinecalculator.units.UnitDirectory;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class CalculatorNumber implements FormulaPart {
@@ -158,7 +159,7 @@ public class CalculatorNumber implements FormulaPart {
                 // continue to precision error
             }
 
-            return new CalculatorNumber.BigDecimalNumber(displayedResult.val.divide(displayedResult.denominator, 20, BigDecimal.ROUND_HALF_UP), Precision.calculateLowerPrecision(displayedResult.precision, Precision.PRECISION_SCALE_20), displayedResult.combinedUnit, this.unitDirectory);
+            return new CalculatorNumber.BigDecimalNumber(displayedResult.val.divide(displayedResult.denominator, 20, RoundingMode.HALF_UP), Precision.calculateLowerPrecision(displayedResult.precision, Precision.PRECISION_SCALE_20), displayedResult.combinedUnit, this.unitDirectory);
         }
 
         @Nullable
@@ -182,6 +183,8 @@ public class CalculatorNumber implements FormulaPart {
                 BigDecimalNumber previousOutput = null;
 
                 for (CombinedUnit c: candidates) {
+                    // This catch can simply continue to the next candidate
+                    //noinspection CatchMayIgnoreException
                     try {
                         BigDecimalNumber output = this.convertUnit(c);
                         if (output.removeCombinedUnit().compareTo(BigDecimalNumber.one(this.unitDirectory)) == -1) {
@@ -189,7 +192,6 @@ public class CalculatorNumber implements FormulaPart {
                         }
                         previousOutput = output;
                     } catch (CalculatorExceptions.UnitConversionException | CalculatorExceptions.IllegalFormulaException e) {
-                        continue;
                     }
                 }
 
@@ -215,7 +217,7 @@ public class CalculatorNumber implements FormulaPart {
         public String generateFinalString() {
             String suffix = "";
             if (this.denominator.compareTo(BigDecimal.ONE) != 0) {
-                suffix = "/" + this.denominator.toString();
+                suffix = "/" + this.denominator;
             }
 
             if (this.specialOutput) {
@@ -226,10 +228,10 @@ public class CalculatorNumber implements FormulaPart {
             }
 
             if (this.combinedUnit == null) {
-                return normalizeBigDecimal(this.val, this.precision).toString() + suffix;
+                return normalizeBigDecimal(this.val, this.precision) + suffix;
             } else {
                 final String unitName = this.combinedUnit.calculateDisplayName();
-                return normalizeBigDecimal(this.val, this.precision).toString() + suffix + (unitName.isEmpty() ? "" : " ") + unitName;
+                return normalizeBigDecimal(this.val, this.precision) + suffix + (unitName.isEmpty() ? "" : " ") + unitName;
             }
         }
 

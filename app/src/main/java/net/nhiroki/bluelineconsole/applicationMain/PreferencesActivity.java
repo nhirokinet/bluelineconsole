@@ -85,23 +85,20 @@ public class PreferencesActivity extends BaseWindowActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            preferenceChangedListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-                @Override
-                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                    if (key.equals(AppNotification.PREF_KEY_ALWAYS_SHOW_NOTIFICATION)) {
-                        if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(PreferencesFragmentWithOnChangeListener.this.getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                            PreferencesFragmentWithOnChangeListener.this.requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},
-                                    POST_NOTIFICATIONS_PERMISSION_GRANT_REQUEST_ID);
-                        } else {
-                            AppNotification.update(PreferencesFragmentWithOnChangeListener.this.getActivity());
-                        }
+            preferenceChangedListener = (sharedPreferences, key) -> {
+                if (key.equals(AppNotification.PREF_KEY_ALWAYS_SHOW_NOTIFICATION)) {
+                    if (Build.VERSION.SDK_INT >= 33 && ContextCompat.checkSelfPermission(PreferencesFragmentWithOnChangeListener.this.getContext(), Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                        PreferencesFragmentWithOnChangeListener.this.requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},
+                                POST_NOTIFICATIONS_PERMISSION_GRANT_REQUEST_ID);
+                    } else {
+                        AppNotification.update(PreferencesFragmentWithOnChangeListener.this.getActivity());
                     }
-                    if (key.equals(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY) &&
-                            sharedPreferences.getBoolean(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY, false)) {
-                        if (! ContactsReader.appHasReadContactsPermission(PreferencesFragmentWithOnChangeListener.this.getContext())) {
-                            PreferencesFragmentWithOnChangeListener.this.requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                                    READ_CONTACT_PERMISSION_GRANT_REQUEST_ID);
-                        }
+                }
+                if (key.equals(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY) &&
+                        sharedPreferences.getBoolean(ContactSearchCommandSearcher.PREF_CONTACT_SEARCH_ENABLED_KEY, false)) {
+                    if (! ContactsReader.appHasReadContactsPermission(PreferencesFragmentWithOnChangeListener.this.getContext())) {
+                        PreferencesFragmentWithOnChangeListener.this.requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                                READ_CONTACT_PERMISSION_GRANT_REQUEST_ID);
                     }
                 }
             };
