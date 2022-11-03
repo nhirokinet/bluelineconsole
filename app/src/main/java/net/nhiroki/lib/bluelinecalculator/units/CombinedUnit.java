@@ -35,13 +35,13 @@ public class CombinedUnit {
 
     public CombinedUnit(Unit[] positiveUnits, Unit[] negativeUnits, UnitDirectory parentUnitDictionary) throws CalculatorExceptions.IllegalFormulaException {
         for (Unit u: positiveUnits) {
-            if (! u.isCalculatable()) {
+            if (! u.isLinear()) {
                 throw new CalculatorExceptions.IllegalFormulaException();
             }
             this.positiveUnits.add(u);
         }
         for (Unit u: negativeUnits) {
-            if (! u.isCalculatable()) {
+            if (! u.isLinear()) {
                 throw new CalculatorExceptions.IllegalFormulaException();
             }
             this.negativeUnits.add(u);
@@ -51,10 +51,10 @@ public class CombinedUnit {
 
     public static CombinedUnit createFractionCombinedUnit(Unit numerator, Unit denominator, UnitDirectory parentUnitDictionary) throws CalculatorExceptions.IllegalFormulaException {
         CombinedUnit ret = new CombinedUnit(parentUnitDictionary);
-        if (! numerator.isCalculatable()) {
+        if (! numerator.isLinear()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
-        if (! denominator.isCalculatable()) {
+        if (! denominator.isLinear()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
         ret.positiveUnits.add(numerator);
@@ -83,28 +83,28 @@ public class CombinedUnit {
         return this;
     }
 
-    public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+    public CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
         if (this.positiveUnits.size() != 1 || this.negativeUnits.size() != 0) {
             throw new CalculatorExceptions.UnitConversionException(this, this, this.parentUnitDictionary);
         }
-        return this.positiveUnits.get(0).makeCalculatableFromThisUnit(input);
+        return this.positiveUnits.get(0).makeLinearValueFromThisUnit(input);
     }
 
-    public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+    public CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
         if (this.positiveUnits.size() != 1 || this.negativeUnits.size() != 0) {
             throw new CalculatorExceptions.UnitConversionException(this, this, this.parentUnitDictionary);
         }
-        return this.positiveUnits.get(0).makeThisUnitFromCalculatable(input);
+        return this.positiveUnits.get(0).makeThisUnitFromLinearValue(input);
     }
 
-    public boolean isCalculatable() {
+    public boolean isLinear() {
         for (Unit u: this.positiveUnits) {
-            if (!u.isCalculatable()) {
+            if (!u.isLinear()) {
                 return false;
             }
         }
         for (Unit u: this.negativeUnits) {
-            if (!u.isCalculatable()) {
+            if (!u.isLinear()) {
                 return false;
             }
         }
@@ -420,7 +420,7 @@ public class CombinedUnit {
     }
 
     public CombinedUnit multiply(@Nullable CombinedUnit o) throws CalculatorExceptions.IllegalFormulaException {
-        if (! this.isCalculatable()) {
+        if (! this.isLinear()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
 
@@ -428,7 +428,7 @@ public class CombinedUnit {
             return this;
         }
 
-        if (! o.isCalculatable()) {
+        if (! o.isLinear()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
 
@@ -453,12 +453,12 @@ public class CombinedUnit {
             return this;
         }
 
-        if (! o.isCalculatable()) {
+        if (! o.isLinear()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
 
         CombinedUnit ret = new CombinedUnit(this.parentUnitDictionary);
-        if (! this.isCalculatable()) {
+        if (! this.isLinear()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
 

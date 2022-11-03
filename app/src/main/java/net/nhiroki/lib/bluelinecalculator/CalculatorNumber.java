@@ -127,7 +127,7 @@ public class CalculatorNumber implements FormulaPart {
         private CombinedUnit finalUnit() {
             BigDecimalNumber displayedResult = this;
 
-            if (this.combinedUnit != null && this.combinedUnit.isCalculatable()) {
+            if (this.combinedUnit != null && this.combinedUnit.isLinear()) {
                 try {
                     displayedResult = displayedResult.multiply(displayedResult.combinedUnit.calculateRatioToUnifyUnitInEachDimension());
                     CombinedUnit shouldConvertTo = this.unitDirectory.getShouldConvertFrom(displayedResult.combinedUnit);
@@ -145,7 +145,7 @@ public class CalculatorNumber implements FormulaPart {
         @NonNull
         public BigDecimalNumber generateFinalDecimalValue() {
             BigDecimalNumber displayedResult = this;
-            if (this.combinedUnit != null && this.combinedUnit.isCalculatable()) {
+            if (this.combinedUnit != null && this.combinedUnit.isLinear()) {
                 try {
                     displayedResult = displayedResult.convertUnit(this.finalUnit());
                 } catch (CalculatorExceptions.UnitConversionException e) {
@@ -255,10 +255,10 @@ public class CalculatorNumber implements FormulaPart {
                 }
                 throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit, unitDirectory);
             }
-            if (! this.combinedUnit.isCalculatable()) {
-                return this.combinedUnit.makeCalculatableFromThisUnit(this).convertUnit(combinedUnit).makeUnitsExplicit();
+            if (! this.combinedUnit.isLinear()) {
+                return this.combinedUnit.makeLinearValueFromThisUnit(this).convertUnit(combinedUnit).makeUnitsExplicit();
             }
-            if (combinedUnit.isCalculatable()) {
+            if (combinedUnit.isLinear()) {
                 if (! this.combinedUnit.dimensionEquals(combinedUnit)) {
                     throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, combinedUnit, unitDirectory);
                 }
@@ -269,7 +269,7 @@ public class CalculatorNumber implements FormulaPart {
                 }
             }
 
-            return combinedUnit.makeThisUnitFromCalculatable(this);
+            return combinedUnit.makeThisUnitFromLinearValue(this);
         }
 
         @NonNull
@@ -285,11 +285,11 @@ public class CalculatorNumber implements FormulaPart {
                     throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, o.combinedUnit, unitDirectory);
                 }
             }
-            if (! this.combinedUnit.isCalculatable()) {
-                return this.combinedUnit.makeCalculatableFromThisUnit(this).add(o);
+            if (! this.combinedUnit.isLinear()) {
+                return this.combinedUnit.makeLinearValueFromThisUnit(this).add(o);
             }
-            if (o.combinedUnit != null && ! o.combinedUnit.isCalculatable()) {
-                o = o.combinedUnit.makeCalculatableFromThisUnit(o);
+            if (o.combinedUnit != null && ! o.combinedUnit.isLinear()) {
+                o = o.combinedUnit.makeLinearValueFromThisUnit(o);
             }
             o = o.convertUnit(this.combinedUnit);
             return new BigDecimalNumber(this.val.multiply(o.denominator).add(o.val.multiply(this.denominator)), this.denominator.multiply(o.denominator), Precision.calculateLowerPrecision(this.precision, o.precision), this.combinedUnit, this.unitDirectory);
@@ -308,11 +308,11 @@ public class CalculatorNumber implements FormulaPart {
                     throw new CalculatorExceptions.UnitConversionException(this.combinedUnit, o.combinedUnit, unitDirectory);
                 }
             }
-            if (! this.combinedUnit.isCalculatable()) {
-                return this.combinedUnit.makeCalculatableFromThisUnit(this).subtract(o);
+            if (! this.combinedUnit.isLinear()) {
+                return this.combinedUnit.makeLinearValueFromThisUnit(this).subtract(o);
             }
-            if (o.combinedUnit != null && ! o.combinedUnit.isCalculatable()) {
-                o = o.combinedUnit.makeCalculatableFromThisUnit(o);
+            if (o.combinedUnit != null && ! o.combinedUnit.isLinear()) {
+                o = o.combinedUnit.makeLinearValueFromThisUnit(o);
             }
             o = o.convertUnit(this.combinedUnit);
 
@@ -324,11 +324,11 @@ public class CalculatorNumber implements FormulaPart {
             CombinedUnit resultUnit = null;
 
             if (this.combinedUnit != null || o.combinedUnit != null) {
-                if (this.combinedUnit != null && ! this.combinedUnit.isCalculatable()) {
-                    return this.combinedUnit.makeCalculatableFromThisUnit(this).multiply(o);
+                if (this.combinedUnit != null && ! this.combinedUnit.isLinear()) {
+                    return this.combinedUnit.makeLinearValueFromThisUnit(this).multiply(o);
                 }
-                if (o.combinedUnit != null && ! o.combinedUnit.isCalculatable()) {
-                    o = o.combinedUnit.makeCalculatableFromThisUnit(o);
+                if (o.combinedUnit != null && ! o.combinedUnit.isLinear()) {
+                    o = o.combinedUnit.makeLinearValueFromThisUnit(o);
                 }
                 if (this.combinedUnit == null) {
                     resultUnit = new CombinedUnit(this.unitDirectory);
@@ -346,11 +346,11 @@ public class CalculatorNumber implements FormulaPart {
             CombinedUnit resultUnit = null;
 
             if (this.combinedUnit != null || o.combinedUnit != null) {
-                if (this.combinedUnit != null && ! this.combinedUnit.isCalculatable()) {
-                    return this.combinedUnit.makeCalculatableFromThisUnit(this).divide(o);
+                if (this.combinedUnit != null && ! this.combinedUnit.isLinear()) {
+                    return this.combinedUnit.makeLinearValueFromThisUnit(this).divide(o);
                 }
-                if (o.combinedUnit != null && ! o.combinedUnit.isCalculatable()) {
-                    o = o.combinedUnit.makeCalculatableFromThisUnit(o);
+                if (o.combinedUnit != null && ! o.combinedUnit.isLinear()) {
+                    o = o.combinedUnit.makeLinearValueFromThisUnit(o);
                 }
 
                 if (this.combinedUnit == null) {

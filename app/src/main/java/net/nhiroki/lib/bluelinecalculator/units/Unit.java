@@ -13,12 +13,12 @@ public interface Unit extends Comparable<Unit> {
     int getDimensionId();
 
     // For celsius and fahrenheit, which is not quantity, but still used in life and conversion needed.
-    // They both can be converted to kelvin, which is calculatable.
-    boolean isCalculatable(); 
+    // They both can be converted to kelvin, which is linear unit.
+    boolean isLinear();
     @NonNull
-    CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException;
+    CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException;
     @NonNull
-    CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException;
+    CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException;
 
     class NormalUnit implements Unit {
         protected final int unitId;
@@ -63,7 +63,7 @@ public interface Unit extends Comparable<Unit> {
         }
 
         @Override
-        public boolean isCalculatable() {
+        public boolean isLinear() {
             return true;
         }
 
@@ -104,13 +104,13 @@ public interface Unit extends Comparable<Unit> {
 
         @NonNull
         @Override
-        public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) {
+        public CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) {
             return input;
         }
 
         @NonNull
         @Override
-        public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+        public CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             return input.convertUnit(new CombinedUnit(this, this.parentUnitDirectory));
         }
     }
