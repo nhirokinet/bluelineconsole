@@ -940,7 +940,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
 
         final BigDecimal second = positiveVal.remainder(BigDecimal.TEN).stripTrailingZeros();
         if (second.scale() < 0) {
-            second.setScale(0);
+            second.setScale(0, RoundingMode.UNNECESSARY);
         }
         final int tenSecond = secondsTotal.remainder(num60).divide(BigDecimal.TEN, 0, RoundingMode.FLOOR).intValueExact();
         final BigDecimal minuteTotal = positiveVal.divide(num60, 0, RoundingMode.FLOOR);

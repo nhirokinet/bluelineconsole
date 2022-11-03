@@ -269,14 +269,14 @@ public class CalculatorUnitTests {
             ParseResult res = (ParseResult) method.invoke(null, "3+4", 0, UnitDirectoryBasicData.getInstance());
             assertEquals(1, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals("3/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
+            assertEquals("3/1 No Unit with Precision 1", res.getFormulaPart().toString());
         }
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+4", 2, UnitDirectoryBasicData.getInstance());
             assertEquals(1, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals("4/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
+            assertEquals("4/1 No Unit with Precision 1", res.getFormulaPart().toString());
         }
 
         {
@@ -307,21 +307,21 @@ public class CalculatorUnitTests {
             ParseResult res = (ParseResult) method.invoke(null, "3+3.142", 2, UnitDirectoryBasicData.getInstance());
             assertEquals(5, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals("3.142/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
+            assertEquals("3.142/1 No Unit with Precision 1", res.getFormulaPart().toString());
         }
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+3.142*342", 2, UnitDirectoryBasicData.getInstance());
             assertEquals(5, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals("3.142/1 No Unit with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
+            assertEquals("3.142/1 No Unit with Precision 1", res.getFormulaPart().toString());
         }
 
         {
             ParseResult res = (ParseResult) method.invoke(null, "3+3.142 inch*342", 2, UnitDirectoryBasicData.getInstance());
             assertEquals(10, res.getConsumedChars());
             assertTrue(res.getFormulaPart() instanceof CalculatorNumber.BigDecimalNumber);
-            assertEquals("3.142/1 inch with Precision 1", ((CalculatorNumber.BigDecimalNumber) res.getFormulaPart()).toString());
+            assertEquals("3.142/1 inch with Precision 1", res.getFormulaPart().toString());
         }
     }
 
