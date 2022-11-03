@@ -22,10 +22,10 @@ public class UnitDirectoryBasicData extends UnitDirectory {
     protected static final int DIMENSION_AMOUNT_OF_SUBSTANCE =    6;
     protected static final int DIMENSION_LUMINOUS_INTENSITY  =    7;
 
-    // 1000-1999: Normally calculatable dimension which is not in SI
+    // 1000-1999: Normally linear dimension which is not in SI
     protected static final int DIMENSION_INFORMATION         = 1001;
 
-    // 2000-2999: Special dimension definition for uncalculatable units
+    // 2000-2999: Special dimension definition for non-linear units
     protected static final int DIMENSION_CELSIUS             = 2001;
     protected static final int DIMENSION_FAHRENHEIT          = 2002;
 
@@ -989,7 +989,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
         }
 
         @Override
-        public boolean isCalculatable() {
+        public boolean isLinear() {
             return false;
         }
 
@@ -1014,7 +1014,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
 
         @NonNull
         @Override
-        public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+        public CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this, this.parentUnitDictionary))) {
                 throw new CalculatorExceptions.UnitConversionException(input.getCombinedUnit(), new CombinedUnit(this, this.parentUnitDictionary), this.parentUnitDictionary);
             }
@@ -1027,8 +1027,8 @@ public class UnitDirectoryBasicData extends UnitDirectory {
 
         @NonNull
         @Override
-        public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
-            if (! input.getCombinedUnit().isCalculatable()) {
+        public CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+            if (! input.getCombinedUnit().isLinear()) {
                 throw new CalculatorExceptions.UnitConversionException(input.getCombinedUnit(), new CombinedUnit(this, this.parentUnitDictionary), this.parentUnitDictionary);
             }
             CalculatorNumber.BigDecimalNumber expressionInKelvin = input.convertUnit(new CombinedUnit(kelvin, this.parentUnitDictionary));
@@ -1072,7 +1072,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
         }
 
         @Override
-        public boolean isCalculatable() {
+        public boolean isLinear() {
             return false;
         }
 
@@ -1097,7 +1097,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
 
         @NonNull
         @Override
-        public CalculatorNumber.BigDecimalNumber makeCalculatableFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+        public CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this, this.parentUnitDictionary))) {
                 throw new CalculatorExceptions.UnitConversionException(input.getCombinedUnit(), new CombinedUnit(this, this.parentUnitDictionary), this.parentUnitDictionary);
             }
@@ -1115,8 +1115,8 @@ public class UnitDirectoryBasicData extends UnitDirectory {
 
         @NonNull
         @Override
-        public CalculatorNumber.BigDecimalNumber makeThisUnitFromCalculatable(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
-            if (! input.getCombinedUnit().isCalculatable()) {
+        public CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
+            if (! input.getCombinedUnit().isLinear()) {
                 throw new CalculatorExceptions.UnitConversionException(input.getCombinedUnit(), new CombinedUnit(this, this.parentUnitDictionary), this.parentUnitDictionary);
             }
             CalculatorNumber.BigDecimalNumber expressionInKelvin = input.convertUnit(new CombinedUnit(kelvin, this.parentUnitDictionary));
