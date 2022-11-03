@@ -29,7 +29,6 @@
 
         <activity
             android:name=".applicationMain.MainActivity"
-            android:label="@string/app_name"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -57,7 +56,6 @@
         </activity>
         <activity
             android:name=".applicationMain.HomeActivity"
-            android:label="@string/app_name"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"

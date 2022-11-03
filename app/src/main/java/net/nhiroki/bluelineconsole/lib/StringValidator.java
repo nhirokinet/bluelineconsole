@@ -49,6 +49,7 @@ public class StringValidator {
                     ++url_slash_count;
                 }
             }
+            //noinspection RedundantIfStatement
             if (url_slash_count < 3) {
                 return false;
             }

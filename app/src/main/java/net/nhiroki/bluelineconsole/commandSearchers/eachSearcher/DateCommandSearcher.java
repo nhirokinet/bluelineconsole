@@ -102,7 +102,9 @@ public class DateCommandSearcher implements CommandSearcher {
 
                 }
             };
+            //noinspection SpellCheckingInspection
             textTime.setFormat12Hour(DateFormat.getBestDateTimePattern(locale, "ahmmss"));
+            //noinspection SpellCheckingInspection
             textTime.setFormat24Hour(DateFormat.getBestDateTimePattern(locale, "HHmmss"));
             textTime.setGravity(Gravity.START);
             textTime.setTextSize(TypedValue.COMPLEX_UNIT_SP, 60);
