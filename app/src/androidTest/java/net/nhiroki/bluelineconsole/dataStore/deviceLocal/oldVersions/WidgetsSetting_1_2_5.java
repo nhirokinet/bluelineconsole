@@ -15,6 +15,7 @@ import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class WidgetsSetting_1_2_5 extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "widgets_setting.sqlite";
     private static final int DATABASE_VERSION = 1;
@@ -90,6 +91,7 @@ public class WidgetsSetting_1_2_5 extends SQLiteOpenHelper {
         // Nothing to do now because database structure have not been modified
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public long addWidgetToHomeScreen(AppWidgetsHostManager.HomeScreenWidgetInfo widgetInfo) {
         setDataExistsFlag(this.context);
         ContentValues cv = new ContentValues();
@@ -196,6 +198,7 @@ public class WidgetsSetting_1_2_5 extends SQLiteOpenHelper {
         return null;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public long addWidgetCommand(AppWidgetsHostManager.WidgetCommand entry) {
         setDataExistsFlag(this.context);
 

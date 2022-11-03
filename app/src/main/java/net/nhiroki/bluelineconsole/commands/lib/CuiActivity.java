@@ -10,7 +10,7 @@ import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 
 
 public class CuiActivity extends BaseWindowActivity {
-    protected String CALLER_COMMAND;
+    protected final String CALLER_COMMAND;
     private final boolean _stream;
 
 

@@ -3,7 +3,6 @@ package net.nhiroki.bluelineconsole.applicationMain.theming;
 import android.app.Activity;
 import android.content.Context;
 import android.view.View;
-import android.view.ViewStub;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
@@ -12,7 +11,7 @@ import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 
 
 public interface AppTheme {
-    void configureDarkMode(Context context);
+    void configureDarkMode();
 
     void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow);
 

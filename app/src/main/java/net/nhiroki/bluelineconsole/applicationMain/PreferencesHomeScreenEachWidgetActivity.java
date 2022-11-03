@@ -78,7 +78,7 @@ public class PreferencesHomeScreenEachWidgetActivity extends BaseWindowActivity 
 
         this.findViewById(R.id.widget_each_submit_button).setOnClickListener(v -> {
             try {
-                PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo.heightPx = Integer.valueOf(PreferencesHomeScreenEachWidgetActivity.this.heightEdit.getText().toString());
+                PreferencesHomeScreenEachWidgetActivity.this.homeScreenWidgetInfo.heightPx = Integer.parseInt(PreferencesHomeScreenEachWidgetActivity.this.heightEdit.getText().toString());
             } catch (NumberFormatException e) {
                 // just not to update
             }

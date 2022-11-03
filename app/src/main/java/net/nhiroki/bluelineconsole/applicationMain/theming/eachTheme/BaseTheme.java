@@ -2,7 +2,6 @@ package net.nhiroki.bluelineconsole.applicationMain.theming.eachTheme;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.IdRes;
-import androidx.annotation.LayoutRes;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
@@ -192,7 +190,7 @@ public abstract class BaseTheme implements AppTheme {
     }
 
     private static class ExitOnClickListener implements View.OnClickListener {
-        private Activity activity;
+        private final Activity activity;
 
         ExitOnClickListener(Activity activity) {
             this.activity = activity;

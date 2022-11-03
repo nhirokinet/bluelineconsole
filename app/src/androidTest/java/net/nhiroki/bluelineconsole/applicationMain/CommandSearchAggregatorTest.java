@@ -48,8 +48,8 @@ public class CommandSearchAggregatorTest extends AndroidTestCase {
         {
             List<CandidateEntry> candidateEntryList = commandSearchAggregator.searchCandidateEntries("test_sit queryabc", this.getContext());
             assertEquals(1, candidateEntryList.size());
-            assertTrue(candidateEntryList.get(0).getTitle().indexOf("Test Site 3") != -1);
-            assertTrue(candidateEntryList.get(0).getTitle().indexOf("queryabc") != -1);
+            assertTrue(candidateEntryList.get(0).getTitle().contains("Test Site 3"));
+            assertTrue(candidateEntryList.get(0).getTitle().contains("queryabc"));
         }
 
         commandSearchAggregator.close();

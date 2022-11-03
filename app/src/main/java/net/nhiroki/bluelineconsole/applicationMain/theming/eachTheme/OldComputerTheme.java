@@ -7,7 +7,6 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import net.nhiroki.bluelineconsole.R;
-import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 
 
 public class OldComputerTheme extends BaseTheme {
@@ -29,7 +28,7 @@ public class OldComputerTheme extends BaseTheme {
     }
 
     @Override
-    public void configureDarkMode(Context context) {
+    public void configureDarkMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 

@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.preference.ListPreference;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import net.nhiroki.bluelineconsole.BuildConfig;
@@ -76,16 +75,13 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         ((ListPreference) findPreference(StringMatchStrategy.PREF_NAME)).setEntryValues(string_match_strategy_entry_values);
 
         findPreference("pref_default_assist_app").setOnPreferenceClickListener(
-                new Preference.OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        // Not a perfect behavior, main window disappears
-                        // This config is not to be used everyday, it is enough if just not too confusing
-                        ((PreferencesActivity) PreferencesFragment.this.getActivity()).setComingBackFlag();
-                        Intent intent = new Intent(ACTION_VOICE_INPUT_SETTINGS);
-                        PreferencesFragment.this.startActivity(intent);
-                        return true;
-                    }
+                preference -> {
+                    // Not a perfect behavior, main window disappears
+                    // This config is not to be used everyday, it is enough if just not too confusing
+                    ((PreferencesActivity) PreferencesFragment.this.getActivity()).setComingBackFlag();
+                    Intent intent = new Intent(ACTION_VOICE_INPUT_SETTINGS);
+                    PreferencesFragment.this.startActivity(intent);
+                    return true;
                 }
         );
 
@@ -93,13 +89,10 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
         ((ListPreference) findPreference(AppThemeDirectory.PREF_NAME_THEME)).setEntryValues(AppThemeDirectory.getThemePreferenceKeys());
 
         findPreference(AppThemeDirectory.PREF_NAME_THEME).setOnPreferenceChangeListener(
-                new Preference.OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        LauncherWidgetProvider.updateTheme(PreferencesFragment.this.getContext(), (String)newValue);
-                        PreferencesFragment.this.getActivity().finish();
-                        return true;
-                    }
+                (preference, newValue) -> {
+                    LauncherWidgetProvider.updateTheme(PreferencesFragment.this.getContext(), (String)newValue);
+                    PreferencesFragment.this.getActivity().finish();
+                    return true;
                 }
         );
 

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@SuppressWarnings("unused")
 public class URLPreferences_1_2_5 extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "url_preferences.sqlite";
     private static final int DATABASE_VERSION = 1;
@@ -52,6 +53,7 @@ public class URLPreferences_1_2_5 extends SQLiteOpenHelper {
         // Nothing to do now because database structure have not been modified
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public long add(URLEntry entry) {
         ContentValues cv = new ContentValues();
         cv.put("name", entry.name);

@@ -2,21 +2,17 @@ package net.nhiroki.bluelineconsole.applicationMain;
 
 import android.animation.LayoutTransition;
 import android.annotation.SuppressLint;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.view.ViewTreeObserver;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppThemeDirectory;
 
@@ -57,7 +53,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         this.currentTheme = AppThemeDirectory.loadAppTheme(this);
 
-        this.currentTheme.configureDarkMode(this);
+        this.currentTheme.configureDarkMode();
 
         super.onCreate(savedInstanceState);
 
@@ -167,8 +163,6 @@ public class BaseWindowActivity extends AppCompatActivity {
 
     protected int getAccentColor() {
         String accentColorPreference = PreferenceManager.getDefaultSharedPreferences(this).getString(PREF_NAME_ACCENT_COLOR, PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT);
-
-        final int color;
 
         if (accentColorPreference.equals(PREF_VALUE_ACCENT_COLOR_THEME_DEFAULT)) {
             return this.currentTheme.getDefaultAccentColor(this);

@@ -53,7 +53,7 @@ public class URLPreferencesTest extends AndroidTestCase {
         }
         oldVersionInstance.close();
 
-        this.entriesLoadTest(entries, this.getContext());
+        entriesLoadTest(entries, this.getContext());
     }
 
     @Test
@@ -85,7 +85,7 @@ public class URLPreferencesTest extends AndroidTestCase {
         }
         oldVersionInstance.close();
 
-        this.entriesLoadTest(entries, this.getContext());
+        entriesLoadTest(entries, this.getContext());
     }
 
     private static void entriesLoadTest(List<URLEntry> urlEntries, Context context) {

@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.applicationMain;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -42,75 +41,66 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
         EditTextConfigurations.applyCommandEditTextConfigurations(commandNameEditText, this);
 
         Button addButton = this.findViewById(R.id.widget_command_save_and_select_widget);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (PreferencesWidgetCommandEachActivity.this.widgetCommand == null) {
-                    int appWidgetId = PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.allocateAppWidgetId();
+        addButton.setOnClickListener(v -> {
+            if (PreferencesWidgetCommandEachActivity.this.widgetCommand == null) {
+                int appWidgetId = PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.allocateAppWidgetId();
 
-                    PreferencesWidgetCommandEachActivity.this.widgetCommand = new AppWidgetsHostManager.WidgetCommand(0, null, appWidgetId);
+                PreferencesWidgetCommandEachActivity.this.widgetCommand = new AppWidgetsHostManager.WidgetCommand(0, null, appWidgetId);
 
-                    PreferencesWidgetCommandEachActivity.this.widgetCommand.command = ((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_command_name)).getText().toString();
-                    PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((Switch) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
+                PreferencesWidgetCommandEachActivity.this.widgetCommand.command = ((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_command_name)).getText().toString();
+                PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((Switch) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
 
-                    int err = PreferencesWidgetCommandEachActivity.this.widgetCommand.validate();
+                int err = PreferencesWidgetCommandEachActivity.this.widgetCommand.validate();
 
-                    if (err != 0) {
-                        Toast.makeText(PreferencesWidgetCommandEachActivity.this, err, Toast.LENGTH_LONG).show();
-                        PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.deleteAppWidgetId(appWidgetId);
-                        PreferencesWidgetCommandEachActivity.this.widgetCommand = null;
-                        return;
-                    }
-
-                    WidgetsSetting.getInstance(PreferencesWidgetCommandEachActivity.this).addWidgetCommand(PreferencesWidgetCommandEachActivity.this.widgetCommand);
-
-                    Intent intent = new Intent(PreferencesWidgetCommandEachActivity.this, PreferencesWidgetCommandSelectWidget.class);
-                    intent.putExtra(PreferencesWidgetCommandSelectWidget.INTENT_EXTRA_APP_WIDGET_ID, appWidgetId);
-                    PreferencesWidgetCommandEachActivity.this.startActivity(intent);
-
-                    PreferencesWidgetCommandEachActivity.this.finish();
+                if (err != 0) {
+                    Toast.makeText(PreferencesWidgetCommandEachActivity.this, err, Toast.LENGTH_LONG).show();
+                    PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.deleteAppWidgetId(appWidgetId);
+                    PreferencesWidgetCommandEachActivity.this.widgetCommand = null;
+                    return;
                 }
+
+                WidgetsSetting.getInstance(PreferencesWidgetCommandEachActivity.this).addWidgetCommand(PreferencesWidgetCommandEachActivity.this.widgetCommand);
+
+                Intent intent = new Intent(PreferencesWidgetCommandEachActivity.this, PreferencesWidgetCommandSelectWidget.class);
+                intent.putExtra(PreferencesWidgetCommandSelectWidget.INTENT_EXTRA_APP_WIDGET_ID, appWidgetId);
+                PreferencesWidgetCommandEachActivity.this.startActivity(intent);
+
+                PreferencesWidgetCommandEachActivity.this.finish();
             }
         });
 
         Button updateButton = this.findViewById(R.id.widget_each_submit_button);
-        updateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (PreferencesWidgetCommandEachActivity.this.widgetCommand != null) {
-                    PreferencesWidgetCommandEachActivity.this.widgetCommand.command = ((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_command_name)).getText().toString();
-                    PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((Switch) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
-                    try {
-                        PreferencesWidgetCommandEachActivity.this.widgetCommand.heightPx = Integer.valueOf(((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_height)).getText().toString());
-                    } catch (NumberFormatException e) {
-                        // just not to update
-                    }
-
-                    if (PreferencesWidgetCommandEachActivity.this.widgetCommand.appWidgetProviderInfo != null) {
-                        PreferencesWidgetCommandEachActivity.this.widgetCommand.heightPx = Math.max(PreferencesWidgetCommandEachActivity.this.widgetCommand.heightPx, PreferencesWidgetCommandEachActivity.this.widgetCommand.appWidgetProviderInfo.minResizeHeight);
-                    }
-
-                    int err = PreferencesWidgetCommandEachActivity.this.widgetCommand.validate();
-
-                    if (err != 0) {
-                        Toast.makeText(PreferencesWidgetCommandEachActivity.this, err, Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    WidgetsSetting.getInstance(PreferencesWidgetCommandEachActivity.this).updateWidgetCommand(PreferencesWidgetCommandEachActivity.this.widgetCommand);
-                    PreferencesWidgetCommandEachActivity.this.finish();
+        updateButton.setOnClickListener(v -> {
+            if (PreferencesWidgetCommandEachActivity.this.widgetCommand != null) {
+                PreferencesWidgetCommandEachActivity.this.widgetCommand.command = ((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_command_name)).getText().toString();
+                PreferencesWidgetCommandEachActivity.this.widgetCommand.abbreviation = ((Switch) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_command_abbreviation_enabled)).isChecked();
+                try {
+                    PreferencesWidgetCommandEachActivity.this.widgetCommand.heightPx = Integer.parseInt(((EditText) PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_edit_height)).getText().toString());
+                } catch (NumberFormatException e) {
+                    // just not to update
                 }
+
+                if (PreferencesWidgetCommandEachActivity.this.widgetCommand.appWidgetProviderInfo != null) {
+                    PreferencesWidgetCommandEachActivity.this.widgetCommand.heightPx = Math.max(PreferencesWidgetCommandEachActivity.this.widgetCommand.heightPx, PreferencesWidgetCommandEachActivity.this.widgetCommand.appWidgetProviderInfo.minResizeHeight);
+                }
+
+                int err = PreferencesWidgetCommandEachActivity.this.widgetCommand.validate();
+
+                if (err != 0) {
+                    Toast.makeText(PreferencesWidgetCommandEachActivity.this, err, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                WidgetsSetting.getInstance(PreferencesWidgetCommandEachActivity.this).updateWidgetCommand(PreferencesWidgetCommandEachActivity.this.widgetCommand);
+                PreferencesWidgetCommandEachActivity.this.finish();
             }
         });
 
         Button deleteButton = this.findViewById(R.id.widget_each_delete_button);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (PreferencesWidgetCommandEachActivity.this.widgetCommand != null) {
-                    PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.deleteWidgetCommand(PreferencesWidgetCommandEachActivity.this.widgetCommand);
-                    PreferencesWidgetCommandEachActivity.this.finish();
-                }
+        deleteButton.setOnClickListener(v -> {
+            if (PreferencesWidgetCommandEachActivity.this.widgetCommand != null) {
+                PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.deleteWidgetCommand(PreferencesWidgetCommandEachActivity.this.widgetCommand);
+                PreferencesWidgetCommandEachActivity.this.finish();
             }
         });
     }
@@ -136,12 +126,7 @@ public class PreferencesWidgetCommandEachActivity extends BaseWindowActivity {
                 PreferencesWidgetCommandEachActivity.this.findViewById(R.id.widget_each_configure).setVisibility(this.widgetCommand.appWidgetProviderInfo.configure != null ? View.VISIBLE : View.GONE);
 
                 if (this.widgetCommand.appWidgetProviderInfo.configure != null) {
-                    this.findViewById(R.id.widget_each_configure).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.startAppWidgetConfigureActivityForResult(PreferencesWidgetCommandEachActivity.this, PreferencesWidgetCommandEachActivity.this.widgetCommand.appWidgetId, 0, 0, null);
-                        }
-                    });
+                    this.findViewById(R.id.widget_each_configure).setOnClickListener(v -> PreferencesWidgetCommandEachActivity.this.appWidgetsHostManager.startAppWidgetConfigureActivityForResult(PreferencesWidgetCommandEachActivity.this, PreferencesWidgetCommandEachActivity.this.widgetCommand.appWidgetId, 0, 0, null));
                 }
                 ((TextView) this.findViewById(R.id.widget_minimum_height)).setText(String.format(this.getString(R.string.preferences_widget_minimum_height_show), this.widgetCommand.appWidgetProviderInfo.minResizeHeight));
                 ((TextView) this.findViewById(R.id.widget_default_height)).setText(String.format(this.getString(R.string.preferences_widget_default_height_show), this.widgetCommand.appWidgetProviderInfo.minHeight));

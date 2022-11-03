@@ -13,7 +13,7 @@ public class BlueLineConsoleLightTheme extends BlueLineConsoleDefaultTheme{
 
 
     @Override
-    public void configureDarkMode(Context context) {
+    public void configureDarkMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 

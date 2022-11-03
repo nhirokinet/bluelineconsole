@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Database for home screen setting, but this does not include widget info, due to backup treatment.
  */
+@SuppressWarnings("unused")
 public class HomeScreenSetting_1_2_5 extends SQLiteOpenHelper {
     public static final int HOME_SCREEN_TYPE_COMMAND = 1;
 

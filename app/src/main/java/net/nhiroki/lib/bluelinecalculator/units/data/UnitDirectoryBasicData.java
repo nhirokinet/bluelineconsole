@@ -887,7 +887,7 @@ public class UnitDirectoryBasicData extends UnitDirectory {
              */
 
         } catch (CalculatorExceptions.IllegalFormulaException | CalculatorExceptions.UnitConversionException e) {
-            throw new RuntimeException("UnitDictionary initialization failed: " + e.toString());
+            throw new RuntimeException("UnitDictionary initialization failed: " + e);
         }
     }
 
@@ -942,9 +942,9 @@ public class UnitDirectoryBasicData extends UnitDirectory {
         if (second.scale() < 0) {
             second.setScale(0);
         }
-        final int tenSecond = secondsTotal.remainder(num60).divide(BigDecimal.TEN, 0, BigDecimal.ROUND_FLOOR).intValueExact();
-        final BigDecimal minuteTotal = positiveVal.divide(num60, 0, BigDecimal.ROUND_FLOOR);
-        final BigDecimal hour = minuteTotal.divide(num60, 0, BigDecimal.ROUND_FLOOR);
+        final int tenSecond = secondsTotal.remainder(num60).divide(BigDecimal.TEN, 0, RoundingMode.FLOOR).intValueExact();
+        final BigDecimal minuteTotal = positiveVal.divide(num60, 0, RoundingMode.FLOOR);
+        final BigDecimal hour = minuteTotal.divide(num60, 0, RoundingMode.FLOOR);
         final int minute = minuteTotal.remainder(num60).intValueExact();
 
         String hourStr;

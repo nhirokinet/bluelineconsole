@@ -69,13 +69,13 @@ public class CalculatorCommandSearcher implements CommandSearcher {
                 }
 
             } catch (CalculatorExceptions.UnitConversionException e) {
-                this.results.add(new Pair<String, String>(String.format(context.getString(R.string.calculator_error_unit_conversion_failure), e.getFrom().calculateDisplayName(), e.getTo().calculateDisplayName()), null));
+                this.results.add(new Pair<>(String.format(context.getString(R.string.calculator_error_unit_conversion_failure), e.getFrom().calculateDisplayName(), e.getTo().calculateDisplayName()), null));
 
             } catch (CalculatorExceptions.IllegalFormulaException e) {
-                this.results.add(new Pair<String, String>("= ...", null));
+                this.results.add(new Pair<>("= ...", null));
 
             } catch (CalculatorExceptions.DivisionByZeroException e) {
-                this.results.add(new Pair<String, String>(context.getString(R.string.calculator_error_division_by_zero), null));
+                this.results.add(new Pair<>(context.getString(R.string.calculator_error_division_by_zero), null));
 
             } catch (Exception e) {
                 // Keep this function new not to happen this error
