@@ -21,7 +21,7 @@ variables:
 # Packages installation before running script
 before_script:
   - apt --quiet update --yes
-  - apt --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 xxd libgl1 openjdk-11-jdk python3
+  - apt --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 xxd libgl1 openjdk-11-jdk python3 git
 
   # Setup path as android_home for moving/exporting the downloaded sdk into it
   - export ANDROID_HOME="${PWD}/android-home"
