@@ -11,6 +11,7 @@
 image: ubuntu:20.04
 
 variables:
+  TZ: Asia/Tokyo
   # It's what version of the command line tools we're going to download from the official site.
   # Official Site-> https://developer.android.com/studio/index.html
   # There, look down below at the cli tools only, sdk tools package is of format:
