@@ -37,6 +37,8 @@ public class MainActivity extends BaseWindowActivity {
     private boolean showStartUpHelp = false;
     private boolean migrationLostHappened = false;
 
+    private boolean autoRunApplications = true;
+
     private boolean homeItemExists = false;
 
     private EditText mainInputText;
@@ -299,6 +301,9 @@ public class MainActivity extends BaseWindowActivity {
 
         if (! query.isEmpty()) {
             candidates.addAll(commandSearchAggregator.searchCandidateEntriesForLast(query, this));
+            if (candidates.size() == 1 && autoRunApplications) {
+                resultCandidateListAdapter.invokeFirstChoiceEvent(MainActivity.this);
+            }
         }
 
         resultCandidateListAdapter.clear();
