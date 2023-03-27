@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Blue Line Console</string>
+
+    <!-- ActivityMain -->
+    <string name="displayedFullVersionString">版本 %1$s</string>
+    <string name="loading_main_caption">正在重新整理資料庫&#8230;</string>
+    <string name="loading_detail_for_command_search">在首次啟動，或者在首次變更語言設定之後首次啟動，\n重新整理可能需要一段時間（有時幾十秒）。</string>
+
+    <!-- Calculators -->
+    <string name="calculator_precision_format">計算精度：%1$s</string>
+    <string name="calculator_precision_no_error">沒有誤差</string>
+    <string name="calculator_precision_rounding">四捨五入計算</string>
+    <string name="calculator_error_division_by_zero">除以 0</string>
+    <string name="calculator_error_unit_conversion_failure">無法轉換 \"%1$s\" 至 \"%2$s\"</string>
+
+    <!-- Command searcher texts for results -->
+    <string name="result_search_query_on_engine_format">在 %2$s 搜尋 \"%1$s\"</string>
+    <string name="result_static_webpage_format">存取 %1$s</string>
+    <string name="result_config_summary">Blue Line Console 偏好設定</string>
+
+    <!-- Themes -->
+    <string name="theme_name_default">預設（淺色或深色，取決於系統設定）</string>
+    <string name="theme_name_light">淺色主題</string>
+    <string name="theme_name_dark">深色主題</string>
+    <string name="theme_name_marine">海洋</string>
+    <string name="theme_name_old_computer">舊電腦</string>
+
+    <!-- Widgets -->
+    <string name="widget_launcher_label">Blue Line Console 捷徑</string>
+
+    <!-- String match strategies -->
+    <string name="string_match_strategy_substring">正常</string>
+    <string name="string_match_strategy_skipped_substring">略過子字串（例如，\"abd\" 對於 \"abcdef\"）</string>
+
+    <!-- Notification for OS -->
+    <string name="notification_launch_this_app">Launch Blue Line Console</string>
+    <string name="notification_channel_always_show">總是顯示通知圖示以在任地方啟動 Blue Line Console</string>
+
+    <!-- Preferences general buttons -->
+    <string name="button_add">新增</string>
+    <string name="button_update">更新</string>
+    <string name="button_delete">刪除</string>
+    <string name="button_close">關閉</string>
+    <string name="button_increment_minimal">+</string>
+    <string name="button_decrement_minimal">-</string>
+
+    <!-- Colors -->
+    <string name="rgb_color_red">紅</string>
+    <string name="rgb_color_green">綠</string>
+    <string name="rgb_color_blue">藍</string>
+    <string name="rgb_color_display">RGB（紅：%1$d、綠：%2$d、藍：%3$d）</string>
+
+    <!-- Preferences general notes -->
+    <string name="note_take_effect_after_restart">此設定在重新啟動 Blue Line Console 之後生效。</string>
+
+    <!-- Preferences, titles for headers and footers -->
+    <string name="preferences_title_for_header_and_footer">組態</string>
+    <string name="preferences_title_for_header_and_footer_url">URL</string>
+    <string name="preferences_title_for_header_and_footer_add_custom_urls">新增 URL</string>
+    <string name="preferences_title_for_header_and_footer_edit_custom_urls">編輯 URL</string>
+    <string name="preferences_title_for_header_and_footer_widget_commands">小工具命令</string>
+    <string name="preferences_title_for_header_and_footer_accent_color">重點色彩</string>
+    <string name="preferences_title_for_header_home_screen_default_items">主畫面</string>
+    <string name="preferences_title_for_footer_home_screen_default_items">預設項目</string>
+    <string name="preferences_title_for_header_and_footer_home_screen_add_widget">新增小工具</string>
+    <string name="preferences_title_for_header_and_footer_widget">小工具</string>
+    <string name="preferences_title_for_header_and_footer_license">授權</string>
+
+    <!-- Preferences categories, main screen -->
+    <string name="preferences_category_main">一般</string>
+    <string name="preferences_category_appearance">外觀</string>
+    <string name="preferences_category_apps">啟動應用程式</string>
+    <string name="preferences_category_urls">網頁與搜尋</string>
+    <string name="preferences_category_custom_commands">自訂命令</string>
+    <string name="preferences_category_home_screen">主畫面</string>
+    <string name="preferences_category_contacts">通訊錄</string>
+    <string name="preferences_category_advanced">進階</string>
+    <string name="preferences_category_about_this_app">關於</string>
+
+    <!-- Preferences items, main screen -->
+    <string name="preferences_item_main_show_startup_help_title">在啟動時顯示說明</string>
+    <string name="preferences_item_main_show_startup_help_summary">此選項只是向您顯示 help 指令的指南。在您記住 "help" 命令後，建議禁用此選項。</string>
+    <string name="preferences_item_default_assist_app_title">設定為預設的助理應用程式</string>
+    <string name="preferences_item_default_assist_app_summary">通過在任何地方長按首頁按鈕開啟 Blue Line Console，從設定選單設定它為預設助理應用程式。</string>
+    <string name="preferences_item_main_always_show_notification_title">總是顯示通知圖示</string>
+    <string name="preferences_item_main_always_show_notification_summary">總是顯示通知圖示以在任何地方啟動 Blue Line Console。</string>
+    <string name="preferences_item_text_match_strategy_title">文字搜尋匹配樣式</string>
+    <string name="preferences_item_appearance_theme_title">主題</string>
+    <string name="preferences_item_appearance_theme_summary">當此選項變更時，Blue Line Console 會立即重新啟動。</string>
+    <string name="preferences_item_appearance_accent_color">重點色彩</string>
+    <string name="preferences_item_appearance_animation_title">動畫</string>
+    <string name="preferences_item_apps_show_package_name_title">顯示套件（package）名稱</string>
+    <string name="preferences_item_apps_show_package_name_summary">注意：即使此未核取此選項，您依然可以由名稱的一部分找到應用程式。</string>
+    <string name="preferences_item_display_custom_urls_title">網頁與搜尋</string>
+    <string name="preferences_item_default_search_title">預設搜尋引擎</string>
+    <string name="preferences_item_default_search_summary">總是顯示指定的搜尋引擎於選單底部</string>
+    <string name="preferences_item_default_search_option_none">（無）</string>
+    <string name="preferences_item_custom_commands_widgets">小工具命令</string>
+    <string name="preferences_item_home_screen_default_items">主畫面項目</string>
+    <string name="preferences_item_home_screen_default_items_summary">當 Blue Line Console 被設定為主畫面應用程式，在主畫面沒有任何輸入時，顯示結果與小工具。</string>
+    <string name="preferences_item_contacts_enable_search">啟用聯絡人搜尋</string>
+    <string name="preferences_item_contacts_search_permission_explanation">啟用聯絡人搜尋需要讀取聯繫人的權限。你也許會被詢問是否授權存取聯絡人。</string>
+    <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">在命令輸入視窗通知英文輸入給鍵盤輸入軟體</string>
+    <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">命令輸入視窗使用 setImeHintLocales 並且設定為英文語系。不同的鍵盤輸入軟體具有不同行為。</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">在命列輸入視窗設定 IME_FLAG_FORCE_ASCII 旗標</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII 打算使用 ASCII 字元於輸入。不同的鍵盤輸入軟體具有不同行為。</string>
+    <string name="preferences_item_accept_arbitrary_url">接受任意格式的 URL</string>
+    <string name="preferences_item_accept_arbitrary_url_summary">預設情況中，Blue Line Console 只接受輸入以 http:// 與 https:// 開頭的 URL。啟用選項情況下，也接受其他格式 URL 輸入。</string>
+    <string name="preferences_item_about_this_app_github_repo">GitHub 上的 Blue Line Console</string>
+    <string name="preferences_item_about_this_app_github_repo_summary">前往 https://github.com/nhirokinet/bluelineconsole</string>
+    <string name="preferences_item_about_this_app_licensing_information">授權訊息</string>
+
+    <!-- Preferences items, URL screens -->
+    <string name="preferences_url_add_button">新增自訂 URL 或搜尋引擎</string>
+    <string name="preferences_url_column_command_name">命令名稱</string>
+    <string name="preferences_url_column_display_name">顯示名稱</string>
+    <string name="preferences_url_column_url">URL</string>
+    <string name="preferences_url_column_has_query">搜尋引擎（當啟用後，搜尋會被加入底部）</string>
+    <string name="preferences_url_property_enabled">啟用</string>
+    <string name="preferences_url_property_disabled">禁用</string>
+    <string name="preferences_url_property_preset">預設</string>
+    <string name="preferences_url_varies_with_locale">依裝置語言設定而變化</string>
+
+    <!-- Preferences items, accent color screens -->
+    <string name="preferences_accent_color_theme_default">主題預設</string>
+    <string name="preferences_accent_color_custom">自訂色彩</string>
+    <string name="preferences_accent_color_theme_without_accent_color">目前的主題（%1$s）不支援變更重點色彩。</string>
+
+    <!-- Preferences item, home screen default items screens -->
+    <string name="preferences_home_screen_add_command_button">新增命令</string>
+    <string name="preferences_home_screen_add_widget_button">新增小工具</string>
+    <string name="preferences_home_screen_add_widget_select_message">選擇以新增小工具：</string>
+    <string name="preferences_home_screen_widget_label">小工具</string>
+    <string name="preferences_home_screen_command_label">命令</string>
+
+    <!-- Preferences item, widgets related messages -->
+    <string name="preferences_widget_height_px">高度（px）</string>
+    <string name="preferences_widget_minimum_height_show">最小高度：%1$d px</string>
+    <string name="preferences_widget_default_height_show">預設高度：%1$d px</string>
+    <string name="preferences_widget_configure_the_widget">組態小工具</string>
+
+    <!-- Preferences item, widget commands related messages -->
+    <string name="preferences_command_widget_command_add">新增小工具命令</string>
+    <string name="preferences_command_widget_command_new_label">新的小工具命令</string>
+    <string name="preferences_command_widget_command_save_and_select_widget">儲存與選擇小工具</string>
+    <string name="preferences_command_widget_command_command">命令名稱</string>
+    <string name="preferences_command_widget_command_abbreviation">命令名稱可以被縮寫</string>
+    <string name="preferences_command_widget_command_abbreviable_label">縮寫</string>
+
+    <!-- Contact search -->
+    <string name="contacts_action_dial_phone_number">電話：%1$s</string>
+    <string name="contacts_action_email">電子郵件：%1$s</string>
+
+    <!-- Error messages, user errors -->
+    <string name="error_invalid_url_least_validation_for_web">無效的 URL：開頭必須為 https:// 或 http:// 並且至少一個斜線（\"/\"）。</string>
+    <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">無效的 URL：開頭必須為 &lt;scheme&gt;:// 並且至少一個斜線（\"/\"）。</string>
+    <string name="error_invalid_command_name">無效的名稱：命令不能包含空格，並且不能為空</string>
+    <string name="error_empty_display_name">顯示名稱為空</string>
+
+    <!-- Error messages, system errors -->
+    <string name="error_failure_could_not_start_command">錯誤：無法開始命令</string>
+    <string name="error_failure_could_not_open_url">錯誤：無法開啟 URL</string>
+    <string name="error_failure_not_found_opening_application_with_class">\"%1$s\" 不是一個可啟動的套件（package）。</string>
+    <string name="error_failure_could_not_connect_to_the_widget">錯誤：無法連接到小工具</string>
+
+    <!-- Error messages, app internal errors -->
+    <string name="error_calculator_internal_error">未知的計算機內部錯誤</string>
+
+    <!-- Startup Help Activity -->
+    <string name="startup_help_title_for_header_and_footer">通知</string>
+    <string name="startup_help_title">關於 help 命令</string>
+    <string name="startup_help_body_part1">要顯示使用方式，請輸入</string>
+    <string name="startup_help_body_part2" translatable="false">help</string>
+    <string name="startup_help_body_part3">來看看如何使用。</string>
+    <string name="startup_help_check_never_later">不再顯示此訊息</string>
+
+    <!-- Migration message -->
+    <string name="migration_lost_happened_message">
+        資料似乎於 Blue Line Console 的外部被恢復了。
+        \n
+        \n小工具無法被遷移並且遺失了。如有必要，可從組態（config）重新組態設定。
+    </string>
+
+    <!-- Help -->
+    <string name="app_help_text">
+        你可以輸入以下列表之一以搜尋應用程式或命令。
+        \n
+        \n-&#032;應用程式名稱的部分（例如，Blue Line Console）
+        \n-&#032;套件（package）名稱的部分（例如，net.nhiroki.bluelineconsole）
+        \n-&#032;URL（例如，https://example.com/）
+        \n-&#032;計算方程式（例如，2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
+        \n-&#032;以下命令之一（例如，help）
+        \n
+        \n可用的命令：
+        \n
+        \n-&#032;help
+        \n-&#032;config
+        \n-&#032;date
+        \n-&#032;all_apps
+        \n-&#032;cal [&lt;month&gt; &lt;year&gt;]
+        \n-&#032;bing &lt;query&gt;
+        \n-&#032;duckduckgo &lt;query&gt;
+        \n-&#032;google &lt;query&gt;
+        \n-&#032;wikipedia &lt;query&gt;
+        \n-&#032;yahoo &lt;query&gt;
+        \n
+        \n搜尋引擎的名稱可以被縮寫。
+        \n例如，\"d somequery\" 等同於 \"duckduckgo somequery\"。
+        \n
+        \n網路管理命令：
+        \n
+        \n-&#032;ping &lt;host&gt;, ping6 &lt;host&gt;　（只有在具有相應命令的系統）
+        \n
+        \n其他命令：
+        \n
+        \n-&#032;色彩編碼（例如 #4d68ff）
+        \n
+        \n提示：將 Blue Line Console 設定於助理應用。設定方式：設定 &gt; 應用程式 &amp; 通知 &gt; 預設應用程式 &gt; 數位助理應用程式或類似的選單，以在長按主畫面鍵時開啟 Blue Line Console。
+        \n提示：可以通過常駐通知從通知選單啟動 Blue Line Console。從 config 命令找到該選項。
+    </string>
+</resources>
