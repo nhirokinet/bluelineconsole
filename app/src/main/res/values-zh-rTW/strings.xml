@@ -185,11 +185,11 @@
     <string name="app_help_text">
         你可以輸入以下列表之一以搜尋應用程式或命令。
         \n
-        \n-&#032;應用程式名稱的部分（例如，Blue Line Console）
-        \n-&#032;套件（package）名稱的部分（例如，net.nhiroki.bluelineconsole）
-        \n-&#032;URL（例如，https://example.com/）
-        \n-&#032;計算方程式（例如，2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
-        \n-&#032;以下命令之一（例如，help）
+        \n-&#032;應用程式名稱的部分（例如：Blue Line Console）
+        \n-&#032;套件（package）名稱的部分（例如：net.nhiroki.bluelineconsole）
+        \n-&#032;URL（例如：https://example.com/）
+        \n-&#032;計算方程式（例如：2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
+        \n-&#032;以下命令之一（例如：help）
         \n
         \n可用的命令：
         \n
