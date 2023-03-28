@@ -80,7 +80,7 @@
 
     <!-- Preferences items, main screen -->
     <string name="preferences_item_main_show_startup_help_title">在啟動時顯示說明</string>
-    <string name="preferences_item_main_show_startup_help_summary">此選項只是向您顯示 help 指令的指南。在您記住 "help" 命令後，建議禁用此選項。</string>
+    <string name="preferences_item_main_show_startup_help_summary">此選項只是向您顯示 help 命令的指南。在您記住 "help" 命令後，建議禁用此選項。</string>
     <string name="preferences_item_default_assist_app_title">設定為預設的助理應用程式</string>
     <string name="preferences_item_default_assist_app_summary">通過在任何地方長按首頁按鈕開啟 Blue Line Console，從設定選單設定它為預設助理應用程式。</string>
     <string name="preferences_item_main_always_show_notification_title">總是顯示通知圖示</string>
