@@ -17,10 +17,10 @@ Blue Line Console 通過鍵盤以啟動您的應用程式、網頁搜尋引擎�
 - help
 - config
 - date
-- bing QUERY
-- duckduckgo QUERY
-- google QUERY
-- wikipedia QUERY
-- yahoo QUERY
-- ping HOST
-- ping6 HOST
+- bing 查詢
+- duckduckgo 查詢
+- google 查詢
+- wikipedia 查詢
+- yahoo 查詢
+- ping 主機
+- ping6 主機
