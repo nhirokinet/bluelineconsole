@@ -1,0 +1,26 @@
+Blue Line Console 通過鍵盤以啟動您的應用程式、網頁搜尋引擎以及內建計算機。
+
+您可以使用您的鍵盤以在任何地方快速地啟動想要的應用。就只需輸入 2 或 3 個字元，則有望在選單頂部找到您的目標。您不需要進行組態設定以執行此操作 (雖然我為了更加舒適地使用而提供了一些組態)。
+
+一旦您設定此應用程式為 Android 的預設助理應用，您可以通過長按主畫面鍵啟動它。或者您也可以在任何地方從通知列啟動它 (使用 config 命令開啟組態設定，在組態畫面找到此選項)。
+
+您可以輸入以下列表之一以搜尋應用程式或執行命令。
+
+- 應用程式名稱的部分 (例如：Blue Line Console)
+- 套件 (package) 名稱的部分 (例如：net.nhiroki.bluelineconsole)
+- URL
+- 計算方程式 (例如：2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm)
+- 以下命令其中之一 (例如：help)
+
+可用的命令：
+
+- help
+- config
+- date
+- bing QUERY
+- duckduckgo QUERY
+- google QUERY
+- wikipedia QUERY
+- yahoo QUERY
+- ping HOST
+- ping6 HOST
