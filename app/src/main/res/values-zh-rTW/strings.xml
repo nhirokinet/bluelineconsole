@@ -31,7 +31,7 @@
 
     <!-- String match strategies -->
     <string name="string_match_strategy_substring">正常</string>
-    <string name="string_match_strategy_skipped_substring">略過子字串（例如，\"abd\" 對於 \"abcdef\"）</string>
+    <string name="string_match_strategy_skipped_substring">略過子字串（例如：\"abd\" 對於 \"abcdef\"）</string>
 
     <!-- Notification for OS -->
     <string name="notification_launch_this_app">Launch Blue Line Console</string>
@@ -185,11 +185,11 @@
     <string name="app_help_text">
         你可以輸入以下列表之一以搜尋應用程式或命令。
         \n
-        \n-&#032;應用程式名稱的部分（例如，Blue Line Console）
-        \n-&#032;套件（package）名稱的部分（例如，net.nhiroki.bluelineconsole）
-        \n-&#032;URL（例如，https://example.com/）
-        \n-&#032;計算方程式（例如，2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
-        \n-&#032;以下命令之一（例如，help）
+        \n-&#032;應用程式名稱的部分（例如：Blue Line Console）
+        \n-&#032;套件（package）名稱的部分（例如：net.nhiroki.bluelineconsole）
+        \n-&#032;URL（例如：https://example.com/）
+        \n-&#032;計算方程式（例如：2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm）
+        \n-&#032;以下命令之一（例如：help）
         \n
         \n可用的命令：
         \n
@@ -205,7 +205,7 @@
         \n-&#032;yahoo &lt;query&gt;
         \n
         \n搜尋引擎的名稱可以被縮寫。
-        \n例如，\"d somequery\" 等同於 \"duckduckgo somequery\"。
+        \n例如：\"d somequery\" 等同於 \"duckduckgo somequery\"。
         \n
         \n網路管理命令：
         \n
@@ -213,7 +213,7 @@
         \n
         \n其他命令：
         \n
-        \n-&#032;色彩編碼（例如 #4d68ff）
+        \n-&#032;色彩編碼（例如：#4d68ff）
         \n
         \n提示：將 Blue Line Console 設定於助理應用。設定方式：設定 &gt; 應用程式 &amp; 通知 &gt; 預設應用程式 &gt; 數位助理應用程式或類似的選單，以在長按主畫面鍵時開啟 Blue Line Console。
         \n提示：可以通過常駐通知從通知選單啟動 Blue Line Console。從 config 命令找到該選項。
