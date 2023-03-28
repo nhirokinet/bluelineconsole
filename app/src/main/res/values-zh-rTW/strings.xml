@@ -21,9 +21,9 @@
 
     <!-- Themes -->
     <string name="theme_name_default">預設（淺色或深色，取決於系統設定）</string>
-    <string name="theme_name_light">淺色主題</string>
-    <string name="theme_name_dark">深色主題</string>
-    <string name="theme_name_marine">海洋</string>
+    <string name="theme_name_light">淺色</string>
+    <string name="theme_name_dark">深色</string>
+    <string name="theme_name_marine">海洋色</string>
     <string name="theme_name_old_computer">舊電腦</string>
 
     <!-- Widgets -->
@@ -100,10 +100,10 @@
     <string name="preferences_item_home_screen_default_items">主畫面項目</string>
     <string name="preferences_item_home_screen_default_items_summary">當 Blue Line Console 被設定為主畫面應用程式，在主畫面沒有任何輸入時，顯示結果與小工具。</string>
     <string name="preferences_item_contacts_enable_search">啟用聯絡人搜尋</string>
-    <string name="preferences_item_contacts_search_permission_explanation">啟用聯絡人搜尋需要讀取聯繫人的權限。你也許會被詢問是否授權存取聯絡人。</string>
+    <string name="preferences_item_contacts_search_permission_explanation">啟用聯絡人搜尋需要讀取聯絡人的權限。您也許會被詢問是否授權存取聯絡人。</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">在命令輸入視窗通知英文輸入給鍵盤輸入軟體</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">命令輸入視窗使用 setImeHintLocales 並且設定為英文語系。不同的鍵盤輸入軟體具有不同行為。</string>
-    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">在命列輸入視窗設定 IME_FLAG_FORCE_ASCII 旗標</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">在命令輸入視窗設定 IME_FLAG_FORCE_ASCII 旗標</string>
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII 打算使用 ASCII 字元於輸入。不同的鍵盤輸入軟體具有不同行為。</string>
     <string name="preferences_item_accept_arbitrary_url">接受任意格式的 URL</string>
     <string name="preferences_item_accept_arbitrary_url_summary">預設情況中，Blue Line Console 只接受輸入以 http:// 與 https:// 開頭的 URL。啟用選項情況下，也接受其他格式 URL 輸入。</string>
@@ -171,7 +171,6 @@
     <string name="startup_help_title_for_header_and_footer">通知</string>
     <string name="startup_help_title">關於 help 命令</string>
     <string name="startup_help_body_part1">要顯示使用方式，請輸入</string>
-    <string name="startup_help_body_part2" translatable="false">help</string>
     <string name="startup_help_body_part3">來看看如何使用。</string>
     <string name="startup_help_check_never_later">不再顯示此訊息</string>
 
