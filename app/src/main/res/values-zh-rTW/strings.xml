@@ -31,7 +31,7 @@
 
     <!-- String match strategies -->
     <string name="string_match_strategy_substring">正常</string>
-    <string name="string_match_strategy_skipped_substring">略過子字串（例如，\"abd\" 對於 \"abcdef\"）</string>
+    <string name="string_match_strategy_skipped_substring">略過子字串（例如：\"abd\" 對於 \"abcdef\"）</string>
 
     <!-- Notification for OS -->
     <string name="notification_launch_this_app">Launch Blue Line Console</string>
@@ -205,7 +205,7 @@
         \n-&#032;yahoo &lt;query&gt;
         \n
         \n搜尋引擎的名稱可以被縮寫。
-        \n例如，\"d somequery\" 等同於 \"duckduckgo somequery\"。
+        \n例如：\"d somequery\" 等同於 \"duckduckgo somequery\"。
         \n
         \n網路管理命令：
         \n
@@ -213,7 +213,7 @@
         \n
         \n其他命令：
         \n
-        \n-&#032;色彩編碼（例如 #4d68ff）
+        \n-&#032;色彩編碼（例如：#4d68ff）
         \n
         \n提示：將 Blue Line Console 設定於助理應用。設定方式：設定 &gt; 應用程式 &amp; 通知 &gt; 預設應用程式 &gt; 數位助理應用程式或類似的選單，以在長按主畫面鍵時開啟 Blue Line Console。
         \n提示：可以通過常駐通知從通知選單啟動 Blue Line Console。從 config 命令找到該選項。
