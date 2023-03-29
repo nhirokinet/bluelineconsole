@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 
@@ -15,7 +16,7 @@ public interface AppTheme {
 
     void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow);
 
-    void applyAccentColor(Activity activity, int color);
+    void applyAccentColor(Activity activity, @ColorInt int color);
 
     String getThemeID();
 
@@ -35,7 +36,7 @@ public interface AppTheme {
 
     @IdRes int getLauncherWidgetRootLayoutID();
 
-    int getDefaultAccentColor(Context context);
+    @ColorInt int getDefaultAccentColor(Context context);
 
     double getWindowBodyAvailableHeight(Activity activity);
 

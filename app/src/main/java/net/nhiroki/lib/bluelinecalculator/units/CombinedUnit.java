@@ -1,9 +1,6 @@
 package net.nhiroki.lib.bluelinecalculator.units;
 
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
 import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 
@@ -112,7 +109,7 @@ public class CombinedUnit {
         return true;
     }
 
-    public boolean equals(@Nullable CombinedUnit o) {
+    public boolean equals(CombinedUnit o) {
         this.normalize();
 
         if (o == null) {
@@ -231,7 +228,7 @@ public class CombinedUnit {
         return ret.toString();
     }
 
-    public boolean dimensionEquals(@Nullable CombinedUnit o) {
+    public boolean dimensionEquals(CombinedUnit o) {
         this.normalize();
 
         if (o == null) {
@@ -336,7 +333,6 @@ public class CombinedUnit {
     }
 
     @Override
-    @NonNull
     public String toString() {
         Collections.sort(this.positiveUnits);
         Collections.sort(this.negativeUnits);
@@ -419,7 +415,7 @@ public class CombinedUnit {
         return this.toString();
     }
 
-    public CombinedUnit multiply(@Nullable CombinedUnit o) throws CalculatorExceptions.IllegalFormulaException {
+    public CombinedUnit multiply(CombinedUnit o) throws CalculatorExceptions.IllegalFormulaException {
         if (! this.isLinear()) {
             throw new CalculatorExceptions.IllegalFormulaException();
         }
