@@ -3,6 +3,7 @@ package net.nhiroki.bluelineconsole.applicationMain.theming.eachTheme;
 import android.app.Activity;
 import android.content.Context;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -24,7 +25,7 @@ public class OldComputerTheme extends BaseTheme {
     }
 
     @Override
-    public void applyAccentColor(Activity activity, int color) {
+    public void applyAccentColor(Activity activity, @ColorInt int color) {
     }
 
     @Override

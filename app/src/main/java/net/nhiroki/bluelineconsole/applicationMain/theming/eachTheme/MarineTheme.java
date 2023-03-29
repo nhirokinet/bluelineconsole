@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.widget.LinearLayout;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -37,7 +38,7 @@ public class MarineTheme extends BaseTheme {
     }
 
     @Override
-    public void applyAccentColor(Activity activity, int color) {
+    public void applyAccentColor(Activity activity, @ColorInt int color) {
     }
 
     @Override
@@ -66,7 +67,7 @@ public class MarineTheme extends BaseTheme {
     }
 
     @Override
-    public int getDefaultAccentColor(Context context) {
+    public @ColorInt int getDefaultAccentColor(Context context) {
         return 0;
     }
 }

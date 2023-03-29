@@ -1,7 +1,5 @@
 package net.nhiroki.lib.bluelinecalculator.units.data;
 
-import androidx.annotation.NonNull;
-
 import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
 import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 import net.nhiroki.lib.bluelinecalculator.units.CombinedUnit;
@@ -1012,7 +1010,6 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             return Integer.compare(this.getUnitId(), o.getUnitId());
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this, this.parentUnitDictionary))) {
@@ -1025,7 +1022,6 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             }
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().isLinear()) {
@@ -1095,7 +1091,6 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             return Integer.compare(this.getUnitId(), o.getUnitId());
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().equals(new CombinedUnit(this, this.parentUnitDictionary))) {
@@ -1113,7 +1108,6 @@ public class UnitDirectoryBasicData extends UnitDirectory {
             }
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             if (! input.getCombinedUnit().isLinear()) {

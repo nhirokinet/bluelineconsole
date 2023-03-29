@@ -1,8 +1,5 @@
 package net.nhiroki.lib.bluelinecalculator.units;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
 import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 
@@ -61,7 +58,6 @@ public class UnitDirectory {
         this.unitIdsToShouldConvertCombinedUnit.put(unit.generateIdentifiableIntArrayWithoutDummy(), unit);
     }
 
-    @Nullable
     public CombinedUnit getShouldConvertFrom(CombinedUnit unit) {
         if (this.unitIdsToShouldConvertCombinedUnit.containsKey(unit.generateIdentifiableIntArrayWithoutDummy())){
             return this.unitIdsToShouldConvertCombinedUnit.get(unit.generateIdentifiableIntArrayWithoutDummy());
@@ -122,7 +118,6 @@ public class UnitDirectory {
         return posStr + "/" + negStr;
     }
 
-    @NonNull
     public List<CombinedUnit> getPreferredCombinedUnits(CombinedUnit unit) {
         String dimensionStr = dimensionIdsToUniqueStr(unit, false);
         if (this.dimensionIdsToPreferredCombinedUnit.containsKey(dimensionStr)) {
@@ -131,7 +126,7 @@ public class UnitDirectory {
         return new ArrayList<>();
     }
 
-    public void setPreferredCombinedUnits(@NonNull CombinedUnit[] combinedUnits) throws CalculatorExceptions.UnitConversionException {
+    public void setPreferredCombinedUnits(CombinedUnit[] combinedUnits) throws CalculatorExceptions.UnitConversionException {
         if (combinedUnits.length == 0) {
             return;
         }

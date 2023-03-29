@@ -8,6 +8,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -45,7 +46,7 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
     }
 
     @Override
-    public void applyAccentColor(Activity activity, int color) {
+    public void applyAccentColor(Activity activity, @ColorInt int color) {
         DrawableCompat.setTint(activity.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground(), color);
         DrawableCompat.setTint(activity.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);
         activity.findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent).setBackgroundColor(color);
@@ -125,11 +126,11 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
     }
 
     @Override
-    public int getDefaultAccentColor(Context context) {
+    public @ColorInt int getDefaultAccentColor(Context context) {
         TypedValue accentColorFromTheme = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.bluelineconsoleAccentColor, accentColorFromTheme, true);
 
-         return accentColorFromTheme.data;
+        return accentColorFromTheme.data;
     }
 
     protected static boolean isSystemCurrentlyNightMode(Context context) {

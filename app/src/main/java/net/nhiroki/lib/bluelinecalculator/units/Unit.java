@@ -2,8 +2,6 @@ package net.nhiroki.lib.bluelinecalculator.units;
 
 import java.math.BigDecimal;
 
-import androidx.annotation.NonNull;
-
 import net.nhiroki.lib.bluelinecalculator.CalculatorExceptions;
 import net.nhiroki.lib.bluelinecalculator.CalculatorNumber;
 
@@ -15,9 +13,7 @@ public interface Unit extends Comparable<Unit> {
     // For celsius and fahrenheit, which is not quantity, but still used in life and conversion needed.
     // They both can be converted to kelvin, which is linear unit.
     boolean isLinear();
-    @NonNull
     CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException;
-    @NonNull
     CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException;
 
     class NormalUnit implements Unit {
@@ -102,13 +98,11 @@ public interface Unit extends Comparable<Unit> {
             }
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeLinearValueFromThisUnit(CalculatorNumber.BigDecimalNumber input) {
             return input;
         }
 
-        @NonNull
         @Override
         public CalculatorNumber.BigDecimalNumber makeThisUnitFromLinearValue(CalculatorNumber.BigDecimalNumber input) throws CalculatorExceptions.UnitConversionException {
             return input.convertUnit(new CombinedUnit(this, this.parentUnitDirectory));

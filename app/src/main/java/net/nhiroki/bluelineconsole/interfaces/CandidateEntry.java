@@ -14,7 +14,6 @@ public interface CandidateEntry {
     String getTitle();
 
     /**
-     *
      * @param mainActivity Android Context for the corresponding Activity
      * @return Detail view, or null if nothing to show.
      */
