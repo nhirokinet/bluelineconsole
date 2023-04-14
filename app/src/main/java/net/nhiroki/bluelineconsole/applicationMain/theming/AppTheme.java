@@ -27,13 +27,13 @@ public interface AppTheme {
     void enableWindowAnimationForElement(BaseWindowActivity activity);
     void disableWindowAnimationForElement(BaseWindowActivity activity);
 
-    /** Called each time an A    void applyAccentColor(BaseWindowActivity activity, @ColorInt int color);ctivity has to know accent color
+    /** Called each time an Activity has to know accent color
      * (whether Activity is resumed or accent color is changed)
      */
     void applyAccentColor(BaseWindowActivity activity, @ColorInt int color);
 
 
-    // Unclassified yet    void applyAccentColor(BaseWindowActivity activity, @ColorInt int color);
+    // Unclassified yet
 
     void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow);
 
