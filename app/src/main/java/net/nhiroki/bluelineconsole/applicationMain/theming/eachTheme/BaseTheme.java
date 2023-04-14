@@ -53,6 +53,13 @@ public abstract class BaseTheme implements AppTheme {
         }
     }
 
+    protected abstract void configureDarkMode();
+
+    // Currently @activity is not used, but keeping interface so that this won't be a problem later
+    public void beforeCreateActivity(BaseWindowActivity activity) {
+        this.configureDarkMode();
+    }
+
     @Override
     public double getWindowBodyAvailableHeight(Activity activity) {
         return activity.findViewById(R.id.baseWindowMainLayoutRoot).getHeight() - activity.findViewById(R.id.baseWindowHeaderWrapper).getHeight() * (this.hasFooter() ? 2.0 : 1.0);

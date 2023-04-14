@@ -12,31 +12,36 @@ import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 
 
 public interface AppTheme {
-    void configureDarkMode();
-
-    void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow);
-
-    void applyAccentColor(Activity activity, @ColorInt int color);
-
+    // Theme metadata
     String getThemeID();
+    boolean supportsAccentColor();
 
+    // Theme metadata using Context
     CharSequence getThemeTitle(Context context);
+    @ColorInt int getDefaultAccentColor(Context context);
 
+
+    // Handlers
+    void beforeCreateActivity(BaseWindowActivity activity);
     void onCreateFinal(BaseWindowActivity activity);
-
     void enableWindowAnimationForElement(BaseWindowActivity activity);
-
     void disableWindowAnimationForElement(BaseWindowActivity activity);
 
-    boolean supportsAccentColor();
+    /** Called each time an A    void applyAccentColor(BaseWindowActivity activity, @ColorInt int color);ctivity has to know accent color
+     * (whether Activity is resumed or accent color is changed)
+     */
+    void applyAccentColor(BaseWindowActivity activity, @ColorInt int color);
+
+
+    // Unclassified yet    void applyAccentColor(BaseWindowActivity activity, @ColorInt int color);
+
+    void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow);
 
     void changeBaseWindowElementSizeForAnimation(BaseWindowActivity activity, boolean visible, boolean smallWindow);
 
     @LayoutRes int getLauncherWidgetLayoutID(Context context);
 
     @IdRes int getLauncherWidgetRootLayoutID();
-
-    @ColorInt int getDefaultAccentColor(Context context);
 
     double getWindowBodyAvailableHeight(Activity activity);
 

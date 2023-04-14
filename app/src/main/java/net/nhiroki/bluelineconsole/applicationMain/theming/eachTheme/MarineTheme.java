@@ -9,6 +9,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import net.nhiroki.bluelineconsole.R;
+import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 
 
 public class MarineTheme extends BaseTheme {
@@ -16,7 +17,7 @@ public class MarineTheme extends BaseTheme {
     private static final @StringRes int THEME_TITLE_STRING_RES = R.string.theme_name_marine;
 
     @Override
-    public void configureDarkMode() {
+    protected void configureDarkMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
@@ -38,7 +39,7 @@ public class MarineTheme extends BaseTheme {
     }
 
     @Override
-    public void applyAccentColor(Activity activity, @ColorInt int color) {
+    public void applyAccentColor(BaseWindowActivity activity, @ColorInt int color) {
     }
 
     @Override
