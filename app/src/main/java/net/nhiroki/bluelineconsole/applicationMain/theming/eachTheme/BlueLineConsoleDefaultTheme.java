@@ -22,7 +22,7 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
 
 
     @Override
-    public void configureDarkMode() {
+    protected void configureDarkMode() {
         // AppCompatDelegate.setLocalNightMode, behaves strangely; sometimes activity does not come up.
         // AppCompatDelegate.setDefaultNightMode(), on the other hand, seems to crash other activities already launched;
         // Currently only the solution I could find was finishing all activities before calling setDefaultNightMode.
@@ -46,7 +46,7 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
     }
 
     @Override
-    public void applyAccentColor(Activity activity, @ColorInt int color) {
+    public void applyAccentColor(BaseWindowActivity activity, @ColorInt int color) {
         DrawableCompat.setTint(activity.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground(), color);
         DrawableCompat.setTint(activity.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground(), color);
         activity.findViewById(R.id.baseWindowDefaultThemeHeaderStartAccent).setBackgroundColor(color);

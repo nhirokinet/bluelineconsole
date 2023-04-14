@@ -53,7 +53,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         this.currentTheme = AppThemeDirectory.loadAppTheme(this);
 
-        this.currentTheme.configureDarkMode();
+        this.currentTheme.beforeCreateActivity(this);
 
         super.onCreate(savedInstanceState);
 
