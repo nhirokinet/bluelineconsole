@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
+import androidx.annotation.GravityInt;
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 
@@ -22,40 +23,38 @@ public interface AppTheme {
 
 
     // Handlers
+
+    /** Apply theme. Called from onCreate() soon after normal onCreate() is called
+     *
+     * @param activity BaseWindowActivity to apply theme
+     */
+    void apply(BaseWindowActivity activity);
     void beforeCreateActivity(BaseWindowActivity activity);
     void onCreateFinal(BaseWindowActivity activity);
     void enableWindowAnimationForElement(BaseWindowActivity activity);
     void disableWindowAnimationForElement(BaseWindowActivity activity);
-
     /** Called each time an Activity has to know accent color
      * (whether Activity is resumed or accent color is changed)
+     *
+     * @param activity BaseWindowActivity to apply theme
+     * @param color New accent color
      */
     void applyAccentColor(BaseWindowActivity activity, @ColorInt int color);
+    void changeBaseWindowElementSizeForAnimation(BaseWindowActivity activity, boolean visible);
+    void setHeaderFooterTexts(BaseWindowActivity activity, CharSequence headerText, CharSequence footerText);
+    void setWindowBoundarySize(BaseWindowActivity activity, int widthMode, int windowNestStep);
+    void setPayloadLayout(BaseWindowActivity activity, @LayoutRes int layout);
 
 
-    // Unclassified yet
+    // Maybe need some cleanup
+    double getWindowBodyAvailableHeight(BaseWindowActivity activity);
+    View findVisibleRootView(BaseWindowActivity activity);
+    View findWholeDisplayView(BaseWindowActivity activity);
+    void setWindowLocationGravity(BaseWindowActivity activity, @GravityInt int gravity);
+    void setOnTouchListenerForTitleBar(BaseWindowActivity activity, View.OnTouchListener onTouchListenerForTitleBar);
 
-    void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow);
 
-    void changeBaseWindowElementSizeForAnimation(BaseWindowActivity activity, boolean visible, boolean smallWindow);
-
+    // Behavior should be reconsidered
     @LayoutRes int getLauncherWidgetLayoutID(Context context);
-
     @IdRes int getLauncherWidgetRootLayoutID();
-
-    double getWindowBodyAvailableHeight(Activity activity);
-
-    void setHeaderFooterTexts(Activity activity, CharSequence headerText, CharSequence footerText);
-
-    void setPayloadLayout(@LayoutRes int layout, Activity activity);
-
-    View findVisibleRootView(Activity activity);
-
-    View findWholeDisplayView(Activity activity);
-
-    void setWindowLocationGravity(int gravity, Activity activity);
-
-    void setOnTouchListenerForTitleBar(View.OnTouchListener onTouchListenerForTitleBar, Activity activity);
-
-    void setWindowBoundarySize(int widthMode, int windowNestStep, Activity activity);
 }

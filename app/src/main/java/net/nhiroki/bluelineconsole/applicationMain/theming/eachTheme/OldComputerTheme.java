@@ -17,12 +17,12 @@ public class OldComputerTheme extends BaseTheme {
 
 
     @Override
-    public void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow) {
-        super.apply(activity, iAmHomeActivity, smallWindow);
-        activity.setTheme(iAmHomeActivity ? R.style.AppThemeOldComputerHome : R.style.AppThemeOldComputer);
+    public void apply(BaseWindowActivity activity) {
+        super.apply(activity);
+        activity.setTheme(activity.isHomeActivity() ? R.style.AppThemeOldComputerHome : R.style.AppThemeOldComputer);
         activity.setContentView(R.layout.base_window_layout_old_computer);
 
-        this.registerExitListener(activity, iAmHomeActivity);
+        this.registerExitListener(activity, activity.isHomeActivity());
     }
 
     @Override
