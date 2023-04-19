@@ -49,6 +49,14 @@ public class BaseWindowActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isHomeActivity() {
+        return this.iAmHomeActivity;
+    }
+
+    public boolean isSmallWindow() {
+        return this.smallWindow;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         this.currentTheme = AppThemeDirectory.loadAppTheme(this);
@@ -57,12 +65,12 @@ public class BaseWindowActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        this.currentTheme.apply(this, this.iAmHomeActivity, this.smallWindow);
+        this.currentTheme.apply(this);
 
-        this.currentTheme.setPayloadLayout(this.mainLayoutResID, this);
+        this.currentTheme.setPayloadLayout(this, this.mainLayoutResID);
 
         // TitleBarDragOnTouchListener has some state, it is safer to create different instance
-        this.currentTheme.setOnTouchListenerForTitleBar(new TitleBarDragOnTouchListener(), this);
+        this.currentTheme.setOnTouchListenerForTitleBar(this, new TitleBarDragOnTouchListener());
 
         this.currentTheme.onCreateFinal(this);
     }
@@ -198,7 +206,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     public static final int ROOT_WINDOW_FULL_WIDTH_ALWAYS = 3;
 
     protected void setWindowBoundarySize(int widthMode, int windowNestStep) {
-        this.currentTheme.setWindowBoundarySize(widthMode, windowNestStep, this);
+        this.currentTheme.setWindowBoundarySize(this, widthMode, windowNestStep);
     }
 
     protected void setHeaderFooterTexts(CharSequence headerText, CharSequence footerText) {
@@ -206,7 +214,7 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected void setWindowLocationGravity(int gravity) {
-        this.currentTheme.setWindowLocationGravity(gravity, this);
+        this.currentTheme.setWindowLocationGravity(this, gravity);
     }
 
     protected void enableBaseWindowAnimation() {
@@ -247,6 +255,6 @@ public class BaseWindowActivity extends AppCompatActivity {
     }
 
     protected void changeBaseWindowElementSizeForAnimation(boolean visible) {
-        this.currentTheme.changeBaseWindowElementSizeForAnimation(this, visible || !this.getAnimationEnabledPreferenceValue(), this.smallWindow);
+        this.currentTheme.changeBaseWindowElementSizeForAnimation(this, visible || !this.getAnimationEnabledPreferenceValue());
     }
 }

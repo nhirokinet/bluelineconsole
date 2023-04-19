@@ -30,19 +30,19 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
     }
 
     @Override
-    public void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow) {
-        super.apply(activity, iAmHomeActivity, smallWindow);
+    public void apply(BaseWindowActivity activity) {
+        super.apply(activity);
 
         if (this.isDarkMode(activity)) {
-            activity.setTheme(iAmHomeActivity ? R.style.AppThemeBlueLineConsoleDarkHome : R.style.AppThemeBlueLineConsoleDark);
+            activity.setTheme(activity.isHomeActivity() ? R.style.AppThemeBlueLineConsoleDarkHome : R.style.AppThemeBlueLineConsoleDark);
         } else {
-            activity.setTheme(iAmHomeActivity ? R.style.AppThemeBlueLineConsoleHome : R.style.AppThemeBlueLineConsole);
+            activity.setTheme(activity.isHomeActivity() ? R.style.AppThemeBlueLineConsoleHome : R.style.AppThemeBlueLineConsole);
         }
         activity.setContentView(R.layout.base_window_layout_default);
 
         this.setFooterMargin(activity);
 
-        this.registerExitListener(activity, iAmHomeActivity);
+        this.registerExitListener(activity, activity.isHomeActivity());
     }
 
     @Override
@@ -107,13 +107,13 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
     }
 
     @Override
-    public void changeBaseWindowElementSizeForAnimation(BaseWindowActivity activity, boolean visible, boolean smallWindow) {
-        super.changeBaseWindowElementSizeForAnimation(activity, visible, smallWindow);
+    public void changeBaseWindowElementSizeForAnimation(BaseWindowActivity activity, boolean visible) {
+        super.changeBaseWindowElementSizeForAnimation(activity, visible);
 
         final View centerLLOuter = activity.findViewById(R.id.baseWindowDefaultThemeMainLinearLayoutOuter);
         final LinearLayout.LayoutParams centerLPOuter = (LinearLayout.LayoutParams) centerLLOuter.getLayoutParams();
         if (visible) {
-            centerLPOuter.height = smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
+            centerLPOuter.height = activity.isSmallWindow() ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
         } else {
             centerLPOuter.height = 0;
         }

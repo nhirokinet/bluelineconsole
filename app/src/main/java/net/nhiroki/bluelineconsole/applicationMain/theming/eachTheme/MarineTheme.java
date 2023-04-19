@@ -22,20 +22,20 @@ public class MarineTheme extends BaseTheme {
     }
 
     @Override
-    public void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow) {
-        super.apply(activity, iAmHomeActivity, smallWindow);
+    public void apply(BaseWindowActivity activity) {
+        super.apply(activity);
 
-        activity.setTheme(iAmHomeActivity ? R.style.AppThemeMarineHome : R.style.AppThemeMarine);
+        activity.setTheme(activity.isHomeActivity() ? R.style.AppThemeMarineHome : R.style.AppThemeMarine);
         activity.setContentView(R.layout.base_window_layout_marine);
 
         LinearLayout centerLL = activity.findViewById(R.id.baseWindowIntermediateWrapper);
         LinearLayout.LayoutParams centerLP = (LinearLayout.LayoutParams) centerLL.getLayoutParams();
-        centerLP.height = smallWindow ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
+        centerLP.height = activity.isSmallWindow() ? LinearLayout.LayoutParams.WRAP_CONTENT : LinearLayout.LayoutParams.MATCH_PARENT;
         centerLL.setLayoutParams(centerLP);
 
         this.setFooterMargin(activity);
 
-        this.registerExitListener(activity, iAmHomeActivity);
+        this.registerExitListener(activity, activity.isHomeActivity());
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
+import androidx.annotation.GravityInt;
 import androidx.annotation.IdRes;
 
 import net.nhiroki.bluelineconsole.R;
@@ -22,7 +23,7 @@ import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
 public abstract class BaseTheme implements AppTheme {
     @CallSuper
     @Override
-    public void apply(Activity activity, boolean iAmHomeActivity, boolean smallWindow) {
+    public void apply(BaseWindowActivity activity) {
         activity.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
 
@@ -61,14 +62,14 @@ public abstract class BaseTheme implements AppTheme {
     }
 
     @Override
-    public double getWindowBodyAvailableHeight(Activity activity) {
+    public double getWindowBodyAvailableHeight(BaseWindowActivity activity) {
         return activity.findViewById(R.id.baseWindowMainLayoutRoot).getHeight() - activity.findViewById(R.id.baseWindowHeaderWrapper).getHeight() * (this.hasFooter() ? 2.0 : 1.0);
     }
 
     @CallSuper
     @Override
     @SuppressLint("SetTextI18n")
-    public void setHeaderFooterTexts(Activity activity, CharSequence headerText, CharSequence footerText) {
+    public void setHeaderFooterTexts(BaseWindowActivity activity, CharSequence headerText, CharSequence footerText) {
         if (this.hasFooter()) {
             ((TextView) activity.findViewById(R.id.baseWindowMainHeaderTextView)).setText(headerText);
             ((TextView) activity.findViewById(R.id.baseWindowMainFooterTextView)).setText(footerText == null ? headerText : footerText);
@@ -99,7 +100,8 @@ public abstract class BaseTheme implements AppTheme {
 
     @CallSuper
     @Override
-    public void changeBaseWindowElementSizeForAnimation(BaseWindowActivity activity, boolean visible, boolean smallWindow) {
+    public void changeBaseWindowElementSizeForAnimation(BaseWindowActivity activity, boolean visible) {
+        final boolean smallWindow = activity.isSmallWindow();
         LinearLayout centerLL = activity.findViewById(R.id.baseWindowMainLinearLayout);
         View mainLL = centerLL.getChildAt(0);
         LinearLayout.LayoutParams mainLP = (LinearLayout.LayoutParams) mainLL.getLayoutParams();
@@ -127,7 +129,7 @@ public abstract class BaseTheme implements AppTheme {
 
     @CallSuper
     @Override
-    public void setPayloadLayout(int layout, Activity activity) {
+    public void setPayloadLayout(BaseWindowActivity activity, int layout) {
         ViewStub mainViewStub = activity.findViewById(R.id.baseWindowMainViewStub);
         mainViewStub.setLayoutResource(layout);
         mainViewStub.inflate();
@@ -135,17 +137,17 @@ public abstract class BaseTheme implements AppTheme {
 
     @CallSuper
     @Override
-    public void setWindowLocationGravity(int gravity, Activity activity) {
+    public void setWindowLocationGravity(BaseWindowActivity activity, @GravityInt int gravity) {
         ((LinearLayout)activity.findViewById(R.id.baseWindowRootLinearLayout)).setGravity(gravity);
     }
 
     @Override
-    public View findVisibleRootView(Activity activity) {
+    public View findVisibleRootView(BaseWindowActivity activity) {
         return activity.findViewById(R.id.baseWindowRootLinearLayout);
     }
 
     @Override
-    public View findWholeDisplayView(Activity activity) {
+    public View findWholeDisplayView(BaseWindowActivity activity) {
         return activity.findViewById(R.id.baseWindowMainLayoutRoot);
     }
 
@@ -157,13 +159,13 @@ public abstract class BaseTheme implements AppTheme {
 
     @CallSuper
     @Override
-    public void setOnTouchListenerForTitleBar(View.OnTouchListener onTouchListenerForTitleBar, Activity activity) {
+    public void setOnTouchListenerForTitleBar(BaseWindowActivity activity, View.OnTouchListener onTouchListenerForTitleBar) {
         activity.findViewById(R.id.baseWindowHeaderWrapper).setOnTouchListener(onTouchListenerForTitleBar);
     }
 
     @CallSuper
     @Override
-    public void setWindowBoundarySize(int widthMode, int windowNestStep, Activity activity) {
+    public void setWindowBoundarySize(BaseWindowActivity activity, int widthMode, int windowNestStep) {
         final int baseHorizontalMarginInPixels = (int)(8 * windowNestStep * activity.getResources().getDisplayMetrics().density);
         final int baseVerticalMarginInPixels = (int)(24 * windowNestStep * activity.getResources().getDisplayMetrics().density);
 
