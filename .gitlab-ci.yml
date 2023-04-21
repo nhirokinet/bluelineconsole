@@ -8,7 +8,7 @@
 # Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
 # If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
 
-image: ubuntu:20.04
+image: ubuntu:22.04
 
 variables:
   # It's what version of the command line tools we're going to download from the official site.
@@ -16,13 +16,13 @@ variables:
   # There, look down below at the cli tools only, sdk tools package is of format:
   #        commandlinetools-os_type-ANDROID_SDK_TOOLS_latest.zip
   # when the script was last modified for latest compileSdkVersion, it was which is written down below
-  ANDROID_SDK_TOOLS: "8092744"
+  ANDROID_SDK_TOOLS: "9477386"
 
 # Packages installation before running script
 before_script:
   - apt --quiet update --yes
   - apt --quiet install --yes tzdata
-  - apt --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 xxd libgl1 openjdk-11-jdk python3 git
+  - apt --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 xxd libgl1 openjdk-17-jdk python3 git
 
   # Setup path as android_home for moving/exporting the downloaded sdk into it
   - export ANDROID_HOME="${PWD}/android-home"
