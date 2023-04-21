@@ -1,12 +1,14 @@
 package net.nhiroki.bluelineconsole.applicationMain.theming.eachTheme;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RemoteViews;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
@@ -121,8 +123,11 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
     }
 
     @Override
-    public int getLauncherWidgetLayoutID(Context context) {
-        return this.isDarkMode(context) ? R.layout.widget_launcher_dark_theme : R.layout.widget_launcher_default_theme;
+    public RemoteViews createRemoteViewsForWidget(Context context, PendingIntent pendingIntent) {
+        int layoutId = this.isDarkMode(context) ? R.layout.widget_launcher_dark_theme : R.layout.widget_launcher_default_theme;
+        RemoteViews ret =  new RemoteViews(context.getPackageName(), layoutId);
+        ret.setOnClickPendingIntent(R.id.widgetLauncherRootLinearLayout, pendingIntent);
+        return ret;
     }
 
     @Override

@@ -193,11 +193,6 @@ public abstract class BaseTheme implements AppTheme {
         }
     }
 
-    @Override
-    public @IdRes int getLauncherWidgetRootLayoutID() {
-        return R.id.widgetLauncherRootLinearLayout;
-    }
-
     private static class ExitOnClickListener implements View.OnClickListener {
         private final Activity activity;
 

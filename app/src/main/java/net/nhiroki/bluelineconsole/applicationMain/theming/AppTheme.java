@@ -1,7 +1,8 @@
 package net.nhiroki.bluelineconsole.applicationMain.theming;
 
-import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.widget.RemoteViews;
 import android.view.View;
 
 import androidx.annotation.ColorInt;
@@ -14,12 +15,21 @@ import net.nhiroki.bluelineconsole.applicationMain.BaseWindowActivity;
 
 public interface AppTheme {
     // Theme metadata
+
     String getThemeID();
     boolean supportsAccentColor();
 
+
     // Theme metadata using Context
+
     CharSequence getThemeTitle(Context context);
     @ColorInt int getDefaultAccentColor(Context context);
+
+
+    // View finders
+
+    View findVisibleRootView(BaseWindowActivity activity);
+    View findWholeDisplayView(BaseWindowActivity activity);
 
 
     // Handlers
@@ -44,17 +54,15 @@ public interface AppTheme {
     void setHeaderFooterTexts(BaseWindowActivity activity, CharSequence headerText, CharSequence footerText);
     void setWindowBoundarySize(BaseWindowActivity activity, int widthMode, int windowNestStep);
     void setPayloadLayout(BaseWindowActivity activity, @LayoutRes int layout);
-
-
-    // Maybe need some cleanup
     double getWindowBodyAvailableHeight(BaseWindowActivity activity);
-    View findVisibleRootView(BaseWindowActivity activity);
-    View findWholeDisplayView(BaseWindowActivity activity);
     void setWindowLocationGravity(BaseWindowActivity activity, @GravityInt int gravity);
     void setOnTouchListenerForTitleBar(BaseWindowActivity activity, View.OnTouchListener onTouchListenerForTitleBar);
 
-
-    // Behavior should be reconsidered
-    @LayoutRes int getLauncherWidgetLayoutID(Context context);
-    @IdRes int getLauncherWidgetRootLayoutID();
+    /** Create RemoteViews for widget launching Blue Line Console
+     *
+     * @param context Android context
+     * @param pendingIntent PendingIntent to launch by widget
+     * @return RemoveViews newly created and having given PendingIntent
+     */
+    RemoteViews createRemoteViewsForWidget(Context context, PendingIntent pendingIntent);
 }
