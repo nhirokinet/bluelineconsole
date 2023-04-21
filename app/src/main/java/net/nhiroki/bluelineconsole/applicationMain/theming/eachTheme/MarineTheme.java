@@ -1,8 +1,10 @@
 package net.nhiroki.bluelineconsole.applicationMain.theming.eachTheme;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.widget.LinearLayout;
+import android.widget.RemoteViews;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.StringRes;
@@ -63,8 +65,11 @@ public class MarineTheme extends BaseTheme {
     }
 
     @Override
-    public int getLauncherWidgetLayoutID(Context context) {
-        return R.layout.widget_launcher_marine;
+    public RemoteViews createRemoteViewsForWidget(Context context, PendingIntent pendingIntent) {
+        int layoutId = R.layout.widget_launcher_marine;
+        RemoteViews ret =  new RemoteViews(context.getPackageName(), layoutId);
+        ret.setOnClickPendingIntent(R.id.widgetLauncherRootLinearLayout, pendingIntent);
+        return ret;
     }
 
     @Override
