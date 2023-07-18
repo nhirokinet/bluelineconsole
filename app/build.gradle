@@ -9,12 +9,15 @@ android {
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
 
+    namespace 'net.nhiroki.bluelineconsole'
     defaultConfig {
         applicationId "net.nhiroki.bluelineconsole"
-        minSdkVersion 22
-        targetSdkVersion 33
         versionCode 35
         versionName "1.2.18"
+
+        minSdkVersion 22
+        targetSdkVersion 33
+        
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -30,7 +33,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    namespace 'net.nhiroki.bluelineconsole'
+    
     lint {
         ignoreWarnings false
     }
