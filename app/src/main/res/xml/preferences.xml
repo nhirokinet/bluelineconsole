@@ -34,6 +34,7 @@
             android:defaultValue="substring"
             app:iconSpaceReserved="false"
             />
+
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/preferences_category_appearance"
@@ -61,6 +62,19 @@
             android:title="@string/preferences_item_appearance_animation_title"
             app:iconSpaceReserved="false"
             />
+        <SwitchPreference
+            android:key="pref_appearance_hide_header_footer"
+            android:defaultValue="false"
+            android:title="Hide console header and footer"
+            app:iconSpaceReserved="false"
+            />
+        <SwitchPreference
+            android:key="pref_appearance_hide_icon"
+            android:defaultValue="false"
+            android:title="Hide application icons"
+            app:iconSpaceReserved="false"
+            />
+
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/preferences_category_apps"
