@@ -123,6 +123,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     public void notifyDataSetChanged() {
         this.unrecyclableViews.clear();
         this.chosenNowExplicitly = CHOICE_NOT_SET_YET;
+        shall_hide_icon = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_appearance_hide_icon",false);
         super.notifyDataSetChanged();
     }
 
