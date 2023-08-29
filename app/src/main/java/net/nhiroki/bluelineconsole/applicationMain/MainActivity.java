@@ -72,8 +72,10 @@ public class MainActivity extends BaseWindowActivity {
         this.migrationLostHappened = WidgetsSetting.migrationLostHappened(this);
         this.showStartUpHelp = PreferenceManager.getDefaultSharedPreferences(this).getBoolean(StartUpHelpActivity.PREF_KEY_SHOW_STARTUP_HELP, true);
 
-
-        this.setHeaderFooterTexts(getString(R.string.app_name), String.format(getString(R.string.displayedFullVersionString), BuildConfig.VERSION_NAME));
+        Boolean shall_hide_header_footer = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_appearance_hide_header_footer",false);
+        String header = shall_hide_header_footer ? "" : getString(R.string.app_name) ;
+        String footer = shall_hide_header_footer ? "" : String.format(getString(R.string.displayedFullVersionString), BuildConfig.VERSION_NAME);
+        this.setHeaderFooterTexts(header,footer);
 
         AppNotification.update(this);
 
@@ -204,6 +206,15 @@ public class MainActivity extends BaseWindowActivity {
         this.cameBackFlag = false;
 
         MainActivity.this.enableBaseWindowAnimation();
+
+
+
+        Boolean shall_hide_header_footer = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_appearance_hide_header_footer",false);
+        String header = shall_hide_header_footer ? "" : getString(R.string.app_name) ;
+        String footer = shall_hide_header_footer ? "" : String.format(getString(R.string.displayedFullVersionString), BuildConfig.VERSION_NAME);
+        this.setHeaderFooterTexts(header,footer);
+
+        resultCandidateListAdapter.notifyDataSetChanged();
     }
 
     @Override

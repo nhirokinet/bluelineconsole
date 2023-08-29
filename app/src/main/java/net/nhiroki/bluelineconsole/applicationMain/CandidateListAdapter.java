@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -36,12 +37,13 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private static final int CHOICE_KNOWN_BY_LISTVIEW = -3;
 
     private final Map<Integer, View> unrecyclableViews = new HashMap<>();
-
+    private boolean shall_hide_icon = false ;
     CandidateListAdapter(MainActivity activity, List<CandidateEntry> objects, ListView listView) {
         super(activity, 0, objects);
 
         this.activity = activity;
         this.listView = listView;
+        shall_hide_icon = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_appearance_hide_icon",false);
     }
 
     @Override
@@ -103,7 +105,11 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
         } else {
             iconView.setImageDrawable(icon);
-            iconView.setVisibility(View.VISIBLE);
+
+
+            iconView.setVisibility(
+                    shall_hide_icon ? View.GONE : View.VISIBLE
+            );
         }
 
         if (! candidate.viewIsRecyclable()) {
@@ -117,6 +123,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     public void notifyDataSetChanged() {
         this.unrecyclableViews.clear();
         this.chosenNowExplicitly = CHOICE_NOT_SET_YET;
+        shall_hide_icon = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_appearance_hide_icon",false);
         super.notifyDataSetChanged();
     }
 
