@@ -102,6 +102,9 @@ public class PreferencesActivity extends BaseWindowActivity {
                                 READ_CONTACT_PERMISSION_GRANT_REQUEST_ID);
                     }
                 }
+                if (key.equals("pref_appearance_show_icons")){
+                    CandidateListAdapter.show_icons = sharedPreferences.getBoolean("pref_appearance_show_icons",true);
+                }
             };
         }
 

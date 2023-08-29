@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.preference.PreferenceManager;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -36,12 +37,13 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private static final int CHOICE_KNOWN_BY_LISTVIEW = -3;
 
     private final Map<Integer, View> unrecyclableViews = new HashMap<>();
-
+    public static Boolean show_icons = true;
     CandidateListAdapter(MainActivity activity, List<CandidateEntry> objects, ListView listView) {
         super(activity, 0, objects);
 
         this.activity = activity;
         this.listView = listView;
+        show_icons = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_appearance_show_icons",true);
     }
 
     @Override
@@ -97,7 +99,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         getContext().getTheme().resolveAttribute(R.attr.bluelineconsoleSelectedItemBackgroundColor, selectedItemBackground, true);
         convertView.setBackgroundColor((position == getChosenNowExplicitly())?  selectedItemBackground.data: Color.TRANSPARENT);
 
-        if (icon == null) {
+        if (icon == null || !show_icons) {
             iconView.setImageResource(android.R.color.transparent);
             iconView.setVisibility(View.GONE);
 

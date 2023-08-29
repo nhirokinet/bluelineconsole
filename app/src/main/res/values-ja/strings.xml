@@ -90,6 +90,7 @@
     <string name="preferences_item_appearance_theme_summary">テーマを変更すると、 Blue Line Console が再起動します。</string>
     <string name="preferences_item_appearance_accent_color">アクセント カラー</string>
     <string name="preferences_item_appearance_animation_title">アニメーション</string>
+    <string name="preferences_item_appearance_show_icons_title">アイコンを表示する</string>
     <string name="preferences_item_apps_show_package_name_title">パッケージ名を表示</string>
     <string name="preferences_item_apps_show_package_name_summary">註：このチェックがオフでも、パッケージ名の一部でアプリを検索できます。</string>
     <string name="preferences_item_display_custom_urls_title">URL と検索エンジンの呼び出し設定</string>

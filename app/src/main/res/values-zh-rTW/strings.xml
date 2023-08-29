@@ -90,6 +90,7 @@
     <string name="preferences_item_appearance_theme_summary">當此選項變更時，Blue Line Console 會立即重新啟動。</string>
     <string name="preferences_item_appearance_accent_color">重點色彩</string>
     <string name="preferences_item_appearance_animation_title">動畫</string>
+    <string name="preferences_item_appearance_show_icons_title">顯示圖標</string>
     <string name="preferences_item_apps_show_package_name_title">顯示套件（package）名稱</string>
     <string name="preferences_item_apps_show_package_name_summary">注意：即使此未核取此選項，您依然可以由名稱的一部分找到應用程式。</string>
     <string name="preferences_item_display_custom_urls_title">網頁與搜尋</string>
