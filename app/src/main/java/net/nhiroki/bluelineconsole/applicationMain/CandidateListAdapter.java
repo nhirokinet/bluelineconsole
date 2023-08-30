@@ -37,7 +37,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
     private static final int CHOICE_KNOWN_BY_LISTVIEW = -3;
 
     private final Map<Integer, View> unrecyclableViews = new HashMap<>();
-    public static Boolean show_icons = true;
+    private Boolean show_icons = true;
     CandidateListAdapter(MainActivity activity, List<CandidateEntry> objects, ListView listView) {
         super(activity, 0, objects);
 
@@ -176,5 +176,9 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         if (getChosenNowExplicitly() >= 0) {
             invokeEvent(getChosenNowExplicitly(), context);
         }
+    }
+
+    public void set_show_icons(Boolean visibility){
+        show_icons = visibility ;
     }
 }
