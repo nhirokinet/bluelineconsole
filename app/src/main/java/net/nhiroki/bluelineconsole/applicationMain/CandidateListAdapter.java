@@ -43,7 +43,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
 
         this.activity = activity;
         this.listView = listView;
-        show_icons = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_appearance_show_icons",true);
+        show_icons = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("pref_appearance_show_icons", true);
     }
 
     @Override
