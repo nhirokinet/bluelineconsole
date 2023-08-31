@@ -219,4 +219,5 @@
         \n
         \n提示：将 Blue Line Console 设为默认助手应用后可通过长按主页按钮打开它。具体方法为：系统设置 &gt; 应用程序 &amp; 通知 &gt; 默认应用 &gt; 助手应用或类似菜单。
         \n提示：可以通过始终显示通知从通知菜单启动 Blue Line Console。可输入 config 找到该选项。
+    </string>
 </resources>
