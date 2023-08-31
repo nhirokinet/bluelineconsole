@@ -219,23 +219,4 @@
         \n
         \n提示：将 Blue Line Console 设为默认助手应用后可通过长按主页按钮打开它。具体方法为：系统设置 &gt; 应用程序 &amp; 通知 &gt; 默认应用 &gt; 助手应用或类似菜单。
         \n提示：可以通过始终显示通知从通知菜单启动 Blue Line Console。可输入 config 找到该选项。
-</string>
-
-    <!-- Licensing information, untranslatable not to make slightest difference -->
-    <string name="licensing_notice_header" translatable="false">Licensing information</string>
-    <string name="licensing_notice_body" translatable="false">
-        Blue Line Console is licensed under the Apache License, Version 2.0.
-        \n
-        \nBlue Line Console contains code from the following library, which Apache License, Version 2.0, is applied to.
-        \n
-        \n- Android Jetpack
-        \n- kotlinx-coroutines-android
-	\n- kotlinx-coroutines-core-jvm
-	\n- kotlin-stdlib
-	\n- JetBrains Java Annotations
-        \n- Google Guava
-    </string>
-
-    <!-- Legal English texts -->
-    <string name="license_apache_license_v2.0_name" translatable="false">Apache License, Version 2.0</string>
 </resources>
