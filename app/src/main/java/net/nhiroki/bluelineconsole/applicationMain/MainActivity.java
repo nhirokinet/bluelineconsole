@@ -144,7 +144,7 @@ public class MainActivity extends BaseWindowActivity {
     protected void onResume() {
         super.onResume();
 
-        resultCandidateListAdapter.set_show_icons(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_appearance_show_icons", true));
+        resultCandidateListAdapter.setShowIcons(PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_appearance_show_icons", true));
 
         ++this.resumeId;
         this.comingBackFlag = false;

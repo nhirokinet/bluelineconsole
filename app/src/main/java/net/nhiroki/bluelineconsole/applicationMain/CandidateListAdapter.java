@@ -178,7 +178,7 @@ class CandidateListAdapter extends ArrayAdapter<CandidateEntry> {
         }
     }
 
-    public void set_show_icons(Boolean visibility){
+    public void setShowIcons(Boolean visibility){
         show_icons = visibility ;
     }
 }
