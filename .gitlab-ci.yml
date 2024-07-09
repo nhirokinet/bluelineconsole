@@ -24,7 +24,8 @@ before_script:
   - apt --quiet install --yes tzdata
   # https://developer.android.com/studio/install
   # But could not find libc6:i386 libncurses5:i386 libbz2-1.0:i386, which look unnecessary
-  - apt --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 xxd libgl1 openjdk-21-jdk python3 git curl
+  # OpenJDK 21 is the latest for Ubuntu 24.04, but Kotlin does not support it
+  - apt --quiet install --yes wget tar unzip lib32stdc++6 lib32z1 xxd libgl1 openjdk-17-jdk python3 git curl
 
   # Setup path as android_home for moving/exporting the downloaded sdk into it
   - export ANDROID_HOME="${PWD}/android-home"
