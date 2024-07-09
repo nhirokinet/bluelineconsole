@@ -11,6 +11,9 @@
 /.idea/vcs.xml
 /.idea/shelf
 /.idea/modules.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/other.xml
+/.idea/migrations.xml
 .DS_Store
 /build
 /captures
