@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Android connectedCheck
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     strategy:
       matrix:
@@ -26,8 +26,16 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
+      # For running ReactiveCircus/android-emulator-runner
+      # https://github.com/ReactiveCircus/android-emulator-runner/blob/a3dcdb348bb02349cd939d168a74e31a9094b7f0/README.md
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.20.0
+        uses: ReactiveCircus/android-emulator-runner@v2.32.0
         with:
           api-level: ${{ matrix.api-level }}
           script: ./gradlew connectedCheck
