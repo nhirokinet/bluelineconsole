@@ -59,44 +59,44 @@ public class MainActivityTest {
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("random-str-which-should-match-nothing"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(0)));
 
         // May fail if testing near the change of the day, but not caring, just retrying is fine
         // String expectedDateStr = new SimpleDateFormat("EEE, MM/dd/yyyy").format(new Date());
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("date"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(1)));
         // Skipping until resolving problem of timezone of test environment
         // onView(withText(expectedDateStr)).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("help"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(1)));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("ping "));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withText("ping6 ")).check(matches(isDisplayed()));
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(2)));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("ping nhiroki.net"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withText("ping6 nhiroki.net")).check(matches(isDisplayed()));
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(2)));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("1+7*4"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withText("\u200e= 29")).check(matches(isDisplayed()));
         onView(withText("Calculation Precision: No Error")).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("Chrome"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         // Depends on environment, skipping for now
         // onView(withText("com.android.chrome")).check(matches(isDisplayed()));
 
@@ -125,28 +125,28 @@ public class MainActivityTest {
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("random-str-which-should-match-nothing"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(0)));
 
         // May fail if testing near the change of the day, but not caring, just retrying is fine
         // String expectedDateStr = new SimpleDateFormat("yyyy/MM/dd(EEE)").format(new Date());
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("date"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(1)));
         // Skipping until resolving problem of timezone of test environment
         // onView(withText(expectedDateStr)).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("1+7*4"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         onView(withText("\u200e= 29")).check(matches(isDisplayed()));
         // Skipping until why failing in GitHub Actions
         // onView(withText("演算精度: 誤差なし")).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("Chrome"));
-        Thread.sleep(200);
+        Thread.sleep(800);
         // Depends on environment, skipping for now
         // onView(withText("com.android.chrome")).check(matches(isDisplayed()));
     }
