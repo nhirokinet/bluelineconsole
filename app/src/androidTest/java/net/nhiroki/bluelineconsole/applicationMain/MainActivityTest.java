@@ -50,6 +50,8 @@ public class MainActivityTest {
     @Test
     public void testBasic() throws InterruptedException {
         ActivityScenario.launch(MainActivity.class);
+        // Wait until ready
+        Thread.sleep(2000);
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("config"));
@@ -116,6 +118,8 @@ public class MainActivityTest {
         context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
 
         ActivityScenario.launch(MainActivity.class);
+        // Wait until ready
+        Thread.sleep(2000);
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("config"));
