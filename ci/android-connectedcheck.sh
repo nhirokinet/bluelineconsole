@@ -2,8 +2,9 @@
 
 # x86 image is not provided for 30 or later, but at least on my end x86_64 image could not run on emulator command
 # Minimum supported version: SDK22
+# Not sure, API level 24 looks like some threshold for UI testing
 
-for sdkver in 29 22
+for sdkver in 29 24 22
 do
     sdkmanager platform-tools emulator "system-images;android-$sdkver;default;x86"
     echo no | avdmanager create avd -f -n vm$sdkver -k "system-images;android-$sdkver;default;x86"

@@ -9,11 +9,15 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import android.app.LocaleManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
+import android.os.Build;
+import android.os.LocaleList;
 import android.preference.PreferenceManager;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.os.LocaleListCompat;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -31,20 +35,24 @@ import java.util.TimeZone;
 
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
+    private Context context = null;
 
     @Before
     public void setUp() {
-        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        this.context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        Configuration config = new Configuration();
-        config.setLocale(new Locale("en", "US"));
-        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.getSystemService(LocaleManager.class).setApplicationLocales(new LocaleList(new Locale("en", "US")));
+        } else {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(new Locale("en", "US")));
+        }
 
         SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefEdit.putBoolean(StartUpHelpActivity.PREF_KEY_SHOW_STARTUP_HELP, false);
         prefEdit.putBoolean("pref_apps_show_package_name", true);
         prefEdit.apply();
+
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tokyo"));
     }
 
     @Test
@@ -64,14 +72,13 @@ public class MainActivityTest {
         Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(0)));
 
-        // May fail if testing near the change of the day, but not caring, just retrying is fine
-        // String expectedDateStr = new SimpleDateFormat("EEE, MM/dd/yyyy").format(new Date());
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("date"));
         Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(1)));
-        // Skipping until resolving problem of timezone of test environment
-        // onView(withText(expectedDateStr)).check(matches(isDisplayed()));
+        // May fail if testing near the change of the day, but not caring, just retrying is fine
+        String expectedDateStr = new SimpleDateFormat("EEE, MM/dd/yyyy", new Locale("en", "US")).format(new Date());
+        onView(withText(expectedDateStr)).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("help"));
@@ -111,11 +118,12 @@ public class MainActivityTest {
 
     @Test
     public void testBasicJapanese() throws InterruptedException {
-        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        Configuration config = new Configuration();
-        config.setLocale(new Locale("ja", "JP"));
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            context.getSystemService(LocaleManager.class).setApplicationLocales(new LocaleList(new Locale("ja", "JP")));
+        } else {
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(new Locale("ja", "JP")));
+        }
+        Locale.setDefault(new Locale("ja", "JP"));
 
         ActivityScenario.launch(MainActivity.class);
         // Wait until ready
@@ -132,26 +140,50 @@ public class MainActivityTest {
         Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(0)));
 
-        // May fail if testing near the change of the day, but not caring, just retrying is fine
-        // String expectedDateStr = new SimpleDateFormat("yyyy/MM/dd(EEE)").format(new Date());
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("date"));
         Thread.sleep(800);
         onView(withId(R.id.candidateListView)).check(matches(hasChildCount(1)));
-        // Skipping until resolving problem of timezone of test environment
-        // onView(withText(expectedDateStr)).check(matches(isDisplayed()));
+        // May fail if testing near the change of the day, but not caring, just retrying is fine
+        try {
+            String expectedDateStr = new SimpleDateFormat("yyyy/MM/dd(EEE)", new Locale("ja", "JP")).format(new Date());
+            onView(withText(expectedDateStr)).check(matches(isDisplayed()));
+        } catch (Exception e) {
+            // Why? even in this setting, there looks like the case that only EEE is displayed in English in test machine (not real machine)
+            // Why? at least in our CI test as of 2024/07/12, it looks like not working on SDK22
+            if (Build.VERSION.SDK_INT >= 24) {
+                String expectedDateStr = new SimpleDateFormat("yyyy/MM/dd(EEE)", new Locale("en", "US")).format(new Date());
+                onView(withText(expectedDateStr)).check(matches(isDisplayed()));
+            }
+        }
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("1+7*4"));
         Thread.sleep(800);
         onView(withText("\u200e= 29")).check(matches(isDisplayed()));
-        // Skipping until why failing in GitHub Actions
-        // onView(withText("演算精度: 誤差なし")).check(matches(isDisplayed()));
+        if (Build.VERSION.SDK_INT >= 24) {
+            onView(withText("演算精度: 誤差なし")).check(matches(isDisplayed()));
+        } else {
+            // Why? at least in our CI test as of 2024/07/12, it looks like English in this code
+            onView(withText("Calculation Precision: No Error")).check(matches(isDisplayed()));
+        }
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("Chrome"));
         Thread.sleep(800);
         // Depends on environment, skipping for now
         // onView(withText("com.android.chrome")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testStartUpHelp() throws InterruptedException {
+        SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        prefEdit.putBoolean(StartUpHelpActivity.PREF_KEY_SHOW_STARTUP_HELP, true);
+        prefEdit.putBoolean("pref_apps_show_package_name", false);
+        prefEdit.apply();
+
+        ActivityScenario.launch(MainActivity.class);
+        Thread.sleep(800);
+        onView(withId(R.id.startUpOKButton)).check(matches(isDisplayed()));
     }
 }
