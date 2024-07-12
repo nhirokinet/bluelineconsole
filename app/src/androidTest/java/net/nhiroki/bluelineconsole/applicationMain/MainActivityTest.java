@@ -24,6 +24,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import net.nhiroki.bluelineconsole.R;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +47,7 @@ public class MainActivityTest {
         } else {
             AppCompatDelegate.setApplicationLocales(LocaleListCompat.create(new Locale("en", "US")));
         }
+        Locale.setDefault(new Locale("en", "US"));
 
         SharedPreferences.Editor prefEdit = PreferenceManager.getDefaultSharedPreferences(context).edit();
         prefEdit.putBoolean(StartUpHelpActivity.PREF_KEY_SHOW_STARTUP_HELP, false);
@@ -118,6 +120,11 @@ public class MainActivityTest {
 
     @Test
     public void testBasicJapanese() throws InterruptedException {
+        // Looks like the way of setting language has changed in SDK24 (N).
+        // Older version does not change output even if we run the following language setting code.
+        // Therefore, in this case, skipping test for non-English version.
+        Assume.assumeTrue(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.getSystemService(LocaleManager.class).setApplicationLocales(new LocaleList(new Locale("ja", "JP")));
         } else {
@@ -150,23 +157,15 @@ public class MainActivityTest {
             onView(withText(expectedDateStr)).check(matches(isDisplayed()));
         } catch (Exception e) {
             // Why? even in this setting, there looks like the case that only EEE is displayed in English in test machine (not real machine)
-            // Why? at least in our CI test as of 2024/07/12, it looks like not working on SDK22
-            if (Build.VERSION.SDK_INT >= 24) {
-                String expectedDateStr = new SimpleDateFormat("yyyy/MM/dd(EEE)", new Locale("en", "US")).format(new Date());
-                onView(withText(expectedDateStr)).check(matches(isDisplayed()));
-            }
+            String expectedDateStr = new SimpleDateFormat("yyyy/MM/dd(EEE)", new Locale("en", "US")).format(new Date());
+            onView(withText(expectedDateStr)).check(matches(isDisplayed()));
         }
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("1+7*4"));
         Thread.sleep(800);
         onView(withText("\u200e= 29")).check(matches(isDisplayed()));
-        if (Build.VERSION.SDK_INT >= 24) {
-            onView(withText("演算精度: 誤差なし")).check(matches(isDisplayed()));
-        } else {
-            // Why? at least in our CI test as of 2024/07/12, it looks like English in this code
-            onView(withText("Calculation Precision: No Error")).check(matches(isDisplayed()));
-        }
+        onView(withText("演算精度: 誤差なし")).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("Chrome"));
