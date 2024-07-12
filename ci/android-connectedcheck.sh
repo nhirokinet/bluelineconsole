@@ -4,8 +4,6 @@
 # Minimum supported version: SDK22
 # In current code, non-English test runs on SDK >=24
 
-sdkmanager emulator
-
 for sdkver in 29 24 22
 do
     sdkmanager "system-images;android-$sdkver;default;x86"
