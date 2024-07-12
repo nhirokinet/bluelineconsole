@@ -4,9 +4,11 @@
 # Minimum supported version: SDK22
 # Not sure, API level 24 looks like some threshold for UI testing
 
+sdkmanager emulator
+
 for sdkver in 29 24 22
 do
-    sdkmanager platform-tools emulator "system-images;android-$sdkver;default;x86"
+    sdkmanager "system-images;android-$sdkver;default;x86"
     echo no | avdmanager create avd -f -n vm$sdkver -k "system-images;android-$sdkver;default;x86"
     ${ANDROID_HOME}/emulator/emulator -avd vm$sdkver -no-window -no-audio &
     EMULATOR_PID=$!
@@ -23,4 +25,5 @@ do
     kill $EMULATOR_PID
     while test -e /proc/$EMULATOR_PID; do sleep 1; done
     avdmanager delete avd -n vm$sdkver
+    sdkmanager --uninstall "system-images;android-$sdkver;default;x86"
 done
