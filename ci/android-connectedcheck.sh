@@ -2,7 +2,7 @@
 
 # x86 image is not provided for 30 or later, but at least on my end x86_64 image could not run on emulator command
 # Minimum supported version: SDK22
-# Not sure, API level 24 looks like some threshold for UI testing
+# In current code, non-English test runs on SDK >=24
 
 sdkmanager emulator
 
