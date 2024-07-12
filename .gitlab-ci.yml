@@ -47,9 +47,9 @@ before_script:
 
   # use yes to accept all licenses
   - yes | sdkmanager --sdk_root=${ANDROID_HOME} --licenses || true
-  - sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-$(grep 'compileSdk [1-9]' ./app/build.gradle | sed -e 's/^.*compileSdk //')"
-  - sdkmanager --sdk_root=${ANDROID_HOME} "platform-tools"
-  - export ANDROID_BUILD_TOOLS=$(grep 'buildToolsVersion '\''[1-9]' "./app/build.gradle" | sed -e 's/^.*buildToolsVersion '\''//' -e 's/'\''$//')
+  - sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-$(grep 'compileSdk [0-9]' ./app/build.gradle | sed -e 's/^.*compileSdk //')"
+  - sdkmanager --sdk_root=${ANDROID_HOME} platform-tools emulator
+  - export ANDROID_BUILD_TOOLS=$(grep 'buildToolsVersion '\''[0-9]' "./app/build.gradle" | sed -e 's/^.*buildToolsVersion '\''//' -e 's/'\''$//')
   - sdkmanager --sdk_root=${ANDROID_HOME} "build-tools;${ANDROID_BUILD_TOOLS}"
   - export PATH=$PATH:${ANDROID_HOME}/build-tools/${ANDROID_BUILD_TOOLS}/
 
