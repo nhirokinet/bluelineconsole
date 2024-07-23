@@ -104,6 +104,7 @@ public class PreferencesActivity extends BaseWindowActivity {
                 }
             };
         }
+
         @Override
         public void onResume() {
             super.onResume();
