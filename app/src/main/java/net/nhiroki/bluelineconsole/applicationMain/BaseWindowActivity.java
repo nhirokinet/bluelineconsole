@@ -13,6 +13,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppThemeDirectory;
 
@@ -73,6 +74,17 @@ public class BaseWindowActivity extends AppCompatActivity {
         this.currentTheme.setOnTouchListenerForTitleBar(this, new TitleBarDragOnTouchListener());
 
         this.currentTheme.onCreateFinal(this);
+        wrapperVisibilityConfiguration();
+    }
+
+    private void wrapperVisibilityConfiguration(){
+        if(androidx.preference.PreferenceManager.getDefaultSharedPreferences(this).getBoolean("pref_appearance_show_wrappers",true)){
+            findViewById(R.id.baseWindowHeaderWrapper).setVisibility(View.VISIBLE);
+            findViewById(R.id.baseWindowFooterWrapper).setVisibility(View.VISIBLE);
+        }else{
+            findViewById(R.id.baseWindowHeaderWrapper).setVisibility(View.GONE);
+            findViewById(R.id.baseWindowFooterWrapper).setVisibility(View.GONE);
+        }
     }
 
     public class TitleBarDragOnTouchListener implements View.OnTouchListener {
@@ -155,6 +167,7 @@ public class BaseWindowActivity extends AppCompatActivity {
         });
 
         this.onAccentColorChanged();
+        wrapperVisibilityConfiguration();
     }
 
     protected boolean themeStateMatchesConfig() {

@@ -91,6 +91,7 @@
     <string name="preferences_item_appearance_accent_color">Accent color</string>
     <string name="preferences_item_appearance_animation_title">Animation</string>
     <string name="preferences_item_appearance_show_icons_title">Show icons</string>
+    <string name="preferences_item_appearance_show_wrappers_title">Show wrappers</string>
     <string name="preferences_item_apps_show_package_name_title">Show package name</string>
     <string name="preferences_item_apps_show_package_name_summary">Note: You can find apps by a part of package name even this check is off.</string>
     <string name="preferences_item_display_custom_urls_title">Web pages and searches</string>

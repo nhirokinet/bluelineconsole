@@ -1,6 +1,5 @@
 package net.nhiroki.bluelineconsole.applicationMain.theming.eachTheme;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -79,8 +78,6 @@ public class BlueLineConsoleDefaultTheme extends BaseTheme {
         activity.findViewById(R.id.baseWindowDefaultThemeMainLayoutTopEdge).setOnTouchListener(activity.new TitleBarDragOnTouchListener());
 
         // Make setTint() in onResume() to work
-        activity.findViewById(R.id.baseWindowDefaultThemeHeaderAccent).getBackground().mutate();
-        activity.findViewById(R.id.baseWindowDefaultThemeFooterAccent).getBackground().mutate();
     }
 
     @Override

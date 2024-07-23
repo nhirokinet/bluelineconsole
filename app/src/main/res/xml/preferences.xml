@@ -67,6 +67,12 @@
             android:title="@string/preferences_item_appearance_show_icons_title"
             app:iconSpaceReserved="false"
             />
+        <SwitchPreference
+            android:key="pref_appearance_show_wrappers"
+            android:defaultValue="true"
+            android:title="@string/preferences_item_appearance_show_wrappers_title"
+            app:iconSpaceReserved="false"
+            />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/preferences_category_apps"
