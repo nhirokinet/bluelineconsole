@@ -91,6 +91,7 @@
     <string name="preferences_item_appearance_accent_color">强调色</string>
     <string name="preferences_item_appearance_animation_title">动画</string>
     <string name="preferences_item_appearance_show_icons_title">显示图标</string>
+    <string name="preferences_item_appearance_show_wrappers_title">Show wrappers</string>
     <string name="preferences_item_apps_show_package_name_title">显示包名</string>
     <string name="preferences_item_apps_show_package_name_summary">注意:即使关闭了这个选项，你也可以通过包名的一部分找到应用程序。</string>
     <string name="preferences_item_display_custom_urls_title">网页和搜索</string>

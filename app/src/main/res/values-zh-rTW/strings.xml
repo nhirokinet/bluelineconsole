@@ -91,6 +91,7 @@
     <string name="preferences_item_appearance_accent_color">重點色彩</string>
     <string name="preferences_item_appearance_animation_title">動畫</string>
     <string name="preferences_item_appearance_show_icons_title">Show icons</string>
+    <string name="preferences_item_appearance_show_wrappers_title">Show wrappers</string>
     <string name="preferences_item_apps_show_package_name_title">顯示套件（package）名稱</string>
     <string name="preferences_item_apps_show_package_name_summary">注意：即使此未核取此選項，您依然可以由名稱的一部分找到應用程式。</string>
     <string name="preferences_item_display_custom_urls_title">網頁與搜尋</string>
