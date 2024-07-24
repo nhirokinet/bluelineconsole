@@ -24,7 +24,7 @@ def main():
         if line == 'release':
             is_release = True
 
-        if line.startswith('+--- ') or line.startswith('\--- '):
+        if line.startswith('+--- ') or line.startswith('\\--- '):
             package_info = line[len('+--- '):line.find('@')].split(':')
             print(package_info)
             package_fullname = package_info[0]
