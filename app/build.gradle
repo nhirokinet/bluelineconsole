@@ -4,7 +4,7 @@ android {
     // Before updating buildToolsVersion or compileSdkVersion, check for MainActivity.onCreate,
     // as it uses workaround that depends SDK implementation.
     compileSdk 34
-    buildToolsVersion '34.0.0'
+    buildToolsVersion = '34.0.0'
 
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
