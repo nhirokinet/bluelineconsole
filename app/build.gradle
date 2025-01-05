@@ -37,6 +37,9 @@ android {
     lint {
         ignoreWarnings false
     }
+    buildFeatures {
+        buildConfig true
+    }
 
 }
 
