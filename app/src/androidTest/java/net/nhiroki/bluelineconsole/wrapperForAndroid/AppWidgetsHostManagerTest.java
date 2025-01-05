@@ -10,8 +10,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.WidgetsSetting;
 import net.nhiroki.bluelineconsole.dataStore.persistent.HomeScreenSetting;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class AppWidgetsHostManagerTest extends AndroidTestCase {
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         super.setUp();

@@ -3,8 +3,8 @@ package net.nhiroki.bluelineconsole.dataStore.persistent;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 import android.content.Context;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class URLPreferencesTest extends AndroidTestCase {
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         super.setUp();

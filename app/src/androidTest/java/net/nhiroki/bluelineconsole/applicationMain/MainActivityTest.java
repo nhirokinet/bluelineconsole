@@ -25,8 +25,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import net.nhiroki.bluelineconsole.R;
 
 import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 
 import java.text.SimpleDateFormat;
@@ -38,7 +38,7 @@ import java.util.TimeZone;
 public class MainActivityTest {
     private Context context = null;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.context = InstrumentationRegistry.getInstrumentation().getTargetContext();
 

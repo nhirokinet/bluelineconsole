@@ -1,6 +1,6 @@
 package net.nhiroki.lib.bluelinecalculator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 
@@ -33,7 +33,7 @@ public class CalculatorUnitTests {
         assertEquals(precision, actual.get(1).getPrecision());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void calculatorTest() throws Exception {
         assertBigDecimal("3", "3", CalculatorNumber.Precision.PRECISION_NO_ERROR);
         assertBigDecimal("((3) )", "3", CalculatorNumber.Precision.PRECISION_NO_ERROR);
@@ -260,7 +260,7 @@ public class CalculatorUnitTests {
         assertSecondaryBigDecimal("2lb*40inch*40inch/1s/1s", "0.93644689097344 J", CalculatorNumber.Precision.PRECISION_NO_ERROR);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void readFormulaPartTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Method method = Calculator.class.getDeclaredMethod("readFormulaPart", String.class, int.class, UnitDirectory.class);
         method.setAccessible(true);
@@ -325,12 +325,12 @@ public class CalculatorUnitTests {
         }
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormatLeadingZero() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("01", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormat1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("(3))", UnitDirectoryBasicData.getInstance());
     }
@@ -345,22 +345,22 @@ public class CalculatorUnitTests {
         Calculator.calculate("(3+(5-3)", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormat4() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("2*-(3+5)", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormat5() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("2*-3", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormatLeadingZero1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("01", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorIllegalFormatLeadingZero2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("01.3", UnitDirectoryBasicData.getInstance());
     }
@@ -370,27 +370,27 @@ public class CalculatorUnitTests {
         Calculator.calculate("1/0", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZero2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("3+(1/(3-4+1))", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZero3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1/(-273.15 celsius)", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZeroScale20_1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("(1/3)+(1/(3-4+1))", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.DivisionByZeroException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.DivisionByZeroException.class)
     public void calculatorDivByZeroScale20_2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("(1/(3-4+1))+1/3", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.UnitConversionException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1inch + 2s", UnitDirectoryBasicData.getInstance());
     }
@@ -400,37 +400,37 @@ public class CalculatorUnitTests {
         Calculator.calculate("1inch in s", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.UnitConversionException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError3() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1m / 1s + 1s / 1m", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.UnitConversionException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError4() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1 celsius + 1m", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.UnitConversionException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.UnitConversionException.class)
     public void calculatorUnitConversionError5() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1 m + 1 celsius", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitConversionError6() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1 celsius/s", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitConversionError7() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1 s/celsius", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitOnly1() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("m", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitOnly2() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1 s m", UnitDirectoryBasicData.getInstance());
     }
@@ -440,7 +440,7 @@ public class CalculatorUnitTests {
         Calculator.calculate("1 s * m", UnitDirectoryBasicData.getInstance());
     }
 
-    @Test(expected = CalculatorExceptions.IllegalFormulaException.class)
+    @org.junit.jupiter.api.Test(expected = CalculatorExceptions.IllegalFormulaException.class)
     public void calculatorUnitOnly4() throws CalculatorExceptions.IllegalFormulaException, CalculatorExceptions.CalculationException {
         Calculator.calculate("1 s/m m", UnitDirectoryBasicData.getInstance());
     }

@@ -13,8 +13,8 @@ import net.nhiroki.bluelineconsole.dataStore.persistent.URLEntry;
 import net.nhiroki.bluelineconsole.dataStore.persistent.URLPreferences;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class SearchEngineCommandSearcherTest extends AndroidTestCase {
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         super.setUp();

@@ -7,8 +7,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import net.nhiroki.bluelineconsole.dataStore.cache.oldVersions.ApplicationInformationCache_1_2_5;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class ApplicationInformationCacheTest extends AndroidTestCase {
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -44,7 +44,7 @@ public class ApplicationInformationCacheTest extends AndroidTestCase {
         entriesLoadTest(apps);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void applicationInformationCacheUpgradeFrom_1_2_5_Test() {
         ApplicationInformationCache.destroyFilesForCleanTest(this.getContext());
 

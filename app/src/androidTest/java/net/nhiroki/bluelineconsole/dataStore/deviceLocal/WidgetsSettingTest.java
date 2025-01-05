@@ -8,8 +8,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import net.nhiroki.bluelineconsole.dataStore.deviceLocal.oldVersions.*;
 import net.nhiroki.bluelineconsole.wrapperForAndroid.AppWidgetsHostManager;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -18,14 +18,14 @@ import java.util.List;
 
 @RunWith(AndroidJUnit4.class)
 public class WidgetsSettingTest extends AndroidTestCase {
-    @Before
+    @BeforeEach
     @Override
     public void setUp() throws Exception {
         super.setUp();
         this.setContext(InstrumentationRegistry.getInstrumentation().getTargetContext());
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void widgetSettingBasicFunctionTest() {
         WidgetsSetting.destroyFilesForCleanTest(this.getContext());
 
@@ -111,7 +111,7 @@ public class WidgetsSettingTest extends AndroidTestCase {
         entriesLoadTest(testCommands, testHomeScreenWidgets);
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     public void widgetSettingUpgradeFrom_1_2_8_Test() {
         WidgetsSetting.destroyFilesForCleanTest(this.getContext());
 
