@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         # Not sure, API level 24 looks like some threshold for UI testing
-        api-level: [22, 24, 29]
+        api-level: [22, 24, 34]
 
     steps:
       - name: checkout
@@ -31,4 +31,5 @@ jobs:
         uses: ReactiveCircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
+          arch: x86_64
           script: ./gradlew connectedCheck
