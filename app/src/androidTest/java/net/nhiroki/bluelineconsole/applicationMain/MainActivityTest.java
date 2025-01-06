@@ -59,7 +59,7 @@ public class MainActivityTest {
 
     @Test
     public void testBasic() throws InterruptedException {
-        ActivityScenario.launch(MainActivity.class);
+        ActivityScenario<MainActivity> activity = ActivityScenario.launch(MainActivity.class);
         // Wait until ready
         Thread.sleep(2000);
 
@@ -132,7 +132,7 @@ public class MainActivityTest {
         }
         Locale.setDefault(new Locale("ja", "JP"));
 
-        ActivityScenario.launch(MainActivity.class);
+        ActivityScenario<MainActivity> activity = ActivityScenario.launch(MainActivity.class);
         // Wait until ready
         Thread.sleep(2000);
 
@@ -181,7 +181,7 @@ public class MainActivityTest {
         prefEdit.putBoolean("pref_apps_show_package_name", false);
         prefEdit.apply();
 
-        ActivityScenario.launch(MainActivity.class);
+        ActivityScenario<MainActivity> activity = ActivityScenario.launch(MainActivity.class);
         Thread.sleep(800);
         onView(withId(R.id.startUpOKButton)).check(matches(isDisplayed()));
     }

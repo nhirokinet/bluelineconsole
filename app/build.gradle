@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     // Before updating buildToolsVersion or compileSdkVersion, check for MainActivity.onCreate,
     // as it uses workaround that depends SDK implementation.
-    compileSdk 34
-    buildToolsVersion = '34.0.0'
+    compileSdk 35
+    buildToolsVersion = '35.0.0'
 
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
@@ -16,7 +16,7 @@ android {
         versionName "1.2.20"
 
         minSdkVersion 22
-        targetSdkVersion 34
+        targetSdkVersion 35
         
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
