@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         # Not sure, API level 24 looks like some threshold for UI testing
-        api-level: [22, 24, 34]
+        api-level: [22, 24, 35]
 
     steps:
       - name: checkout
