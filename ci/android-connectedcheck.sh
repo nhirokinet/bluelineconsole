@@ -1,7 +1,6 @@
 #!/bin/bash -eux
 
 # Minimum supported version: SDK22
-# In current code, non-English test runs on SDK >=24
 
 for sdkver in 34
 do
@@ -28,7 +27,7 @@ do
     sdkmanager --uninstall "system-images;android-$sdkver;default;x86_64"
 done
 
-for sdkver in 24 22
+for sdkver in 22
 do
     sdkmanager "system-images;android-$sdkver;default;x86"
     echo no | avdmanager create avd -f -n vm$sdkver -k "system-images;android-$sdkver;default;x86"
