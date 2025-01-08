@@ -1,0 +1,26 @@
+Blue Line Console은 키보드로 빨리 필요한 앱이나 웹 겁색을 열기나 간단한 계산 등 하기 위한 런처입니다.
+
+명령어를 키보드로 입력하고 조작할 수 있습니다. Package name (예: net.nhiroki.bluelineconsole)의 일부로 앱을 가동할수도 있기 떼문에, 대체로 2-3글자만 입력하면 필요한 앱이 표시됩니다. 앱을 매치할 필요는 없습니다.
+
+키보드가 없은 기기에도, Android 디지털 어시스턴스 앱으로 설정하고 모든 화면에서 하위우측 스와이프나 홈 버튼 등 클릭으로 Blue Line Console을 기동 할 수 있습니다.
+
+아래와 같이 검색하실 수 있습니다.
+
+- 앱 이름(예: Blue Line Console)의 일부
+- Package name (예: net.nhiroki.bluelineconsole)의 일부
+- URL (예: https://example.com/)
+- 계산식 (예: 2+3*5, 1inch in cm, 1m+1inch, 1m+1inch in cm)
+- 아래 명령어 (예: help)
+
+사용 가능한 명령어:
+
+- help
+- config
+- date
+- bing QUERY
+- duckduckgo QUERY
+- google QUERY
+- wikipedia QUERY
+- yahoo QUERY
+- ping HOST
+- ping6 HOST
