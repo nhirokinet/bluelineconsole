@@ -8,7 +8,7 @@
     <string name="loading_detail_for_command_search">처음 기동 시, 언어 설정 변경 직후 등은,\n 구축하기가 수초에서 수십초 걸릴 수 있습니다.</string>
 
     <!-- Calculators -->
-    <string name="calculator_precision_format">연산 정도: %1$s</string>
+    <string name="calculator_precision_format">연산 정확도: %1$s</string>
     <string name="calculator_precision_no_error">오차 없음</string>
     <string name="calculator_precision_rounding">반올림 오차 있음</string>
     <string name="calculator_error_division_by_zero">0으로의 나누기</string>
@@ -39,7 +39,7 @@
 
     <!-- Preferences general buttons -->
     <string name="button_add">추가</string>
-    <string name="button_update">경신</string>
+    <string name="button_update">변경</string>
     <string name="button_delete">삭제</string>
     <string name="button_close">닫기</string>
     <string name="button_increment_minimal">+</string>
@@ -80,20 +80,20 @@
 
     <!-- Preferences, titles for headers and footers -->
     <string name="preferences_item_main_show_startup_help_title">기동 시 help를 표시</string>
-    <string name="preferences_item_main_show_startup_help_summary">"help" 명령어를 안내합니다. "help"명령어를 기억하면 무효화 하기를 추천합니다.</string>
+    <string name="preferences_item_main_show_startup_help_summary">"help" 명령어를 안내합니다. "help"명령어를 기억하셨면 비활성화를 권장합니다.</string>
     <string name="preferences_item_default_assist_app_title">디지털 어시스턴트 앱으로 설정</string>
-    <string name="preferences_item_default_assist_app_summary">Android 설정으로 디지털 어시스턴트 앱으로 설정하면, 모든 화면에서 하위우측 스와이프나 홈 버튼 롱 클릭으로 Blue Line Console을 기동 할 수 있습니다.</string>
+    <string name="preferences_item_default_assist_app_summary">Android 설정에서 디지털 어시스턴트 앱으로 설정하면, 모든 화면에서 하위우측 스와이프나 홈 버튼 롱 클릭으로 Blue Line Console을 기동 할 수 있습니다.</string>
     <string name="preferences_item_main_always_show_notification_title">상시 알림 표시</string>
     <string name="preferences_item_main_always_show_notification_summary">모든 화면에서 Blue Line Console을 기동하기 위해 알림을 상시 표시합니다.</string>
     <string name="preferences_item_text_match_strategy_title">문자열 매칭 방법</string>
     <string name="preferences_item_appearance_theme_title">테마</string>
     <string name="preferences_item_appearance_theme_summary">테마를 변경하면, Blue Line Console이 재시작합니다.</string>
-    <string name="preferences_item_appearance_accent_color">억센트 컬러</string>
+    <string name="preferences_item_appearance_accent_color">악센트 컬러</string>
     <string name="preferences_item_appearance_animation_title">애니메이션</string>
     <string name="preferences_item_appearance_show_icons_title">아이콘을 표시함</string>
     <string name="preferences_item_apps_show_package_name_title">Package name을 표시</string>
-    <string name="preferences_item_apps_show_package_name_summary">이 옵셩이 off에도 package name으로 앱을 검색 할 수 있습니다.</string>
-    <string name="preferences_item_display_custom_urls_title">URL와 검석 엔진 설정</string>
+    <string name="preferences_item_apps_show_package_name_summary">이 옵션이 비활성화되어도 package name으로 앱을 검색 할 수 있습니다.</string>
+    <string name="preferences_item_display_custom_urls_title">URL와 검색 엔진 설정</string>
     <string name="preferences_item_default_search_title">디폴트 검색 엔진</string>
     <string name="preferences_item_default_search_summary">설정된 검색 엔진으로의 웹 검색을 결과로 표시합니다.</string>
     <string name="preferences_item_default_search_option_none">(없음)</string>
@@ -101,13 +101,13 @@
     <string name="preferences_item_home_screen_default_items">홈 화면 항목</string>
     <string name="preferences_item_home_screen_default_items_summary">홈 화면으로 기동하고 명령어가 입력되지 않는 경우 표시될 항목을 설정합니다.</string>
     <string name="preferences_item_contacts_enable_search">주소록 검색</string>
-    <string name="preferences_item_contacts_search_permission_explanation">유효화하기 위해는 구소록 접근 권한이 필요합니다. 별도 허용 조작이 필요할 수 있습니다.</string>
+    <string name="preferences_item_contacts_search_permission_explanation">활성화하기 위해는 주소록 접근 권한이 필요합니다. 별도 허용 조작이 필요할 수 있습니다.</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_title">명령어 입력창의 언어를 영어로 IME에 지시</string>
     <string name="preferences_item_advanced_main_edittext_hint_locale_english_summary">명령어 입력창에 setImeHintLocales 를 통해 영어 입력으로 지시합니다. IME에 따라 동작이 다릅니다.</string>
-    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">명령어 입력창의 IME_FLAG_FORCE_ASCII 를 유효화</string>
-    <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII는 ASCII문자 입력을 IME 에 지시하는 옵셩입니다만, IME에 따라 동작이 다릅니다.</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_title">명령어 입력창의 IME_FLAG_FORCE_ASCII 를 활성화</string>
+    <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII는 ASCII문자 입력을 IME 에 지시하는 옵션입니다만, IME에 따라 동작이 다릅니다.</string>
     <string name="preferences_item_accept_arbitrary_url">URL입력에 임의의 scheme를 허용 </string>
-    <string name="preferences_item_accept_arbitrary_url_summary">디폴트라면 Blue Line Console은 http:// 와 https:// 의 scheme 만을 URL 로 인식합니다. 이 옵셩이 유효라면, 다른 schema도 입력 가능합니다.</string>
+    <string name="preferences_item_accept_arbitrary_url_summary">디폴트라면 Blue Line Console은 http:// 와 https:// 의 scheme 만을 URL 로 인식합니다. 이 옵션이 유효라면, 다른 schema도 입력 가능합니다.</string>
     <string name="preferences_item_about_this_app_github_repo">Blue Line Console on GitHub</string>
     <string name="preferences_item_about_this_app_github_repo_summary">https://github.com/nhirokinet/bluelineconsole 에 접근</string>
     <string name="preferences_item_about_this_app_licensing_information">라이선스 정보</string>
@@ -125,8 +125,8 @@
 
     <!-- Preferences items, accent color screens -->
     <string name="preferences_accent_color_theme_default">테마 디폴트</string>
-    <string name="preferences_accent_color_custom">섹 설정</string>
-    <string name="preferences_accent_color_theme_without_accent_color">현제의 테마 (%1$s)에면 억센트 컬러를 설정할 수 없습니다.</string>
+    <string name="preferences_accent_color_custom">색 설정</string>
+    <string name="preferences_accent_color_theme_without_accent_color">현재의 테마 (%1$s)에면 악센트 컬러를 설정할 수 없습니다.</string>
 
     <!-- Preferences item, home screen default items screens -->
     <string name="preferences_home_screen_add_command_button">명령어 추가하기</string>
@@ -137,7 +137,7 @@
 
     <!-- Preferences item, widgets related messages -->
     <string name="preferences_widget_height_px">높이 (픽셀)</string>
-    <string name="preferences_widget_minimum_height_show">최소 늪이: %1$d 픽셀</string>
+    <string name="preferences_widget_minimum_height_show">최소 높이: %1$d 픽셀</string>
     <string name="preferences_widget_default_height_show">디폴트 높이: %1$d 픽셀</string>
     <string name="preferences_widget_configure_the_widget">위젯 설정</string>
 
@@ -155,9 +155,9 @@
 
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">URL 포맷 부정: https:// 나 http:// 로 시작해, 더 하나 이상 슬래시(\"/\")를 포함할 필요가 있습니다</string>
-    <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">URL 포맷 부장: &lt;scheme&gt;:// 로 시작해, 더 하나 이상 슬래시(\"/\")를 포함할 필요가 있습니다</string>
-    <string name="error_invalid_command_name">명령어는 스페이스를 포함할 수 없이, 1 글자 이상인 필요가 있습니다.</string>
-    <string name="error_empty_display_name">표시 이름은 입력되지 않습니다.</string>
+    <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">URL 포맷 오류: &lt;scheme&gt;:// 로 시작해, 더 하나 이상 슬래시(\"/\")를 포함할 필요가 있습니다</string>
+    <string name="error_invalid_command_name">명령어는 스페이스를 포함할 수 없고, 1 글자 이상인 필요가 있습니다.</string>
+    <string name="error_empty_display_name">표시 이름은 입력되지 않았습니다.</string>
 
     <!-- Error messages, system errors -->
     <string name="error_failure_could_not_start_command">오류: 명령어를 시작할 수 없었습니다.</string>
@@ -177,9 +177,9 @@
 
     <!-- Migration message -->
     <string name="migration_lost_happened_message">
-        Blue Line Console 위부에 데이트 원복이 실시된 것 같습니다.
+        Blue Line Console 외부에서 데이터 복구가 실시된 것 같습니다.
         \n
-        \n위젯 관련 설정이 상실된 가능성이 있습니다. 필요하면 config 명령어로 다시 설정하십시오.
+        \n위젯 관련 설정이 손실되었을 가능성이 있습니다. 필요하면 config 명령어로 다시 설정하십시오.
     </string>
 
     <!-- Help -->
