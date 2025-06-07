@@ -24,3 +24,6 @@ Blue Line Console 通過鍵盤以啟動您的應用程式、網頁搜尋引擎�
 - yahoo 查詢
 - ping 主機
 - ping6 主機
+
+
+原始碼: https://github.com/nhirokinet/bluelineconsole
