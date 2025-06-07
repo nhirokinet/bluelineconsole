@@ -24,3 +24,6 @@ Blue Line Console は、キーボードで素早く必要なアプリやウェ�
 - yahoo QUERY
 - ping HOST
 - ping6 HOST
+
+
+ソースコード: https://github.com/nhirokinet/bluelineconsole

@@ -24,3 +24,6 @@ Blue Line Console은 키보드로 빨리 필요한 앱이나 웹 검색을 실�
 - yahoo QUERY
 - ping HOST
 - ping6 HOST
+
+
+소스 코드: https://github.com/nhirokinet/bluelineconsole
