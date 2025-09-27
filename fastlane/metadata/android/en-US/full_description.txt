@@ -1,10 +1,10 @@
-Blue Line Console launches your apps, web search engines, and built in calculator via keyboard.
+Blue Line Console launches your apps, web search engines, and built-in calculator via keyboard.
 
-You can launch the desired app quickly with your keyboard everywhere. Just type 2 or 3 characters, and likely you can find the desired app on top of list. You need no configuration to do it (although I prepared some configuration for more comfortable usage).
+You can launch the desired app quickly with your keyboard everywhere. Just type 2 or 3 characters, and you can likely find the desired app on top of list. You need no configuration to do it (although the app is configurable).
 
-You can start Blue Line Console by pressing once you set this app to default Assist App of Android. You can also start from notification bar, available everywhere (find this option in configuration screen, opened with config command).
+You can start Blue Line Console by long-pressing the home button once you set this app to default digital assistant app in Android. You can also start the app from a notification, available anywhere (find this option in the configuration screen, opened with the "config" command).
 
-You can input one of below list to search apps or commands.
+You can enter one of the items in the list below to search apps or execute commands.
 
 - Part of application name (e.g. Blue Line Console)
 - Part of package name (e.g. net.nhiroki.bluelineconsole)
