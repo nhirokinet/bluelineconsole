@@ -5,8 +5,8 @@ Keyboard-based launcher for Android
 ### Releases
 Available at:
 
-- [GitHub Releases](https://github.com/nhirokinet/bluelineconsole/releases/latest)
 <a href="https://f-droid.org/en/packages/net.nhiroki.bluelineconsole/"><img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="70"></a>
+[GitHub Releases](https://github.com/nhirokinet/bluelineconsole/releases/latest)
 <a href="https://play.google.com/store/apps/details?id=net.nhiroki.bluelineconsole"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="70"></a>
 
 ### Screenshots
