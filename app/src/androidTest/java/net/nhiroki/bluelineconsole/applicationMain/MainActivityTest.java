@@ -106,10 +106,9 @@ public class MainActivityTest {
         onView(withText("Calculation Precision: No Error")).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
-        onView(withId(R.id.mainInputText)).perform(typeText("Chrome"));
+        onView(withId(R.id.mainInputText)).perform(typeText("Settings"));
         Thread.sleep(800);
-        // Depends on environment, skipping for now
-        // onView(withText("com.android.chrome")).check(matches(isDisplayed()));
+        onView(withText("com.android.settings")).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("."));
