@@ -167,10 +167,10 @@ public class MainActivityTest {
         onView(withText("演算精度: 誤差なし")).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
-        onView(withId(R.id.mainInputText)).perform(typeText("Chrome"));
+        onView(withId(R.id.mainInputText)).perform(typeText("com.android.settings"));
         Thread.sleep(800);
-        // Depends on environment, skipping for now
-        // onView(withText("com.android.chrome")).check(matches(isDisplayed()));
+        onView(withText("com.android.settings")).check(matches(isDisplayed()));
+        onView(withText("設定")).check(matches(isDisplayed()));
     }
 
     @Test
