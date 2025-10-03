@@ -2,7 +2,7 @@
 
 # Minimum supported version: SDK22
 
-for sdkver in 34
+for sdkver in 35
 do
     sdkmanager "system-images;android-$sdkver;default;x86_64"
     echo no | avdmanager create avd -f -n vm$sdkver -k "system-images;android-$sdkver;default;x86_64"
