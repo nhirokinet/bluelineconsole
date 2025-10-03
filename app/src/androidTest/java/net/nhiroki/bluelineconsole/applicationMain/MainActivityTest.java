@@ -111,6 +111,11 @@ public class MainActivityTest {
         onView(withText("com.android.settings")).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
+        onView(withId(R.id.mainInputText)).perform(typeText("Blue Line Console"));
+        Thread.sleep(800);
+        onView(withText("net.nhiroki.bluelineconsole")).check(matches(isDisplayed()));
+
+        onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("."));
         // Lots of app should match
         // Just wait and confirm no crash
@@ -166,6 +171,11 @@ public class MainActivityTest {
         onView(withText("\u200e= 29")).check(matches(isDisplayed()));
         onView(withText("演算精度: 誤差なし")).check(matches(isDisplayed()));
 
+        onView(withId(R.id.mainInputText)).perform(clearText());
+        onView(withId(R.id.mainInputText)).perform(typeText("Blue Line Console"));
+        Thread.sleep(800);
+        onView(withText("net.nhiroki.bluelineconsole")).check(matches(isDisplayed()));
+        
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("Chrome"));
         Thread.sleep(800);
