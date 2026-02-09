@@ -1,10 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    // Before updating buildToolsVersion or compileSdkVersion, check for MainActivity.onCreate,
-    // as it uses workaround that depends SDK implementation.
     compileSdk 35
-    buildToolsVersion = '35.0.0'
 
     useLibrary 'android.test.base'
     useLibrary 'android.test.mock'
