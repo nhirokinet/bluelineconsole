@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
@@ -68,11 +71,11 @@ public class BaseWindowActivity extends AppCompatActivity {
         this.currentTheme.beforeCreateActivity(this);
 
         super.onCreate(savedInstanceState);
-        // This code is supposed to be called here, but as in testing, found no problem without calling it.
-        // And enabling it requires to solve different puzzle of Android libraries dependencies.
-        // Just commenting out for now.
-        // Texts and icons in status bar are always white, yeah, that's fine or even good as the background is transparent.
-        // EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this);
+        WindowInsetsControllerCompat windowInsetsControllerCompat = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
+        // Status Bars and Navigation Bars should always acts as Dark Mode in this Activity, as the background is black-based transparent one, and black characters are almost invisible
+        windowInsetsControllerCompat.setAppearanceLightNavigationBars(false);
+        windowInsetsControllerCompat.setAppearanceLightStatusBars(false);
 
         this.currentTheme.apply(this);
 
