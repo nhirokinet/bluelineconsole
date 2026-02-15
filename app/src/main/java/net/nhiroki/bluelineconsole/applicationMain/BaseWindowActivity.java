@@ -12,7 +12,11 @@ import android.view.ViewTreeObserver;
 import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
+import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppTheme;
 import net.nhiroki.bluelineconsole.applicationMain.theming.AppThemeDirectory;
 
@@ -64,10 +68,20 @@ public class BaseWindowActivity extends AppCompatActivity {
         this.currentTheme.beforeCreateActivity(this);
 
         super.onCreate(savedInstanceState);
+        // This code is supposed to be called here, but as in testing, found no problem without calling it.
+        // And enabling it requires to solve different puzzle of Android libraries dependencies.
+        // Just commenting out for now.
+        // Texts and icons in status bar are always white, yeah, that's fine or even good as the background is transparent.
+        // EdgeToEdge.enable(this);
 
         this.currentTheme.apply(this);
 
         this.currentTheme.setPayloadLayout(this, this.mainLayoutResID);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.baseWindowMainLayoutRoot), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         // TitleBarDragOnTouchListener has some state, it is safer to create different instance
         this.currentTheme.setOnTouchListenerForTitleBar(this, new TitleBarDragOnTouchListener());
