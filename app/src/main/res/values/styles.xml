@@ -14,14 +14,6 @@
         <item name="bluelineconsoleDisabledTextColor">@color/disabledText</item>
         <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackground</item>
         <item name="bluelineconsoleBackgroundColorOfCommand">@color/colorBackgroundOfCommand</item>
-
-        <!--
-          Since Android 15, edge-to-edge is enforced.
-          However, this does not look nice with Blue Line Console design.
-          This is to be removed, so we must consider how to deal with the new design requirement.
-          For now, placing this workaround API.
-        -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 
     <style name="BaseAppThemeDark" parent="Theme.AppCompat.DayNight.NoActionBar">
@@ -37,13 +29,5 @@
         <item name="bluelineconsoleDisabledTextColor">@color/disabledTextDark</item>
         <item name="bluelineconsoleSelectedItemBackgroundColor">@color/selectedItemBackgroundDark</item>
         <item name="bluelineconsoleBackgroundColorOfCommand">@color/colorBackgroundOfCommandDark</item>
-
-        <!--
-          Since Android 15, edge-to-edge is enforced.
-          However, this does not look nice with Blue Line Console design.
-          This is to be removed, so we must consider how to deal with the new design requirement.
-          For now, placing this workaround API.
-        -->
-        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
     </style>
 </resources>
