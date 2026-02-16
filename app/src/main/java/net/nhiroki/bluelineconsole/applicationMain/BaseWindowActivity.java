@@ -81,7 +81,7 @@ public class BaseWindowActivity extends AppCompatActivity {
 
         this.currentTheme.setPayloadLayout(this, this.mainLayoutResID);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.baseWindowMainLayoutRoot), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.ime());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
