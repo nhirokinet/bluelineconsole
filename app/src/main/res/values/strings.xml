@@ -222,11 +222,11 @@
     </string>
 
     <!-- Licensing information, untranslatable not to make slightest difference -->
-    <string name="licensing_notice_header" translatable="false">Licensing information</string>
+    <string name="licensing_notice_header" translatable="false">License information</string>
     <string name="licensing_notice_body" translatable="false">
         Blue Line Console is licensed under the Apache License, Version 2.0.
         \n
-        \nBlue Line Console contains code from the following library, which Apache License, Version 2.0, is applied to.
+        \nBlue Line Console contains code from the following libraries, which the Apache License, Version 2.0, is applied to.
         \n
         \n- Android Jetpack
         \n- kotlinx-coroutines-android
