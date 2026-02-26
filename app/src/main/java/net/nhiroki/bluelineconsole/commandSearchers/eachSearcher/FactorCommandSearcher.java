@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import net.nhiroki.bluelineconsole.BuildConfig;
 import net.nhiroki.bluelineconsole.R;
 import net.nhiroki.bluelineconsole.applicationMain.MainActivity;
 import net.nhiroki.bluelineconsole.interfaces.CandidateEntry;
@@ -74,11 +75,20 @@ public class FactorCommandSearcher implements CommandSearcher {
                     divisor = BigInteger.valueOf(3);
                     divisorIsTwo = false;
                 } else {
-                    if (divisor.compareTo(maxDivisor) == 1) {
-                        return context.getString(R.string.factor_error_factor_too_large, maxDivisor.toString());
-                    }
                     divisor = divisor.add(two);
                 }
+
+                if (divisor.multiply(divisor).compareTo(n) == 1) {
+                    break;
+                }
+
+                if (divisor.compareTo(maxDivisor) == 1) {
+                    return context.getString(R.string.factor_error_factor_too_large, maxDivisor.toString());
+                }
+            }
+
+            if (n.compareTo(BigInteger.ONE) == 1) {
+                factors.add(new Pair<>(n, 1l));
             }
 
             String ret = "";
@@ -118,8 +128,22 @@ public class FactorCommandSearcher implements CommandSearcher {
             ret.setTextDirection(View.TEXT_DIRECTION_LTR);
 
             String[] splitted = this.query.split(" ");
+            boolean showVersion = false;
+
             for (int i = 1; i < splitted.length; ++i) {
                 String numStr = splitted[i];
+
+                if (numStr.equals("")) {
+                    continue;
+                }
+                if (numStr.equals("-h") || numStr.equals("--exponents")) {
+                    // In this version the default behavior is already with exponents
+                    continue;
+                }
+                if (numStr.equals("--version")) {
+                    showVersion = true;
+                    break;
+                }
                 String result;
                 try {
                     BigInteger number = new BigInteger(splitted[i]);
@@ -140,6 +164,32 @@ public class FactorCommandSearcher implements CommandSearcher {
                 tv.setPaddingRelative(paddingStart, 0, 0, 0);
 
                 ret.addView(tv);
+            }
+
+            if (showVersion) {
+                LinearLayout versionView = new LinearLayout(mainActivity);
+                versionView.setOrientation(LinearLayout.VERTICAL);
+                ret.setTextDirection(View.TEXT_DIRECTION_LTR);
+
+                final TypedValue baseTextColor = new TypedValue();
+                mainActivity.getTheme().resolveAttribute(R.attr.bluelineconsoleBaseTextColor, baseTextColor, true);
+
+                TextView versionTv = new TextView(context);
+                versionTv.setText("factor (" + mainActivity.getString(R.string.app_name) + " " + BuildConfig.VERSION_NAME + ")");
+                versionTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                versionTv.setTextColor(baseTextColor.data);
+                int paddingStart = (int) (12 * mainActivity.getResources().getDisplayMetrics().density);
+                versionTv.setPaddingRelative(paddingStart, 0, 0, 0);
+                versionView.addView(versionTv);
+
+                TextView licenseTv = new TextView(context);
+                licenseTv.setText(R.string.license_apache_license_v2_0_name);
+                licenseTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                licenseTv.setTextColor(baseTextColor.data);
+                licenseTv.setPaddingRelative(paddingStart, 0, 0, 0);
+                versionView.addView(licenseTv);
+
+                return versionView;
             }
 
             return ret;
