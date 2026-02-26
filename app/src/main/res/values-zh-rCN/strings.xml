@@ -153,6 +153,11 @@
     <string name="contacts_action_dial_phone_number">电话： %1$s</string>
     <string name="contacts_action_email">电子邮件：%1$s</string>
 
+    <!-- factor command -->
+    <string name="factor_error_not_valid_integer">is not valid integer</string>
+    <string name="factor_error_not_positive_number">is not positive number</string>
+    <string name="factor_error_factor_too_large">includes factor larger than %1$s</string>
+
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">无效的 URL：必须以 https:// 或 http:// 开头且至少再多一条斜杠(\"/\").</string>
     <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">无效的 URL：必须以 &lt;scheme&gt;:// 开头且至少再多一条斜杠(\"/\").</string>
@@ -200,6 +205,7 @@
         \n-&#032;date
         \n-&#032;all_apps
         \n-&#032;cal [&lt;month&gt; &lt;year&gt;]
+        \n-&#032;factor &lt;number&gt; ...
         \n-&#032;bing &lt;query&gt;
         \n-&#032;duckduckgo &lt;query&gt;
         \n-&#032;google &lt;query&gt;

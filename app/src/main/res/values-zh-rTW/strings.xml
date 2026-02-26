@@ -199,6 +199,7 @@
         \n-&#032;date
         \n-&#032;all_apps
         \n-&#032;cal [&lt;month&gt; &lt;year&gt;]
+        \n-&#032;factor &lt;number&gt; ...
         \n-&#032;bing &lt;query&gt;
         \n-&#032;duckduckgo &lt;query&gt;
         \n-&#032;google &lt;query&gt;

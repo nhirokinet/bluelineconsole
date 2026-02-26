@@ -153,6 +153,11 @@
     <string name="contacts_action_dial_phone_number">전화: %1$s</string>
     <string name="contacts_action_email">이메일: %1$s</string>
 
+    <!-- factor command -->
+    <string name="factor_error_not_valid_integer">정수가 아닙니다</string>
+    <string name="factor_error_not_positive_number">양수가 아닙니다</string>
+    <string name="factor_error_factor_too_large">%1$s보다 큰 소인수을 포함합니다</string>
+
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">URL 포맷 부정: https:// 나 http:// 로 시작해, 더 하나 이상 슬래시(\"/\")를 포함할 필요가 있습니다</string>
     <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">URL 포맷 오류: &lt;scheme&gt;:// 로 시작해, 더 하나 이상 슬래시(\"/\")를 포함할 필요가 있습니다</string>
@@ -199,6 +204,7 @@
         \n-&#032;date
         \n-&#032;all_apps
         \n-&#032;cal [&lt;월&gt; &lt;연&gt;]
+        \n-&#032;factor &lt;number&gt; ...
         \n-&#032;bing &lt;query&gt;
         \n-&#032;duckduckgo &lt;query&gt;
         \n-&#032;google &lt;query&gt;
