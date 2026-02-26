@@ -8,6 +8,7 @@ import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.CalculatorComma
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ColorDisplayCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.ContactSearchCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.DateCommandSearcher;
+import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.FactorCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.HelpCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.NetUtilCommandSearcher;
 import net.nhiroki.bluelineconsole.commandSearchers.eachSearcher.PreferencesCommandSearcher;
@@ -38,6 +39,7 @@ public class CommandSearchAggregator {
         commandSearcherList.add(new URICommandSearcher());
         commandSearcherList.add(new NetUtilCommandSearcher());
         commandSearcherList.add(new CalendarCommandSearcher());
+        commandSearcherList.add(new FactorCommandSearcher());
 
         // Fully user-defined
         commandSearcherList.add(new WidgetCommandSearcher());

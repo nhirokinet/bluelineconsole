@@ -153,6 +153,11 @@
     <string name="contacts_action_dial_phone_number">電話: %1$s</string>
     <string name="contacts_action_email">電子メール: %1$s</string>
 
+    <!-- factor command -->
+    <string name="factor_error_not_valid_integer">整数ではありません</string>
+    <string name="factor_error_not_positive_number">正の数ではありません</string>
+    <string name="factor_error_factor_too_large">%1$sより大きな素因数を含んでいます</string>
+
     <!-- Error messages, user errors -->
     <string name="error_invalid_url_least_validation_for_web">URL の形式が不正です： https:// か http:// で始まり、もう一つ以上スラッシュ (\"/\") を含む必要があります</string>
     <string name="error_invalid_url_least_validation_for_web_arbitrary_schema">URL の形式が不正です： &lt;scheme&gt;:// で始まり、もう一つ以上スラッシュ (\"/\") を含む必要があります</string>
@@ -199,6 +204,7 @@
         \n-&#032;date
         \n-&#032;all_apps
         \n-&#032;cal [&lt;月&gt; &lt;年&gt;]
+        \n-&#032;factor &lt;数値&gt; ...
         \n-&#032;bing &lt;query&gt;
         \n-&#032;duckduckgo &lt;query&gt;
         \n-&#032;google &lt;query&gt;
