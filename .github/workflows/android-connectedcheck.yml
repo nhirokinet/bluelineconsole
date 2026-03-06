@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        api-level: [23, 35]
+        api-level: [23, 36]
 
     steps:
       - name: checkout
