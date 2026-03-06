@@ -240,6 +240,7 @@
         \n- kotlin-stdlib
         \n- JetBrains Java Annotations
         \n- Google Guava
+        \n- JSpecify
     </string>
 
     <!-- Legal English texts -->

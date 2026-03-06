@@ -27,7 +27,7 @@ do
     sdkmanager --uninstall "system-images;android-$sdkver;default;x86_64"
 done
 
-for sdkver in 22
+for sdkver in 23
 do
     sdkmanager "system-images;android-$sdkver;default;x86"
     echo no | avdmanager create avd -f -n vm$sdkver -k "system-images;android-$sdkver;default;x86"

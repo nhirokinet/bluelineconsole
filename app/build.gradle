@@ -13,7 +13,7 @@ android {
         versionCode 43
         versionName "1.2.24"
 
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 36
         
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -44,7 +44,7 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.preference:preference:1.2.1'
-    implementation 'androidx.activity:activity:1.8.2'
+    implementation 'androidx.activity:activity:1.12.4'
 
     testImplementation 'junit:junit:4.13.2'
 
