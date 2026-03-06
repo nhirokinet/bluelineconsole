@@ -49,7 +49,11 @@ def main():
             package_info = line[len('+--- '):].split(':')
             package_fullname = package_info[0]
             package_name = package_info[1]
-            package_version = package_info[2].split(' -> ')[-1].split(' ')[0]
+            if len(package_info) >= 3:
+                package_version = package_info[2].split(' -> ')[-1].split(' ')[0]
+            else:
+                package_name = package_info[1].split(' -> ')[0]
+                package_version = package_info[1].split(' -> ')[1].split(' ')[0]
 
             library_dict = {
                 'fullname': package_fullname,
@@ -63,6 +67,7 @@ def main():
                     and not package_name.startswith('kotlin-coroutines')\
                     and not package_name.startswith('kotlinx-coroutines')\
                     and not (package_name == 'annotations' and package_fullname == 'org.jetbrains')\
+                    and package_fullname != 'org.jspecify'\
                     and package_fullname != 'com.google.guava':
                 print("Line: " + line)
                 print('ERROR: Unknown package')
