@@ -1,8 +1,8 @@
 #!/bin/bash -eux
 
-# Minimum supported version: SDK22
+# Minimum supported version: SDK23
 
-for sdkver in 35
+for sdkver in 36
 do
     sdkmanager "system-images;android-$sdkver;default;x86_64"
     echo no | avdmanager create avd -f -n vm$sdkver -k "system-images;android-$sdkver;default;x86_64"
