@@ -2,6 +2,7 @@ package net.nhiroki.bluelineconsole.applicationMain;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
@@ -15,6 +16,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.LocaleList;
 import android.preference.PreferenceManager;
+import android.test.AndroidTestCase;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.os.LocaleListCompat;
@@ -35,7 +37,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class MainActivityTest extends AndroidTestCase {
     private Context context = null;
 
     @Before
@@ -104,6 +106,17 @@ public class MainActivityTest {
         Thread.sleep(800);
         onView(withText("\u200e= 29")).check(matches(isDisplayed()));
         onView(withText("Calculation Precision: No Error")).check(matches(isDisplayed()));
+
+        onView(withId(R.id.mainInputText)).perform(clearText());
+        onView(withId(R.id.mainInputText)).perform(typeText("factor 1000"));
+        Thread.sleep(800);
+        onView(withText("1000: 2³ × 5³")).check(matches(isDisplayed()));
+
+        onView(withId(R.id.mainInputText)).perform(clearText());
+        onView(withId(R.id.mainInputText)).perform(typeText("#4d68ff"));
+        Thread.sleep(800);
+        onView(withText("#4D68FF")).check(matches(isDisplayed()));
+        onView(withText("RGB (Red:77, Green:104, Blue:255)")).check(matches(isDisplayed()));
 
         onView(withId(R.id.mainInputText)).perform(clearText());
         onView(withId(R.id.mainInputText)).perform(typeText("Settings"));
@@ -191,6 +204,26 @@ public class MainActivityTest {
 
         ActivityScenario<MainActivity> activity = ActivityScenario.launch(MainActivity.class);
         Thread.sleep(800);
+        onView(withId(R.id.startUpCheckBoxNotToContinue)).check(matches(isDisplayed()));
         onView(withId(R.id.startUpOKButton)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.startUpOKButton)).perform(click());
+        Thread.sleep(800);
+
+        onView(withId(R.id.mainInputText)).check(matches(isDisplayed()));
+
+        ActivityScenario<MainActivity> activity2 = ActivityScenario.launch(MainActivity.class);
+        Thread.sleep(800);
+        onView(withId(R.id.startUpCheckBoxNotToContinue)).check(matches(isDisplayed()));
+        onView(withId(R.id.startUpOKButton)).check(matches(isDisplayed()));
+
+        onView(withId(R.id.startUpCheckBoxNotToContinue)).perform(click());
+        Thread.sleep(300);
+        onView(withId(R.id.startUpOKButton)).perform(click());
+        Thread.sleep(800);
+
+        onView(withId(R.id.mainInputText)).check(matches(isDisplayed()));
+
+        assertFalse(PreferenceManager.getDefaultSharedPreferences(context).getBoolean(StartUpHelpActivity.PREF_KEY_SHOW_STARTUP_HELP, true));
     }
 }
