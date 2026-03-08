@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Blue Line Console</string>
+    <string name="preferences_item_about_this_app_github_repo">Blue Line Console on GitHub</string>
+    <string name="preferences_item_about_this_app_github_repo_summary">https://github.com/nhirokinet/bluelineconsole 에 접근</string>
 
     <!-- ActivityMain -->
     <string name="displayedFullVersionString">Version %1$s</string>
@@ -108,8 +110,6 @@
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII는 ASCII문자 입력을 IME 에 지시하는 옵션입니다만, IME에 따라 동작이 다릅니다.</string>
     <string name="preferences_item_accept_arbitrary_url">URL입력에 임의의 scheme를 허용 </string>
     <string name="preferences_item_accept_arbitrary_url_summary">디폴트라면 Blue Line Console은 http:// 와 https:// 의 scheme 만을 URL 로 인식합니다. 이 옵션이 유효라면, 다른 schema도 입력 가능합니다.</string>
-    <string name="preferences_item_about_this_app_github_repo">Blue Line Console on GitHub</string>
-    <string name="preferences_item_about_this_app_github_repo_summary">https://github.com/nhirokinet/bluelineconsole 에 접근</string>
     <string name="preferences_item_about_this_app_licensing_information">라이선스 정보</string>
 
     <!-- Preferences items, URL screens -->
