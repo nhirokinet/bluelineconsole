@@ -111,7 +111,7 @@
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII is intended to use ASCII characters for input. Behavior differs between keyboard input softwares.</string>
     <string name="preferences_item_accept_arbitrary_url">Accept arbitrary scheme for URL</string>
     <string name="preferences_item_accept_arbitrary_url_summary">By default, Blue Line Console accepts only URL starting with http:// and https:// as URL input. By enabling option, other schemes are also accepted as URL input.</string>
-    <string name="preferences_item_about_this_app_licensing_information">Licensing information</string>
+    <string name="preferences_item_about_this_app_licensing_information">License information</string>
 
     <!-- Preferences items, URL screens -->
     <string name="preferences_url_add_button">Add custom URL or search engine</string>
