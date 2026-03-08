@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Blue Line Console</string>
-	
+    <string name="preferences_item_about_this_app_github_repo">GitHub 上的 Blue Line Console</string>
+    <string name="preferences_item_about_this_app_github_repo_summary">访问 https://github.com/nhirokinet/bluelineconsole</string>
+
     <!-- ActivityMain -->
     <string name="displayedFullVersionString">版本 %1$s</string>
     <string name="loading_main_caption">正在刷新数据库......</string>
@@ -108,8 +110,6 @@
     <string name="preferences_item_advanced_main_edittext_flagforceascii_summary">IME_FLAG_FORCE_ASCII 表示打算使用 ASCII 字符进行输入。不同的键盘输入软件有不同的行为。</string>
     <string name="preferences_item_accept_arbitrary_url">接受任意 URL 格式</string>
     <string name="preferences_item_accept_arbitrary_url_summary">默认情况下，Blue Line Console 只接受以 http:// 和 https:// 开头的 URL 作为 URL 输入。启用选项后，将接受其他格式的 URL 作为输入。</string>
-    <string name="preferences_item_about_this_app_github_repo">GitHub 上的 Blue Line Console</string>
-    <string name="preferences_item_about_this_app_github_repo_summary">访问 https://github.com/nhirokinet/bluelineconsole</string>
     <string name="preferences_item_about_this_app_licensing_information">许可信息</string>
 
     <!-- Preferences items, URL screens -->
