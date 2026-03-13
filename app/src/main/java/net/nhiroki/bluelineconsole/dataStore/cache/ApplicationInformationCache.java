@@ -18,7 +18,7 @@ public class ApplicationInformationCache extends SQLiteOpenHelper {
     private static final String[] columnsInDB = {"packagename", "locale", "version", "launchable", "label"};
 
     public ApplicationInformationCache(Context context) {
-        super(context, new File(context.getCacheDir(), DATABASE_NAME).toString(), null,  DATABASE_VERSION);
+        super(context.getApplicationContext(), new File(context.getCacheDir(), DATABASE_NAME).toString(), null,  DATABASE_VERSION);
     }
 
     public static void destroyFilesForCleanTest(Context context) {

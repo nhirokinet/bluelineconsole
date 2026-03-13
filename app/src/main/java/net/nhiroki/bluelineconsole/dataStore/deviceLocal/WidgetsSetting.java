@@ -58,7 +58,7 @@ public class WidgetsSetting extends SQLiteOpenHelper {
 
     public synchronized static WidgetsSetting getInstance(Context context) {
         if (_singleton == null) {
-            _singleton = new WidgetsSetting(context);
+            _singleton = new WidgetsSetting(context.getApplicationContext());
         }
         return _singleton;
     }
@@ -72,8 +72,8 @@ public class WidgetsSetting extends SQLiteOpenHelper {
     }
 
     private WidgetsSetting(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
+        super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context.getApplicationContext();
     }
 
     @Override

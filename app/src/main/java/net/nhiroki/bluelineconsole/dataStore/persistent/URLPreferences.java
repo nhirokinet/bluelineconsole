@@ -19,12 +19,12 @@ public class URLPreferences extends SQLiteOpenHelper {
 
 
     private URLPreferences(Context context) {
-        super(context, DATABASE_NAME, null,  DATABASE_VERSION);
+        super(context.getApplicationContext(), DATABASE_NAME, null,  DATABASE_VERSION);
     }
 
     public synchronized static URLPreferences getInstance(Context context) {
         if (_singleton == null) {
-            _singleton = new URLPreferences(context);
+            _singleton = new URLPreferences(context.getApplicationContext());
         }
         return _singleton;
     }
