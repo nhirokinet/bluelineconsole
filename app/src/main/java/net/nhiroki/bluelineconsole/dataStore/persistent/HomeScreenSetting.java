@@ -30,7 +30,7 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
 
     public synchronized static HomeScreenSetting getInstance(Context context) {
         if (_singleton == null) {
-            _singleton = new HomeScreenSetting(context);
+            _singleton = new HomeScreenSetting(context.getApplicationContext());
         }
         return _singleton;
     }
@@ -44,7 +44,7 @@ public class HomeScreenSetting extends SQLiteOpenHelper {
     }
 
     private HomeScreenSetting(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
