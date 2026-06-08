@@ -132,40 +132,36 @@ public class WidgetsSetting extends SQLiteOpenHelper {
     public List<AppWidgetsHostManager.HomeScreenWidgetInfo> getAllHomeScreenWidgets(AppWidgetsHostManager appWidgetsHostManager) {
         List<AppWidgetsHostManager.HomeScreenWidgetInfo> ret = new ArrayList<>();
 
-        Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px", "after_default_item"},
-                null, null, null, null, "id");
+        try (Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px", "after_default_item"},
+                null, null, null, null, "id")) {
+            while (curEntry.moveToNext()) {
+                int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
+                AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
+                AppWidgetsHostManager.HomeScreenWidgetInfo e = new AppWidgetsHostManager.HomeScreenWidgetInfo(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
+                e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
+                e.afterDefaultItem = curEntry.getInt(curEntry.getColumnIndex("after_default_item"));
 
-        while (curEntry.moveToNext()) {
-            int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
-            AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
-            AppWidgetsHostManager.HomeScreenWidgetInfo e = new AppWidgetsHostManager.HomeScreenWidgetInfo(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
-            e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
-            e.afterDefaultItem = curEntry.getInt(curEntry.getColumnIndex("after_default_item"));
-
-            ret.add(e);
+                ret.add(e);
+            }
         }
-
-        curEntry.close();
 
         return ret;
     }
 
     @SuppressLint("Range")
     public AppWidgetsHostManager.HomeScreenWidgetInfo getHomeScreenById(AppWidgetsHostManager appWidgetsHostManager, int id) {
-        Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px", "after_default_item"},
-                                                  "id = ?", new String[]{String.valueOf(id)}, null, null, null);
+        try (Cursor curEntry = this.getReadableDatabase().query("home_screen_widgets", new String[]{"id", "app_widget_id", "height_px", "after_default_item"},
+                                                  "id = ?", new String[]{String.valueOf(id)}, null, null, null)) {
+            if (curEntry.moveToNext()) {
+                int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
+                AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
+                AppWidgetsHostManager.HomeScreenWidgetInfo e = new AppWidgetsHostManager.HomeScreenWidgetInfo(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
+                e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
+                e.afterDefaultItem = curEntry.getInt(curEntry.getColumnIndex("after_default_item"));
 
-        if (curEntry.moveToNext()) {
-            int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
-            AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
-            AppWidgetsHostManager.HomeScreenWidgetInfo e = new AppWidgetsHostManager.HomeScreenWidgetInfo(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
-            e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
-            e.afterDefaultItem = curEntry.getInt(curEntry.getColumnIndex("after_default_item"));
-
-            curEntry.close();
-            return e;
+                return e;
+            }
         }
-        curEntry.close();
         return null;
     }
 
@@ -190,45 +186,40 @@ public class WidgetsSetting extends SQLiteOpenHelper {
     public List<AppWidgetsHostManager.WidgetCommand> getAllWidgetCommands(AppWidgetsHostManager appWidgetsHostManager) {
         List<AppWidgetsHostManager.WidgetCommand> ret = new ArrayList<>();
 
-        Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"}, null, null, null, null, "id");
+        try (Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"}, null, null, null, null, "id")) {
+            while (curEntry.moveToNext()) {
+                int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
+                AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
+                AppWidgetsHostManager.WidgetCommand e = new AppWidgetsHostManager.WidgetCommand(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
+                e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
+                if (info != null && e.heightPx == -1) {
+                    e.heightPx = info.minHeight;
+                }
+                e.abbreviation = curEntry.getInt(curEntry.getColumnIndex("abbreviation")) > 0;
+                e.command = curEntry.getString(curEntry.getColumnIndex("command"));
 
-        while (curEntry.moveToNext()) {
-            int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
-            AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
-            AppWidgetsHostManager.WidgetCommand e = new AppWidgetsHostManager.WidgetCommand(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
-            e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
-            if (info != null && e.heightPx == -1) {
-                e.heightPx = info.minHeight;
+                ret.add(e);
             }
-            e.abbreviation = curEntry.getInt(curEntry.getColumnIndex("abbreviation")) > 0;
-            e.command = curEntry.getString(curEntry.getColumnIndex("command"));
-
-            ret.add(e);
         }
-
-        curEntry.close();
 
         return ret;
     }
 
     @SuppressLint("Range")
     public AppWidgetsHostManager.WidgetCommand getWidgetCommandById(AppWidgetsHostManager appWidgetsHostManager, int id) {
-        Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"},
-                                                  "id = ?", new String[]{String.valueOf(id)},  null, null, null);
+        try (Cursor curEntry = this.getReadableDatabase().query("widget_commands", new String[]{"id", "command", "abbreviation", "app_widget_id", "height_px"},
+                                                  "id = ?", new String[]{String.valueOf(id)},  null, null, null)) {
+            if (curEntry.moveToNext()) {
+                int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
+                AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
+                AppWidgetsHostManager.WidgetCommand e = new AppWidgetsHostManager.WidgetCommand(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
+                e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
+                e.abbreviation = curEntry.getInt(curEntry.getColumnIndex("abbreviation")) > 0;
+                e.command = curEntry.getString(curEntry.getColumnIndex("command"));
 
-        if (curEntry.moveToNext()) {
-            int appWidgetId = curEntry.getInt(curEntry.getColumnIndex("app_widget_id"));
-            AppWidgetProviderInfo info = appWidgetsHostManager.getAppWidgetInfo(appWidgetId);
-            AppWidgetsHostManager.WidgetCommand e = new AppWidgetsHostManager.WidgetCommand(curEntry.getInt(curEntry.getColumnIndex("id")), info, appWidgetId);
-            e.heightPx = curEntry.getInt(curEntry.getColumnIndex("height_px"));
-            e.abbreviation = curEntry.getInt(curEntry.getColumnIndex("abbreviation")) > 0;
-            e.command = curEntry.getString(curEntry.getColumnIndex("command"));
-
-            curEntry.close();
-            return e;
+                return e;
+            }
         }
-
-        curEntry.close();
         return null;
     }
 

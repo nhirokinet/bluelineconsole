@@ -46,18 +46,17 @@ public class ApplicationInformationCache extends SQLiteOpenHelper {
     public List<ApplicationInformation> getAllApplicationCaches() {
         List<ApplicationInformation> ret = new ArrayList<>();
 
-        Cursor curApp = this.getReadableDatabase().query("appinfo", columnsInDB, null, null, null, null, null);
-
-        while(curApp.moveToNext()) {
-            ret.add(new ApplicationInformation(
-                    curApp.getString(curApp.getColumnIndex("packagename")),
-                    curApp.getString(curApp.getColumnIndex("locale")),
-                    curApp.getInt(curApp.getColumnIndex("version")),
-                    curApp.getString(curApp.getColumnIndex("label")),
-                    curApp.getInt(curApp.getColumnIndex("launchable")) != 0
-                    ));
+        try (Cursor curApp = this.getReadableDatabase().query("appinfo", columnsInDB, null, null, null, null, null)) {
+            while (curApp.moveToNext()) {
+                ret.add(new ApplicationInformation(
+                        curApp.getString(curApp.getColumnIndex("packagename")),
+                        curApp.getString(curApp.getColumnIndex("locale")),
+                        curApp.getInt(curApp.getColumnIndex("version")),
+                        curApp.getString(curApp.getColumnIndex("label")),
+                        curApp.getInt(curApp.getColumnIndex("launchable")) != 0
+                ));
+            }
         }
-        curApp.close();
 
         return ret;
     }
